@@ -36,8 +36,7 @@
 
 ### Commit message
 - Ngắn gọn, tiếng Việt
-- Format: `feat(scope): ...` / `fix(scope): ...` / `update(scope): ...` / `docs(scope): ...`
-  - Scope bên trong ngoặc là phần được thay đổi (VD: title, version, feature, etc.)
+- Format: `feat({{scope}}): {{message}} / `fix({{scope}}): {{message}}` / `update({{scope}}): {{message}}` / `docs({{scope}}): {{message}}`
 - Ví dụ: `feat(search): thêm feature tìm kiếm nâng cao`, `update(title): cập nhật title thành V-Heritage`
 
 ## Tổng kết
