@@ -3,8 +3,7 @@
 ## Git Configuration
 - **Author**: Rin <ribisachi0319@gmail.com>
 - **Commit message**: Không viết Co-Authored-By
-- **Format commit message**: Tiếng Việt, theo format `feat(): ...` hoặc `fix(): ...`
-  - Ví dụ: `feat(): thêm feature mới`, `fix(): sửa lỗi hiển thị`
+- **Format commit message**: Tiếng Việt, theo format `feat(...): ...` hoặc `fix(...): ...`
 
 ## Version Management
 
