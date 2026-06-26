@@ -36,8 +36,9 @@
 
 ### Commit message
 - Ngắn gọn, tiếng Việt
-- Format: `feat(): ...` / `fix(): ...` / `update(): ...` / `docs(): ...`
-- Ví dụ: `feat(): thêm feature tìm kiếm nâng cao`
+- Format: `feat(scope): ...` / `fix(scope): ...` / `update(scope): ...` / `docs(scope): ...`
+  - Scope bên trong ngoặc là phần được thay đổi (VD: title, version, feature, etc.)
+- Ví dụ: `feat(search): thêm feature tìm kiếm nâng cao`, `update(title): cập nhật title thành V-Heritage`
 
 ## Tổng kết
 Mục đích: Claude Code sẽ hỗ trợ bạn (người chưa quen code/git) một cách thoải mái, thông qua:
