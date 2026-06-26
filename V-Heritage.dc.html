@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="ext-resource-dependency" content="https://picsum.photos/seed/vhbaotanglichsu/600/600" data-resource-id="vhbaotanglichsu" />
+<meta name="ext-resource-dependency" content="https://picsum.photos/seed/vhbaotangmythuat/600/600" data-resource-id="vhbaotangmythuat" />
+<meta name="ext-resource-dependency" content="https://picsum.photos/seed/vhdinhdoclap/600/600" data-resource-id="vhdinhdoclap" />
+<meta name="ext-resource-dependency" content="https://picsum.photos/seed/vhkhuditichk9/600/600" data-resource-id="vhkhuditichk9" />
+<meta name="ext-resource-dependency" content="https://picsum.photos/seed/vhthanhcoquangtri/600/600" data-resource-id="vhthanhcoquangtri" />
+<meta name="ext-resource-dependency" content="https://picsum.photos/seed/vhphocohoian/600/600" data-resource-id="vhphocohoian" />
+<meta name="ext-resource-dependency" content="https://picsum.photos/seed/vhtrongdong/600/600" data-resource-id="vhtrongdong" />
+<meta name="ext-resource-dependency" content="https://picsum.photos/seed/vhaotuthan/600/600" data-resource-id="vhaotuthan" />
+<meta name="ext-resource-dependency" content="https://picsum.photos/seed/vhbinhgomly/600/600" data-resource-id="vhbinhgomly" />
+<meta name="ext-resource-dependency" content="https://picsum.photos/seed/vhkiemthole/600/600" data-resource-id="vhkiemthole" />
+<meta name="ext-resource-dependency" content="https://picsum.photos/seed/vhtranhdongho/600/600" data-resource-id="vhtranhdongho" />
+<meta name="ext-resource-dependency" content="https://picsum.photos/seed/vhtuongphat/600/600" data-resource-id="vhtuongphat" />
+<meta name="ext-resource-dependency" content="https://picsum.photos/seed/vhmuquan/600/600" data-resource-id="vhmuquan" />
+<meta name="ext-resource-dependency" content="https://picsum.photos/seed/vhcongchieng/600/600" data-resource-id="vhcongchieng" />
+<script src="./support.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#304574">
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="800" fill="#304574"/>
+<rect x="500" y="300" width="200" height="200" rx="44" fill="#ED8927"/>
+<path d="M600 350 L660 400 L640 400 L640 450 L560 450 L560 400 L540 400 Z" fill="#FAF5EC"/>
+<rect x="556" y="455" width="88" height="10" rx="3" fill="#FAF5EC"/>
+</svg>
+</template>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css" rel="stylesheet">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+.vh-app *{font-family:'Be Vietnam Pro',sans-serif;}
+.vh-serif{font-family:'Literata',serif;}
+.vh-scroll::-webkit-scrollbar{width:0;height:0;display:none;}
+.vh-scroll{scrollbar-width:none;-ms-overflow-style:none;}
+[data-theme="light"]{--bg-primary:#EFDEC4;--bg-secondary:#F5EDD8;--bg-tertiary:#EDE4C4;--bg-card:#FAF5EC;--text-primary:#1A2540;--text-secondary:#4B5675;--text-tertiary:#8E98A8;--primary:#304574;--primary-d:#2B3E68;--cta:#ED8927;--info:#5F8AEC;--cream:#EFDEC4;--success:#008000;--warning:#FFA500;--error:#DD0E0E;--border:rgba(48,69,116,0.15);--border-focus:rgba(48,69,116,0.40);--shadow:0 4px 8px rgba(26,37,64,0.10);--shadow-lg:0 8px 16px rgba(26,37,64,0.16);--map:#cfc3a6;}
+[data-theme="dark"]{--bg-primary:#0D1220;--bg-secondary:#1A2540;--bg-tertiary:#243050;--bg-card:#1E2C48;--text-primary:#F0EDE6;--text-secondary:#A8B0C0;--text-tertiary:#666E80;--primary:#EFDEC4;--primary-d:#cbbfa0;--cta:#ED8927;--info:#5F8AEC;--cream:#EFDEC4;--success:#3DBA6A;--warning:#FFA500;--error:#FF6B6B;--border:rgba(240,237,230,0.10);--border-focus:rgba(237,137,39,0.60);--shadow:none;--shadow-lg:none;--map:#0a0f1c;}
+@keyframes vhShimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes vhPulse{0%{box-shadow:0 0 0 0 rgba(237,137,39,.5)}70%{box-shadow:0 0 0 18px rgba(237,137,39,0)}100%{box-shadow:0 0 0 0 rgba(237,137,39,0)}}
+@keyframes vhScan{0%{top:6%}100%{top:94%}}
+@keyframes vhSpin{to{transform:rotate(360deg)}}
+@keyframes vhFlash{0%{opacity:0}45%{opacity:.4}100%{opacity:0}}
+@keyframes vhScreenIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes vhSheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes vhFade{from{opacity:0}to{opacity:1}}
+@keyframes vhUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes vhShake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(3px)}30%,50%,70%{transform:translateX(-7px)}40%,60%{transform:translateX(7px)}}
+@keyframes vhRipple{to{transform:scale(4);opacity:0}}
+@keyframes vhCamMove{0%{transform:scale(1.05) translate(0,0)}50%{transform:scale(1.12) translate(-2%,1%)}100%{transform:scale(1.05) translate(0,0)}}
+@keyframes vhBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.vh-ripple{position:absolute;border-radius:999px;background:rgba(255,255,255,.45);transform:scale(0);animation:vhRipple .6s ease-out forwards;pointer-events:none;}
+[data-theme="light"] .vh-ripple{background:rgba(48,69,116,.18);}
+</style>
+</helmet>
+<div style="min-height:100vh;width:100%;background:#3a3a3e;background:radial-gradient(circle at 50% 0%,#4a4a52,#2c2c30);display:flex;align-items:center;justify-content:center;padding:24px 0;font-family:'Be Vietnam Pro',sans-serif;">
+  <div style="position:relative;width:390px;height:844px;border-radius:44px;background:#000;box-shadow:0 32px 64px rgba(0,0,0,.45),0 0 0 11px #1c1c20,0 0 0 13px #2e2e33;padding:11px;flex:none;">
+    <div style="position:absolute;top:20px;left:50%;transform:translateX(-50%);width:120px;height:30px;background:#000;border-radius:0 0 18px 18px;z-index:200;"></div>
+    <div class="vh-app" data-theme="{{ theme }}" data-a11y="{{ a11yAttr }}" style="position:relative;width:368px;height:822px;border-radius:34px;overflow:hidden;background:var(--bg-primary);color:var(--text-primary);">
+
+      <!-- offline banner -->
+      <sc-if value="{{ offlineBanner }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;top:0;left:0;right:0;z-index:150;background:var(--warning);color:#1A2540;font-size:12px;font-weight:600;padding:6px 16px;display:flex;align-items:center;gap:6px;">
+          <i class="ti ti-wifi-off" style="font-size:14px;"></i><span>{{ t_offlineBanner }}</span>
+        </div>
+      </sc-if>
+
+      <!-- ===== SPLASH ===== -->
+      <sc-if value="{{ isSplash }}" hint-placeholder-val="{{ true }}">
+        <div data-screen-label="Splash" style="position:absolute;inset:0;background:linear-gradient(160deg,var(--primary),var(--primary-d));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;animation:vhFade .4s ease;">
+          <div style="width:88px;height:88px;border-radius:24px;background:var(--cta);display:flex;align-items:center;justify-content:center;animation:vhBob 2.4s ease-in-out infinite;box-shadow:0 12px 32px rgba(0,0,0,.3);">
+            <i class="ti ti-building-monument" style="font-size:46px;color:#fff;"></i>
+          </div>
+          <div style="text-align:center;">
+            <div class="vh-serif" style="font-size:34px;font-weight:600;color:#fff;letter-spacing:.5px;">V-Heritage</div>
+            <div style="font-size:12px;color:var(--cream);letter-spacing:.18em;text-transform:uppercase;margin-top:6px;">Di sản trong tầm tay</div>
+          </div>
+          <div style="position:absolute;bottom:60px;width:34px;height:34px;border:3px solid rgba(255,255,255,.25);border-top-color:var(--cta);border-radius:50%;animation:vhSpin .9s linear infinite;"></div>
+        </div>
+      </sc-if>
+
+      <!-- ===== ONBOARDING ===== -->
+      <sc-if value="{{ isOnboarding }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Onboarding" style="position:absolute;inset:0;background:var(--bg-primary);animation:vhFade .3s ease;display:flex;flex-direction:column;">
+          <!-- walkthrough -->
+          <sc-if value="{{ onbWalk }}" hint-placeholder-val="{{ true }}">
+            <div style="flex:1;display:flex;flex-direction:column;">
+              <div style="display:flex;justify-content:flex-end;padding:18px 20px 0;">
+                <button data-ripple="1" onClick="{{ skipOnb }}" style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--text-tertiary);font-size:13px;font-weight:500;cursor:pointer;padding:8px 10px;border-radius:8px;">Bỏ qua</button>
+              </div>
+              <div key="{{ onbStep }}" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 36px;text-align:center;animation:vhUp .4s ease;">
+                <div style="width:160px;height:160px;border-radius:50%;background:var(--bg-card);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;margin-bottom:40px;">
+                  <i class="ti {{ onbIcon }}" style="font-size:74px;color:var(--cta);"></i>
+                </div>
+                <div class="vh-serif" style="font-size:25px;line-height:1.3;font-weight:600;color:var(--text-primary);">{{ onbTitle }}</div>
+              </div>
+              <div style="display:flex;justify-content:center;gap:8px;padding:14px;">
+                <sc-for list="{{ onbDots }}" as="d" hint-placeholder-count="4">
+                  <div style="width:{{ d.w }};height:7px;border-radius:99px;background:{{ d.c }};transition:all .25s;"></div>
+                </sc-for>
+              </div>
+              <div style="padding:8px 24px 34px;">
+                <button data-ripple="1" onClick="{{ nextOnb }}" style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">{{ onbBtn }}<i class="ti ti-arrow-right" style="font-size:18px;"></i></button>
+              </div>
+            </div>
+          </sc-if>
+          <!-- language pick -->
+          <sc-if value="{{ onbLang }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;display:flex;flex-direction:column;padding:60px 28px 34px;animation:vhUp .4s ease;">
+              <div class="vh-serif" style="font-size:26px;font-weight:600;">Chọn ngôn ngữ</div>
+              <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;margin-bottom:28px;">Bạn có thể đổi lại bất cứ lúc nào</div>
+              <sc-for list="{{ langs }}" as="lg" hint-placeholder-count="3">
+                <button data-ripple="1" onClick="{{ lg.pick }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--bg-card);border:2px solid {{ lg.border }};border-radius:12px;padding:16px;margin-bottom:12px;cursor:pointer;color:var(--text-primary);">
+                  <span style="font-size:26px;">{{ lg.flag }}</span>
+                  <span style="flex:1;font-size:15px;font-weight:500;">{{ lg.name }}</span>
+                  <sc-if value="{{ lg.active }}" hint-placeholder-val="{{ false }}"><i class="ti ti-circle-check-filled" style="font-size:22px;color:var(--cta);"></i></sc-if>
+                </button>
+              </sc-for>
+              <div style="flex:1;"></div>
+              <button data-ripple="1" onClick="{{ nextOnb }}" style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;">Tiếp tục</button>
+            </div>
+          </sc-if>
+          <!-- age -->
+          <sc-if value="{{ onbAge }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;display:flex;flex-direction:column;padding:60px 28px 34px;animation:vhUp .4s ease;">
+              <div class="vh-serif" style="font-size:26px;font-weight:600;">Năm sinh của bạn</div>
+              <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;margin-bottom:28px;">Giúp chúng tôi cá nhân hoá trải nghiệm cho bạn</div>
+              <input value="{{ userAge }}" onInput="{{ onAge }}" inputmode="numeric" placeholder="VD: 1990" style="width:100%;background:var(--bg-tertiary);border:2px solid var(--border);border-radius:8px;padding:16px;font-size:18px;color:var(--text-primary);outline:none;font-family:'Literata',serif;text-align:center;letter-spacing:2px;">
+              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+                <sc-for list="{{ ageQuick }}" as="q" hint-placeholder-count="4">
+                  <button data-ripple="1" onClick="{{ q.pick }}" style="position:relative;overflow:hidden;flex:1;min-width:70px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:10px;font-size:13px;color:var(--text-secondary);cursor:pointer;">{{ q.label }}</button>
+                </sc-for>
+              </div>
+              <div style="flex:1;"></div>
+              <button data-ripple="1" onClick="{{ nextOnb }}" style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;">Tiếp tục</button>
+            </div>
+          </sc-if>
+          <!-- a11y suggestion (age>45) -->
+          <sc-if value="{{ onbA11y }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;display:flex;flex-direction:column;padding:60px 28px 34px;align-items:center;text-align:center;animation:vhUp .4s ease;">
+              <i class="ti ti-accessible" style="font-size:64px;color:var(--cta);margin-bottom:24px;"></i>
+              <div class="vh-serif" style="font-size:24px;font-weight:600;">Bật chế độ Trợ năng?</div>
+              <div style="font-size:15px;line-height:1.6;color:var(--text-secondary);margin-top:12px;">Chữ lớn hơn, nút bấm rộng hơn và trợ lý hướng dẫn từng bước — phù hợp để xem thoải mái hơn.</div>
+              <div style="flex:1;"></div>
+              <button data-ripple="1" onClick="{{ enableA11y }}" style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;margin-bottom:12px;">Bật Trợ năng</button>
+              <button data-ripple="1" onClick="{{ nextOnb }}" style="position:relative;overflow:hidden;width:100%;border:1px solid var(--border);background:transparent;color:var(--text-secondary);font-size:15px;font-weight:500;padding:14px;border-radius:8px;cursor:pointer;">Để sau</button>
+            </div>
+          </sc-if>
+          <!-- permissions -->
+          <sc-if value="{{ onbPerm }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;display:flex;flex-direction:column;padding:60px 28px 34px;animation:vhUp .4s ease;">
+              <div class="vh-serif" style="font-size:26px;font-weight:600;">Vài quyền truy cập</div>
+              <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;margin-bottom:24px;">Để trải nghiệm AR hoạt động trọn vẹn</div>
+              <sc-for list="{{ perms }}" as="p" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;">
+                  <div style="width:42px;height:42px;border-radius:10px;background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center;flex:none;"><i class="ti {{ p.icon }}" style="font-size:22px;color:var(--primary);"></i></div>
+                  <div style="flex:1;"><div style="font-size:14px;font-weight:600;">{{ p.title }}</div><div style="font-size:12px;color:var(--text-tertiary);">{{ p.sub }}</div></div>
+                  <button data-ripple="1" onClick="{{ p.grant }}" style="position:relative;overflow:hidden;border:none;border-radius:99px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;background:{{ p.btnBg }};color:{{ p.btnColor }};">{{ p.btnLabel }}</button>
+                </div>
+              </sc-for>
+              <div style="flex:1;"></div>
+              <button data-ripple="1" onClick="{{ finishOnb }}" style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;">Bắt đầu khám phá</button>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ===== MAIN APP SCREENS ===== -->
+      <sc-if value="{{ inApp }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;">
+          <div key="{{ screen }}" class="vh-scroll" style="flex:1;overflow-y:auto;overflow-x:hidden;animation:vhScreenIn .3s ease;-webkit-overflow-scrolling:touch;">
+
+            <!-- HOME -->
+            <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+              <div data-screen-label="Home">
+                <div style="padding:{{ topPad }} 18px 8px;display:flex;align-items:flex-start;justify-content:space-between;">
+                  <div>
+                    <div style="font-size:13px;color:var(--text-tertiary);">{{ t_greet }}</div>
+                    <div class="vh-serif" style="font-size:24px;font-weight:600;line-height:1.15;margin-top:2px;">{{ t_homeTitle }}</div>
+                    <div style="display:flex;align-items:center;gap:4px;margin-top:4px;color:var(--text-secondary);font-size:12px;"><i class="ti ti-map-pin" style="font-size:14px;color:var(--cta);"></i>Hà Nội, Việt Nam</div>
+                  </div>
+                  <div style="display:flex;gap:8px;">
+                    <button data-ripple="1" onClick="{{ openLang }}" title="Ngôn ngữ" style="position:relative;overflow:hidden;width:40px;height:40px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">{{ t_flag }}</button>
+                    <button data-ripple="1" onClick="{{ toggleTheme }}" title="Giao diện" style="position:relative;overflow:hidden;width:40px;height:40px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;"><i class="ti {{ themeIcon }}" style="font-size:20px;"></i></button>
+                  </div>
+                </div>
+
+                <!-- hero audio guide card -->
+                <div style="padding:8px 18px 0;">
+                  <div data-ripple="1" data-longpress="hero" onClick="{{ heroPlay }}" style="position:relative;overflow:hidden;border-radius:16px;height:210px;cursor:pointer;box-shadow:var(--shadow-lg);">
+                    <img src="https://picsum.photos/seed/hoian-vh/600/420" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                    <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,37,64,.92) 8%,rgba(26,37,64,.3) 55%,rgba(26,37,64,.05));"></div>
+                    <div style="position:absolute;top:12px;right:12px;background:var(--primary);color:var(--cream);font-size:11px;font-weight:600;padding:4px 9px;border-radius:4px;">45 phút</div>
+                    <div style="position:absolute;left:16px;right:16px;bottom:16px;">
+                      <div style="display:inline-block;background:var(--cta);color:#fff;font-size:10px;font-weight:600;letter-spacing:.08em;padding:3px 8px;border-radius:4px;margin-bottom:8px;">AUDIO GUIDE</div>
+                      <div class="vh-serif" style="font-size:22px;font-weight:600;color:#fff;line-height:1.2;">Phố cổ Hội An</div>
+                      <div class="vh-serif" style="font-style:italic;font-size:13px;color:var(--cream);margin-top:4px;">Hành trình qua 500 năm lịch sử</div>
+                      <div style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:var(--cta);color:#fff;font-size:13px;font-weight:600;padding:9px 16px;border-radius:8px;"><i class="ti ti-headphones" style="font-size:16px;"></i>{{ t_listen }}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- section: waiting to discover -->
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:24px 18px 10px;">
+                  <div class="vh-serif" style="font-size:18px;font-weight:600;">{{ t_secDiscover }}</div>
+                  <button data-ripple="1" onClick="{{ goExplore }}" style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--cta);font-size:12px;font-weight:600;cursor:pointer;">Xem tất cả</button>
+                </div>
+                <div class="vh-scroll" style="display:flex;gap:12px;overflow-x:auto;padding:0 18px 4px;scroll-snap-type:x mandatory;">
+                  <sc-for list="{{ artifactsView }}" as="a" hint-placeholder-count="4">
+                    <div data-ripple="1" data-longpress="art" onClick="{{ a.open }}" style="position:relative;overflow:hidden;flex:none;width:160px;scroll-snap-align:start;background:var(--bg-card);border-radius:12px;box-shadow:var(--shadow);cursor:pointer;">
+                      <div style="position:relative;height:120px;">
+                        <img src="{{ a.img }}" alt="" style="width:100%;height:100%;object-fit:cover;">
+                        <div style="position:absolute;top:8px;left:8px;font-size:9px;font-weight:600;letter-spacing:.06em;padding:3px 7px;border-radius:4px;background:{{ a.tierBg }};color:{{ a.tierColor }};">{{ a.tierLabel }}</div>
+                        <sc-if value="{{ a.locked }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background:rgba(26,37,64,.45);display:flex;align-items:center;justify-content:center;"><i class="ti ti-lock" style="font-size:26px;color:#fff;"></i></div></sc-if>
+                      </div>
+                      <div style="padding:10px 12px 12px;">
+                        <div class="vh-serif" style="font-size:14px;font-weight:600;line-height:1.25;">{{ a.name }}</div>
+                        <div style="font-size:11px;color:var(--text-tertiary);margin-top:4px;">{{ a.era }} · {{ a.material }}</div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <!-- section: featured venues -->
+                <div class="vh-serif" style="font-size:18px;font-weight:600;padding:24px 18px 10px;">{{ t_secFeatured }}</div>
+                <div style="padding:0 18px;">
+                  <sc-for list="{{ venuesTop }}" as="v" hint-placeholder-count="2">
+                    <div data-ripple="1" onClick="{{ v.open }}" style="position:relative;overflow:hidden;display:flex;gap:12px;background:var(--bg-card);border-radius:12px;box-shadow:var(--shadow);margin-bottom:12px;cursor:pointer;">
+                      <img src="{{ v.img }}" alt="" style="width:104px;height:96px;object-fit:cover;flex:none;">
+                      <div style="padding:12px 12px 12px 0;flex:1;display:flex;flex-direction:column;justify-content:center;">
+                        <div class="vh-serif" style="font-size:15px;font-weight:600;line-height:1.25;">{{ v.name }}</div>
+                        <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--text-secondary);margin-top:4px;"><i class="ti ti-map-pin" style="font-size:13px;"></i>{{ v.city }}</div>
+                        <div style="font-size:11px;color:var(--cta);font-weight:600;margin-top:6px;">{{ v.count }} hiện vật</div>
+                      </div>
+                      <i class="ti ti-chevron-right" style="font-size:20px;color:var(--text-tertiary);align-self:center;padding-right:12px;"></i>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <!-- divider ornament -->
+                <div style="text-align:center;color:var(--text-tertiary);font-size:14px;padding:14px 0 6px;letter-spacing:.5em;">✦</div>
+
+                <!-- destination grid -->
+                <div class="vh-serif" style="font-size:18px;font-weight:600;padding:8px 18px 12px;">Điểm đến nổi bật</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 18px 16px;">
+                  <sc-for list="{{ venuesView }}" as="v" hint-placeholder-count="6">
+                    <div data-ripple="1" onClick="{{ v.open }}" style="position:relative;overflow:hidden;cursor:pointer;">
+                      <div style="position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1;">
+                        <img src="{{ v.img }}" alt="" style="width:100%;height:100%;object-fit:cover;">
+                        <div style="position:absolute;bottom:5px;right:5px;background:var(--primary);color:var(--cream);font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;">{{ v.count }}</div>
+                      </div>
+                      <div style="font-size:11px;font-weight:600;line-height:1.2;padding-top:6px;color:var(--text-primary);">{{ v.name }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="height:18px;"></div>
+              </div>
+            </sc-if>
+
+            <!-- EXPLORE -->
+            <sc-if value="{{ isExplore }}" hint-placeholder-val="{{ false }}">
+              <div data-screen-label="Explore" style="position:relative;height:822px;background:var(--map);overflow:hidden;">
+                <img src="https://picsum.photos/seed/vhmaptiles2/420/860?grayscale" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;filter:saturate(.4);">
+                <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,transparent,var(--map) 95%);"></div>
+                <!-- pins -->
+                <sc-for list="{{ mapPins }}" as="p" hint-placeholder-count="6">
+                  <button onClick="{{ p.select }}" style="position:absolute;left:{{ p.x }};top:{{ p.y }};transform:translate(-50%,-100%);border:none;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;z-index:{{ p.z }};">
+                    <div style="position:relative;width:34px;height:34px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:{{ p.color }};box-shadow:0 4px 10px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;">
+                      <span style="transform:rotate(45deg);color:#fff;font-size:11px;font-weight:700;">{{ p.count }}</span>
+                    </div>
+                  </button>
+                </sc-for>
+                <!-- search bar -->
+                <div style="position:absolute;top:{{ topPad }};left:16px;right:16px;display:flex;gap:8px;z-index:10;">
+                  <div style="flex:1;display:flex;align-items:center;gap:8px;background:rgba(250,245,236,.82);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:12px;padding:11px 14px;box-shadow:var(--shadow);">
+                    <i class="ti ti-search" style="font-size:18px;color:#4B5675;"></i>
+                    <input placeholder="Tìm di tích, bảo tàng..." onInput="{{ onSearch }}" value="{{ search }}" style="flex:1;border:none;background:transparent;outline:none;font-size:14px;color:#1A2540;">
+                    <i class="ti ti-microphone" style="font-size:18px;color:var(--cta);"></i>
+                  </div>
+                </div>
+                <!-- bottom sheet -->
+                <div style="position:absolute;left:0;right:0;bottom:0;height:90%;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.25);transform:{{ sheetTransform }};transition:{{ sheetTrans }};z-index:20;display:flex;flex-direction:column;">
+                  <div onMouseDown="{{ sheetDown }}" onTouchStart="{{ sheetDown }}" style="padding:12px 0 8px;cursor:grab;flex:none;touch-action:none;">
+                    <div style="width:40px;height:4px;border-radius:99px;background:var(--border);margin:0 auto;"></div>
+                  </div>
+                  <div style="padding:0 18px 8px;flex:none;display:flex;align-items:center;justify-content:space-between;">
+                    <div class="vh-serif" style="font-size:18px;font-weight:600;">{{ exploreCount }} địa điểm gần bạn</div>
+                    <button data-ripple="1" onClick="{{ cycleSheet }}" style="position:relative;overflow:hidden;border:none;background:var(--bg-tertiary);color:var(--text-secondary);font-size:11px;font-weight:600;padding:6px 10px;border-radius:99px;cursor:pointer;">{{ sheetSnap }}</button>
+                  </div>
+                  <div class="vh-scroll" style="flex:1;overflow-y:auto;padding:4px 18px 24px;">
+                    <sc-for list="{{ venuesView }}" as="v" hint-placeholder-count="6">
+                      <div data-ripple="1" onClick="{{ v.open }}" style="position:relative;overflow:hidden;display:flex;gap:12px;padding:10px;border-radius:12px;border:1px solid {{ v.activeBorder }};margin-bottom:10px;cursor:pointer;background:var(--bg-secondary);">
+                        <img src="{{ v.img }}" alt="" style="width:64px;height:64px;border-radius:8px;object-fit:cover;flex:none;">
+                        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+                          <div class="vh-serif" style="font-size:14px;font-weight:600;line-height:1.2;">{{ v.name }}</div>
+                          <div style="font-size:12px;color:var(--text-secondary);margin-top:3px;"><i class="ti ti-map-pin" style="font-size:12px;"></i> {{ v.city }} · {{ v.count }} hiện vật</div>
+                          <div style="font-size:11px;color:var(--cta);font-weight:600;margin-top:4px;">{{ v.dist }}</div>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
+            <!-- LIBRARY -->
+            <sc-if value="{{ isLibrary }}" hint-placeholder-val="{{ false }}">
+              <div data-screen-label="Library">
+                <div style="padding:{{ topPad }} 18px 8px;">
+                  <div class="vh-serif" style="font-size:24px;font-weight:600;">{{ t_libTitle }}</div>
+                  <div style="font-size:13px;color:var(--text-secondary);margin-top:2px;">{{ libSubtitle }}</div>
+                </div>
+                <div style="display:flex;gap:8px;padding:8px 18px 4px;">
+                  <sc-for list="{{ libTabs }}" as="tb" hint-placeholder-count="3">
+                    <button data-ripple="1" onClick="{{ tb.pick }}" style="position:relative;overflow:hidden;border:1px solid {{ tb.border }};background:{{ tb.bg }};color:{{ tb.color }};font-size:12px;font-weight:600;padding:7px 14px;border-radius:99px;cursor:pointer;">{{ tb.label }}</button>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ libEmpty }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 40px;text-align:center;">
+                    <i class="ti ti-lamp" style="font-size:64px;color:var(--text-tertiary);opacity:.5;"></i>
+                    <div class="vh-serif" style="font-size:18px;font-weight:600;margin-top:20px;">Chưa có gì ở đây cả</div>
+                    <div style="font-size:14px;color:var(--text-secondary);margin-top:8px;line-height:1.5;">Hãy bắt đầu hành trình khám phá và thêm hiện vật vào bộ sưu tập của bạn!</div>
+                    <button data-ripple="1" onClick="{{ goExplore }}" style="position:relative;overflow:hidden;margin-top:24px;border:none;background:var(--cta);color:#fff;font-size:14px;font-weight:600;padding:12px 22px;border-radius:8px;cursor:pointer;">Khám phá ngay</button>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ libHasItems }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 18px 20px;">
+                    <sc-for list="{{ savedView }}" as="a" hint-placeholder-count="2">
+                      <div data-ripple="1" data-longpress="art" onClick="{{ a.open }}" style="position:relative;overflow:hidden;background:var(--bg-card);border-radius:12px;box-shadow:var(--shadow);cursor:pointer;">
+                        <img src="{{ a.img }}" alt="" style="width:100%;height:130px;object-fit:cover;">
+                        <div style="padding:10px 12px 12px;">
+                          <div class="vh-serif" style="font-size:14px;font-weight:600;line-height:1.2;">{{ a.name }}</div>
+                          <div style="font-size:11px;color:var(--text-tertiary);margin-top:4px;">{{ a.era }}</div>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+
+            <!-- PROFILE -->
+            <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+              <div data-screen-label="Profile">
+                <div style="padding:{{ topPad }} 18px 0;display:flex;align-items:center;justify-content:space-between;">
+                  <div class="vh-serif" style="font-size:24px;font-weight:600;">{{ t_profTitle }}</div>
+                  <button data-ripple="1" onClick="{{ toggleTheme }}" style="position:relative;overflow:hidden;width:40px;height:40px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);"><i class="ti {{ themeIcon }}" style="font-size:20px;"></i></button>
+                </div>
+                <!-- profile head -->
+                <div style="display:flex;align-items:center;gap:14px;padding:16px 18px;">
+                  <div style="width:64px;height:64px;border-radius:99px;background:linear-gradient(135deg,var(--primary),var(--cta));display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:700;flex:none;">M</div>
+                  <div style="flex:1;">
+                    <div class="vh-serif" style="font-size:18px;font-weight:600;">Minh Anh</div>
+                    <div style="display:inline-flex;align-items:center;gap:5px;margin-top:4px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;background:{{ tierChipBg }};color:{{ tierChipColor }};"><i class="ti {{ tierChipIcon }}" style="font-size:12px;"></i>{{ tierChipLabel }}</div>
+                  </div>
+                </div>
+                <!-- stats -->
+                <div style="display:flex;gap:10px;padding:0 18px 8px;">
+                  <sc-for list="{{ profileStats }}" as="s" hint-placeholder-count="3">
+                    <div style="flex:1;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px 8px;text-align:center;">
+                      <div class="vh-serif" style="font-size:22px;font-weight:600;color:var(--cta);">{{ s.value }}</div>
+                      <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">{{ s.label }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+                <!-- premium card -->
+                <sc-if value="{{ notPremium }}" hint-placeholder-val="{{ true }}">
+                  <div style="margin:12px 18px;border-radius:16px;background:linear-gradient(135deg,var(--primary),var(--primary-d));padding:18px;position:relative;overflow:hidden;">
+                    <i class="ti ti-crown" style="position:absolute;right:-10px;top:-10px;font-size:90px;color:rgba(255,255,255,.08);"></i>
+                    <div class="vh-serif" style="font-size:18px;font-weight:600;color:#fff;">Khám phá chiều sâu của di sản</div>
+                    <div style="font-size:13px;color:var(--cream);margin-top:6px;line-height:1.5;">Dành cho những ai muốn đi xa hơn một chuyến tham quan thông thường.</div>
+                    <button data-ripple="1" onClick="{{ openPaywall }}" style="position:relative;overflow:hidden;margin-top:14px;border:none;background:var(--cta);color:#fff;font-size:14px;font-weight:600;padding:11px 18px;border-radius:8px;cursor:pointer;">Bắt đầu hành trình</button>
+                  </div>
+                </sc-if>
+                <!-- achievements -->
+                <div class="vh-serif" style="font-size:16px;font-weight:600;padding:16px 18px 10px;">Huy hiệu của bạn</div>
+                <div class="vh-scroll" style="display:flex;gap:12px;overflow-x:auto;padding:0 18px 4px;">
+                  <sc-for list="{{ achievements }}" as="ac" hint-placeholder-count="4">
+                    <div data-ripple="1" onClick="{{ ac.show }}" style="position:relative;overflow:hidden;flex:none;width:96px;text-align:center;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px 8px;cursor:pointer;opacity:{{ ac.op }};">
+                      <div style="width:46px;height:46px;border-radius:99px;background:{{ ac.bg }};display:flex;align-items:center;justify-content:center;margin:0 auto;"><i class="ti {{ ac.icon }}" style="font-size:24px;color:{{ ac.iconColor }};"></i></div>
+                      <div style="font-size:10px;font-weight:600;line-height:1.2;margin-top:8px;color:var(--text-primary);">{{ ac.name }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+                <!-- settings -->
+                <div class="vh-serif" style="font-size:16px;font-weight:600;padding:18px 18px 8px;">Cài đặt</div>
+                <div style="padding:0 18px 24px;">
+                  <sc-for list="{{ settings }}" as="st" hint-placeholder-count="5">
+                    <button data-ripple="1" onClick="{{ st.tap }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--bg-card);border:1px solid var(--border);border-bottom-width:0;padding:15px 16px;cursor:pointer;color:var(--text-primary);border-radius:{{ st.radius }};">
+                      <i class="ti {{ st.icon }}" style="font-size:20px;color:var(--primary);width:22px;"></i>
+                      <span style="flex:1;font-size:14px;font-weight:500;">{{ st.label }}</span>
+                      <span style="font-size:12px;color:var(--text-tertiary);">{{ st.value }}</span>
+                      <i class="ti {{ st.chevron }}" style="font-size:18px;color:var(--text-tertiary);"></i>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+
+          <!-- BOTTOM NAV -->
+          <sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
+            <div style="position:relative;flex:none;background:var(--bg-card);border-top:1px solid var(--border);display:flex;align-items:flex-end;justify-content:space-around;padding:8px 6px 12px;box-shadow:0 -2px 12px rgba(0,0,0,.04);">
+              <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
+                <sc-if value="{{ n.isScan }}" hint-placeholder-val="{{ false }}">
+                  <button data-ripple="1" onClick="{{ n.go }}" style="position:relative;overflow:hidden;width:56px;height:56px;margin-top:-22px;border-radius:99px;border:4px solid var(--bg-card);background:var(--cta);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(237,137,39,.45);flex:none;"><i class="ti ti-scan" style="font-size:26px;"></i></button>
+                </sc-if>
+                <sc-if value="{{ n.normal }}" hint-placeholder-val="{{ true }}">
+                  <button data-ripple="1" onClick="{{ n.go }}" style="position:relative;overflow:hidden;flex:1;border:none;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 0;color:{{ n.color }};">
+                    <i class="ti {{ n.icon }}" style="font-size:24px;"></i>
+                    <span style="font-size:9px;font-weight:600;letter-spacing:.02em;display:{{ n.labelDisp }};">{{ n.label }}</span>
+                    <div style="height:3px;width:20px;border-radius:99px;background:{{ n.underline }};"></div>
+                  </button>
+                </sc-if>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ===== AR SCANNER (fullscreen) ===== -->
+      <sc-if value="{{ isScan }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="ARScanner" style="position:absolute;inset:0;z-index:120;background:#0a0d14;overflow:hidden;">
+          <img src="https://picsum.photos/seed/vhcamfeed/420/860" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;animation:vhCamMove 8s ease-in-out infinite;">
+          <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,transparent 30%,rgba(0,0,0,.7));"></div>
+          <!-- close -->
+          <button data-ripple="1" onClick="{{ exitScan }}" style="position:absolute;top:46px;right:18px;z-index:10;width:44px;height:44px;border-radius:99px;border:none;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;"><i class="ti ti-x" style="font-size:22px;"></i></button>
+          <div style="position:absolute;top:54px;left:0;right:0;text-align:center;color:#fff;font-size:13px;font-weight:500;z-index:5;text-shadow:0 1px 4px rgba(0,0,0,.6);">{{ scanHint }}</div>
+          <!-- viewfinder -->
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-58%);width:236px;height:236px;{{ vfAnim }}">
+            <div style="position:absolute;inset:0;overflow:hidden;border-radius:18px;">
+              <sc-if value="{{ scanning }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cta),transparent);box-shadow:0 0 12px var(--cta);animation:vhScan 1.8s ease-in-out infinite;"></div></sc-if>
+            </div>
+            <div style="position:absolute;top:0;left:0;width:38px;height:38px;border-top:3px solid {{ vfColor }};border-left:3px solid {{ vfColor }};border-radius:14px 0 0 0;"></div>
+            <div style="position:absolute;top:0;right:0;width:38px;height:38px;border-top:3px solid {{ vfColor }};border-right:3px solid {{ vfColor }};border-radius:0 14px 0 0;"></div>
+            <div style="position:absolute;bottom:0;left:0;width:38px;height:38px;border-bottom:3px solid {{ vfColor }};border-left:3px solid {{ vfColor }};border-radius:0 0 0 14px;"></div>
+            <div style="position:absolute;bottom:0;right:0;width:38px;height:38px;border-bottom:3px solid {{ vfColor }};border-right:3px solid {{ vfColor }};border-radius:0 0 14px 0;"></div>
+            <sc-if value="{{ scanning }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:99px;background:var(--cta);animation:vhPulse 1.6s infinite;"></div></sc-if>
+          </div>
+          <div style="position:absolute;inset:0;background:var(--cream);animation:vhFlash .5s ease;display:{{ flashDisp }};"></div>
+
+          <!-- scanning controls -->
+          <sc-if value="{{ scanning }}" hint-placeholder-val="{{ true }}">
+            <div style="position:absolute;bottom:40px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:14px;">
+              <div style="color:#fff;font-size:12px;opacity:.7;">Đang phân tích hiện vật...</div>
+              <button data-ripple="1" onClick="{{ forceFail }}" style="position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font-size:11px;padding:7px 14px;border-radius:99px;cursor:pointer;">Mô phỏng quét thất bại</button>
+            </div>
+          </sc-if>
+
+          <!-- fail fallback -->
+          <sc-if value="{{ scanFailed }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;bottom:0;left:0;right:0;background:var(--bg-card);border-radius:24px 24px 0 0;padding:24px 20px 30px;animation:vhSheetUp .35s cubic-bezier(.32,.72,0,1);">
+              <div style="text-align:center;"><i class="ti ti-zoom-cancel" style="font-size:40px;color:var(--error);"></i></div>
+              <div class="vh-serif" style="font-size:18px;font-weight:600;text-align:center;margin-top:10px;color:var(--text-primary);">Không thể nhận diện hiện vật</div>
+              <div style="font-size:13px;color:var(--text-secondary);text-align:center;margin-top:6px;">Ánh sáng có thể quá yếu. Thử cách khác nhé:</div>
+              <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
+                <button data-ripple="1" onClick="{{ retryScan }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;background:var(--cta);color:#fff;border:none;padding:14px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:600;"><i class="ti ti-refresh" style="font-size:20px;"></i>Thử quét lại</button>
+                <button data-ripple="1" onClick="{{ retryScan }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;background:var(--bg-tertiary);color:var(--text-primary);border:1px solid var(--border);padding:14px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:500;"><i class="ti ti-qrcode" style="font-size:20px;color:var(--primary);"></i>Quét mã QR</button>
+                <button data-ripple="1" onClick="{{ scanBrowse }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;background:var(--bg-tertiary);color:var(--text-primary);border:1px solid var(--border);padding:14px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:500;"><i class="ti ti-list-search" style="font-size:20px;color:var(--primary);"></i>Tìm tên hiện vật</button>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ===== OVERLAYS ===== -->
+      <!-- scrim -->
+      <sc-if value="{{ anySheet }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;background:rgba(10,13,20,.5);z-index:160;animation:vhFade .2s ease;"></div>
+      </sc-if>
+
+      <!-- ARTIFACT DETAIL SHEET -->
+      <sc-if value="{{ sheetArtifact }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:90%;z-index:170;background:var(--bg-card);border-radius:24px 24px 0 0;display:flex;flex-direction:column;transform:{{ artSheetTransform }};transition:{{ sheetTrans }};box-shadow:0 -10px 40px rgba(0,0,0,.3);">
+          <div onMouseDown="{{ artDown }}" onTouchStart="{{ artDown }}" style="padding:12px 0 6px;cursor:grab;flex:none;touch-action:none;"><div style="width:40px;height:4px;border-radius:99px;background:var(--border);margin:0 auto;"></div></div>
+          <div class="vh-scroll" style="flex:1;overflow-y:auto;">
+            <div style="position:relative;height:230px;margin:0 0 0;">
+              <img src="{{ curArt.img }}" alt="" style="width:100%;height:100%;object-fit:cover;">
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--bg-card),transparent 45%);"></div>
+              <div style="position:absolute;top:12px;left:16px;display:inline-flex;align-items:center;gap:6px;background:rgba(48,69,116,.85);color:#fff;font-size:11px;padding:5px 10px;border-radius:99px;"><i class="ti ti-cube-3d-sphere" style="font-size:14px;"></i>Xem 3D · xoay để khám phá</div>
+            </div>
+            <div style="padding:4px 20px 20px;">
+              <div style="display:inline-block;font-size:10px;font-weight:600;letter-spacing:.06em;padding:3px 8px;border-radius:4px;background:{{ curArt.tierBg }};color:{{ curArt.tierColor }};">{{ curArt.tierLabel }}</div>
+              <div class="vh-serif" style="font-size:25px;font-weight:600;line-height:1.2;margin-top:10px;">{{ curArt.name }}</div>
+              <!-- museum meta -->
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;">
+                <div style="background:var(--bg-tertiary);border-radius:8px;padding:8px 12px;"><div style="font-size:10px;color:var(--text-tertiary);">Niên đại</div><div class="vh-serif" style="font-size:14px;font-weight:500;">{{ curArt.era }}</div></div>
+                <div style="background:var(--bg-tertiary);border-radius:8px;padding:8px 12px;"><div style="font-size:10px;color:var(--text-tertiary);">Chất liệu</div><div class="vh-serif" style="font-size:14px;font-weight:500;">{{ curArt.material }}</div></div>
+                <div style="background:var(--bg-tertiary);border-radius:8px;padding:8px 12px;"><div style="font-size:10px;color:var(--text-tertiary);">Lượt khám phá</div><div class="vh-serif" style="font-size:14px;font-weight:500;">{{ curArt.views }}</div></div>
+              </div>
+              <!-- audio player -->
+              <div style="margin-top:18px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;padding:14px;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <button data-ripple="1" onClick="{{ toggleAudio }}" style="position:relative;overflow:hidden;width:46px;height:46px;border-radius:99px;border:none;background:var(--cta);color:#fff;cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center;"><i class="ti {{ audioIcon }}" style="font-size:24px;"></i></button>
+                  <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:600;">Nghe thuyết minh</div>
+                    <div style="height:5px;border-radius:99px;background:var(--bg-tertiary);margin-top:8px;overflow:hidden;"><div style="height:100%;width:{{ audioPct }};background:var(--cta);border-radius:99px;transition:width .2s linear;"></div></div>
+                  </div>
+                  <span style="font-size:11px;color:var(--text-tertiary);font-variant-numeric:tabular-nums;">{{ audioTime }}</span>
+                </div>
+              </div>
+              <!-- description -->
+              <div style="font-size:14px;line-height:1.65;color:var(--text-secondary);margin-top:16px;">{{ curArt.desc }}</div>
+              <!-- premium feature -->
+              <button data-ripple="1" onClick="{{ timeTravel }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;text-align:left;margin-top:16px;background:linear-gradient(135deg,var(--primary),var(--primary-d));border:none;border-radius:12px;padding:14px;cursor:pointer;">
+                <i class="ti ti-history" style="font-size:24px;color:var(--cta);"></i>
+                <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#fff;">Du hành thời gian</div><div style="font-size:11px;color:var(--cream);">Xem hiện vật qua các thời kỳ</div></div>
+                <i class="ti ti-lock" style="font-size:18px;color:var(--cream);display:{{ ttLockDisp }};"></i>
+              </button>
+              <!-- guestbook entry -->
+              <button data-ripple="1" onClick="{{ openGuestbook }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;text-align:left;margin-top:10px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;color:var(--text-primary);">
+                <i class="ti ti-message-2-heart" style="font-size:24px;color:var(--cta);"></i>
+                <div style="flex:1;"><div style="font-size:14px;font-weight:600;">AR Guestbook</div><div style="font-size:11px;color:var(--text-tertiary);">{{ gbCount }} lời nhắn từ du khách</div></div>
+                <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+              </button>
+              <div style="height:90px;"></div>
+            </div>
+          </div>
+          <!-- action bar -->
+          <div style="flex:none;display:flex;gap:10px;padding:12px 18px;border-top:1px solid var(--border);background:var(--bg-card);">
+            <button data-ripple="1" onClick="{{ toggleSaveCur }}" style="position:relative;overflow:hidden;flex:1;display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--border);background:{{ saveBg }};color:{{ saveColor }};font-size:13px;font-weight:600;padding:13px;border-radius:8px;cursor:pointer;"><i class="ti {{ saveIcon }}" style="font-size:18px;"></i>{{ saveLabel }}</button>
+            <button data-ripple="1" onClick="{{ openShare }}" style="position:relative;overflow:hidden;flex:none;width:50px;border:1px solid var(--border);background:var(--bg-secondary);color:var(--text-primary);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><i class="ti ti-share-2" style="font-size:20px;"></i></button>
+            <button data-ripple="1" onClick="{{ openScanShot }}" style="position:relative;overflow:hidden;flex:none;width:50px;border:1px solid var(--border);background:var(--bg-secondary);color:var(--text-primary);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><i class="ti ti-camera" style="font-size:20px;"></i></button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- LANGUAGE PICKER -->
+      <sc-if value="{{ sheetLang }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:0;right:0;bottom:0;z-index:170;background:var(--bg-card);border-radius:24px 24px 0 0;padding:8px 0 28px;animation:vhSheetUp .3s cubic-bezier(.32,.72,0,1);">
+          <div style="width:40px;height:4px;border-radius:99px;background:var(--border);margin:8px auto 8px;"></div>
+          <sc-for list="{{ langs }}" as="lg" hint-placeholder-count="3">
+            <button data-ripple="1" onClick="{{ lg.pick }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;width:100%;height:52px;padding:0 24px;background:transparent;border:none;cursor:pointer;color:var(--text-primary);">
+              <span style="font-size:22px;">{{ lg.flag }}</span>
+              <span style="flex:1;text-align:left;font-size:15px;font-weight:500;">{{ lg.name }}</span>
+              <sc-if value="{{ lg.active }}" hint-placeholder-val="{{ false }}"><i class="ti ti-check" style="font-size:22px;color:var(--cta);"></i></sc-if>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- PAYWALL -->
+      <sc-if value="{{ sheetPaywall }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:0;right:0;bottom:0;z-index:170;background:var(--bg-card);border-radius:24px 24px 0 0;padding:8px 22px 28px;animation:vhSheetUp .3s cubic-bezier(.32,.72,0,1);max-height:92%;overflow-y:auto;">
+          <div style="width:40px;height:4px;border-radius:99px;background:var(--border);margin:8px auto 14px;"></div>
+          <div style="text-align:center;"><div style="width:60px;height:60px;border-radius:99px;background:var(--primary);display:flex;align-items:center;justify-content:center;margin:0 auto;"><i class="ti ti-crown" style="font-size:30px;color:var(--cta);"></i></div></div>
+          <div class="vh-serif" style="font-size:23px;font-weight:600;text-align:center;margin-top:14px;line-height:1.25;">Khám phá chiều sâu của di sản</div>
+          <div style="font-size:13px;color:var(--text-secondary);text-align:center;margin-top:8px;line-height:1.5;">Dành cho những ai muốn đi xa hơn một chuyến tham quan thông thường</div>
+          <div style="margin-top:20px;display:flex;flex-direction:column;gap:12px;">
+            <sc-for list="{{ premiumPerks }}" as="pk" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:12px;"><div style="width:30px;height:30px;border-radius:99px;background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center;flex:none;"><i class="ti {{ pk.icon }}" style="font-size:17px;color:var(--cta);"></i></div><div style="font-size:14px;font-weight:500;color:var(--text-primary);">{{ pk.text }}</div></div>
+            </sc-for>
+          </div>
+          <button data-ripple="1" onClick="{{ activatePremium }}" style="position:relative;overflow:hidden;width:100%;margin-top:22px;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;">Bắt đầu hành trình</button>
+          <button data-ripple="1" onClick="{{ closeSheet }}" style="position:relative;overflow:hidden;width:100%;margin-top:8px;border:none;background:transparent;color:var(--text-secondary);font-size:14px;font-weight:500;padding:12px;cursor:pointer;">Tiếp tục khám phá miễn phí</button>
+        </div>
+      </sc-if>
+
+      <!-- SHARE SHEET -->
+      <sc-if value="{{ sheetShare }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:0;right:0;bottom:0;z-index:170;background:var(--bg-card);border-radius:24px 24px 0 0;padding:8px 22px 28px;animation:vhSheetUp .3s cubic-bezier(.32,.72,0,1);">
+          <div style="width:40px;height:4px;border-radius:99px;background:var(--border);margin:8px auto 14px;"></div>
+          <div class="vh-serif" style="font-size:18px;font-weight:600;text-align:center;">Lan tỏa di sản</div>
+          <div style="font-size:12px;color:var(--text-tertiary);text-align:center;margin-top:4px;">{{ curArt.name }}</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-top:20px;">
+            <sc-for list="{{ shareTargets }}" as="sh" hint-placeholder-count="6">
+              <button data-ripple="1" onClick="{{ sh.tap }}" style="position:relative;overflow:hidden;border:none;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:7px;color:var(--text-secondary);">
+                <div style="width:50px;height:50px;border-radius:99px;background:{{ sh.bg }};display:flex;align-items:center;justify-content:center;"><i class="ti {{ sh.icon }}" style="font-size:24px;color:#fff;"></i></div>
+                <span style="font-size:11px;">{{ sh.name }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- GUESTBOOK -->
+      <sc-if value="{{ sheetGuestbook }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:88%;z-index:170;background:var(--bg-card);border-radius:24px 24px 0 0;display:flex;flex-direction:column;animation:vhSheetUp .3s cubic-bezier(.32,.72,0,1);">
+          <div style="width:40px;height:4px;border-radius:99px;background:var(--border);margin:8px auto 6px;flex:none;"></div>
+          <div style="padding:6px 20px 12px;flex:none;display:flex;align-items:center;justify-content:space-between;">
+            <div class="vh-serif" style="font-size:19px;font-weight:600;">AR Guestbook</div>
+            <button data-ripple="1" onClick="{{ closeSheet }}" style="position:relative;overflow:hidden;width:34px;height:34px;border-radius:99px;border:none;background:var(--bg-tertiary);color:var(--text-secondary);cursor:pointer;"><i class="ti ti-x" style="font-size:18px;"></i></button>
+          </div>
+          <div class="vh-scroll" style="flex:1;overflow-y:auto;padding:0 20px;">
+            <sc-for list="{{ guestbook }}" as="g" hint-placeholder-count="3">
+              <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px;">
+                <div style="font-size:14px;line-height:1.5;color:var(--text-primary);">{{ g.text }}</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;">
+                  <div style="font-size:12px;font-weight:600;color:var(--primary);">{{ g.author }}</div>
+                  <div style="display:flex;align-items:center;gap:5px;color:var(--text-tertiary);font-size:12px;"><i class="ti ti-heart" style="font-size:14px;color:var(--cta);"></i>{{ g.likes }} · {{ g.time }}</div>
+                </div>
+              </div>
+            </sc-for>
+            <div style="height:20px;"></div>
+          </div>
+          <div style="flex:none;padding:12px 18px;border-top:1px solid var(--border);display:flex;gap:10px;background:var(--bg-card);">
+            <input value="{{ gbText }}" onInput="{{ onGb }}" placeholder="Để lại dấu ấn của bạn..." style="flex:1;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:99px;padding:12px 16px;font-size:14px;color:var(--text-primary);outline:none;">
+            <button data-ripple="1" onClick="{{ postGb }}" style="position:relative;overflow:hidden;width:46px;height:46px;border-radius:99px;border:none;background:var(--cta);color:#fff;cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center;"><i class="ti ti-send" style="font-size:20px;"></i></button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- SCAN SHOT / SHARE PHOTO (UC-10) -->
+      <sc-if value="{{ sheetShot }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;z-index:172;background:#0a0d14;animation:vhFade .2s ease;display:flex;flex-direction:column;">
+          <div style="flex:1;position:relative;">
+            <img src="{{ curArt.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            <div style="position:absolute;bottom:16px;left:16px;display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);padding:8px 12px;border-radius:8px;"><i class="ti ti-building-monument" style="font-size:18px;color:var(--cta);"></i><div style="color:#fff;"><div style="font-size:12px;font-weight:600;">V-Heritage</div><div style="font-size:10px;opacity:.8;">{{ curArt.name }}</div></div></div>
+            <button data-ripple="1" onClick="{{ closeSheet }}" style="position:absolute;top:46px;right:18px;width:44px;height:44px;border-radius:99px;border:none;background:rgba(255,255,255,.16);color:#fff;cursor:pointer;"><i class="ti ti-x" style="font-size:22px;"></i></button>
+          </div>
+          <div style="flex:none;background:var(--bg-card);padding:16px 18px 26px;">
+            <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:10px;">Bộ lọc</div>
+            <div class="vh-scroll" style="display:flex;gap:10px;overflow-x:auto;margin-bottom:16px;">
+              <sc-for list="{{ photoFilters }}" as="f" hint-placeholder-count="4">
+                <button data-ripple="1" onClick="{{ f.tap }}" style="position:relative;overflow:hidden;flex:none;border:1px solid {{ f.border }};background:{{ f.bg }};color:{{ f.color }};font-size:12px;font-weight:600;padding:8px 14px;border-radius:99px;cursor:pointer;display:flex;align-items:center;gap:5px;">{{ f.name }}<i class="ti ti-lock" style="font-size:13px;display:{{ f.lockDisp }};"></i></button>
+              </sc-for>
+            </div>
+            <button data-ripple="1" onClick="{{ doShare }}" style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:15px;font-weight:600;padding:15px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;"><i class="ti ti-share-2" style="font-size:19px;"></i>Lan tỏa di sản</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- CONTEXT MENU (long press) -->
+      <sc-if value="{{ sheetContext }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:0;right:0;bottom:0;z-index:170;background:var(--bg-card);border-radius:24px 24px 0 0;padding:8px 14px 24px;animation:vhSheetUp .28s cubic-bezier(.32,.72,0,1);">
+          <div style="width:40px;height:4px;border-radius:99px;background:var(--border);margin:8px auto 12px;"></div>
+          <button data-ripple="1" onClick="{{ ctxSave }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:transparent;border:none;padding:15px;cursor:pointer;color:var(--text-primary);font-size:15px;"><i class="ti ti-bookmark-plus" style="font-size:22px;color:var(--cta);"></i>Thêm vào bộ sưu tập</button>
+          <button data-ripple="1" onClick="{{ ctxShare }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:transparent;border:none;padding:15px;cursor:pointer;color:var(--text-primary);font-size:15px;"><i class="ti ti-share-2" style="font-size:22px;color:var(--cta);"></i>Lan tỏa di sản</button>
+          <button data-ripple="1" onClick="{{ closeSheet }}" style="position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:14px;width:100%;text-align:center;background:var(--bg-tertiary);border:none;padding:14px;cursor:pointer;color:var(--text-secondary);font-size:15px;font-weight:600;border-radius:10px;margin-top:6px;">Huỷ</button>
+        </div>
+      </sc-if>
+
+      <!-- STORAGE SHEET (UC-09) -->
+      <sc-if value="{{ sheetStorage }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:0;right:0;bottom:0;z-index:170;background:var(--bg-card);border-radius:24px 24px 0 0;padding:8px 20px 26px;animation:vhSheetUp .3s cubic-bezier(.32,.72,0,1);">
+          <div style="width:40px;height:4px;border-radius:99px;background:var(--border);margin:8px auto 14px;"></div>
+          <div class="vh-serif" style="font-size:18px;font-weight:600;">Quản lý bộ nhớ</div>
+          <div style="font-size:12px;color:var(--text-tertiary);margin-top:4px;margin-bottom:6px;">{{ storageText }}</div>
+          <div style="height:8px;border-radius:99px;background:var(--bg-tertiary);overflow:hidden;margin-bottom:16px;"><div style="height:100%;width:{{ storagePct }};background:{{ storageColor }};border-radius:99px;transition:width .3s;"></div></div>
+          <sc-for list="{{ dataPacks }}" as="dp" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);">
+              <i class="ti ti-package" style="font-size:22px;color:var(--primary);"></i>
+              <div style="flex:1;"><div style="font-size:14px;font-weight:600;">{{ dp.name }}</div><div style="font-size:11px;color:var(--text-tertiary);">{{ dp.size }} · {{ dp.note }}</div></div>
+              <button data-ripple="1" onClick="{{ dp.del }}" style="position:relative;overflow:hidden;border:1px solid var(--border);background:transparent;color:var(--error);font-size:12px;font-weight:600;padding:6px 12px;border-radius:8px;cursor:pointer;">Xoá</button>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- TOAST -->
+      <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:50%;bottom:96px;transform:translateX(-50%);z-index:200;background:var(--primary);color:#fff;font-size:13px;font-weight:500;padding:12px 18px;border-radius:99px;box-shadow:0 8px 24px rgba(0,0,0,.3);display:flex;align-items:center;gap:8px;animation:vhUp .25s ease;max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+          <i class="ti ti-circle-check-filled" style="font-size:16px;color:var(--cta);flex:none;"></i>{{ toast }}
+        </div>
+      </sc-if>
+
+      <!-- A11Y avatar helper -->
+      <sc-if value="{{ showAvatar }}" hint-placeholder-val="{{ false }}">
+        <button data-ripple="1" onClick="{{ avatarTap }}" style="position:absolute;right:14px;bottom:96px;z-index:140;display:flex;align-items:center;gap:8px;background:var(--primary);color:#fff;border:none;border-radius:99px;padding:8px 14px 8px 8px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.3);animation:vhBob 3s ease-in-out infinite;">
+          <div style="width:34px;height:34px;border-radius:99px;background:var(--cta);display:flex;align-items:center;justify-content:center;"><i class="ti ti-robot" style="font-size:20px;"></i></div>
+          <span style="font-size:12px;font-weight:600;">Bác cần giúp gì?</span>
+        </button>
+      </sc-if>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:760,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = {
+    theme: 'light', language: 'vi', screen: 'splash', history: [],
+    saved: [], isPremium: false, a11y: false, isOffline: false, userAge: '',
+    onbStep: 0, currentArtifactId: 1, currentVenue: null,
+    sheet: null, sheetSnap: 'half', dragY: 0, dragging: false, dragTarget: null,
+    scanState: 'idle', failNext: false,
+    isPlaying: false, audioProgress: 0,
+    toast: null, search: '', gbText: '', libTab: 'all',
+    selectedPin: null, premiumFilter: false,
+  };
+
+  venues = [
+    { id: 1, name: 'Bảo tàng Lịch sử Quốc gia', city: 'Hà Nội', count: 48, seed: 'baotanglichsu', dist: 'Cách 1,2 km', x: '34%', y: '36%' },
+    { id: 2, name: 'Bảo tàng Mỹ thuật Việt Nam', city: 'Hà Nội', count: 32, seed: 'baotangmythuat', dist: 'Cách 2,8 km', x: '58%', y: '28%' },
+    { id: 3, name: 'Dinh Độc Lập', city: 'TP.HCM', count: 27, seed: 'dinhdoclap', dist: 'Cách 4,1 km', x: '24%', y: '58%' },
+    { id: 4, name: 'Khu di tích K9', city: 'Hà Nội', count: 15, seed: 'khuditichk9', dist: 'Cách 6,5 km', x: '70%', y: '52%' },
+    { id: 5, name: 'Thành cổ Quảng Trị', city: 'Quảng Trị', count: 21, seed: 'thanhcoquangtri', dist: 'Cách 9,0 km', x: '46%', y: '68%' },
+    { id: 6, name: 'Phố cổ Hội An', city: 'Quảng Nam', count: 56, seed: 'phocohoian', dist: 'Cách 11 km', x: '62%', y: '78%' },
+  ];
+
+  artifacts = [
+    { id: 1, name: 'Trống đồng Đông Sơn', era: '500 TCN', material: 'Đồng thau', tier: 'free', seed: 'trongdong', views: '1.247', desc: 'Trống đồng Đông Sơn là biểu tượng của nền văn minh Đông Sơn rực rỡ. Mặt trống khắc hoa văn hình ngôi sao, chim Lạc và cảnh sinh hoạt — phản ánh đời sống tinh thần phong phú của người Việt cổ.' },
+    { id: 2, name: 'Áo tứ thân', era: 'Thế kỷ XVIII', material: 'Lụa', tier: 'free', seed: 'aotuthan', views: '842', desc: 'Trang phục truyền thống của phụ nữ Bắc Bộ, gồm bốn vạt áo tượng trưng cho tứ thân phụ mẫu. Thường mặc cùng yếm đào và khăn mỏ quạ trong các dịp lễ hội.' },
+    { id: 3, name: 'Bình gốm triều Lý', era: 'Thế kỷ XI', material: 'Gốm sứ', tier: 'free', seed: 'binhgomly', views: '623', desc: 'Đỉnh cao của nghệ thuật gốm men ngọc thời Lý, với đường nét thanh thoát và lớp men xanh đặc trưng — minh chứng cho trình độ thủ công tinh xảo của Đại Việt.' },
+    { id: 4, name: 'Kiếm thời Lê', era: 'Thế kỷ XV', material: 'Sắt rèn', tier: 'premium', seed: 'kiemthole', views: '418', desc: 'Thanh kiếm rèn thủ công thời Hậu Lê, gắn với những trang sử oai hùng chống ngoại xâm. Lưỡi kiếm khắc hoa văn rồng cuộn tinh tế.' },
+    { id: 5, name: 'Tranh Đông Hồ', era: 'Thế kỷ XIX', material: 'Giấy điệp', tier: 'free', seed: 'tranhdongho', views: '991', desc: 'Dòng tranh dân gian in từ ván khắc gỗ trên giấy điệp, màu lấy từ thiên nhiên. Mỗi bức tranh gửi gắm ước vọng về cuộc sống ấm no, hạnh phúc.' },
+    { id: 6, name: 'Tượng Phật A Di Đà', era: 'Thế kỷ XI', material: 'Đá sa thạch', tier: 'premium', seed: 'tuongphat', views: '1.508', desc: 'Kiệt tác điêu khắc thời Lý tại chùa Phật Tích, thể hiện sự an nhiên với từng nếp áo cà sa mềm mại tạc trên đá — đỉnh cao mỹ thuật Phật giáo Đại Việt.' },
+    { id: 7, name: 'Mũ quan triều Nguyễn', era: 'Thế kỷ XIX', material: 'Vàng, đá quý', tier: 'premium', seed: 'muquan', views: '736', desc: 'Mũ thượng triều của quan lại triều Nguyễn, chế tác từ vàng và đá quý theo phẩm hàm — biểu trưng cho quyền uy và nghi lễ cung đình.' },
+    { id: 8, name: 'Cồng chiêng Tây Nguyên', era: 'Thế kỷ XX', material: 'Đồng', tier: 'free', seed: 'congchieng', views: '1.102', desc: 'Không gian văn hóa cồng chiêng Tây Nguyên được UNESCO công nhận là Kiệt tác di sản truyền khẩu và phi vật thể của nhân loại.' },
+  ];
+
+  guestbookData = [
+    { id: 1, text: 'Được nhìn tận mắt trống đồng thật — xúc động lắm 🇻🇳', author: 'Minh Anh', likes: 47, time: '2 giờ trước' },
+    { id: 2, text: 'Cảm ơn V-Heritage đã giúp mình hiểu rõ hơn về lịch sử dân tộc', author: 'Tuấn', likes: 23, time: '1 ngày trước' },
+    { id: 3, text: 'Incredible piece of history! AR made it come alive.', author: 'Sarah K.', likes: 18, time: '3 ngày trước' },
+  ];
+
+  achievementsData = [
+    { id: 1, name: 'Người khám phá Thăng Long', icon: 'ti-building-castle', earned: true },
+    { id: 2, name: 'Lữ khách Hội An', icon: 'ti-lantern', earned: true },
+    { id: 3, name: 'Nhà sử học Huế', icon: 'ti-book', earned: false },
+    { id: 4, name: 'Người giữ lửa', icon: 'ti-flame', earned: false },
+    { id: 5, name: 'Nhà thám hiểm số', icon: 'ti-scan', earned: false },
+    { id: 6, name: 'Người bảo tồn', icon: 'ti-shield-heart', earned: false },
+  ];
+
+  i18n = {
+    vi: { home: 'Trang chủ', explore: 'Khám phá', scan: 'AR Scan', library: 'Thư viện', profile: 'Hồ sơ', greet: 'Xin chào,', homeTitle: 'Khám phá di sản', listen: 'Nghe thuyết minh', secDiscover: 'Đang chờ bạn khám phá', secFeatured: 'Di tích đặc sắc tuần này', libTitle: 'Thư viện', profTitle: 'Hồ sơ', offlineBanner: 'Chế độ offline — Đang dùng dữ liệu đã tải' },
+    en: { home: 'Home', explore: 'Explore', scan: 'AR Scan', library: 'Library', profile: 'Profile', greet: 'Hello,', homeTitle: 'Discover heritage', listen: 'Listen to guide', secDiscover: 'Waiting to be discovered', secFeatured: 'Featured sites this week', libTitle: 'Library', profTitle: 'Profile', offlineBanner: 'Offline mode — Using downloaded data' },
+    cn: { home: '首页', explore: '探索', scan: 'AR 扫描', library: '收藏', profile: '我的', greet: '你好，', homeTitle: '探索文化遗产', listen: '收听讲解', secDiscover: '等待你的发现', secFeatured: '本周精选遗址', libTitle: '收藏', profTitle: '我的', offlineBanner: '离线模式 — 使用已下载数据' },
+  };
+
+  componentDidMount() {
+    this._splashT = setTimeout(() => this.setState({ screen: 'onboarding', onbStep: 0 }), 1600);
+    this._onClick = (e) => {
+      const el = e.target.closest && e.target.closest('[data-ripple]');
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const span = document.createElement('span');
+      span.className = 'vh-ripple';
+      const size = Math.max(r.width, r.height);
+      span.style.width = span.style.height = size + 'px';
+      span.style.left = ((e.clientX || (r.left + r.width / 2)) - r.left - size / 2) + 'px';
+      span.style.top = ((e.clientY || (r.top + r.height / 2)) - r.top - size / 2) + 'px';
+      el.appendChild(span);
+      setTimeout(() => span.remove(), 600);
+    };
+    document.addEventListener('click', this._onClick, true);
+
+    // long press
+    this._lpStart = (e) => {
+      const el = e.target.closest && e.target.closest('[data-longpress]');
+      if (!el) return;
+      this._lpTimer = setTimeout(() => {
+        this._lpFired = true;
+        this.setState({ sheet: 'context' });
+        if (navigator.vibrate) navigator.vibrate(15);
+      }, 500);
+    };
+    this._lpEnd = () => { clearTimeout(this._lpTimer); setTimeout(() => { this._lpFired = false; }, 50); };
+    document.addEventListener('mousedown', this._lpStart, true);
+    document.addEventListener('touchstart', this._lpStart, true);
+    document.addEventListener('mouseup', this._lpEnd, true);
+    document.addEventListener('touchend', this._lpEnd, true);
+
+    // drag move/up
+    this._move = (e) => {
+      if (!this.state.dragging) return;
+      const y = e.clientY != null ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+      this.setState({ dragY: y - this._dragStartY });
+    };
+    this._up = () => {
+      if (!this.state.dragging) return;
+      const dy = this.state.dragY;
+      const tgt = this.state.dragTarget;
+      if (tgt === 'art') {
+        let snap = this._dragSnap;
+        if (dy > 90) snap = 'half';
+        else if (dy < -90) snap = 'full';
+        if (dy > 220 && this._dragSnap === 'half') { this.setState({ dragging: false, dragY: 0, sheet: null }); return; }
+        this.setState({ dragging: false, dragY: 0, sheetSnap: snap });
+      } else {
+        let snap = this._dragSnap;
+        if (dy < -70) snap = snap === 'collapsed' ? 'half' : 'full';
+        else if (dy > 70) snap = snap === 'full' ? 'half' : 'collapsed';
+        this.setState({ dragging: false, dragY: 0, sheetSnap: snap });
+      }
+    };
+    window.addEventListener('mousemove', this._move);
+    window.addEventListener('touchmove', this._move, { passive: true });
+    window.addEventListener('mouseup', this._up);
+    window.addEventListener('touchend', this._up);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this._splashT); clearTimeout(this._scanT); clearTimeout(this._lpTimer); clearInterval(this._audioT);
+    document.removeEventListener('click', this._onClick, true);
+    document.removeEventListener('mousedown', this._lpStart, true);
+    document.removeEventListener('touchstart', this._lpStart, true);
+    document.removeEventListener('mouseup', this._lpEnd, true);
+    document.removeEventListener('touchend', this._lpEnd, true);
+    window.removeEventListener('mousemove', this._move);
+    window.removeEventListener('touchmove', this._move);
+    window.removeEventListener('mouseup', this._up);
+    window.removeEventListener('touchend', this._up);
+  }
+
+  t(k) { return (this.i18n[this.state.language] || this.i18n.vi)[k]; }
+  vimg(seed, w, h) { const key = 'vh' + seed; const r = (typeof window !== 'undefined' && window.__resources && window.__resources[key]); return r || ('https://picsum.photos/seed/' + key + '/' + w + '/' + h); }
+  showToast(msg) { clearTimeout(this._toastT); this.setState({ toast: msg }); this._toastT = setTimeout(() => this.setState({ toast: null }), 2400); }
+
+  go(s) {
+    if (this._lpFired) return;
+    const h = this.state.history.slice();
+    if (this.state.screen && this.state.screen !== s) h.push(this.state.screen);
+    if (s === 'scan') { this.setState({ screen: 'scan', history: h }); this.beginScan(); return; }
+    this.setState({ screen: s, history: h, sheet: null });
+  }
+  back() {
+    const h = this.state.history.slice();
+    const prev = h.pop() || 'home';
+    this.setState({ screen: prev, history: h, sheet: null });
+  }
+
+  beginScan() {
+    clearTimeout(this._scanT);
+    this.setState({ scanState: 'scanning', failNext: false });
+    this._scanT = setTimeout(() => {
+      if (this.state.failNext) { this.setState({ scanState: 'failed' }); if (navigator.vibrate) navigator.vibrate([20, 40, 20]); }
+      else this.scanSuccess();
+    }, 2200);
+  }
+  forceFail() { clearTimeout(this._scanT); this.setState({ failNext: true }); this._scanT = setTimeout(() => this.setState({ scanState: 'failed' }), 600); }
+  retryScan() { this.setState({ scanState: 'scanning', failNext: false }); clearTimeout(this._scanT); this._scanT = setTimeout(() => this.scanSuccess(), 1800); }
+  scanBrowse() { this.setState({ screen: 'explore', scanState: 'idle' }); }
+  scanSuccess() {
+    this.setState({ scanState: 'flash' });
+    if (navigator.vibrate) navigator.vibrate(15);
+    setTimeout(() => {
+      this.setState({ scanState: 'idle', screen: 'home', currentArtifactId: 1, sheet: 'artifact', sheetSnap: 'full' });
+      this.startAudio();
+      this.showToast('✦ Đã nhận diện — Trống đồng Đông Sơn');
+    }, 450);
+  }
+  exitScan() { clearTimeout(this._scanT); this.setState({ scanState: 'idle' }); this.back(); }
+
+  openArtifact(id) {
+    if (this._lpFired) return;
+    const a = this.artifacts.find(x => x.id === id);
+    if (a.tier === 'premium' && !this.state.isPremium) { this.setState({ currentArtifactId: id, sheet: 'paywall' }); return; }
+    this.setState({ currentArtifactId: id, sheet: 'artifact', sheetSnap: 'half', isPlaying: false, audioProgress: 0 });
+    clearInterval(this._audioT);
+  }
+  openVenue(id) { if (this._lpFired) return; this.go('explore'); this.setState({ selectedPin: id, sheetSnap: 'half' }); }
+
+  startAudio() { clearInterval(this._audioT); this.setState({ isPlaying: true }); this._audioT = setInterval(() => { this.setState(s => { const p = s.audioProgress + 1.2; if (p >= 100) { clearInterval(this._audioT); return { audioProgress: 100, isPlaying: false }; } return { audioProgress: p }; }); }, 180); }
+  toggleAudio() { if (this.state.isPlaying) { clearInterval(this._audioT); this.setState({ isPlaying: false }); } else { if (this.state.audioProgress >= 100) this.setState({ audioProgress: 0 }); this.startAudio(); } }
+
+  toggleSave(id) {
+    const saved = this.state.saved.slice();
+    const i = saved.indexOf(id);
+    if (i >= 0) { saved.splice(i, 1); this.setState({ saved }); this.showToast('Đã gỡ khỏi bộ sưu tập'); }
+    else { saved.push(id); this.setState({ saved }); this.showToast('Đã thêm vào bộ sưu tập của bạn ✦'); }
+  }
+
+  sheetDown(e, target) {
+    this._dragStartY = e.clientY != null ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+    this._dragSnap = this.state.sheetSnap;
+    this.setState({ dragging: true, dragTarget: target, dragY: 0 });
+  }
+
+  renderVals() {
+    const st = this.state;
+    const cur = this.artifacts.find(a => a.id === st.currentArtifactId) || this.artifacts[0];
+    const isApp = ['home', 'explore', 'library', 'profile'].includes(st.screen);
+    const tierMeta = (a) => a.tier === 'premium'
+      ? { tierLabel: 'Nhà nghiên cứu', tierBg: 'var(--cta)', tierColor: '#fff' }
+      : { tierLabel: 'Khách tham quan', tierBg: 'var(--primary)', tierColor: 'var(--cream)' };
+
+    const artifactsView = this.artifacts.map(a => ({
+      ...a, img: this.vimg(a.seed, 320, 240), open: () => this.openArtifact(a.id),
+      ...tierMeta(a), locked: a.tier === 'premium' && !st.isPremium,
+    }));
+    const venuesView = this.venues.map(v => ({
+      ...v, img: this.vimg(v.seed, 200, 200), open: () => this.openVenue(v.id),
+      activeBorder: st.selectedPin === v.id ? 'var(--cta)' : 'var(--border)',
+    }));
+    const venuesTop = this.venues.slice(0, 2).map(v => ({ ...v, img: this.vimg(v.seed, 220, 200), open: () => this.openVenue(v.id) }));
+    const savedArts = this.artifacts.filter(a => st.saved.includes(a.id));
+    const savedView = savedArts.map(a => ({ ...a, img: this.vimg(a.seed, 300, 260), open: () => this.openArtifact(a.id), ...tierMeta(a) }));
+
+    const mapPins = this.venues.map(v => ({ ...v, select: () => this.setState({ selectedPin: v.id, sheetSnap: 'half' }), color: st.selectedPin === v.id ? 'var(--cta)' : 'var(--primary)', z: st.selectedPin === v.id ? 6 : 3 }));
+
+    // sheet transforms
+    const snapMap = { collapsed: 'translateY(calc(100% - 130px))', half: 'translateY(45%)', full: 'translateY(6%)' };
+    const drag = st.dragging ? st.dragY : 0;
+    const sheetTransform = `translateY(calc(${snapMap[st.sheetSnap] === undefined ? '45%' : snapMap[st.sheetSnap].replace('translateY(', '').replace(')', '')} + ${drag}px))`;
+    const artSnap = { half: 'translateY(40%)', full: 'translateY(6%)' };
+    const artBase = artSnap[st.sheetSnap] || 'translateY(40%)';
+    const artSheetTransform = `translateY(calc(${artBase.replace('translateY(', '').replace(')', '')} + ${drag}px))`;
+    const sheetTrans = st.dragging ? 'none' : 'transform .3s cubic-bezier(.32,.72,0,1)';
+
+    const navDef = [
+      { key: 'home', icon: 'ti-home', label: this.t('home') },
+      { key: 'explore', icon: 'ti-map-2', label: this.t('explore') },
+      { key: 'scan', isScan: true },
+      { key: 'library', icon: 'ti-bookmark', label: this.t('library') },
+      { key: 'profile', icon: 'ti-user', label: this.t('profile') },
+    ];
+    const navItems = navDef.map(n => {
+      const active = st.screen === n.key;
+      return {
+        ...n, normal: !n.isScan, go: () => this.go(n.key),
+        icon: active ? (n.icon || '') : (n.icon || ''),
+        color: active ? 'var(--cta)' : 'var(--text-tertiary)',
+        underline: active ? 'var(--cta)' : 'transparent',
+        labelDisp: (active || st.a11y) ? 'block' : 'none',
+      };
+    });
+
+    // onboarding
+    const walkSlides = [
+      { icon: 'ti-sparkles', title: 'Mỗi hiện vật đều có câu chuyện chưa được kể. Bạn sẽ là người khám phá nó.' },
+      { icon: 'ti-device-mobile', title: 'Giơ điện thoại lên. Lịch sử sẽ hiện ra trước mắt bạn.' },
+      { icon: 'ti-headphones', title: 'Nghe di sản kể chuyện — bằng giọng nói của chính nó.' },
+      { icon: 'ti-message-2-heart', title: 'Để lại dấu ấn của bạn tại những nơi lịch sử đã đi qua.' },
+    ];
+    const onbStep = st.onbStep;
+    const onbWalk = onbStep < 4;
+    const slide = walkSlides[Math.min(onbStep, 3)];
+    const onbDots = walkSlides.map((s, i) => ({ w: i === onbStep ? '22px' : '7px', c: i === onbStep ? 'var(--cta)' : 'var(--border)' }));
+
+    const langDefs = [
+      { code: 'vi', flag: '🇻🇳', name: 'Tiếng Việt' },
+      { code: 'en', flag: '🇬🇧', name: 'English' },
+      { code: 'cn', flag: '🇨🇳', name: '中文' },
+    ];
+    const langs = langDefs.map(l => ({ ...l, active: st.language === l.code, border: st.language === l.code ? 'var(--cta)' : 'var(--border)', pick: () => this.pickLang(l.code) }));
+
+    const ageQuick = [
+      { label: '< 18', y: 2010 }, { label: '18–30', y: 2000 }, { label: '31–45', y: 1985 }, { label: '46+', y: 1968 },
+    ].map(q => ({ ...q, pick: () => this.setState({ userAge: String(q.y) }) }));
+
+    const perms = [
+      { icon: 'ti-camera', title: 'Camera', sub: 'Để quét và xem hiện vật bằng AR' },
+      { icon: 'ti-map-pin', title: 'Vị trí', sub: 'Gợi ý di tích gần bạn' },
+      { icon: 'ti-microphone', title: 'Micro', sub: 'Tìm kiếm bằng giọng nói' },
+    ].map((p, i) => {
+      const granted = (this._granted || {})[i];
+      return { ...p, btnLabel: granted ? 'Đã cấp' : 'Cho phép', btnBg: granted ? 'var(--bg-tertiary)' : 'var(--cta)', btnColor: granted ? 'var(--text-secondary)' : '#fff', grant: () => { this._granted = Object.assign({}, this._granted, { [i]: true }); this.showToast('Đã cấp quyền ' + p.title); this.forceUpdate(); } };
+    });
+
+    const settings = [
+      { icon: 'ti-language', label: 'Ngôn ngữ', value: langDefs.find(l => l.code === st.language).name, chevron: 'ti-chevron-right', tap: () => this.setState({ sheet: 'lang' }) },
+      { icon: st.theme === 'light' ? 'ti-moon' : 'ti-sun', label: 'Giao diện', value: st.theme === 'light' ? 'Sáng' : 'Tối', chevron: 'ti-switch-horizontal', tap: () => this.setState({ theme: st.theme === 'light' ? 'dark' : 'light' }) },
+      { icon: 'ti-accessible', label: 'Trợ năng', value: st.a11y ? 'Bật' : 'Tắt', chevron: 'ti-switch-horizontal', tap: () => { this.setState({ a11y: !st.a11y }); this.showToast(st.a11y ? 'Đã tắt Trợ năng' : 'Đã bật Trợ năng — chữ lớn hơn'); } },
+      { icon: 'ti-wifi-off', label: 'Chế độ offline', value: st.isOffline ? 'Bật' : 'Tắt', chevron: 'ti-switch-horizontal', tap: () => { this.setState({ isOffline: !st.isOffline }); this.showToast(st.isOffline ? 'Đã bật kết nối mạng' : 'Đã chuyển sang offline'); } },
+      { icon: 'ti-database', label: 'Quản lý bộ nhớ', value: '7,2 GB', chevron: 'ti-chevron-right', tap: () => this.setState({ sheet: 'storage' }) },
+    ].map((s, i, arr) => ({ ...s, radius: arr.length === 1 ? '12px' : i === 0 ? '12px 12px 0 0' : i === arr.length - 1 ? '0 0 12px 12px' : '0' }));
+    // fix last border for settings
+    settings.forEach((s, i) => { if (i === settings.length - 1) s._last = true; });
+
+    const profileStats = [
+      { value: String(st.saved.length), label: 'Đã sưu tầm' },
+      { value: '23', label: 'Đã quét' },
+      { value: '2', label: 'Huy hiệu' },
+    ];
+    const achievements = this.achievementsData.map(a => ({ ...a, op: a.earned ? '1' : '0.45', bg: a.earned ? 'var(--cta)' : 'var(--bg-tertiary)', iconColor: a.earned ? '#fff' : 'var(--text-tertiary)', show: () => this.showToast(a.earned ? 'Đã đạt: ' + a.name : 'Chưa mở khoá: ' + a.name) }));
+
+    const premiumPerks = [
+      { icon: 'ti-history', text: 'Du hành thời gian qua các thời kỳ' },
+      { icon: 'ti-headphones', text: 'Audio thuyết minh chất lượng HD' },
+      { icon: 'ti-wand', text: 'Bộ lọc AR độc quyền cho ảnh chụp' },
+    ];
+
+    const shareTargets = [
+      { name: 'Zalo', icon: 'ti-brand-zalo', bg: '#0068FF' },
+      { name: 'Messenger', icon: 'ti-brand-messenger', bg: '#0084FF' },
+      { name: 'Facebook', icon: 'ti-brand-facebook', bg: '#1877F2' },
+      { name: 'Instagram', icon: 'ti-brand-instagram', bg: '#E1306C' },
+      { name: 'TikTok', icon: 'ti-brand-tiktok', bg: '#111' },
+      { name: 'Lưu máy', icon: 'ti-download', bg: 'var(--primary)' },
+    ].map(s => ({ ...s, tap: () => { this.setState({ sheet: null }); this.showToast('Đang lan tỏa di sản...'); } }));
+
+    const photoFilters = [
+      { name: 'Gốc', premium: false }, { name: 'Cổ điển', premium: false }, { name: 'Sơn mài', premium: true }, { name: 'Đông Hồ', premium: true },
+    ].map((f, i) => ({ ...f, border: i === 0 ? 'var(--cta)' : 'var(--border)', bg: i === 0 ? 'var(--cta)' : 'var(--bg-tertiary)', color: i === 0 ? '#fff' : 'var(--text-secondary)', lockDisp: (f.premium && !st.isPremium) ? 'inline' : 'none', tap: () => { if (f.premium && !st.isPremium) this.setState({ sheet: 'paywall' }); else this.showToast('Đã chọn bộ lọc ' + f.name); } }));
+
+    const dataPacks = [
+      { name: 'Phố cổ Hội An', size: '2,4 GB', note: 'Dùng gần nhất' },
+      { name: 'Bảo tàng Lịch sử', size: '1,8 GB', note: 'Không dùng 30 ngày' },
+      { name: 'Dinh Độc Lập', size: '1,1 GB', note: 'Không dùng 12 ngày' },
+    ].map(d => ({ ...d, del: () => this.showToast('Đã xoá gói ' + d.name) }));
+
+    const libTabs = [
+      { key: 'all', label: 'Tất cả' }, { key: 'art', label: 'Hiện vật' }, { key: 'venue', label: 'Địa điểm' },
+    ].map(t => ({ ...t, pick: () => this.setState({ libTab: t.key }), border: st.libTab === t.key ? 'var(--cta)' : 'var(--border)', bg: st.libTab === t.key ? 'var(--cta)' : 'transparent', color: st.libTab === t.key ? '#fff' : 'var(--text-secondary)' }));
+
+    const scanState = st.scanState;
+    const isSaved = st.saved.includes(cur.id);
+
+    const sheetActive = st.sheet;
+
+    return {
+      theme: st.theme, a11yAttr: st.a11y ? 'on' : 'off',
+      topPad: st.isOffline ? '60px' : '48px',
+      // phases
+      isSplash: st.screen === 'splash',
+      isOnboarding: st.screen === 'onboarding',
+      inApp: isApp,
+      isHome: st.screen === 'home', isExplore: st.screen === 'explore',
+      isLibrary: st.screen === 'library', isProfile: st.screen === 'profile',
+      isScan: st.screen === 'scan',
+      showNav: isApp,
+      offlineBanner: st.isOffline, t_offlineBanner: this.t('offlineBanner'),
+      // onboarding
+      onbStep, onbWalk, onbLang: onbStep === 4, onbAge: onbStep === 5, onbA11y: onbStep === 6, onbPerm: onbStep === 7,
+      onbIcon: slide.icon, onbTitle: slide.title, onbDots,
+      onbBtn: onbStep === 3 ? 'Tiếp tục' : 'Tiếp theo',
+      skipOnb: () => this.setState({ onbStep: 4 }),
+      nextOnb: () => this.nextOnb(),
+      finishOnb: () => this.finishOnb(),
+      enableA11y: () => { this.setState({ a11y: true, onbStep: 7 }); this.showToast('Đã bật Trợ năng'); },
+      langs, ageQuick, perms, userAge: st.userAge,
+      onAge: (e) => this.setState({ userAge: e.target.value }),
+      // home/i18n
+      t_greet: this.t('greet'), t_homeTitle: this.t('homeTitle'), t_listen: this.t('listen'),
+      t_secDiscover: this.t('secDiscover'), t_secFeatured: this.t('secFeatured'),
+      t_libTitle: this.t('libTitle'), t_profTitle: this.t('profTitle'),
+      t_flag: langDefs.find(l => l.code === st.language).flag,
+      themeIcon: st.theme === 'light' ? 'ti-moon' : 'ti-sun',
+      toggleTheme: () => this.setState({ theme: st.theme === 'light' ? 'dark' : 'light' }),
+      openLang: () => this.setState({ sheet: 'lang' }),
+      heroPlay: () => this.openArtifact(8),
+      goExplore: () => this.go('explore'),
+      artifactsView, venuesView, venuesTop,
+      // explore
+      mapPins, search: st.search, onSearch: (e) => this.setState({ search: e.target.value }),
+      sheetTransform, sheetTrans, sheetSnap: st.sheetSnap,
+      exploreCount: this.venues.length,
+      sheetDown: (e) => this.sheetDown(e, 'explore'),
+      cycleSheet: () => { const order = ['collapsed', 'half', 'full']; const i = order.indexOf(st.sheetSnap); this.setState({ sheetSnap: order[(i + 1) % 3] }); },
+      // library
+      libTabs, libEmpty: savedArts.length === 0, libHasItems: savedArts.length > 0, savedView,
+      libSubtitle: savedArts.length + ' hiện vật trong bộ sưu tập',
+      // profile
+      notPremium: !st.isPremium,
+      tierChipBg: st.isPremium ? 'var(--cta)' : 'var(--primary)', tierChipColor: st.isPremium ? '#fff' : 'var(--cream)',
+      tierChipIcon: st.isPremium ? 'ti-crown' : 'ti-user', tierChipLabel: st.isPremium ? 'Nhà nghiên cứu' : 'Khách tham quan',
+      profileStats, achievements, settings, openPaywall: () => this.setState({ sheet: 'paywall' }),
+      // nav
+      navItems,
+      // scanner
+      scanning: scanState === 'scanning', scanFailed: scanState === 'failed',
+      scanHint: scanState === 'scanning' ? 'Hướng camera vào hiện vật' : scanState === 'failed' ? 'Thử lại nhé' : '',
+      vfColor: scanState === 'failed' ? 'var(--error)' : 'var(--cta)',
+      vfAnim: scanState === 'failed' ? 'animation:vhShake .5s;' : '',
+      flashDisp: scanState === 'flash' ? 'block' : 'none',
+      exitScan: () => this.exitScan(), forceFail: () => this.forceFail(),
+      retryScan: () => this.retryScan(), scanBrowse: () => this.scanBrowse(),
+      // artifact sheet
+      curArt: { ...cur, ...tierMeta(cur), img: this.vimg(cur.seed, 500, 400) },
+      artSheetTransform, artDown: (e) => this.sheetDown(e, 'art'),
+      audioIcon: st.isPlaying ? 'ti-player-pause-filled' : 'ti-player-play-filled',
+      audioPct: st.audioProgress + '%',
+      audioTime: this.fmtTime(st.audioProgress),
+      toggleAudio: () => this.toggleAudio(),
+      ttLockDisp: st.isPremium ? 'none' : 'inline',
+      timeTravel: () => { if (st.isPremium) this.showToast('Đang tải Du hành thời gian...'); else this.setState({ sheet: 'paywall' }); },
+      openGuestbook: () => this.setState({ sheet: 'guestbook' }),
+      gbCount: this.guestbookData.length,
+      saveBg: isSaved ? 'var(--cta)' : 'var(--bg-secondary)', saveColor: isSaved ? '#fff' : 'var(--text-primary)',
+      saveIcon: isSaved ? 'ti-bookmark-filled' : 'ti-bookmark-plus', saveLabel: isSaved ? 'Đã lưu' : 'Thêm vào bộ sưu tập',
+      toggleSaveCur: () => this.toggleSave(cur.id),
+      openShare: () => this.setState({ sheet: 'share' }),
+      openScanShot: () => this.setState({ sheet: 'shot' }),
+      // overlays
+      anySheet: !!sheetActive && sheetActive !== 'shot',
+      closeSheet: () => { this.setState({ sheet: null }); },
+      sheetArtifact: sheetActive === 'artifact', sheetLang: sheetActive === 'lang',
+      sheetPaywall: sheetActive === 'paywall', sheetShare: sheetActive === 'share',
+      sheetGuestbook: sheetActive === 'guestbook', sheetShot: sheetActive === 'shot',
+      sheetContext: sheetActive === 'context', sheetStorage: sheetActive === 'storage',
+      premiumPerks, shareTargets, photoFilters, dataPacks,
+      guestbook: this.guestbookData.slice(),
+      gbText: st.gbText, onGb: (e) => this.setState({ gbText: e.target.value }),
+      postGb: () => this.postGb(),
+      activatePremium: () => { this.setState({ isPremium: true, sheet: null }); this.showToast('Premium đã kích hoạt — khám phá không giới hạn'); },
+      doShare: () => this.setState({ sheet: 'share' }),
+      ctxSave: () => { this.toggleSave(cur.id); this.setState({ sheet: null }); },
+      ctxShare: () => this.setState({ sheet: 'share' }),
+      // storage
+      storageText: 'Đã dùng 7,2 / 8 GB — Bộ nhớ gần đầy', storagePct: '90%', storageColor: 'var(--error)',
+      // toast & avatar
+      toast: st.toast,
+      showAvatar: st.a11y && isApp,
+      avatarTap: () => this.showToast('Bác muốn nghe thuyết minh hiện vật nào ạ?'),
+    };
+  }
+
+  fmtTime(p) { const total = 222; const cur = Math.floor(total * p / 100); const m = Math.floor(cur / 60); const s = cur % 60; return m + ':' + (s < 10 ? '0' : '') + s; }
+
+  nextOnb() {
+    const step = this.state.onbStep;
+    if (step < 3) { this.setState({ onbStep: step + 1 }); return; }
+    if (step === 3) { this.setState({ onbStep: 4 }); return; }
+    if (step === 4) { this.setState({ onbStep: 5 }); return; }
+    if (step === 5) {
+      const birth = parseInt(this.state.userAge, 10);
+      const age = birth > 1900 ? (2026 - birth) : 0;
+      if (age > 45) { this.setState({ onbStep: 6, a11y: false }); }
+      else { this.setState({ onbStep: 7 }); }
+      return;
+    }
+    if (step === 6) { this.setState({ onbStep: 7 }); return; }
+  }
+  finishOnb() { this.setState({ screen: 'home', history: [] }); this.showToast('Chào mừng đến với V-Heritage ✦'); }
+  pickLang(code) { this.setState({ language: code }); if (this.state.sheet === 'lang') { this.setState({ sheet: null }); this.showToast('Đã đổi ngôn ngữ'); } }
+  postGb() {
+    if (!this.state.gbText.trim()) { this.showToast('Hãy viết vài dòng nhé'); return; }
+    this.guestbookData = [{ id: Date.now(), text: this.state.gbText, author: 'Bạn', likes: 0, time: 'vừa xong' }, ...this.guestbookData];
+    this.setState({ gbText: '' });
+    this.showToast('Đã gửi — hiển thị sau khi kiểm duyệt');
+  }
+}
+</script>
+</body>
+</html>
