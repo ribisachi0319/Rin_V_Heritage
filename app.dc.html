@@ -61,12 +61,12 @@
   <div
       style="min-height:100vh;width:100%;background:radial-gradient(circle at 50% 0%,#4a4a52,#26262b);display:flex;align-items:center;justify-content:center;padding:24px 0;font-family:'Be Vietnam Pro',sans-serif;">
     <div
-        style="position:relative;width:412px;height:866px;border-radius:46px;background:#000;box-shadow:0 32px 70px rgba(0,0,0,.5),0 0 0 11px #18181c,0 0 0 13px #2e2e33;padding:11px;flex:none;">
+        style="position:relative;width:412px;height:866px;border-radius:46px;overflow:hidden;background:#000;box-shadow:0 32px 70px rgba(0,0,0,.5),0 0 0 11px #18181c,0 0 0 13px #2e2e33;padding:11px;flex:none;">
       <div
           style="position:absolute;top:21px;left:50%;transform:translateX(-50%);width:128px;height:30px;background:#000;border-radius:0 0 18px 18px;z-index:300;"></div>
       <div class="vh-app" data-theme="{{ theme }}" data-vlow="{{ vlow }}" data-vblind="{{ vblind }}"
            data-vmotor="{{ vmotor }}"
-           style="position:relative;width:390px;height:844px;border-radius:35px;overflow:hidden;background:var(--bg-primary);color:var(--text-primary);display:flex;flex-direction:column;">
+           style="position:relative;width:390px;height:844px;border-radius:35px;overflow:hidden;transform:translateZ(0);background:var(--bg-primary);color:var(--text-primary);display:flex;flex-direction:column;">
 
         <!-- offline banner -->
         <sc-if value="{{ offlineBanner }}" hint-placeholder-val="{{ false }}">
@@ -112,6 +112,7 @@
             <sc-if value="{{ isWalk }}" hint-placeholder-val="{{ false }}">
               <div data-screen-label="Walkthrough"
                    onTouchStart="{{ onWalkTouchStart }}" onTouchEnd="{{ onWalkTouchEnd }}"
+                   onMouseDown="{{ onWalkMouseDown }}" onMouseUp="{{ onWalkMouseUp }}"
                    style="position:absolute;inset:0;background:var(--bg-primary);display:flex;flex-direction:column;">
                 <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 20px 0;">
                   <sc-if value="{{ showPrevWalk }}">
@@ -4145,6 +4146,39 @@ class Component extends DCLogic {
 
 }
 Object.assign(Component.prototype, VH_DATA, VH_LOGIC, VH_RENDER);
+</script>
+<script>
+(function () {
+  const SKIP = new Set(['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'A']);
+  let drag = null;
+  let moved = false;
+  document.addEventListener('mousedown', function (e) {
+    if (SKIP.has(e.target.tagName)) return;
+    const el = e.target.closest('.vh-scroll');
+    if (!el) return;
+    drag = { el, x: e.clientX, y: e.clientY, sl: el.scrollLeft, st: el.scrollTop };
+    moved = false;
+  });
+  document.addEventListener('mousemove', function (e) {
+    if (!drag) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    drag.el.scrollLeft = drag.sl - dx;
+    drag.el.scrollTop = drag.st - dy;
+    if (drag.el.scrollLeft !== drag.sl || drag.el.scrollTop !== drag.st) moved = true;
+  });
+  document.addEventListener('mouseup', function () {
+    if (moved) {
+      document.addEventListener('click', function block(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        document.removeEventListener('click', block, true);
+      }, true);
+    }
+    drag = null;
+    moved = false;
+  });
+  document.addEventListener('mouseleave', function () { drag = null; moved = false; });
+})();
 </script>
 </body>
 </html>

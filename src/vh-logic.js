@@ -49,6 +49,7 @@ window.VH_LOGIC = {
     this._lpStart = (e) => {
       const el = e.target.closest && e.target.closest('[data-longpress]');
       if (!el) return;
+      this._lpOrigin = {x: (e.touches ? e.touches[0] : e).clientX, y: (e.touches ? e.touches[0] : e).clientY};
       const id = parseInt(el.getAttribute('data-longpress'), 10);
       this._lpTimer = setTimeout(() => {
         this._lpFired = true;
@@ -56,14 +57,20 @@ window.VH_LOGIC = {
         if (navigator.vibrate) navigator.vibrate(15);
       }, 500);
     };
+    this._lpMove = (e) => {
+      if (!this._lpTimer) return;
+      const p = e.touches ? e.touches[0] : e;
+      const o = this._lpOrigin || {x: p.clientX, y: p.clientY};
+      if (Math.abs(p.clientX - o.x) > 5 || Math.abs(p.clientY - o.y) > 5) clearTimeout(this._lpTimer);
+    };
     this._lpEnd = () => {
       clearTimeout(this._lpTimer);
-      setTimeout(() => {
-        this._lpFired = false;
-      }, 60);
+      setTimeout(() => { this._lpFired = false; }, 60);
     };
     document.addEventListener('mousedown', this._lpStart, true);
     document.addEventListener('touchstart', this._lpStart, true);
+    document.addEventListener('mousemove', this._lpMove, true);
+    document.addEventListener('touchmove', this._lpMove, true);
     document.addEventListener('mouseup', this._lpEnd, true);
     document.addEventListener('touchend', this._lpEnd, true);
   },
@@ -177,6 +184,14 @@ window.VH_LOGIC = {
   },
   onWalkTouchEnd(e) {
     const dx = e.changedTouches[0].clientX - (this._walkTouchX || 0);
+    if (Math.abs(dx) < 50) return;
+    if (dx < 0) this.nextWalk(); else this.prevWalk();
+  },
+  onWalkMouseDown(e) {
+    this._walkMouseX = e.clientX;
+  },
+  onWalkMouseUp(e) {
+    const dx = e.clientX - (this._walkMouseX || 0);
     if (Math.abs(dx) < 50) return;
     if (dx < 0) this.nextWalk(); else this.prevWalk();
   },
