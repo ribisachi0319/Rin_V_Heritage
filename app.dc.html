@@ -836,6 +836,24 @@
                     </div>
                   </div>
                 </div>
+                <!-- premium upsell -->
+                <sc-if value="{{ profNotPremium }}" hint-placeholder-val="{{ true }}">
+                  <div
+                      style="margin:14px 18px 0;border-radius:16px;background:linear-gradient(135deg,var(--primary),var(--primary-d));padding:18px;position:relative;overflow:hidden;">
+                    <i class="ti ti-crown"
+                       style="position:absolute;right:-10px;top:-10px;font-size:90px;color:rgba(255,255,255,.08);"></i>
+                    <div class="vh-serif" style="font-size:18px;font-weight:600;color:var(--on-primary);">Khám
+                      phá chiều sâu của di sản
+                    </div>
+                    <div style="font-size:13px;color:var(--on-primary);margin-top:6px;line-height:1.5;">
+                      Audio HD, du hành thời gian, bộ lọc AR 3D và hơn thế nữa.
+                    </div>
+                    <button data-ripple="1" onClick="{{ openPaywall }}"
+                            style="position:relative;overflow:hidden;margin-top:14px;border:none;background:var(--cta);color:#fff;font-size:14px;font-weight:600;padding:11px 18px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;">
+                      <i class="ti ti-crown" style="font-size:17px;"></i>Xem các gói nâng cấp
+                    </button>
+                  </div>
+                </sc-if>
                 <!-- discover -->
                 <div style="display:flex;align-items:center;justify-content:space-between;padding:24px 18px 10px;">
                   <div class="vh-serif" style="font-size:18px;font-weight:600;">{{ t_secDiscover }}
@@ -2268,23 +2286,6 @@
                     </div>
                   </sc-for>
                 </div>
-                <sc-if value="{{ profNotPremium }}" hint-placeholder-val="{{ true }}">
-                  <div
-                      style="margin:12px 18px;border-radius:16px;background:linear-gradient(135deg,var(--primary),var(--primary-d));padding:18px;position:relative;overflow:hidden;">
-                    <i class="ti ti-crown"
-                       style="position:absolute;right:-10px;top:-10px;font-size:90px;color:rgba(255,255,255,.08);"></i>
-                    <div class="vh-serif" style="font-size:18px;font-weight:600;color:var(--on-primary);">Khám
-                      phá chiều sâu của di sản
-                    </div>
-                    <div style="font-size:13px;color:var(--on-primary);margin-top:6px;line-height:1.5;">
-                      Audio HD, du hành thời gian, bộ lọc AR 3D và hơn thế nữa.
-                    </div>
-                    <button data-ripple="1" onClick="{{ openPaywall }}"
-                            style="position:relative;overflow:hidden;margin-top:14px;border:none;background:var(--cta);color:#fff;font-size:14px;font-weight:600;padding:11px 18px;border-radius:8px;cursor:pointer;">
-                      Xem các gói
-                    </button>
-                  </div>
-                </sc-if>
                 <sc-if value="{{ profIsPremium }}" hint-placeholder-val="{{ false }}">
                   <button data-ripple="1" onClick="{{ openManagePremium }}"
                           style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:calc(100% - 36px);margin:12px 18px;border-radius:16px;background:linear-gradient(135deg,var(--cta),var(--cta-d));padding:16px;cursor:pointer;border:none;text-align:left;">
