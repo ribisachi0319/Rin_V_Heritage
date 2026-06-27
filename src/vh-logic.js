@@ -66,7 +66,9 @@ window.VH_LOGIC = {
     };
     this._lpEnd = () => {
       clearTimeout(this._lpTimer);
-      setTimeout(() => { this._lpFired = false; }, 60);
+      setTimeout(() => {
+        this._lpFired = false;
+      }, 60);
     };
     document.addEventListener('mousedown', this._lpStart, true);
     document.addEventListener('touchstart', this._lpStart, true);
@@ -309,7 +311,15 @@ window.VH_LOGIC = {
   downloadNearby() {
     const packs = this.state.packs || [];
     if (!packs.some(p => p.id === 'pnear')) {
-      this.setState({packs: [{id: 'pnear', name: 'Bảo tàng Mỹ thuật Việt Nam', size: 0.4, note: 'Vừa tải', fav: false}, ...packs]});
+      this.setState({
+        packs: [{
+          id: 'pnear',
+          name: 'Bảo tàng Mỹ thuật Việt Nam',
+          size: 0.4,
+          note: 'Vừa tải',
+          fav: false
+        }, ...packs]
+      });
     }
     this.showToast('Đã tải gói AR — Bảo tàng Mỹ thuật Việt Nam ✦');
     this.goTab('home');
@@ -602,7 +612,13 @@ window.VH_LOGIC = {
   openArtifactModel(id) {
     if (this._lpFired) return;
     const art = this.artifacts.find(a => a.id === id);
-    this.setState({curArtId: id, isPlaying: false, audioProgress: 0, _fromScan: false, _visitVenue: art ? art.venue : this.state._visitVenue});
+    this.setState({
+      curArtId: id,
+      isPlaying: false,
+      audioProgress: 0,
+      _fromScan: false,
+      _visitVenue: art ? art.venue : this.state._visitVenue
+    });
     clearInterval(this._audioT);
     this.recordVisit(id);
     this.nav('threed', 'fwd');

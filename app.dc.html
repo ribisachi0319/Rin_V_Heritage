@@ -787,18 +787,27 @@
                       style="width:84px;height:84px;border-radius:50%;background:rgba(237,137,39,.14);display:flex;align-items:center;justify-content:center;margin:0 auto;">
                     <i class="ti ti-map-pin-heart" style="font-size:44px;color:var(--cta);"></i>
                   </div>
-                  <div class="vh-serif" style="font-size:24px;font-weight:600;text-align:center;margin-top:20px;color:var(--text-primary);">Bạn đang ở gần đây</div>
-                  <div style="font-size:14px;color:var(--text-secondary);text-align:center;margin-top:10px;line-height:1.6;">
+                  <div class="vh-serif"
+                       style="font-size:24px;font-weight:600;text-align:center;margin-top:20px;color:var(--text-primary);">
+                    Bạn đang ở gần đây
+                  </div>
+                  <div
+                      style="font-size:14px;color:var(--text-secondary);text-align:center;margin-top:10px;line-height:1.6;">
                     V-Heritage phát hiện địa điểm di sản gần bạn và gợi ý tải gói AR phù hợp.
                   </div>
                   <!-- card di sản gần đây -->
-                  <div style="margin-top:28px;background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow);">
+                  <div
+                      style="margin-top:28px;background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow);">
                     <div style="display:flex;gap:14px;">
                       <img src="{{ nearbyImg }}" alt=""
                            style="width:74px;height:74px;border-radius:12px;object-fit:cover;flex:none;">
                       <div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;">
-                        <div class="vh-serif" style="font-size:16px;font-weight:600;line-height:1.25;color:var(--text-primary);">{{ nearbyName }}</div>
-                        <div style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-secondary);margin-top:6px;">
+                        <div class="vh-serif"
+                             style="font-size:16px;font-weight:600;line-height:1.25;color:var(--text-primary);">{{
+                          nearbyName }}
+                        </div>
+                        <div
+                            style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-secondary);margin-top:6px;">
                           <i class="ti ti-map-pin" style="font-size:14px;color:var(--cta);"></i>{{ nearbyLoc }}
                         </div>
                       </div>
@@ -854,18 +863,26 @@
                 <!-- tiếp tục tham quan -->
                 <sc-if value="{{ showContinueCard }}" hint-placeholder-val="{{ false }}">
                   <div style="padding:14px 18px 0;">
-                    <div class="vh-serif" style="font-size:18px;font-weight:600;margin-bottom:10px;">Tiếp tục tham quan</div>
-                    <div style="display:flex;align-items:center;gap:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:12px;box-shadow:var(--shadow);">
+                    <div class="vh-serif" style="font-size:18px;font-weight:600;margin-bottom:10px;">Tiếp tục tham
+                      quan
+                    </div>
+                    <div
+                        style="display:flex;align-items:center;gap:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:12px;box-shadow:var(--shadow);">
                       <img src="{{ contImg }}" alt=""
                            style="width:60px;height:60px;border-radius:10px;object-fit:cover;flex:none;">
                       <div style="flex:1;min-width:0;">
                         <div class="vh-serif"
-                             style="font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ contVenName }}</div>
+                             style="font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                          {{ contVenName }}
+                        </div>
                         <div style="display:flex;align-items:center;gap:8px;margin-top:9px;">
-                          <div style="flex:1;height:6px;border-radius:99px;background:var(--bg-tertiary);overflow:hidden;">
-                            <div style="height:100%;width:{{ contPct }};background:var(--cta);border-radius:99px;transition:width .3s;"></div>
+                          <div
+                              style="flex:1;height:6px;border-radius:99px;background:var(--bg-tertiary);overflow:hidden;">
+                            <div
+                                style="height:100%;width:{{ contPct }};background:var(--cta);border-radius:99px;transition:width .3s;"></div>
                           </div>
-                          <span style="font-size:11px;font-weight:600;color:var(--text-tertiary);font-variant-numeric:tabular-nums;flex:none;">{{ contX }}/{{ contY }}</span>
+                          <span
+                              style="font-size:11px;font-weight:600;color:var(--text-tertiary);font-variant-numeric:tabular-nums;flex:none;">{{ contX }}/{{ contY }}</span>
                         </div>
                       </div>
                       <button data-ripple="1" onClick="{{ contContinue }}"
@@ -1123,7 +1140,8 @@
                     <div
                         style="width:40px;height:4px;border-radius:99px;background:var(--border-2);margin:8px auto;"></div>
                   </div>
-                  <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 18px 8px;">
+                  <div
+                      style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 18px 8px;">
                     <div class="vh-serif" style="font-size:18px;font-weight:600;">{{ exploreTitle }}</div>
                     <sc-if value="{{ exploreNoLoc }}" hint-placeholder-val="{{ false }}">
                       <button data-ripple="1" onClick="{{ enableLoc }}"
@@ -1597,24 +1615,35 @@
                   <img src="{{ timeImg }}" alt=""
                        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:{{ timeFilter }};transition:filter .3s;">
                   <!-- lớp lưới 'phục dựng 3D' -->
-                  <div style="position:absolute;inset:0;display:{{ time3DDisp }};background-image:linear-gradient(rgba(95,138,236,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(95,138,236,.25) 1px,transparent 1px);background-size:34px 34px;mix-blend-mode:screen;"></div>
-                  <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(13,18,32,.6),transparent 40%);"></div>
+                  <div
+                      style="position:absolute;inset:0;display:{{ time3DDisp }};background-image:linear-gradient(rgba(95,138,236,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(95,138,236,.25) 1px,transparent 1px);background-size:34px 34px;mix-blend-mode:screen;"></div>
+                  <div
+                      style="position:absolute;inset:0;background:linear-gradient(to top,rgba(13,18,32,.6),transparent 40%);"></div>
                   <!-- badge loại hình -->
-                  <div style="position:absolute;top:52px;right:18px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);color:#fff;font-size:11px;font-weight:600;padding:6px 12px;border-radius:99px;">
+                  <div
+                      style="position:absolute;top:52px;right:18px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);color:#fff;font-size:11px;font-weight:600;padding:6px 12px;border-radius:99px;">
                     <i class="ti {{ timeBadgeIcon }}" style="font-size:14px;color:var(--cta);"></i>{{ timeBadge }}
                   </div>
                 </div>
                 <div style="flex:none;padding:16px 24px 34px;background:#0d1220;">
                   <!-- title + mô tả (sát thanh trượt) -->
-                  <div class="vh-serif" style="font-size:21px;font-weight:600;color:#fff;text-align:center;">{{ timeLabel }}</div>
-                  <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;text-align:center;line-height:1.6;">{{ timeBigSub }}</div>
+                  <div class="vh-serif" style="font-size:21px;font-weight:600;color:#fff;text-align:center;">{{
+                    timeLabel }}
+                  </div>
+                  <div
+                      style="font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;text-align:center;line-height:1.6;">
+                    {{ timeBigSub }}
+                  </div>
                   <!-- thanh trượt: vùng bấm lớn (label + bar) -->
                   <div style="display:flex;gap:8px;margin-top:16px;">
                     <sc-for list="{{ timeStages }}" as="s" hint-placeholder-count="3">
                       <button data-ripple="1" onClick="{{ s.pick }}"
                               style="position:relative;overflow:hidden;flex:1;background:transparent;border:none;cursor:pointer;padding:8px 0 4px;display:flex;flex-direction:column;align-items:center;gap:8px;">
-                        <span style="font-size:11px;font-weight:600;color:{{ s.labelColor }};display:flex;align-items:center;gap:3px;">{{ s.label }}<i class="ti ti-crown" style="font-size:11px;color:var(--cta);display:{{ s.crownDisp }};"></i></span>
-                        <span style="width:100%;height:8px;border-radius:99px;background:{{ s.barBg }};transition:background .25s;"></span>
+                        <span
+                            style="font-size:11px;font-weight:600;color:{{ s.labelColor }};display:flex;align-items:center;gap:3px;">{{ s.label }}<i
+                            class="ti ti-crown" style="font-size:11px;color:var(--cta);display:{{ s.crownDisp }};"></i></span>
+                        <span
+                            style="width:100%;height:8px;border-radius:99px;background:{{ s.barBg }};transition:background .25s;"></span>
                       </button>
                     </sc-for>
                   </div>
@@ -4355,16 +4384,19 @@
               <div style="display:flex;align-items:center;justify-content:space-between;">
                 <div style="display:flex;align-items:center;gap:8px;">
                   <div class="vh-serif" style="font-size:18px;font-weight:600;">AR Guestbook</div>
-                  <span style="display:{{ gbPremiumDisp }};align-items:center;gap:3px;background:var(--cta);color:#fff;font-size:9px;font-weight:700;letter-spacing:.03em;padding:3px 8px;border-radius:99px;">
+                  <span
+                      style="display:{{ gbPremiumDisp }};align-items:center;gap:3px;background:var(--cta);color:#fff;font-size:9px;font-weight:700;letter-spacing:.03em;padding:3px 8px;border-radius:99px;">
                     <i class="ti ti-crown" style="font-size:11px;"></i>PREMIUM</span>
                 </div>
                 <div style="font-size:12px;color:var(--text-tertiary);">{{ gbCount }} lời nhắn</div>
               </div>
               <sc-if value="{{ gbIsPremium }}" hint-placeholder-val="{{ false }}">
                 <div style="display:flex;gap:8px;margin-top:8px;">
-                  <span style="display:inline-flex;align-items:center;gap:4px;background:var(--bg-tertiary);color:var(--text-secondary);font-size:11px;font-weight:600;padding:5px 10px;border-radius:99px;">
+                  <span
+                      style="display:inline-flex;align-items:center;gap:4px;background:var(--bg-tertiary);color:var(--text-secondary);font-size:11px;font-weight:600;padding:5px 10px;border-radius:99px;">
                     <i class="ti ti-calendar-time" style="font-size:13px;color:var(--cta);"></i>60 ngày hiển thị</span>
-                  <span style="display:inline-flex;align-items:center;gap:4px;background:var(--bg-tertiary);color:var(--text-secondary);font-size:11px;font-weight:600;padding:5px 10px;border-radius:99px;">
+                  <span
+                      style="display:inline-flex;align-items:center;gap:4px;background:var(--bg-tertiary);color:var(--text-secondary);font-size:11px;font-weight:600;padding:5px 10px;border-radius:99px;">
                     <i class="ti ti-pencil" style="font-size:13px;color:var(--cta);"></i>{{ gbRemaining }} lượt còn lại hôm nay</span>
                 </div>
               </sc-if>
@@ -4385,7 +4417,7 @@
                     {{ g.text }}
                   </div>
                   <button data-ripple="1" onClick="{{ g.toggleLike }}"
-                      style="position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:12px;color:{{ g.heartColor }};background:transparent;border:none;cursor:pointer;padding:2px 0;">
+                          style="position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:12px;color:{{ g.heartColor }};background:transparent;border:none;cursor:pointer;padding:2px 0;">
                     <i class="ti {{ g.heartIcon }}" style="font-size:16px;"></i>{{ g.likeCount }}
                   </button>
                 </div>
@@ -4398,7 +4430,9 @@
                   <i class="ti ti-lock" style="font-size:24px;color:var(--cta);flex:none;"></i>
                   <div style="flex:1;">
                     <div style="font-size:13px;font-weight:600;color:var(--cta);">Mở khoá viết lời nhắn</div>
-                    <div style="font-size:11px;color:var(--text-secondary);">Nâng cấp gói Nhà nghiên cứu để để lại dấu ấn của bạn</div>
+                    <div style="font-size:11px;color:var(--text-secondary);">Nâng cấp gói Nhà nghiên cứu để để lại dấu
+                      ấn của bạn
+                    </div>
                   </div>
                   <i class="ti ti-crown" style="font-size:18px;color:var(--cta);flex:none;"></i>
                 </button>
@@ -4417,7 +4451,8 @@
                     <input value="{{ gbText }}" onInput="{{ onGbText }}" maxlength="200"
                            placeholder="Để lại dấu ấn của bạn..."
                            style="width:100%;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:13px 58px 13px 14px;font-size:14px;color:var(--text-primary);outline:none;">
-                    <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:10px;color:var(--text-tertiary);font-variant-numeric:tabular-nums;">{{ gbCharCount }}/200</span>
+                    <span
+                        style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:10px;color:var(--text-tertiary);font-variant-numeric:tabular-nums;">{{ gbCharCount }}/200</span>
                   </div>
                   <button data-ripple="1" onClick="{{ postGuestbook }}"
                           style="position:relative;overflow:hidden;width:48px;height:48px;border:none;background:var(--cta);color:#fff;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;">

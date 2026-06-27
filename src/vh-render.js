@@ -258,15 +258,44 @@ window.VH_RENDER = {
     const st = this.state;
     const ws = this.walkSlides[Math.min(st.walkStep, 3)];
     const social = [
-      {name: 'Google', icon: '', paths: [
-        {d: 'M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z', fill: '#4285F4'},
-        {d: 'M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z', fill: '#34A853'},
-        {d: 'M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z', fill: '#FBBC05'},
-        {d: 'M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z', fill: '#EA4335'},
-      ], color: ''},
-      {name: 'Apple', icon: '', svgPath: 'M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701', color: 'var(--text-primary)'},
-      {name: 'Zalo', icon: '', svgPath: 'M12.49 10.2722v-.4496h1.3467v6.3218h-.7704a.576.576 0 01-.5763-.5729l-.0006.0005a3.273 3.273 0 01-1.9372.6321c-1.8138 0-3.2844-1.4697-3.2844-3.2823 0-1.8125 1.4706-3.2822 3.2844-3.2822a3.273 3.273 0 011.9372.6321l.0006.0005zM6.9188 7.7896v.205c0 .3823-.051.6944-.2995 1.0605l-.03.0343c-.0542.0615-.1815.206-.2421.2843L2.024 14.8h4.8948v.7682a.5764.5764 0 01-.5767.5761H0v-.3622c0-.4436.1102-.6414.2495-.8476L4.8582 9.23H.1922V7.7896h6.7266zm8.5513 8.3548a.4805.4805 0 01-.4803-.4798v-7.875h1.4416v8.3548H15.47zM20.6934 9.6C22.52 9.6 24 11.0807 24 12.9044c0 1.8252-1.4801 3.306-3.3066 3.306-1.8264 0-3.3066-1.4808-3.3066-3.306 0-1.8237 1.4802-3.3044 3.3066-3.3044zm-10.1412 5.253c1.0675 0 1.9324-.8645 1.9324-1.9312 0-1.065-.865-1.9295-1.9324-1.9295s-1.9324.8644-1.9324 1.9295c0 1.0667.865 1.9312 1.9324 1.9312zm10.1412-.0033c1.0737 0 1.945-.8707 1.945-1.9453 0-1.073-.8713-1.9436-1.945-1.9436-1.0753 0-1.945.8706-1.945 1.9436 0 1.0746.8697 1.9453 1.945 1.9453z', color: '#0068FF'},
-      {name: 'Facebook', icon: '', svgPath: 'M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z', color: '#1877F2'},
+      {
+        name: 'Google', icon: '', paths: [
+          {
+            d: 'M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z',
+            fill: '#4285F4'
+          },
+          {
+            d: 'M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z',
+            fill: '#34A853'
+          },
+          {
+            d: 'M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z',
+            fill: '#FBBC05'
+          },
+          {
+            d: 'M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z',
+            fill: '#EA4335'
+          },
+        ], color: ''
+      },
+      {
+        name: 'Apple',
+        icon: '',
+        svgPath: 'M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701',
+        color: 'var(--text-primary)'
+      },
+      {
+        name: 'Zalo',
+        icon: '',
+        svgPath: 'M12.49 10.2722v-.4496h1.3467v6.3218h-.7704a.576.576 0 01-.5763-.5729l-.0006.0005a3.273 3.273 0 01-1.9372.6321c-1.8138 0-3.2844-1.4697-3.2844-3.2823 0-1.8125 1.4706-3.2822 3.2844-3.2822a3.273 3.273 0 011.9372.6321l.0006.0005zM6.9188 7.7896v.205c0 .3823-.051.6944-.2995 1.0605l-.03.0343c-.0542.0615-.1815.206-.2421.2843L2.024 14.8h4.8948v.7682a.5764.5764 0 01-.5767.5761H0v-.3622c0-.4436.1102-.6414.2495-.8476L4.8582 9.23H.1922V7.7896h6.7266zm8.5513 8.3548a.4805.4805 0 01-.4803-.4798v-7.875h1.4416v8.3548H15.47zM20.6934 9.6C22.52 9.6 24 11.0807 24 12.9044c0 1.8252-1.4801 3.306-3.3066 3.306-1.8264 0-3.3066-1.4808-3.3066-3.306 0-1.8237 1.4802-3.3044 3.3066-3.3044zm-10.1412 5.253c1.0675 0 1.9324-.8645 1.9324-1.9312 0-1.065-.865-1.9295-1.9324-1.9295s-1.9324.8644-1.9324 1.9295c0 1.0667.865 1.9312 1.9324 1.9312zm10.1412-.0033c1.0737 0 1.945-.8707 1.945-1.9453 0-1.073-.8713-1.9436-1.945-1.9436-1.0753 0-1.945.8706-1.945 1.9436 0 1.0746.8697 1.9453 1.945 1.9453z',
+        color: '#0068FF'
+      },
+      {
+        name: 'Facebook',
+        icon: '',
+        svgPath: 'M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z',
+        color: '#1877F2'
+      },
     ].map(s => ({...s, tap: () => this.socialLogin(s.name, s.icon, s.color)}));
 
     const rg = st.rg;
@@ -379,7 +408,9 @@ window.VH_RENDER = {
       rgPanelAnim: rg._dir === 'back' ? 'vhPopIn' : 'vhPushIn',
       rgGoNext: () => this.rgGoNext(),
       rgGoPrev: () => this.rgGoPrev(),
-      rgBackTap: () => { if ((rg.step || 1) <= 1) this.back(); else this.rgGoPrev(); },
+      rgBackTap: () => {
+        if ((rg.step || 1) <= 1) this.back(); else this.rgGoPrev();
+      },
       onRgTouchStart: (e) => this.onRgTouchStart(e),
       onRgTouchEnd: (e) => this.onRgTouchEnd(e),
       rgFirst: rg.first,
@@ -1003,7 +1034,23 @@ window.VH_RENDER = {
         {icon: 'ti-shield-lock', label: 'Tài khoản & Bảo mật', tap: () => this.nav('accountsecurity', 'fwd')},
         {icon: 'ti-help-circle', label: 'Trợ giúp & FAQ', tap: () => this.nav('help', 'fwd')},
         {icon: 'ti-info-circle', label: 'Về V-Heritage', tap: () => this.nav('about', 'fwd')},
-        {icon: 'ti-logout', label: 'Đăng xuất', tap: () => this.setState({modal: 'generic', modalData: {icon: 'ti-logout', iconBg: 'rgba(221,14,14,.1)', iconColor: 'var(--error)', title: 'Đăng xuất?', body: 'Bạn sẽ cần đăng nhập lại để tiếp tục khám phá.', primary: 'Đăng xuất', onPrimary: () => this.logout(), secondary: 'Huỷ'}})},
+        {
+          icon: 'ti-logout',
+          label: 'Đăng xuất',
+          tap: () => this.setState({
+            modal: 'generic',
+            modalData: {
+              icon: 'ti-logout',
+              iconBg: 'rgba(221,14,14,.1)',
+              iconColor: 'var(--error)',
+              title: 'Đăng xuất?',
+              body: 'Bạn sẽ cần đăng nhập lại để tiếp tục khám phá.',
+              primary: 'Đăng xuất',
+              onPrimary: () => this.logout(),
+              secondary: 'Huỷ'
+            }
+          })
+        },
       ].map((s, i, arr) => ({...s, radius: i === 0 ? '12px 12px 0 0' : i === arr.length - 1 ? '0 0 12px 12px' : '0'})),
       // PAYWALL
       isPaywall: st.screen === 'paywall',
@@ -1496,15 +1543,20 @@ window.VH_RENDER = {
       venuesView,
       exploreCount: venuesView.length,
       exploreTitle: (st.permissions && st.permissions.location === 1)
-        ? (venuesView.length + ' địa điểm gần bạn')
-        : ('Khám phá ' + venuesView.length + ' di tích'),
+          ? (venuesView.length + ' địa điểm gần bạn')
+          : ('Khám phá ' + venuesView.length + ' di tích'),
       exploreH: (st.permissions && st.permissions.location === 1) ? ((st._exploreH || 18) + '%') : '100%',
       exPanelRadius: (st.permissions && st.permissions.location === 1) ? '24px 24px 0 0' : '0',
       exDragDisp: (st.permissions && st.permissions.location === 1) ? 'block' : 'none',
       exPanelPadTop: (st.permissions && st.permissions.location === 1) ? '0' : '100px',
-      exSheetRef: (el) => { this._exSheetEl = el; },
+      exSheetRef: (el) => {
+        this._exSheetEl = el;
+      },
       exToggleH: () => {
-        if (this._exDragged) { this._exDragged = false; return; }
+        if (this._exDragged) {
+          this._exDragged = false;
+          return;
+        }
         this.setState({_exploreH: (st._exploreH || 18) >= 40 ? 18 : 46});
       },
       exDragStart: (e) => {
@@ -1574,8 +1626,8 @@ window.VH_RENDER = {
       amAccessColor: ven.wheelchair ? 'var(--success)' : 'var(--warning)',
       amAccessIcon: ven.wheelchair ? 'ti-wheelchair' : 'ti-stairs',
       amAccessDesc: ven.wheelchair
-        ? 'Đường vào bằng phẳng, có lối dắt và không gian xoay trở rộng — thân thiện với xe lăn và người cao tuổi ♿'
-        : 'Khu vực có bậc thang và mặt nền không bằng phẳng — cân nhắc nếu di chuyển khó khăn.',
+          ? 'Đường vào bằng phẳng, có lối dắt và không gian xoay trở rộng — thân thiện với xe lăn và người cao tuổi ♿'
+          : 'Khu vực có bậc thang và mặt nền không bằng phẳng — cân nhắc nếu di chuyển khó khăn.',
       // VENUE ARTICLE
       isArticle: st.screen === 'article',
       articleTitle: ven.name,
@@ -1718,15 +1770,35 @@ window.VH_RENDER = {
       sheetSaveCollection: st.sheet === 'savecollection',
       closeSaveSheet: () => this.setState({sheet: null}),
       saveSheetRows: [
-        {key: 'saved', emoji: '📌', name: 'Đã lưu', checked: st.saved.includes(cur.id), toggle: () => this.toggleSave(cur.id, true)},
+        {
+          key: 'saved',
+          emoji: '📌',
+          name: 'Đã lưu',
+          checked: st.saved.includes(cur.id),
+          toggle: () => this.toggleSave(cur.id, true)
+        },
         ...(st.collections || []).map(c => ({
           key: c.id, emoji: c.emoji || '📁', name: c.name,
           checked: (c.items || []).includes(cur.id),
           toggle: () => this.toggleArtInCollection(c.id),
         })),
-      ].map(r => ({...r, checkIcon: r.checked ? 'ti-checkbox' : 'ti-square', checkColor: r.checked ? 'var(--cta)' : 'var(--text-tertiary)'})),
-      saveSheetCreateNew: () => this.setState({modal: 'createcollection', _ccName: '', _ccEmoji: '📁', _ccAddArt: cur.id}),
-      closeCreateCollection: () => this.setState({modal: null, sheet: st._ccAddArt ? 'savecollection' : null, _ccName: '', _ccAddArt: null}),
+      ].map(r => ({
+        ...r,
+        checkIcon: r.checked ? 'ti-checkbox' : 'ti-square',
+        checkColor: r.checked ? 'var(--cta)' : 'var(--text-tertiary)'
+      })),
+      saveSheetCreateNew: () => this.setState({
+        modal: 'createcollection',
+        _ccName: '',
+        _ccEmoji: '📁',
+        _ccAddArt: cur.id
+      }),
+      closeCreateCollection: () => this.setState({
+        modal: null,
+        sheet: st._ccAddArt ? 'savecollection' : null,
+        _ccName: '',
+        _ccAddArt: null
+      }),
       openShareArt: () => this.setState({sheet: 'share'}),
       openPhoto: () => this.nav('photo', 'fwd'),
       showVoiceDesc: st.a11y.visualBlind,
