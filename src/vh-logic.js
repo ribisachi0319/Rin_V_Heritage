@@ -174,7 +174,6 @@ window.VH_LOGIC = {
       return;
     }
     if (t === 'explore' && !this._exploreSeen) {
-      this._exploreSeen = true;
       this.nav('locperm', 'fwd');
       return;
     }

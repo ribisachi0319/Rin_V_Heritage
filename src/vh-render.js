@@ -1477,10 +1477,12 @@ window.VH_RENDER = {
       // LOCPERM
       isLocPerm: st.screen === 'locperm',
       allowLoc: () => {
+        this._exploreSeen = true;
         this.setState({_fallbackLoc: false, permissions: Object.assign({}, st.permissions, {location: 1})});
         this.nav('explore', 'fwd');
       },
       demoLoc: () => {
+        this._exploreSeen = true;
         this.setState({_fallbackLoc: true});
         this.showToast('Đang dùng vị trí mặc định: Hà Nội');
         this.nav('explore', 'fwd');
