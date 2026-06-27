@@ -749,10 +749,9 @@
                     </div>
                   </div>
                   <div style="display:flex;gap:8px;">
-                    <button data-ripple="1" onClick="{{ openLangSheet }}"
-                            style="position:relative;overflow:hidden;width:40px;height:40px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">
-                      {{ t_flag }}
-                    </button>
+                    <button data-ripple="1" onClick="{{ openNotifs }}"
+                            style="position:relative;overflow:hidden;width:40px;height:40px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
+                      <i class="ti ti-bell" style="font-size:20px;"></i></button>
                     <button data-ripple="1" onClick="{{ toggleTheme }}"
                             style="position:relative;overflow:hidden;width:40px;height:40px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
                       <i class="ti {{ themeIcon }}" style="font-size:20px;"></i></button>
