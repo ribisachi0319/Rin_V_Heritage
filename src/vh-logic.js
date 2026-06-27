@@ -263,18 +263,25 @@ window.VH_LOGIC = {
       } else this.setState({lockCountdown: left});
     }, 500);
   },
-  doRegister() {
+  nextRgStep() {
     const rg = this.state.rg;
     const err = {};
     if (!rg.name.trim()) err.name = true;
+    const birth = parseInt(rg.birth, 10);
+    const age = birth >= 1900 ? (2026 - birth) : null;
+    if (!age || age < 0 || age > 130) err.birth = 'Năm sinh không hợp lệ';
+    this.setState({rg: Object.assign({}, rg, {err})});
+    if (Object.keys(err).length) return;
+    this.setState({rg: Object.assign({}, rg, {step: 2, err: {}})});
+  },
+  doRegister() {
+    const rg = this.state.rg;
+    const err = {};
     if (!this.validEmail(rg.email)) err.email = 'Định dạng email không đúng';
     else if (rg.email.toLowerCase() === this.DEMO_EMAIL) {
       err.email = 'Email này đã có tài khoản.';
       err.emailAction = 'Đăng nhập';
     }
-    const birth = parseInt(rg.birth, 10);
-    const age = birth > 1900 ? (2026 - birth) : null;
-    if (!age || age < 0 || age > 120) err.birth = 'Năm sinh không hợp lệ';
     if (this.passStrength(rg.pass) < 2 || rg.pass.length < 8) err.pass = true;
     if (rg.confirm !== rg.pass || !rg.confirm) err.confirm = 'Mật khẩu xác nhận không khớp';
     if (!rg.terms) {
@@ -286,6 +293,8 @@ window.VH_LOGIC = {
       if (err.terms && Object.keys(err).length === 1) this.showToast('Vui lòng đồng ý điều khoản để tiếp tục', 'error');
       return;
     }
+    const birth = parseInt(rg.birth, 10);
+    const age = birth >= 1900 ? (2026 - birth) : null;
     if (age < 13) {
       this.nav('parental', 'fwd');
       return;

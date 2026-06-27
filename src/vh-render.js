@@ -337,6 +337,11 @@ window.VH_RENDER = {
         this.nav('forgot', 'fwd');
       },
       // register
+      rgStep: rg.step || 1,
+      rgStep1: (rg.step || 1) === 1,
+      rgStep2: (rg.step || 1) === 2,
+      nextRgStep: () => this.nextRgStep(),
+      prevRgStep: () => this.setState({rg: Object.assign({}, rg, {step: 1, err: {}})}),
       rgName: rg.name,
       rgEmail: rg.email,
       rgBirth: rg.birth,
@@ -347,16 +352,37 @@ window.VH_RENDER = {
       rgNameBorder: rerr.name ? 'var(--error)' : 'var(--border)',
       rgEmailBorder: rerr.email ? 'var(--error)' : 'var(--border)',
       rgBirthBorder: rerr.birth ? 'var(--error)' : 'var(--border)',
-      rgPassBorder: rerr.pass ? 'var(--error)' : 'var(--border)',
-      rgConfirmBorder: rerr.confirm ? 'var(--error)' : 'var(--border)',
       rgEmailErr: rerr.email,
       rgEmailErrAction: rerr.emailAction,
       rgBirthErr: rerr.birth,
-      rgConfirmErr: rerr.confirm,
       rgPassShow: rg.pass.length > 0,
       strengthBars,
       strengthColor: strengthColors[strength],
       strengthLabel: strengthLabels[strength],
+      // live password criteria validation
+      ...((() => {
+        const hasLen = rg.pass.length >= 8, hasUpper = /[A-Z]/.test(rg.pass);
+        const hasLower = /[a-z]/.test(rg.pass), hasNum = /[0-9]/.test(rg.pass);
+        const passInvalid = rg.pass.length > 0 && (!hasLen || !hasUpper || !hasLower || !hasNum);
+        const passErrMsg = passInvalid ? ('Cần có ' + [!hasLen && 'ít nhất 8 ký tự', !hasUpper && 'chữ hoa', !hasLower && 'chữ thường', !hasNum && 'chữ số'].filter(Boolean).join(', ')) : null;
+        const confirmLiveErr = rg.confirm.length > 0 && rg.confirm !== rg.pass ? 'Mật khẩu xác nhận không khớp' : null;
+        const rgBirthNum = parseInt(rg.birth, 10);
+        const rgBirthAge = rgBirthNum >= 1900 ? (2026 - rgBirthNum) : null;
+        return {
+          rgPassBorder: (rerr.pass || passInvalid) ? 'var(--error)' : 'var(--border)',
+          rgPassErr: passErrMsg,
+          rgConfirmBorder: (rerr.confirm || !!confirmLiveErr) ? 'var(--error)' : 'var(--border)',
+          rgConfirmErr: rerr.confirm || confirmLiveErr,
+          rgShowA11ySuggest: !!(rgBirthAge && rgBirthAge >= 45 && !rerr.birth),
+          rgA11yOn: st.a11y.visualLow,
+          toggleRgA11y: () => this.toggleA11y('visualLow'),
+          rgA11yBtnBg: st.a11y.visualLow ? 'var(--bg-secondary)' : 'var(--cta)',
+          rgA11yBtnColor: st.a11y.visualLow ? 'var(--text-primary)' : '#fff',
+          rgA11yBtnBorder: st.a11y.visualLow ? '1.5px solid var(--border)' : '1.5px solid transparent',
+          rgA11yBtnIcon: st.a11y.visualLow ? 'ti-check' : 'ti-accessibility',
+          rgA11yBtnLabel: st.a11y.visualLow ? 'Đã bật trợ năng' : 'Bật ngay',
+        };
+      })()),
       onRgName: (e) => this.upRg('name', e.target.value),
       onRgEmail: (e) => this.upRg('email', e.target.value, ['email']),
       onRgEmailBlur: () => {

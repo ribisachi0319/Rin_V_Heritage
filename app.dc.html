@@ -298,149 +298,175 @@
             <sc-if value="{{ isRegister }}" hint-placeholder-val="{{ false }}">
               <div data-screen-label="Register"
                    style="position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg-primary);">
-                <div style="padding:46px 24px 0;flex:none;">
-                  <button data-ripple="1" onClick="{{ back }}"
-                          style="position:relative;overflow:hidden;width:42px;height:42px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
-                    <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
+                <div style="padding:46px 24px 0;flex:none;display:flex;align-items:center;justify-content:space-between;">
+                  <sc-if value="{{ rgStep1 }}" hint-placeholder-val="{{ true }}">
+                    <button data-ripple="1" onClick="{{ back }}"
+                            style="position:relative;overflow:hidden;width:42px;height:42px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
+                      <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
+                  </sc-if>
+                  <sc-if value="{{ rgStep2 }}" hint-placeholder-val="{{ false }}">
+                    <button data-ripple="1" onClick="{{ prevRgStep }}"
+                            style="position:relative;overflow:hidden;width:42px;height:42px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
+                      <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
+                  </sc-if>
+                  <div style="font-size:13px;font-weight:600;color:var(--text-secondary);">Bước {{ rgStep }}/2</div>
+                  <div style="width:42px;"></div>
                 </div>
-                <div class="vh-scroll" style="flex:1;overflow-y:auto;padding:18px 28px 28px;">
-                  <div class="vh-serif" style="font-size:28px;font-weight:600;">Tạo tài khoản</div>
-                  <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">Bắt đầu hành
-                    trình khám phá di sản của bạn
-                  </div>
-                  <!-- name -->
-                  <div style="margin-top:22px;">
-                    <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Họ và
-                      tên</label>
-                    <div
-                        style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgNameBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
-                      <i class="ti ti-user"
-                         style="font-size:18px;color:var(--text-tertiary);"></i><input
-                        value="{{ rgName }}" onInput="{{ onRgName }}"
-                        placeholder="Nguyễn Minh Anh"
-                        style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
+
+                <!-- STEP 1: thông tin cá nhân -->
+                <sc-if value="{{ rgStep1 }}" hint-placeholder-val="{{ true }}">
+                  <div class="vh-scroll" style="flex:1;overflow-y:auto;padding:18px 28px 28px;">
+                    <div class="vh-serif" style="font-size:28px;font-weight:600;">Tạo tài khoản</div>
+                    <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">Bắt đầu hành trình khám phá di sản của bạn</div>
+                    <!-- name -->
+                    <div style="margin-top:22px;">
+                      <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Họ và tên</label>
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgNameBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
+                        <i class="ti ti-user" style="font-size:18px;color:var(--text-tertiary);"></i><input
+                          value="{{ rgName }}" onInput="{{ onRgName }}"
+                          placeholder="Nguyễn Minh Anh"
+                          style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
+                      </div>
                     </div>
-                  </div>
-                  <!-- email -->
-                  <div style="margin-top:14px;">
-                    <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Email</label>
-                    <div
-                        style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgEmailBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
-                      <i class="ti ti-mail"
-                         style="font-size:18px;color:var(--text-tertiary);"></i><input
-                        value="{{ rgEmail }}" onInput="{{ onRgEmail }}"
-                        onBlur="{{ onRgEmailBlur }}" inputmode="email"
-                        placeholder="ban@email.com"
-                        style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
+                    <!-- birth year -->
+                    <div style="margin-top:14px;">
+                      <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Năm sinh</label>
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgBirthBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
+                        <i class="ti ti-cake" style="font-size:18px;color:var(--text-tertiary);"></i><input
+                          value="{{ rgBirth }}" onInput="{{ onRgBirth }}" inputmode="numeric"
+                          placeholder="VD: 1995"
+                          style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
+                      </div>
+                      <sc-if value="{{ rgBirthErr }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
+                          <i class="ti ti-alert-circle" style="font-size:14px;"></i>{{ rgBirthErr }}
+                        </div>
+                      </sc-if>
                     </div>
-                    <sc-if value="{{ rgEmailErr }}" hint-placeholder-val="{{ false }}">
-                      <div
-                          style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
-                        <i class="ti ti-alert-circle" style="font-size:14px;"></i><span
-                          style="flex:1;">{{ rgEmailErr }}</span>
-                        <sc-if value="{{ rgEmailErrAction }}"
-                               hint-placeholder-val="{{ false }}">
-                          <button data-ripple="1" onClick="{{ goLogin }}"
-                                  style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--cta);font-weight:700;font-size:12px;cursor:pointer;text-decoration:underline;">
-                            {{ rgEmailErrAction }}
-                          </button>
-                        </sc-if>
+                    <!-- a11y suggestion (hiện khi tuổi >= 45) -->
+                    <sc-if value="{{ rgShowA11ySuggest }}" hint-placeholder-val="{{ false }}">
+                      <div style="margin-top:16px;background:var(--bg-card);border:1.5px solid var(--border);border-radius:12px;padding:16px;">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                          <div style="width:36px;height:36px;border-radius:99px;background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;flex:none;">
+                            <i class="ti ti-eye" style="font-size:20px;color:var(--cta);"></i>
+                          </div>
+                          <div style="font-size:14px;font-weight:700;color:var(--text-primary);">Gợi ý: chế độ trợ năng</div>
+                        </div>
+                        <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:14px;">Bật chế độ trợ năng trong Cài đặt để hiển thị chữ lớn hơn và vùng nhấn rộng hơn, phù hợp hơn cho bạn.</div>
+                        <button data-ripple="1" onClick="{{ toggleRgA11y }}"
+                                style="position:relative;overflow:hidden;width:100%;background:{{ rgA11yBtnBg }};color:{{ rgA11yBtnColor }};font-size:15px;font-weight:700;padding:14px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;border:{{ rgA11yBtnBorder }};">
+                          <i class="ti {{ rgA11yBtnIcon }}" style="font-size:18px;"></i>
+                          {{ rgA11yBtnLabel }}
+                        </button>
                       </div>
                     </sc-if>
-                  </div>
-                  <!-- birth year -->
-                  <div style="margin-top:14px;">
-                    <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Năm
-                      sinh</label>
-                    <div
-                        style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgBirthBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
-                      <i class="ti ti-cake"
-                         style="font-size:18px;color:var(--text-tertiary);"></i><input
-                        value="{{ rgBirth }}" onInput="{{ onRgBirth }}" inputmode="numeric"
-                        placeholder="VD: 1995"
-                        style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
-                    </div>
-                    <sc-if value="{{ rgBirthErr }}" hint-placeholder-val="{{ false }}">
-                      <div
-                          style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
-                        <i class="ti ti-alert-circle" style="font-size:14px;"></i>{{ rgBirthErr
-                        }}
-                      </div>
-                    </sc-if>
-                  </div>
-                  <!-- password -->
-                  <div style="margin-top:14px;">
-                    <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Mật
-                      khẩu</label>
-                    <div
-                        style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgPassBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
-                      <i class="ti ti-lock"
-                         style="font-size:18px;color:var(--text-tertiary);"></i><input
-                        value="{{ rgPass }}" onInput="{{ onRgPass }}" type="{{ rgPassType }}"
-                        placeholder="Tối thiểu 8 ký tự"
-                        style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
-                      <button data-ripple="1" onClick="{{ toggleRgPass }}"
-                              style="position:relative;overflow:hidden;border:none;background:transparent;cursor:pointer;color:var(--text-tertiary);display:flex;">
-                        <i class="ti {{ rgPassEye }}" style="font-size:18px;"></i></button>
-                    </div>
-                    <sc-if value="{{ rgPassShow }}" hint-placeholder-val="{{ false }}">
-                      <div style="display:flex;gap:5px;margin-top:8px;">
-                        <sc-for list="{{ strengthBars }}" as="b" hint-placeholder-count="3">
-                          <div
-                              style="flex:1;height:5px;border-radius:99px;background:{{ b }};transition:background .2s;"></div>
-                        </sc-for>
-                      </div>
-                      <div style="font-size:11px;color:{{ strengthColor }};margin-top:6px;font-weight:600;">
-                        {{ strengthLabel }}
-                      </div>
-                    </sc-if>
-                  </div>
-                  <!-- confirm -->
-                  <div style="margin-top:14px;">
-                    <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Xác
-                      nhận mật khẩu</label>
-                    <div
-                        style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgConfirmBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
-                      <i class="ti ti-lock-check"
-                         style="font-size:18px;color:var(--text-tertiary);"></i><input
-                        value="{{ rgConfirm }}" onInput="{{ onRgConfirm }}"
-                        type="{{ rgPassType }}" placeholder="Nhập lại mật khẩu"
-                        style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
-                    </div>
-                    <sc-if value="{{ rgConfirmErr }}" hint-placeholder-val="{{ false }}">
-                      <div
-                          style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
-                        <i class="ti ti-alert-circle" style="font-size:14px;"></i>{{
-                        rgConfirmErr }}
-                      </div>
-                    </sc-if>
-                  </div>
-                  <!-- terms -->
-                  <button data-ripple="1" onClick="{{ toggleTerms }}"
-                          style="position:relative;overflow:hidden;display:flex;align-items:flex-start;gap:10px;width:100%;text-align:left;background:transparent;border:none;cursor:pointer;margin-top:18px;padding:4px;{{ termsShakeAnim }}">
-                    <div
-                        style="width:22px;height:22px;border-radius:6px;border:2px solid {{ termsBorder }};background:{{ termsBg }};display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px;">
-                      <i class="ti ti-check"
-                         style="font-size:15px;color:#fff;display:{{ termsCheckDisp }};"></i>
-                    </div>
-                    <span style="font-size:12px;color:var(--text-secondary);line-height:1.5;">Tôi đồng ý với <span
-                        style="color:var(--cta);font-weight:600;">Điều khoản sử dụng</span> và <span
-                        style="color:var(--cta);font-weight:600;">Chính sách bảo mật</span> của V-Heritage</span>
-                  </button>
-                  <button data-ripple="1" onClick="{{ doRegister }}"
-                          style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;margin-top:18px;">
-                    Tạo tài khoản
-                  </button>
-                  <div style="text-align:center;margin-top:18px;font-size:13px;color:var(--text-secondary);">
-                    Đã có tài khoản?
-                    <button data-ripple="1" onClick="{{ goLogin }}"
-                            style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--cta);font-weight:700;font-size:13px;cursor:pointer;">
-                      Đăng nhập
+                    <button data-ripple="1" onClick="{{ nextRgStep }}"
+                            style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;margin-top:28px;">
+                      Tiếp tục
                     </button>
+                    <div style="text-align:center;margin-top:18px;font-size:13px;color:var(--text-secondary);">
+                      Đã có tài khoản?
+                      <button data-ripple="1" onClick="{{ goLogin }}"
+                              style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--cta);font-weight:700;font-size:13px;cursor:pointer;">
+                        Đăng nhập
+                      </button>
+                    </div>
                   </div>
-                </div>
+                </sc-if>
+
+                <!-- STEP 2: thông tin tài khoản -->
+                <sc-if value="{{ rgStep2 }}" hint-placeholder-val="{{ false }}">
+                  <div class="vh-scroll" style="flex:1;overflow-y:auto;padding:18px 28px 28px;">
+                    <div class="vh-serif" style="font-size:28px;font-weight:600;">Tài khoản của bạn</div>
+                    <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">Nhập email và mật khẩu để đăng nhập sau</div>
+                    <!-- email -->
+                    <div style="margin-top:22px;">
+                      <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Email</label>
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgEmailBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
+                        <i class="ti ti-mail" style="font-size:18px;color:var(--text-tertiary);"></i><input
+                          value="{{ rgEmail }}" onInput="{{ onRgEmail }}"
+                          onBlur="{{ onRgEmailBlur }}" inputmode="email"
+                          placeholder="ban@email.com"
+                          style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
+                      </div>
+                      <sc-if value="{{ rgEmailErr }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
+                          <i class="ti ti-alert-circle" style="font-size:14px;"></i><span style="flex:1;">{{ rgEmailErr }}</span>
+                          <sc-if value="{{ rgEmailErrAction }}" hint-placeholder-val="{{ false }}">
+                            <button data-ripple="1" onClick="{{ goLogin }}"
+                                    style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--cta);font-weight:700;font-size:12px;cursor:pointer;text-decoration:underline;">
+                              {{ rgEmailErrAction }}
+                            </button>
+                          </sc-if>
+                        </div>
+                      </sc-if>
+                    </div>
+                    <!-- password -->
+                    <div style="margin-top:14px;">
+                      <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Mật khẩu</label>
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgPassBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
+                        <i class="ti ti-lock" style="font-size:18px;color:var(--text-tertiary);"></i><input
+                          value="{{ rgPass }}" onInput="{{ onRgPass }}" type="{{ rgPassType }}"
+                          placeholder="Tối thiểu 8 ký tự"
+                          style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
+                        <button data-ripple="1" onClick="{{ toggleRgPass }}"
+                                style="position:relative;overflow:hidden;border:none;background:transparent;cursor:pointer;color:var(--text-tertiary);display:flex;">
+                          <i class="ti {{ rgPassEye }}" style="font-size:18px;"></i></button>
+                      </div>
+                      <sc-if value="{{ rgPassShow }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;gap:5px;margin-top:8px;">
+                          <sc-for list="{{ strengthBars }}" as="b" hint-placeholder-count="3">
+                            <div style="flex:1;height:5px;border-radius:99px;background:{{ b }};transition:background .2s;"></div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ rgPassErr }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
+                          <i class="ti ti-alert-circle" style="font-size:14px;"></i>{{ rgPassErr }}
+                        </div>
+                      </sc-if>
+                    </div>
+                    <!-- confirm -->
+                    <div style="margin-top:14px;">
+                      <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Xác nhận mật khẩu</label>
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgConfirmBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
+                        <i class="ti ti-lock-check" style="font-size:18px;color:var(--text-tertiary);"></i><input
+                          value="{{ rgConfirm }}" onInput="{{ onRgConfirm }}"
+                          type="{{ rgPassType }}" placeholder="Nhập lại mật khẩu"
+                          style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
+                      </div>
+                      <sc-if value="{{ rgConfirmErr }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
+                          <i class="ti ti-alert-circle" style="font-size:14px;"></i>{{ rgConfirmErr }}
+                        </div>
+                      </sc-if>
+                    </div>
+                    <!-- terms -->
+                    <button data-ripple="1" onClick="{{ toggleTerms }}"
+                            style="position:relative;overflow:hidden;display:flex;align-items:flex-start;gap:10px;width:100%;text-align:left;background:transparent;border:none;cursor:pointer;margin-top:18px;padding:4px;{{ termsShakeAnim }}">
+                      <div style="width:22px;height:22px;border-radius:6px;border:2px solid {{ termsBorder }};background:{{ termsBg }};display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px;">
+                        <i class="ti ti-check" style="font-size:15px;color:#fff;display:{{ termsCheckDisp }};"></i>
+                      </div>
+                      <span style="font-size:12px;color:var(--text-secondary);line-height:1.5;">Tôi đồng ý với <span
+                          style="color:var(--cta);font-weight:600;">Điều khoản sử dụng</span> và <span
+                          style="color:var(--cta);font-weight:600;">Chính sách bảo mật</span> của V-Heritage</span>
+                    </button>
+                    <button data-ripple="1" onClick="{{ doRegister }}"
+                            style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;margin-top:18px;">
+                      Tạo tài khoản
+                    </button>
+                    <div style="text-align:center;margin-top:18px;font-size:13px;color:var(--text-secondary);">
+                      Đã có tài khoản?
+                      <button data-ripple="1" onClick="{{ goLogin }}"
+                              style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--cta);font-weight:700;font-size:13px;cursor:pointer;">
+                        Đăng nhập
+                      </button>
+                    </div>
+                  </div>
+                </sc-if>
               </div>
             </sc-if>
+
 
             <!-- 09 FORGOT PASSWORD (OTP flow) -->
             <sc-if value="{{ isForgot }}" hint-placeholder-val="{{ false }}">
@@ -4119,7 +4145,7 @@ class Component extends DCLogic {
     failedLogin: 0, lockedUntil: 0, lockCountdown: 0,
     // forms
     liEmail: '', liPass: '', liPassShow: false, liErr: { email: null, pass: null },
-    rg: { name: '', email: '', birth: '', pass: '', confirm: '', terms: false, show: false, err: {} }, rgTermsShake: 0,
+    rg: { name: '', email: '', birth: '', pass: '', confirm: '', terms: false, show: false, err: {}, step: 1 }, rgTermsShake: 0,
     fpStep: 'email', fpEmail: '', fpErr: null, fpOtp: '', fpOtpErr: null, fpNewPass: '', fpResendCd: 0, parentEmail: '', otpArr: ['', '', '', '', '', ''],
     // overlays
     sheet: null, modal: null, modalData: {},
