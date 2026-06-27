@@ -757,11 +757,7 @@ window.VH_RENDER = {
       }),
       savedView: savedArts.map(a => ({...a, img: this.vimg(a.seed, 300, 260), open: () => this.openArtifact(a.id)})),
       libSubtitle: savedArts.length + ' hiện vật · 23 đã quét',
-      goExploreLib: () => {
-        // drill-in từ thư viện: giữ history để back về lại thư viện (qua cổng locperm nếu lần đầu)
-        if (!this._exploreSeen) this.nav('locperm', 'fwd');
-        else this.nav('explore', 'fwd');
-      },
+      goExploreLib: () => this.nav('explore', 'fwd'),
       photoGrid: this.artifacts.slice(0, 4).map(a => ({
         ...a, img: this.vimg(a.seed, 240, 280), open: () => {
           this.setState({curArtId: a.id});
@@ -1468,8 +1464,14 @@ window.VH_RENDER = {
     return {
       // EXPLORE
       isExplore: st.screen === 'explore',
-      showMap: !st.isOffline && !st._noLocation,
-      mapHidden: st.isOffline || st._noLocation,
+      locGranted: !!(st.permissions && st.permissions.location === 1),
+      exploreNoLoc: !(st.permissions && st.permissions.location === 1),
+      enableLoc: () => {
+        this.setState({permissions: Object.assign({}, st.permissions, {location: 1}), _exploreH: 18});
+        this.showToast('Đã bật vị trí — hiện di tích gần bạn ✦');
+      },
+      showMap: !st.isOffline && st.permissions && st.permissions.location === 1 && !st._noLocation,
+      mapHidden: st.isOffline && st.permissions && st.permissions.location === 1 && !st._noLocation,
       mapHiddenIcon: st.isOffline ? 'ti-wifi-off' : 'ti-map-pin-off',
       mapHiddenTitle: st.isOffline ? 'Bản đồ không khả dụng offline' : 'Chưa xác định được vị trí',
       mapHiddenBody: st.isOffline ? 'Bạn vẫn có thể xem danh sách địa điểm đã tải bên dưới.' : 'Bật vị trí để xem di tích gần bạn, hoặc chọn một thành phố để khám phá.',
@@ -1485,7 +1487,13 @@ window.VH_RENDER = {
       mapPins,
       venuesView,
       exploreCount: venuesView.length,
-      exploreH: (st._exploreH || 18) + '%',
+      exploreTitle: (st.permissions && st.permissions.location === 1)
+        ? (venuesView.length + ' địa điểm gần bạn')
+        : ('Khám phá ' + venuesView.length + ' di tích'),
+      exploreH: (st.permissions && st.permissions.location === 1) ? ((st._exploreH || 18) + '%') : '100%',
+      exPanelRadius: (st.permissions && st.permissions.location === 1) ? '24px 24px 0 0' : '0',
+      exDragDisp: (st.permissions && st.permissions.location === 1) ? 'block' : 'none',
+      exPanelPadTop: (st.permissions && st.permissions.location === 1) ? '0' : '100px',
       exSheetRef: (el) => { this._exSheetEl = el; },
       exToggleH: () => {
         if (this._exDragged) { this._exDragged = false; return; }
@@ -1527,22 +1535,6 @@ window.VH_RENDER = {
       searchHasQuery: !!q,
       searchEmpty: q && searchItems.length === 0,
       clearSearch: () => this.setState({searchQuery: ''}),
-      // LOCPERM
-      isLocPerm: st.screen === 'locperm',
-      allowLoc: () => {
-        this._exploreSeen = true;
-        // sang explore mà KHÔNG đẩy locperm vào history → back bỏ qua locperm
-        this.setState({
-          _fallbackLoc: false,
-          permissions: Object.assign({}, st.permissions, {location: 1}),
-          screen: 'explore', navDir: 'fwd', sheet: null, modal: null
-        });
-      },
-      demoLoc: () => {
-        this._exploreSeen = true;
-        this.setState({_fallbackLoc: true, screen: 'explore', navDir: 'fwd', sheet: null, modal: null});
-        this.showToast('Đang dùng vị trí mặc định: Hà Nội');
-      },
       // PLACE DETAIL
       isPlace: st.screen === 'place',
       curVen: {...ven, img: this.vimg(ven.seed, 600, 400)},

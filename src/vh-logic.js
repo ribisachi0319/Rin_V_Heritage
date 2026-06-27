@@ -191,10 +191,6 @@ window.VH_LOGIC = {
       this.nav('scan', 'fwd');
       return;
     }
-    if (t === 'explore' && !this._exploreSeen) {
-      this.nav('locperm', 'fwd');
-      return;
-    }
     const built = {home: 1, explore: 1, library: 1, profile: 1};
     if (!built[t]) {
       this.stub(t);

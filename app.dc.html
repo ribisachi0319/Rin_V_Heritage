@@ -1017,37 +1017,6 @@
               </div>
             </sc-if>
 
-            <!-- 15 LOCATION PERMISSION -->
-            <sc-if value="{{ isLocPerm }}" hint-placeholder-val="{{ false }}">
-              <div data-screen-label="LocationPermission"
-                   style="position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg-primary);padding:54px 28px 30px;align-items:center;text-align:center;">
-                <button data-ripple="1" onClick="{{ back }}"
-                        style="position:relative;overflow:hidden;align-self:flex-start;width:42px;height:42px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
-                  <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
-                <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-                  <div
-                      style="width:96px;height:96px;border-radius:50%;background:rgba(95,138,236,.14);display:flex;align-items:center;justify-content:center;">
-                    <i class="ti ti-map-pin-heart" style="font-size:48px;color:var(--info);"></i>
-                  </div>
-                  <div class="vh-serif" style="font-size:24px;font-weight:600;margin-top:22px;">Tìm di
-                    sản gần bạn
-                  </div>
-                  <div style="font-size:14px;color:var(--text-secondary);margin-top:10px;line-height:1.6;">
-                    Cho phép truy cập vị trí để chúng tôi gợi ý các di tích, bảo tàng quanh bạn. Bạn
-                    vẫn có thể dùng app mà không cần vị trí.
-                  </div>
-                </div>
-                <button data-ripple="1" onClick="{{ allowLoc }}"
-                        style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;margin-bottom:10px;">
-                  Cho phép truy cập vị trí
-                </button>
-                <button data-ripple="1" onClick="{{ demoLoc }}"
-                        style="position:relative;overflow:hidden;width:100%;border:1px solid var(--border);background:transparent;color:var(--text-secondary);font-size:15px;font-weight:500;padding:14px;border-radius:8px;cursor:pointer;">
-                  Dùng không có vị trí
-                </button>
-              </div>
-            </sc-if>
-
             <!-- 16 EXPLORE -->
             <sc-if value="{{ isExplore }}" hint-placeholder-val="{{ false }}">
               <div data-screen-label="Explore"
@@ -1109,15 +1078,20 @@
                   </div>
                 </sc-if>
                 <div ref="{{ exSheetRef }}"
-                     style="position:absolute;left:0;right:0;bottom:0;height:{{ exploreH }};z-index:10;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;transition:height .25s cubic-bezier(.32,.72,0,1);">
+                     style="position:absolute;left:0;right:0;bottom:0;height:{{ exploreH }};z-index:9;background:var(--bg-card);border-radius:{{ exPanelRadius }};box-shadow:0 -8px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;transition:height .25s cubic-bezier(.32,.72,0,1);padding-top:{{ exPanelPadTop }};">
                   <div onMouseDown="{{ exDragStart }}" onTouchStart="{{ exDragStart }}" onClick="{{ exToggleH }}"
-                       style="flex:none;cursor:grab;touch-action:none;padding-top:4px;">
+                       style="flex:none;cursor:grab;touch-action:none;padding-top:4px;display:{{ exDragDisp }};">
                     <div
                         style="width:40px;height:4px;border-radius:99px;background:var(--border-2);margin:8px auto;"></div>
-                    <div class="vh-serif"
-                         style="font-size:18px;font-weight:600;padding:0 18px 8px;">{{
-                      exploreCount }} địa điểm gần bạn
-                    </div>
+                  </div>
+                  <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 18px 8px;">
+                    <div class="vh-serif" style="font-size:18px;font-weight:600;">{{ exploreTitle }}</div>
+                    <sc-if value="{{ exploreNoLoc }}" hint-placeholder-val="{{ false }}">
+                      <button data-ripple="1" onClick="{{ enableLoc }}"
+                              style="position:relative;overflow:hidden;flex:none;display:flex;align-items:center;gap:5px;border:none;background:var(--cta);color:#fff;font-size:12px;font-weight:600;padding:7px 12px;border-radius:99px;cursor:pointer;">
+                        <i class="ti ti-map-pin" style="font-size:15px;"></i>Bật vị trí
+                      </button>
+                    </sc-if>
                   </div>
                   <div class="vh-scroll" style="flex:1;overflow-y:auto;padding:4px 18px 20px;">
                     <sc-for list="{{ venuesView }}" as="v" hint-placeholder-count="5">
