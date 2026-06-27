@@ -1399,8 +1399,14 @@ window.VH_RENDER = {
   placeVals() {
     const st = this.state;
     const cur = this.artifacts.find(a => a.id === st.curArtId) || this.artifacts[0];
-    const ven = this.venues.find(v => v.id === st.curVenueId) || this.venues[0];
-    const venArtifacts = this.artifacts.filter(a => a.venue === ven.id);
+    const allVenues = this.venues.concat(this.destVenues || []);
+    const ven = allVenues.find(v => v.id === st.curVenueId) || this.venues[0];
+    let venArtifacts = this.artifacts.filter(a => a.venue === ven.id);
+    if (venArtifacts.length === 0) {
+      // di tích "Top 10" không có hiện vật riêng → giới thiệu vài hiện vật mẫu (đổi theo nơi)
+      const start = (ven.id * 3) % this.artifacts.length;
+      venArtifacts = [0, 1, 2].map(k => this.artifacts[(start + k) % this.artifacts.length]);
+    }
     const isPremium = !!(st.tiers && st.tiers.premium);
     const inAnyCollection = (st.collections || []).some(c => (c.items || []).includes(cur.id));
     const isSaved = st.saved.includes(cur.id) || inAnyCollection;

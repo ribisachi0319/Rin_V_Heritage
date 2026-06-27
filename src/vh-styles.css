@@ -2,7 +2,7 @@
 html,body{margin:0;padding:0;}
 .vh-app img{display:block;vertical-align:bottom;}
 .vh-app *{font-family:'Be Vietnam Pro',sans-serif;}
-.vh-serif{font-family:'Literata',serif;}
+.vh-serif,.vh-serif *{font-family:'Literata',serif;}
 .vh-scroll::-webkit-scrollbar{width:0;height:0;display:none;}
 .vh-scroll{scrollbar-width:none;-ms-overflow-style:none;cursor:grab;}.vh-scroll:active{cursor:grabbing;}
 [data-theme="light"]{--bg-primary:#EFDEC4;--bg-secondary:#F5EDD8;--bg-tertiary:#EDE4C4;--bg-card:#FAF5EC;--text-primary:#1A2540;--text-secondary:#4B5675;--text-tertiary:#8E98A8;--primary:#304574;--primary-d:#2B3E68;--cta:#ED8927;--cta-d:#d2761c;--info:#5F8AEC;--cream:#EFDEC4;--on-primary:#EFDEC4;--success:#008000;--warning:#FFA500;--error:#DD0E0E;--border:rgba(48,69,116,0.15);--border-2:rgba(48,69,116,0.28);--shadow:0 4px 8px rgba(26,37,64,0.10);--shadow-lg:0 10px 24px rgba(26,37,64,0.18);--map:#c3b79a;--mapline:rgba(48,69,116,.12);}

@@ -492,16 +492,28 @@ window.VH_DATA = {
   ],
 
   destinations: [
-    {name: 'Hoàng thành Thăng Long', city: 'Hà Nội', rating: '4.9', seed: 'thanglong', venueId: 1},
-    {name: 'Phố cổ Hội An', city: 'Quảng Nam', rating: '4.9', seed: 'phocohoian', venueId: 2},
-    {name: 'Quần thể di tích Cố đô Huế', city: 'Thừa Thiên Huế', rating: '4.8', seed: 'codohue', venueId: 1},
-    {name: 'Thánh địa Mỹ Sơn', city: 'Quảng Nam', rating: '4.7', seed: 'myson', venueId: 2},
-    {name: 'Vịnh Hạ Long', city: 'Quảng Ninh', rating: '4.8', seed: 'halong', venueId: 1},
-    {name: 'Thành nhà Hồ', city: 'Thanh Hóa', rating: '4.6', seed: 'thanhnhaho', venueId: 1},
-    {name: 'Văn Miếu Quốc Tử Giám', city: 'Hà Nội', rating: '4.7', seed: 'vanmieu', venueId: 1},
-    {name: 'Địa đạo Củ Chi', city: 'TP.HCM', rating: '4.6', seed: 'cuchi', venueId: 2},
-    {name: 'Cố đô Hoa Lư', city: 'Ninh Bình', rating: '4.5', seed: 'hoalu', venueId: 1},
-    {name: 'Dinh Độc Lập', city: 'TP.HCM', rating: '4.5', seed: 'dinhdoclap', venueId: 2},
+    {name: 'Hoàng thành Thăng Long', city: 'Hà Nội', rating: '4.9', seed: 'thanglong', venueId: 11},
+    {name: 'Phố cổ Hội An', city: 'Quảng Nam', rating: '4.9', seed: 'phocohoian', venueId: 6},
+    {name: 'Quần thể di tích Cố đô Huế', city: 'Thừa Thiên Huế', rating: '4.8', seed: 'codohue', venueId: 12},
+    {name: 'Thánh địa Mỹ Sơn', city: 'Quảng Nam', rating: '4.7', seed: 'myson', venueId: 13},
+    {name: 'Vịnh Hạ Long', city: 'Quảng Ninh', rating: '4.8', seed: 'halong', venueId: 14},
+    {name: 'Thành nhà Hồ', city: 'Thanh Hóa', rating: '4.6', seed: 'thanhnhaho', venueId: 15},
+    {name: 'Văn Miếu Quốc Tử Giám', city: 'Hà Nội', rating: '4.7', seed: 'vanmieu', venueId: 16},
+    {name: 'Địa đạo Củ Chi', city: 'TP.HCM', rating: '4.6', seed: 'cuchi', venueId: 17},
+    {name: 'Cố đô Hoa Lư', city: 'Ninh Bình', rating: '4.5', seed: 'hoalu', venueId: 18},
+    {name: 'Dinh Độc Lập', city: 'TP.HCM', rating: '4.5', seed: 'dinhdoclap', venueId: 3},
+  ],
+
+  // Di tích cho "Top 10 điểm đến" — chỉ dùng cho màn chi tiết, KHÔNG lên bản đồ Khám phá
+  destVenues: [
+    {id: 11, name: 'Hoàng thành Thăng Long', city: 'Hà Nội', seed: 'thanglong', dist: 'Cách 3,4 km', count: 18, x: '50%', y: '50%', wheelchair: true, floor: 'Lối phẳng'},
+    {id: 12, name: 'Quần thể di tích Cố đô Huế', city: 'Thừa Thiên Huế', seed: 'codohue', dist: 'Cách 660 km', count: 42, x: '50%', y: '50%', wheelchair: true, floor: 'Lối phẳng, có dốc nhẹ'},
+    {id: 13, name: 'Thánh địa Mỹ Sơn', city: 'Quảng Nam', seed: 'myson', dist: 'Cách 720 km', count: 24, x: '50%', y: '50%', wheelchair: false, floor: 'Đường đá, có bậc'},
+    {id: 14, name: 'Vịnh Hạ Long', city: 'Quảng Ninh', seed: 'halong', dist: 'Cách 160 km', count: 12, x: '50%', y: '50%', wheelchair: false, floor: 'Lên tàu, có bậc'},
+    {id: 15, name: 'Thành nhà Hồ', city: 'Thanh Hóa', seed: 'thanhnhaho', dist: 'Cách 150 km', count: 9, x: '50%', y: '50%', wheelchair: true, floor: 'Lối phẳng'},
+    {id: 16, name: 'Văn Miếu Quốc Tử Giám', city: 'Hà Nội', seed: 'vanmieu', dist: 'Cách 2,1 km', count: 15, x: '50%', y: '50%', wheelchair: true, floor: 'Lối phẳng, có bậc tam quan'},
+    {id: 17, name: 'Địa đạo Củ Chi', city: 'TP.HCM', seed: 'cuchi', dist: 'Cách 70 km', count: 11, x: '50%', y: '50%', wheelchair: false, floor: 'Hầm hẹp, có bậc'},
+    {id: 18, name: 'Cố đô Hoa Lư', city: 'Ninh Bình', seed: 'hoalu', dist: 'Cách 95 km', count: 14, x: '50%', y: '50%', wheelchair: true, floor: 'Lối phẳng'},
   ],
 
   audioLyrics: [
