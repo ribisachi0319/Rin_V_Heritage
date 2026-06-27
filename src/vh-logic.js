@@ -165,6 +165,21 @@ window.VH_LOGIC = {
     const s = this.state.walkStep;
     if (s < 3) this.setState({walkStep: s + 1}); else this.nav('authchoice', 'fwd');
   },
+  prevWalk() {
+    const s = this.state.walkStep;
+    if (s > 0) this.setState({walkStep: s - 1});
+  },
+  goWalkStep(i) {
+    this.setState({walkStep: i});
+  },
+  onWalkTouchStart(e) {
+    this._walkTouchX = e.touches[0].clientX;
+  },
+  onWalkTouchEnd(e) {
+    const dx = e.changedTouches[0].clientX - (this._walkTouchX || 0);
+    if (Math.abs(dx) < 50) return;
+    if (dx < 0) this.nextWalk(); else this.prevWalk();
+  },
   skipWalk() {
     this.nav('authchoice', 'fwd');
   },

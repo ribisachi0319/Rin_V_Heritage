@@ -282,11 +282,16 @@ window.VH_RENDER = {
       walkTitle: ws.title,
       walkDots: this.walkSlides.map((s, i) => ({
         w: i === st.walkStep ? '22px' : '7px',
-        c: i === st.walkStep ? 'var(--cta)' : 'var(--border-2)'
+        c: i === st.walkStep ? 'var(--cta)' : 'var(--border-2)',
+        tap: () => this.goWalkStep(i),
       })),
       walkBtn: st.walkStep === 3 ? 'Bắt đầu' : 'Tiếp theo',
+      showPrevWalk: st.walkStep > 0,
       nextWalk: () => this.nextWalk(),
+      prevWalk: () => this.prevWalk(),
       skipWalk: () => this.skipWalk(),
+      onWalkTouchStart: (e) => this.onWalkTouchStart(e),
+      onWalkTouchEnd: (e) => this.onWalkTouchEnd(e),
       goLogin: () => this.nav('login', 'fwd'),
       goRegister: () => this.nav('register', 'fwd'),
       guestEnter: () => {

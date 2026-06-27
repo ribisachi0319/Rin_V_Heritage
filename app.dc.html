@@ -111,8 +111,16 @@
             <!-- 02-05 WALKTHROUGH -->
             <sc-if value="{{ isWalk }}" hint-placeholder-val="{{ false }}">
               <div data-screen-label="Walkthrough"
+                   onTouchStart="{{ onWalkTouchStart }}" onTouchEnd="{{ onWalkTouchEnd }}"
                    style="position:absolute;inset:0;background:var(--bg-primary);display:flex;flex-direction:column;">
-                <div style="display:flex;justify-content:flex-end;padding:18px 20px 0;">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 20px 0;">
+                  <sc-if value="{{ showPrevWalk }}">
+                    <button data-ripple="1" onClick="{{ prevWalk }}"
+                            style="position:relative;overflow:hidden;width:36px;height:36px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
+                      <i class="ti ti-arrow-left" style="font-size:18px;"></i>
+                    </button>
+                  </sc-if>
+                  <sc-if value="{{ !showPrevWalk }}"><div style="width:36px;"></div></sc-if>
                   <button data-ripple="1" onClick="{{ skipWalk }}"
                           style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--text-tertiary);font-size:13px;font-weight:500;cursor:pointer;padding:8px 10px;border-radius:8px;">
                     Bỏ qua
@@ -130,8 +138,8 @@
                 </div>
                 <div style="display:flex;justify-content:center;gap:8px;padding:14px;">
                   <sc-for list="{{ walkDots }}" as="d" hint-placeholder-count="4">
-                    <div
-                        style="width:{{ d.w }};height:7px;border-radius:99px;background:{{ d.c }};transition:all .25s;"></div>
+                    <div onClick="{{ d.tap }}"
+                         style="width:{{ d.w }};height:7px;border-radius:99px;background:{{ d.c }};transition:all .25s;cursor:pointer;"></div>
                   </sc-for>
                 </div>
                 <div style="padding:8px 24px 36px;">
