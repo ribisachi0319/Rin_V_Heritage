@@ -121,9 +121,7 @@
                       <i class="ti ti-arrow-left" style="font-size:18px;"></i>
                     </button>
                   </sc-if>
-                  <sc-if value="{{ !showPrevWalk }}">
-                    <div style="width:36px;"></div>
-                  </sc-if>
+                  <sc-if value="{{ !showPrevWalk }}"><div style="width:36px;"></div></sc-if>
                   <button data-ripple="1" onClick="{{ skipWalk }}"
                           style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--text-tertiary);font-size:13px;font-weight:500;cursor:pointer;padding:8px 10px;border-radius:8px;">
                     Bỏ qua
@@ -279,21 +277,9 @@
                     <sc-for list="{{ socialBtns }}" as="s" hint-placeholder-count="4">
                       <button data-ripple="1" onClick="{{ s.tap }}"
                               style="position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:13px;cursor:pointer;color:var(--text-primary);font-size:14px;font-weight:600;">
-                        <sc-if value="{{ s.paths }}">
-                          <svg viewBox="0 0 24 24" style="width:20px;height:20px;flex-shrink:0;">
-                            <sc-for list="{{ s.paths }}" as="p">
-                              <path d="{{ p.d }}" fill="{{ p.fill }}"/>
-                            </sc-for>
-                          </svg>
-                        </sc-if>
-                        <sc-if value="{{ s.svgPath }}">
-                          <svg viewBox="0 0 24 24" style="width:20px;height:20px;flex-shrink:0;" fill="{{ s.color }}">
-                            <path d="{{ s.svgPath }}"/>
-                          </svg>
-                        </sc-if>
-                        <sc-if value="{{ s.icon }}"><i class="ti {{ s.icon }}"
-                                                       style="font-size:20px;color:{{ s.color }};"></i></sc-if>
-                        {{ s.name }}
+                        <sc-if value="{{ s.paths }}"><svg viewBox="0 0 24 24" style="width:20px;height:20px;flex-shrink:0;"><sc-for list="{{ s.paths }}" as="p"><path d="{{ p.d }}" fill="{{ p.fill }}"/></sc-for></svg></sc-if>
+                        <sc-if value="{{ s.svgPath }}"><svg viewBox="0 0 24 24" style="width:20px;height:20px;flex-shrink:0;" fill="{{ s.color }}"><path d="{{ s.svgPath }}"/></svg></sc-if>
+                        <sc-if value="{{ s.icon }}"><i class="ti {{ s.icon }}" style="font-size:20px;color:{{ s.color }};"></i></sc-if>{{ s.name }}
                       </button>
                     </sc-for>
                   </div>
@@ -319,54 +305,41 @@
                           style="position:relative;overflow:hidden;width:42px;height:42px;flex:none;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
                     <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
                   <div style="flex:1;height:6px;border-radius:99px;background:var(--bg-tertiary);position:relative;">
-                    <div
-                        style="position:absolute;top:0;bottom:0;width:33.333%;left:{{ rgThumbLeft }};background:var(--cta);border-radius:99px;transition:left .3s ease;"></div>
+                    <div style="position:absolute;top:0;bottom:0;width:33.333%;left:{{ rgThumbLeft }};background:var(--cta);border-radius:99px;transition:left .3s ease;"></div>
                   </div>
                   <div style="width:42px;flex:none;"></div>
                 </div>
 
                 <!-- STEP 1: tuổi + trợ năng -->
                 <sc-if value="{{ rgStep1 }}" hint-placeholder-val="{{ true }}">
-                  <div class="vh-scroll" key="{{ rgStepKey }}"
-                       style="flex:1;overflow-y:auto;padding:18px 28px 28px;animation:{{ rgPanelAnim }} .3s ease;">
+                  <div class="vh-scroll" key="{{ rgStepKey }}" style="flex:1;overflow-y:auto;padding:18px 28px 28px;animation:{{ rgPanelAnim }} .3s ease;">
                     <div class="vh-serif" style="font-size:28px;font-weight:600;">Tạo tài khoản</div>
-                    <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">Bắt đầu hành trình khám phá
-                      di sản của bạn
-                    </div>
+                    <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">Bắt đầu hành trình khám phá di sản của bạn</div>
                     <!-- birth year -->
                     <div style="margin-top:22px;">
                       <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Năm sinh</label>
-                      <div
-                          style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgBirthBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgBirthBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
                         <i class="ti ti-cake" style="font-size:18px;color:var(--text-tertiary);"></i><input
                           value="{{ rgBirth }}" onInput="{{ onRgBirth }}" inputmode="numeric"
                           placeholder="VD: 1995"
                           style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
                       </div>
                       <sc-if value="{{ rgBirthErr }}" hint-placeholder-val="{{ false }}">
-                        <div
-                            style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
+                        <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
                           <i class="ti ti-alert-circle" style="font-size:14px;"></i>{{ rgBirthErr }}
                         </div>
                       </sc-if>
                     </div>
                     <!-- a11y suggestion (hiện khi tuổi >= 45) -->
                     <sc-if value="{{ rgShowA11ySuggest }}" hint-placeholder-val="{{ false }}">
-                      <div
-                          style="margin-top:16px;background:var(--bg-card);border:1.5px solid var(--border);border-radius:12px;padding:16px;">
+                      <div style="margin-top:16px;background:var(--bg-card);border:1.5px solid var(--border);border-radius:12px;padding:16px;">
                         <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-                          <div
-                              style="width:36px;height:36px;border-radius:99px;background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;flex:none;">
+                          <div style="width:36px;height:36px;border-radius:99px;background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;flex:none;">
                             <i class="ti ti-eye" style="font-size:20px;color:var(--cta);"></i>
                           </div>
-                          <div style="font-size:14px;font-weight:700;color:var(--text-primary);">Gợi ý: chế độ trợ
-                            năng
-                          </div>
+                          <div style="font-size:14px;font-weight:700;color:var(--text-primary);">Gợi ý: chế độ trợ năng</div>
                         </div>
-                        <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:14px;">Bật
-                          chế độ trợ năng trong Cài đặt để hiển thị chữ lớn hơn và vùng nhấn rộng hơn, phù hợp hơn cho
-                          bạn.
-                        </div>
+                        <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:14px;">Bật chế độ trợ năng trong Cài đặt để hiển thị chữ lớn hơn và vùng nhấn rộng hơn, phù hợp hơn cho bạn.</div>
                         <button data-ripple="1" onClick="{{ toggleRgA11y }}"
                                 style="position:relative;overflow:hidden;width:100%;background:{{ rgA11yBtnBg }};color:{{ rgA11yBtnColor }};font-size:15px;font-weight:700;padding:14px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;border:{{ rgA11yBtnBorder }};">
                           <i class="ti {{ rgA11yBtnIcon }}" style="font-size:18px;"></i>
@@ -390,18 +363,13 @@
 
                 <!-- STEP 2: họ và tên -->
                 <sc-if value="{{ rgStep2 }}" hint-placeholder-val="{{ false }}">
-                  <div class="vh-scroll" key="{{ rgStepKey }}"
-                       style="flex:1;overflow-y:auto;padding:18px 28px 28px;animation:{{ rgPanelAnim }} .3s ease;">
+                  <div class="vh-scroll" key="{{ rgStepKey }}" style="flex:1;overflow-y:auto;padding:18px 28px 28px;animation:{{ rgPanelAnim }} .3s ease;">
                     <div class="vh-serif" style="font-size:28px;font-weight:600;">Bạn tên gì?</div>
-                    <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">Tên này sẽ hiển thị trong
-                      ứng dụng của bạn
-                    </div>
+                    <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">Tên này sẽ hiển thị trong ứng dụng của bạn</div>
                     <!-- họ (không bắt buộc) -->
                     <div style="margin-top:22px;">
-                      <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Họ <span
-                          style="color:var(--text-tertiary);font-weight:400;">(không bắt buộc)</span></label>
-                      <div
-                          style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid var(--border);border-radius:8px;padding:13px 14px;margin-top:6px;">
+                      <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Họ <span style="color:var(--text-tertiary);font-weight:400;">(không bắt buộc)</span></label>
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid var(--border);border-radius:8px;padding:13px 14px;margin-top:6px;">
                         <i class="ti ti-user" style="font-size:18px;color:var(--text-tertiary);"></i><input
                           value="{{ rgLast }}" onInput="{{ onRgLast }}"
                           placeholder="Nguyễn"
@@ -411,16 +379,14 @@
                     <!-- tên (bắt buộc) -->
                     <div style="margin-top:14px;">
                       <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Tên</label>
-                      <div
-                          style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgFirstBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgFirstBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
                         <i class="ti ti-user-circle" style="font-size:18px;color:var(--text-tertiary);"></i><input
                           value="{{ rgFirst }}" onInput="{{ onRgFirst }}"
                           placeholder="Minh Anh"
                           style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
                       </div>
                       <sc-if value="{{ rgFirstErr }}" hint-placeholder-val="{{ false }}">
-                        <div
-                            style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
+                        <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
                           <i class="ti ti-alert-circle" style="font-size:14px;"></i>{{ rgFirstErr }}
                         </div>
                       </sc-if>
@@ -434,17 +400,13 @@
 
                 <!-- STEP 3: email + mật khẩu -->
                 <sc-if value="{{ rgStep3 }}" hint-placeholder-val="{{ false }}">
-                  <div class="vh-scroll" key="{{ rgStepKey }}"
-                       style="flex:1;overflow-y:auto;padding:18px 28px 28px;animation:{{ rgPanelAnim }} .3s ease;">
+                  <div class="vh-scroll" key="{{ rgStepKey }}" style="flex:1;overflow-y:auto;padding:18px 28px 28px;animation:{{ rgPanelAnim }} .3s ease;">
                     <div class="vh-serif" style="font-size:28px;font-weight:600;">Tài khoản của bạn</div>
-                    <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">Nhập email và mật khẩu để
-                      đăng nhập sau
-                    </div>
+                    <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">Nhập email và mật khẩu để đăng nhập sau</div>
                     <!-- email -->
                     <div style="margin-top:22px;">
                       <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Email</label>
-                      <div
-                          style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgEmailBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgEmailBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
                         <i class="ti ti-mail" style="font-size:18px;color:var(--text-tertiary);"></i><input
                           value="{{ rgEmail }}" onInput="{{ onRgEmail }}"
                           onBlur="{{ onRgEmailBlur }}" inputmode="email"
@@ -452,8 +414,7 @@
                           style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
                       </div>
                       <sc-if value="{{ rgEmailErr }}" hint-placeholder-val="{{ false }}">
-                        <div
-                            style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
+                        <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
                           <i class="ti ti-alert-circle" style="font-size:14px;"></i><span style="flex:1;">{{ rgEmailErr }}</span>
                           <sc-if value="{{ rgEmailErrAction }}" hint-placeholder-val="{{ false }}">
                             <button data-ripple="1" onClick="{{ goLogin }}"
@@ -467,8 +428,7 @@
                     <!-- password -->
                     <div style="margin-top:14px;">
                       <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Mật khẩu</label>
-                      <div
-                          style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgPassBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgPassBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
                         <i class="ti ti-lock" style="font-size:18px;color:var(--text-tertiary);"></i><input
                           value="{{ rgPass }}" onInput="{{ onRgPass }}" type="{{ rgPassType }}"
                           placeholder="Tối thiểu 8 ký tự"
@@ -480,32 +440,27 @@
                       <sc-if value="{{ rgPassShow }}" hint-placeholder-val="{{ false }}">
                         <div style="display:flex;gap:5px;margin-top:8px;">
                           <sc-for list="{{ strengthBars }}" as="b" hint-placeholder-count="3">
-                            <div
-                                style="flex:1;height:5px;border-radius:99px;background:{{ b }};transition:background .2s;"></div>
+                            <div style="flex:1;height:5px;border-radius:99px;background:{{ b }};transition:background .2s;"></div>
                           </sc-for>
                         </div>
                       </sc-if>
                       <sc-if value="{{ rgPassErr }}" hint-placeholder-val="{{ false }}">
-                        <div
-                            style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
+                        <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
                           <i class="ti ti-alert-circle" style="font-size:14px;"></i>{{ rgPassErr }}
                         </div>
                       </sc-if>
                     </div>
                     <!-- confirm -->
                     <div style="margin-top:14px;">
-                      <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Xác nhận mật
-                        khẩu</label>
-                      <div
-                          style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgConfirmBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
+                      <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Xác nhận mật khẩu</label>
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgConfirmBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
                         <i class="ti ti-lock-check" style="font-size:18px;color:var(--text-tertiary);"></i><input
                           value="{{ rgConfirm }}" onInput="{{ onRgConfirm }}"
                           type="{{ rgPassType }}" placeholder="Nhập lại mật khẩu"
                           style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
                       </div>
                       <sc-if value="{{ rgConfirmErr }}" hint-placeholder-val="{{ false }}">
-                        <div
-                            style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
+                        <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
                           <i class="ti ti-alert-circle" style="font-size:14px;"></i>{{ rgConfirmErr }}
                         </div>
                       </sc-if>
@@ -513,8 +468,7 @@
                     <!-- terms -->
                     <button data-ripple="1" onClick="{{ toggleTerms }}"
                             style="position:relative;overflow:hidden;display:flex;align-items:flex-start;gap:10px;width:100%;text-align:left;background:transparent;border:none;cursor:pointer;margin-top:18px;padding:4px;{{ termsShakeAnim }}">
-                      <div
-                          style="width:22px;height:22px;border-radius:6px;border:2px solid {{ termsBorder }};background:{{ termsBg }};display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px;">
+                      <div style="width:22px;height:22px;border-radius:6px;border:2px solid {{ termsBorder }};background:{{ termsBg }};display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px;">
                         <i class="ti ti-check" style="font-size:15px;color:#fff;display:{{ termsCheckDisp }};"></i>
                       </div>
                       <span style="font-size:12px;color:var(--text-secondary);line-height:1.5;">Tôi đồng ý với <span
@@ -1068,7 +1022,7 @@
                   </div>
                 </sc-if>
                 <div ref="{{ exSheetRef }}"
-                     style="position:absolute;left:0;right:0;bottom:0;height:{{ exploreH }};z-index:10;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;transition:height .25s cubic-bezier(.32,.72,0,1);">
+                    style="position:absolute;left:0;right:0;bottom:0;height:{{ exploreH }};z-index:10;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;transition:height .25s cubic-bezier(.32,.72,0,1);">
                   <div onMouseDown="{{ exDragStart }}" onTouchStart="{{ exDragStart }}" onClick="{{ exToggleH }}"
                        style="flex:none;cursor:grab;touch-action:none;padding-top:4px;">
                     <div
@@ -1185,7 +1139,7 @@
                   </div>
                   <!-- accessibility note (tap -> area map) -->
                   <button data-ripple="1" onClick="{{ openAreaMap }}"
-                          style="position:relative;overflow:hidden;display:flex;align-items:center;gap:8px;width:100%;text-align:left;margin-top:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:11px 13px;cursor:pointer;">
+                      style="position:relative;overflow:hidden;display:flex;align-items:center;gap:8px;width:100%;text-align:left;margin-top:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:11px 13px;cursor:pointer;">
                     <i class="ti {{ venAccessIcon }}"
                        style="font-size:20px;color:{{ venAccessColor }};"></i><span
                       style="flex:1;font-size:12px;color:var(--text-secondary);">{{ venAccessNote }}</span>
@@ -1310,16 +1264,20 @@
                   <button data-ripple="1" onClick="{{ back }}"
                           style="position:absolute;top:48px;left:18px;width:42px;height:42px;border-radius:99px;border:none;background:rgba(0,0,0,.4);backdrop-filter:blur(6px);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;">
                     <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
+                  <div style="position:absolute;top:48px;right:18px;display:flex;gap:8px;">
+                    <button data-ripple="1" onClick="{{ openSaveSheet }}"
+                            style="position:relative;overflow:hidden;width:42px;height:42px;border-radius:99px;border:none;background:rgba(0,0,0,.4);backdrop-filter:blur(6px);cursor:pointer;color:{{ saveHeroColor }};display:flex;align-items:center;justify-content:center;">
+                      <i class="ti {{ saveIcon }}" style="font-size:20px;"></i></button>
+                    <button data-ripple="1" onClick="{{ openShareArt }}"
+                            style="position:relative;overflow:hidden;width:42px;height:42px;border-radius:99px;border:none;background:rgba(0,0,0,.4);backdrop-filter:blur(6px);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;">
+                      <i class="ti ti-share-2" style="font-size:19px;"></i></button>
+                  </div>
                   <sc-if value="{{ fromScan }}" hint-placeholder-val="{{ false }}">
                     <div
-                        style="position:absolute;top:52px;left:50%;transform:translateX(-50%);background:var(--cta);color:#fff;font-size:11px;font-weight:600;padding:5px 12px;border-radius:99px;display:flex;align-items:center;gap:5px;">
+                        style="position:absolute;bottom:16px;left:18px;background:var(--cta);color:#fff;font-size:11px;font-weight:600;padding:5px 12px;border-radius:99px;display:flex;align-items:center;gap:5px;">
                       <i class="ti ti-sparkles" style="font-size:13px;"></i>Đã nhận diện qua AR
                     </div>
                   </sc-if>
-                  <button data-ripple="1" onClick="{{ open3D }}"
-                          style="position:absolute;bottom:16px;right:18px;display:flex;align-items:center;gap:6px;background:rgba(48,69,116,.9);color:#fff;border:none;font-size:12px;font-weight:600;padding:9px 14px;border-radius:99px;cursor:pointer;">
-                    <i class="ti ti-cube-3d-sphere" style="font-size:16px;"></i>Xem 3D
-                  </button>
                 </div>
                 <div style="padding:0 20px;margin-top:-16px;position:relative;">
                   <div
@@ -1365,32 +1323,32 @@
                       </div>
                     </button>
                   </sc-if>
-                  <!-- audio basic (free) -->
+                  <!-- audio player (inline) -->
                   <div
-                      style="margin-top:16px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;padding:14px;">
-                    <div style="display:flex;align-items:center;gap:12px;">
-                      <button data-ripple="1" onClick="{{ toggleAudio }}"
-                              style="position:relative;overflow:hidden;width:46px;height:46px;border-radius:99px;border:none;background:var(--cta);color:#fff;cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center;">
-                        <i class="ti {{ audioIcon }}" style="font-size:24px;"></i></button>
-                      <div style="flex:1;" onClick="{{ openAudioPlayer }}">
-                        <div style="font-size:13px;font-weight:600;">Nghe thuyết minh</div>
-                        <div
-                            style="height:5px;border-radius:99px;background:var(--bg-tertiary);margin-top:8px;overflow:hidden;">
-                          <div
-                              style="height:100%;width:{{ audioPct }};background:var(--cta);border-radius:99px;transition:width .15s linear;"></div>
-                        </div>
-                      </div>
-                      <span style="font-size:11px;color:var(--text-tertiary);font-variant-numeric:tabular-nums;">{{ audioTime }}</span>
-                      <button data-ripple="1" onClick="{{ openAudioPlayer }}"
-                              style="position:relative;overflow:hidden;width:34px;height:34px;border-radius:99px;border:none;background:var(--bg-tertiary);color:var(--text-secondary);cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center;">
-                        <i class="ti ti-arrows-diagonal" style="font-size:18px;"></i></button>
+                      style="margin-top:16px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;padding:16px 16px 14px;">
+                    <div style="font-size:13px;font-weight:600;text-align:center;">Nghe thuyết minh</div>
+                    <div onMouseDown="{{ audioScrub }}" onTouchStart="{{ audioScrub }}"
+                         style="height:7px;border-radius:99px;background:var(--bg-tertiary);margin-top:12px;overflow:hidden;cursor:pointer;touch-action:none;">
+                      <div
+                          style="height:100%;width:{{ audioPct }};background:var(--cta);border-radius:99px;transition:width .1s linear;"></div>
                     </div>
-                    <button data-ripple="1" onClick="{{ audioHDTap }}"
-                            style="position:relative;overflow:hidden;display:flex;align-items:center;gap:8px;width:100%;margin-top:12px;background:transparent;border:1px dashed var(--border-2);border-radius:8px;padding:9px;cursor:pointer;color:var(--text-secondary);font-size:12px;justify-content:center;">
-                      <i class="ti ti-headphones" style="font-size:15px;color:var(--cta);"></i>Nghe
-                      bản HD giọng nghệ sĩ<i class="ti ti-crown"
-                                             style="font-size:14px;color:var(--cta);"></i>
-                    </button>
+                    <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:var(--text-tertiary);font-variant-numeric:tabular-nums;">
+                      <span>{{ audioTime }}</span><span>{{ audioTotal }}</span>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;">
+                      <button data-ripple="1" onClick="{{ voiceTap }}"
+                              style="position:relative;overflow:visible;width:42px;height:42px;border-radius:99px;border:1px solid var(--border);background:var(--bg-tertiary);color:var(--cta);cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center;">
+                        <i class="ti ti-microphone" style="font-size:20px;"></i>
+                        <span style="position:absolute;top:-4px;right:-4px;width:16px;height:16px;border-radius:99px;background:var(--cta);color:#fff;align-items:center;justify-content:center;display:{{ voiceCrownDisp }};">
+                          <i class="ti ti-crown" style="font-size:10px;"></i></span>
+                      </button>
+                      <button data-ripple="1" onClick="{{ toggleAudio }}"
+                              style="position:relative;overflow:hidden;width:56px;height:56px;border-radius:99px;border:none;background:var(--cta);color:#fff;cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center;">
+                        <i class="ti {{ audioIcon }}" style="font-size:28px;"></i></button>
+                      <button data-ripple="1" onClick="{{ openAudioPlayer }}"
+                              style="position:relative;overflow:hidden;width:42px;height:42px;border-radius:99px;border:1px solid var(--border);background:var(--bg-tertiary);color:var(--text-secondary);cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center;">
+                        <i class="ti ti-arrows-diagonal" style="font-size:20px;"></i></button>
+                    </div>
                   </div>
                   <!-- 3-layer info -->
                   <div class="vh-serif" style="font-size:17px;font-weight:600;margin-top:18px;">Về
@@ -1424,39 +1382,53 @@
                     </div>
                     <i class="ti ti-chevron-right"
                        style="font-size:18px;color:var(--text-tertiary);"></i></button>
-                  <!-- actions -->
-                  <div style="display:flex;gap:10px;margin-top:18px;">
-                    <button data-ripple="1" onClick="{{ openSaveSheet }}"
-                            style="position:relative;overflow:hidden;flex:1;display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--border);background:{{ saveBg }};color:{{ saveColor }};font-size:13px;font-weight:600;padding:13px;border-radius:8px;cursor:pointer;">
-                      <i class="ti {{ saveIcon }}" style="font-size:18px;"></i>{{ saveLabel }}
-                    </button>
-                    <button data-ripple="1" onClick="{{ openShareArt }}"
-                            style="position:relative;overflow:hidden;flex:none;width:50px;border:1px solid var(--border);background:var(--bg-secondary);color:var(--text-primary);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                      <i class="ti ti-share-2" style="font-size:20px;"></i></button>
-                    <button data-ripple="1" onClick="{{ openPhoto }}"
-                            style="position:relative;overflow:hidden;flex:none;width:50px;border:1px solid var(--border);background:var(--bg-secondary);color:var(--text-primary);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                      <i class="ti ti-camera" style="font-size:20px;"></i></button>
-                  </div>
+                  <!-- premium deep-dive article (màn 3) -->
+                  <button data-ripple="1" onClick="{{ openArticle3 }}"
+                          style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;text-align:left;margin-top:10px;background:linear-gradient(135deg,#3a2a55,#241a3a);border:none;border-radius:12px;padding:14px;cursor:pointer;">
+                    <i class="ti ti-news" style="font-size:24px;color:var(--cta);"></i>
+                    <div style="flex:1;">
+                      <div style="font-size:14px;font-weight:600;color:#fff;">Bài viết chuyên sâu</div>
+                      <div style="font-size:11px;color:rgba(255,255,255,.7);">Nghiên cứu &amp; ý kiến chuyên gia</div>
+                    </div>
+                    <i class="ti {{ article3Icon }}" style="font-size:18px;color:var(--cta);"></i>
+                  </button>
                 </div>
               </div>
             </sc-if>
 
-            <!-- 20 3D VIEWER -->
+            <!-- 20 MÀN 1 — MÔ HÌNH 3D -->
             <sc-if value="{{ isThreeD }}" hint-placeholder-val="{{ false }}">
               <div data-screen-label="ThreeDViewer"
-                   style="position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,#2a3550,#0d1220);overflow:hidden;">
+                   style="position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,#2a3550,#0d1220);overflow:hidden;">
+                <!-- header -->
                 <div
                     style="position:absolute;top:46px;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:10;">
                   <button data-ripple="1" onClick="{{ exit3D }}"
                           style="position:relative;overflow:hidden;width:44px;height:44px;border-radius:99px;border:none;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                    <i class="ti ti-arrow-left" style="font-size:22px;"></i></button>
+                    <i class="ti ti-x" style="font-size:22px;"></i></button>
                   <div style="color:#fff;font-size:15px;font-weight:600;">Mô hình 3D</div>
                   <button data-ripple="1" onClick="{{ show3DHint }}"
                           style="position:relative;overflow:hidden;width:44px;height:44px;border-radius:99px;border:none;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
                     <i class="ti ti-info-circle" style="font-size:22px;"></i></button>
                 </div>
+                <!-- controls (đẩy lên trên) -->
+                <div style="position:absolute;top:100px;left:0;right:0;display:flex;justify-content:center;gap:12px;z-index:10;">
+                  <button data-ripple="1" onClick="{{ toggle3DPlay }}"
+                          style="position:relative;overflow:hidden;width:46px;height:46px;border-radius:99px;border:none;background:var(--cta);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                    <i class="ti {{ threeDPlayIcon }}" style="font-size:22px;"></i></button>
+                  <button data-ripple="1" onClick="{{ zoom3DOut }}"
+                          style="position:relative;overflow:hidden;width:46px;height:46px;border-radius:99px;border:none;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                    <i class="ti ti-zoom-out" style="font-size:21px;"></i></button>
+                  <button data-ripple="1" onClick="{{ zoom3DIn }}"
+                          style="position:relative;overflow:hidden;width:46px;height:46px;border-radius:99px;border:none;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                    <i class="ti ti-zoom-in" style="font-size:21px;"></i></button>
+                  <button data-ripple="1" onClick="{{ reset3D }}"
+                          style="position:relative;overflow:hidden;width:46px;height:46px;border-radius:99px;border:none;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                    <i class="ti ti-refresh" style="font-size:20px;"></i></button>
+                </div>
+                <!-- model -->
                 <div onMouseDown="{{ drag3DStart }}" onTouchStart="{{ drag3DStart }}"
-                     style="position:absolute;top:50%;left:50%;transform:translate(-50%,-54%);width:240px;height:240px;perspective:900px;cursor:grab;touch-action:none;">
+                     style="position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);width:236px;height:236px;perspective:900px;cursor:grab;touch-action:none;">
                   <img src="{{ threeDImg }}" alt="" draggable="false"
                        style="width:100%;height:100%;object-fit:cover;border-radius:16px;box-shadow:0 30px 60px rgba(0,0,0,.5);transform:{{ threeDRot }};transition:transform .1s linear;pointer-events:none;">
                   <div
@@ -1466,19 +1438,36 @@
                   <div
                       style="position:absolute;top:40%;left:50%;width:18px;height:18px;border-radius:99px;background:var(--success);border:3px solid #fff;animation:vhPulse 2.4s infinite;"></div>
                 </div>
-                <div style="position:absolute;bottom:40px;left:0;right:0;display:flex;justify-content:center;gap:16px;">
-                  <button data-ripple="1" onClick="{{ toggle3DPlay }}"
-                          style="position:relative;overflow:hidden;width:56px;height:56px;border-radius:99px;border:none;background:var(--cta);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                    <i class="ti {{ threeDPlayIcon }}" style="font-size:26px;"></i></button>
-                  <button data-ripple="1" onClick="{{ zoom3DOut }}"
-                          style="position:relative;overflow:hidden;width:56px;height:56px;border-radius:99px;border:none;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                    <i class="ti ti-zoom-out" style="font-size:25px;"></i></button>
-                  <button data-ripple="1" onClick="{{ zoom3DIn }}"
-                          style="position:relative;overflow:hidden;width:56px;height:56px;border-radius:99px;border:none;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                    <i class="ti ti-zoom-in" style="font-size:25px;"></i></button>
-                  <button data-ripple="1" onClick="{{ reset3D }}"
-                          style="position:relative;overflow:hidden;width:56px;height:56px;border-radius:99px;border:none;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                    <i class="ti ti-refresh" style="font-size:24px;"></i></button>
+                <div style="position:absolute;bottom:188px;left:0;right:0;text-align:center;color:rgba(255,255,255,.5);font-size:12px;">
+                  <i class="ti ti-rotate-360" style="font-size:15px;vertical-align:-2px;"></i> Kéo để xoay mô hình
+                </div>
+                <!-- info panel + CTA -->
+                <div
+                    style="position:absolute;left:0;right:0;bottom:0;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.4);padding:20px 20px 26px;">
+                  <div class="vh-serif" style="font-size:20px;font-weight:600;color:var(--text-primary);">{{ curArt.name }}</div>
+                  <div style="display:flex;gap:8px;margin-top:12px;">
+                    <div style="flex:1;background:var(--bg-tertiary);border-radius:8px;padding:8px 10px;">
+                      <div style="font-size:10px;color:var(--text-tertiary);">Niên đại</div>
+                      <div class="vh-serif" style="font-size:13px;font-weight:500;color:var(--text-primary);">{{ curArt.era }}</div>
+                    </div>
+                    <div style="flex:1;background:var(--bg-tertiary);border-radius:8px;padding:8px 10px;">
+                      <div style="font-size:10px;color:var(--text-tertiary);">Chất liệu</div>
+                      <div class="vh-serif" style="font-size:13px;font-weight:500;color:var(--text-primary);">{{ curArt.material }}</div>
+                    </div>
+                    <div style="flex:1;background:var(--bg-tertiary);border-radius:8px;padding:8px 10px;">
+                      <div style="font-size:10px;color:var(--text-tertiary);">Lượt khám phá</div>
+                      <div class="vh-serif" style="font-size:13px;font-weight:500;color:var(--text-primary);">{{ curArt.views }}</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:10px;margin-top:16px;">
+                    <button data-ripple="1" onClick="{{ toDetail }}"
+                            style="position:relative;overflow:hidden;flex:1;border:none;background:var(--cta);color:#fff;font-size:15px;font-weight:600;padding:15px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+                      Xem chi tiết hiện vật<i class="ti ti-arrow-right" style="font-size:19px;"></i>
+                    </button>
+                    <button data-ripple="1" onClick="{{ openPhoto }}"
+                            style="position:relative;overflow:hidden;flex:none;width:56px;border:1px solid var(--border);background:var(--bg-secondary);color:var(--cta);border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                      <i class="ti ti-camera" style="font-size:23px;"></i></button>
+                  </div>
                 </div>
               </div>
             </sc-if>
@@ -1679,7 +1668,7 @@
                 <div
                     style="position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,transparent 30%,rgba(0,0,0,.7));"></div>
                 <button data-ripple="1" onClick="{{ exitScan }}"
-                        style="position:absolute;top:46px;right:18px;z-index:10;width:44px;height:44px;border-radius:99px;border:none;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                        style="position:absolute;top:46px;left:18px;z-index:10;width:44px;height:44px;border-radius:99px;border:none;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
                   <i class="ti ti-x" style="font-size:22px;"></i></button>
                 <div
                     style="position:absolute;top:54px;left:0;right:0;text-align:center;color:#fff;font-size:13px;font-weight:500;z-index:5;text-shadow:0 1px 4px rgba(0,0,0,.6);padding:0 50px;">
@@ -2955,8 +2944,7 @@
                       </sc-for>
                     </div>
                     <sc-if value="{{ cpNewErr }}" hint-placeholder-val="{{ false }}">
-                      <div
-                          style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
+                      <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
                         <i class="ti ti-alert-circle" style="font-size:14px;"></i>{{ cpNewErr }}
                       </div>
                     </sc-if>
@@ -3683,8 +3671,7 @@
                   </div>
                 </div>
                 <!-- header -->
-                <div
-                    style="position:absolute;top:48px;left:16px;right:16px;display:flex;align-items:center;gap:8px;z-index:10;">
+                <div style="position:absolute;top:48px;left:16px;right:16px;display:flex;align-items:center;gap:8px;z-index:10;">
                   <button data-ripple="1" onClick="{{ back }}"
                           style="position:relative;overflow:hidden;width:44px;height:44px;flex:none;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);">
                     <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
@@ -3699,11 +3686,8 @@
                     style="position:absolute;left:0;right:0;bottom:0;z-index:10;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.25);padding:20px 20px 26px;">
                   <div
                       style="width:38px;height:4px;border-radius:99px;background:var(--border-2);margin:0 auto 16px;"></div>
-                  <div class="vh-serif" style="font-size:18px;font-weight:600;color:var(--text-primary);">{{ amVenName
-                    }}
-                  </div>
-                  <div
-                      style="display:flex;align-items:center;gap:5px;font-size:13px;color:var(--text-secondary);margin-top:5px;">
+                  <div class="vh-serif" style="font-size:18px;font-weight:600;color:var(--text-primary);">{{ amVenName }}</div>
+                  <div style="display:flex;align-items:center;gap:5px;font-size:13px;color:var(--text-secondary);margin-top:5px;">
                     <i class="ti ti-map-pin" style="font-size:15px;color:var(--cta);"></i>{{ amVenCity }}
                   </div>
                   <div
@@ -3712,8 +3696,93 @@
                        style="font-size:20px;color:{{ amAccessColor }};"></i><span
                       style="flex:1;font-size:13px;font-weight:600;color:{{ amAccessColor }};">{{ amAccessNote }}</span>
                   </div>
-                  <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-top:12px;">{{
-                    amAccessDesc }}
+                  <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-top:12px;">{{ amAccessDesc }}</div>
+                </div>
+              </div>
+            </sc-if>
+
+            <!-- 52 MÀN 3 — BÀI VIẾT CHUYÊN SÂU (premium) -->
+            <sc-if value="{{ isArticle3 }}" hint-placeholder-val="{{ false }}">
+              <div data-screen-label="DeepArticle"
+                   style="position:absolute;inset:0;background:var(--bg-primary);display:flex;flex-direction:column;">
+                <!-- hero -->
+                <div style="position:relative;height:220px;flex:none;">
+                  <img src="{{ a3Hero }}" alt="" style="width:100%;height:100%;object-fit:cover;">
+                  <div
+                      style="position:absolute;inset:0;background:linear-gradient(to top,var(--bg-primary) 3%,rgba(0,0,0,.25) 55%,rgba(0,0,0,.35));"></div>
+                  <button data-ripple="1" onClick="{{ back }}"
+                          style="position:absolute;top:48px;left:18px;width:42px;height:42px;border-radius:99px;border:none;background:rgba(0,0,0,.4);backdrop-filter:blur(6px);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;">
+                    <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
+                  <div
+                      style="position:absolute;top:50px;right:18px;display:flex;align-items:center;gap:5px;background:var(--cta);color:#fff;font-size:10px;font-weight:700;letter-spacing:.04em;padding:5px 11px;border-radius:99px;">
+                    <i class="ti ti-crown" style="font-size:13px;"></i>NHÀ NGHIÊN CỨU
+                  </div>
+                  <div
+                      style="position:absolute;bottom:12px;left:18px;display:inline-flex;align-items:center;gap:6px;background:var(--bg-card);color:var(--text-primary);font-size:12px;font-weight:600;padding:6px 12px;border-radius:99px;box-shadow:var(--shadow);">
+                    <i class="ti ti-building-monument" style="font-size:14px;color:var(--cta);"></i>{{ a3ArtName }}
+                  </div>
+                </div>
+                <!-- body -->
+                <div class="vh-scroll" style="flex:1;overflow-y:auto;padding:18px 22px 36px;">
+                  <div style="font-size:11px;font-weight:700;color:var(--cta);letter-spacing:.06em;">PHÂN TÍCH CHUYÊN SÂU</div>
+                  <div class="vh-serif" style="font-size:24px;font-weight:600;line-height:1.25;margin-top:8px;color:var(--text-primary);">{{ a3Title }}</div>
+                  <div style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:var(--text-tertiary);">
+                    <i class="ti ti-clock" style="font-size:14px;"></i>{{ a3Read }}
+                  </div>
+                  <div class="vh-serif"
+                       style="font-size:15px;font-style:italic;line-height:1.7;color:var(--text-secondary);margin-top:14px;padding-left:14px;border-left:3px solid var(--cta);">
+                    {{ a3Abstract }}
+                  </div>
+                  <!-- blocks -->
+                  <sc-for list="{{ a3Blocks }}" as="b" hint-placeholder-count="6">
+                    <div style="margin-top:16px;">
+                      <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+                        <div style="font-size:15px;line-height:1.75;color:var(--text-primary);">{{ b.text }}</div>
+                      </sc-if>
+                      <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}">
+                        <div class="vh-serif" style="font-size:18px;font-weight:600;color:var(--text-primary);">{{ b.text }}</div>
+                      </sc-if>
+                      <sc-if value="{{ b.isImg }}" hint-placeholder-val="{{ false }}">
+                        <div>
+                          <img src="{{ b.imgUrl }}" alt=""
+                               style="width:100%;border-radius:12px;display:block;">
+                          <div style="font-size:12px;color:var(--text-tertiary);font-style:italic;margin-top:6px;text-align:center;">{{ b.cap }}</div>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ b.isSpec }}" hint-placeholder-val="{{ false }}">
+                        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:16px;">
+                          <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--text-primary);">
+                            <i class="ti ti-ruler-2" style="font-size:18px;color:var(--cta);"></i>{{ b.stitle }}
+                          </div>
+                          <div style="margin-top:10px;">
+                            <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="4">
+                              <div style="display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-top:1px solid var(--border);font-size:13px;">
+                                <span style="color:var(--text-tertiary);flex:none;">{{ it.k }}</span>
+                                <span style="color:var(--text-primary);font-weight:600;text-align:right;">{{ it.v }}</span>
+                              </div>
+                            </sc-for>
+                          </div>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ b.isQuote }}" hint-placeholder-val="{{ false }}">
+                        <div style="background:linear-gradient(135deg,var(--primary),var(--primary-d));border-radius:14px;padding:18px;">
+                          <i class="ti ti-quote" style="font-size:24px;color:var(--cta);"></i>
+                          <div class="vh-serif" style="font-size:16px;font-style:italic;line-height:1.6;color:var(--on-primary);margin-top:6px;">{{ b.text }}</div>
+                          <div style="font-size:12px;color:var(--on-primary);opacity:.8;margin-top:10px;">— {{ b.who }}</div>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                  <!-- author -->
+                  <div style="display:flex;align-items:center;gap:12px;margin-top:26px;padding-top:18px;border-top:1px solid var(--border);">
+                    <div
+                        style="width:46px;height:46px;border-radius:99px;background:var(--primary);color:var(--on-primary);display:flex;align-items:center;justify-content:center;flex:none;">
+                      <i class="ti ti-user-edit" style="font-size:22px;"></i></div>
+                    <div>
+                      <div style="font-size:11px;color:var(--text-tertiary);">Tác giả</div>
+                      <div style="font-size:15px;font-weight:600;color:var(--text-primary);">{{ a3Author }}</div>
+                      <div style="font-size:12px;color:var(--text-secondary);">{{ a3Role }}</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -4277,6 +4346,35 @@
           </div>
         </sc-if>
 
+        <!-- VOICE PICKER SHEET -->
+        <sc-if value="{{ sheetVoicePick }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ closeVoicePick }}"
+               style="position:absolute;inset:0;z-index:170;background:rgba(10,13,20,.4);">
+            <div onClick="{{ stopProp }}"
+                 style="position:absolute;left:0;right:0;bottom:0;background:var(--bg-card);border-radius:24px 24px 0 0;padding:8px 0 20px;animation:vhSheetUp .28s cubic-bezier(.32,.72,0,1);box-shadow:0 -8px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;max-height:78%;">
+              <div
+                  style="width:40px;height:4px;border-radius:99px;background:var(--border-2);margin:8px auto 12px;flex:none;"></div>
+              <div class="vh-serif"
+                   style="font-size:18px;font-weight:600;padding:0 22px 4px;flex:none;">Chọn giọng thuyết minh
+              </div>
+              <div style="font-size:12px;color:var(--text-tertiary);padding:0 22px 12px;flex:none;">Gói Nhà nghiên cứu — nghe bản HD nhiều giọng nghệ sĩ</div>
+              <div class="vh-scroll" style="flex:1;overflow-y:auto;padding:0 10px;">
+                <sc-for list="{{ voiceRows }}" as="v" hint-placeholder-count="4">
+                  <button data-ripple="1" onClick="{{ v.pick }}"
+                          style="position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:transparent;border:1px solid {{ v.border }};padding:13px 12px;cursor:pointer;color:var(--text-primary);border-radius:10px;margin-bottom:8px;">
+                    <i class="ti {{ v.icon }}" style="font-size:24px;color:var(--cta);flex:none;"></i>
+                    <div style="flex:1;">
+                      <div style="font-size:15px;font-weight:600;">{{ v.name }}</div>
+                      <div style="font-size:12px;color:var(--text-tertiary);">{{ v.desc }}</div>
+                    </div>
+                    <i class="ti ti-circle-check-filled" style="font-size:22px;color:var(--cta);flex:none;display:{{ v.check }};"></i>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
         <!-- AI AVATAR removed (v8 #20) -->
 
         <!-- TOAST -->
@@ -4321,7 +4419,7 @@ class Component extends DCLogic {
     // overlays
     sheet: null, modal: null, modalData: {},
     curArtId: 1, curVenueId: 1,
-    scanState: 'idle', scanFailReason: null, qrState: 'idle', isPlaying: false, audioProgress: 0, audioHD: false, audioSpeed: 1,
+    scanState: 'idle', scanFailReason: null, qrState: 'idle', isPlaying: false, audioProgress: 0, audioHD: false, audioSpeed: 1, audioVoice: 'Tiêu chuẩn',
     libTab: 'art', searchQuery: '', searchFilter: 'all', _exploreH: 18,
     wheelchair: false, voiceDesc: false,
     threeDRot: 0, threeDZoom: 1, threeDPlaying: true, timeIdx: 1,
@@ -4345,59 +4443,48 @@ class Component extends DCLogic {
 Object.assign(Component.prototype, VH_DATA, VH_LOGIC, VH_RENDER);
 </script>
 <script>
-  (function () {
-    const SKIP = new Set(['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'A']);
-    let drag = null;
-    let moved = false;
-
-    function nearestVScroll(el) {
-      let node = el;
-      while (node) {
-        if (node.scrollHeight > node.clientHeight + 1) return node;
-        const par = node.parentElement;
-        node = par ? par.closest('.vh-scroll') : null;
-      }
-      return el;
+(function () {
+  const SKIP = new Set(['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'A']);
+  let drag = null;
+  let moved = false;
+  function nearestVScroll(el) {
+    let node = el;
+    while (node) {
+      if (node.scrollHeight > node.clientHeight + 1) return node;
+      const par = node.parentElement;
+      node = par ? par.closest('.vh-scroll') : null;
     }
-
-    document.addEventListener('mousedown', function (e) {
-      if (SKIP.has(e.target.tagName)) return;
-      const el = e.target.closest('.vh-scroll');
-      if (!el) return;
-      const elV = nearestVScroll(el);
-      drag = {el, elV, x: e.clientX, y: e.clientY, sl: el.scrollLeft, st: elV.scrollTop};
-      moved = false;
-    });
-    document.addEventListener('mousemove', function (e) {
-      if (!drag) return;
-      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
-      drag.el.scrollLeft = drag.sl - dx;
-      drag.elV.scrollTop = drag.st - dy;
-      if (drag.el.scrollLeft !== drag.sl || drag.elV.scrollTop !== drag.st) {
-        moved = true;
-        document._vhDragged = true;
-      }
-    });
-    document.addEventListener('mouseup', function () {
-      if (moved) {
-        document.addEventListener('click', function block(e) {
-          e.stopPropagation();
-          e.preventDefault();
-          document.removeEventListener('click', block, true);
-        }, true);
-      }
-      drag = null;
-      moved = false;
-      setTimeout(function () {
-        document._vhDragged = false;
-      }, 100);
-    });
-    document.addEventListener('mouseleave', function () {
-      drag = null;
-      moved = false;
-      document._vhDragged = false;
-    });
-  })();
+    return el;
+  }
+  document.addEventListener('mousedown', function (e) {
+    if (SKIP.has(e.target.tagName)) return;
+    const el = e.target.closest('.vh-scroll');
+    if (!el) return;
+    const elV = nearestVScroll(el);
+    drag = { el, elV, x: e.clientX, y: e.clientY, sl: el.scrollLeft, st: elV.scrollTop };
+    moved = false;
+  });
+  document.addEventListener('mousemove', function (e) {
+    if (!drag) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    drag.el.scrollLeft = drag.sl - dx;
+    drag.elV.scrollTop = drag.st - dy;
+    if (drag.el.scrollLeft !== drag.sl || drag.elV.scrollTop !== drag.st) { moved = true; document._vhDragged = true; }
+  });
+  document.addEventListener('mouseup', function () {
+    if (moved) {
+      document.addEventListener('click', function block(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        document.removeEventListener('click', block, true);
+      }, true);
+    }
+    drag = null;
+    moved = false;
+    setTimeout(function () { document._vhDragged = false; }, 100);
+  });
+  document.addEventListener('mouseleave', function () { drag = null; moved = false; document._vhDragged = false; });
+})();
 </script>
 </body>
 </html>

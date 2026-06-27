@@ -66,9 +66,7 @@ window.VH_LOGIC = {
     };
     this._lpEnd = () => {
       clearTimeout(this._lpTimer);
-      setTimeout(() => {
-        this._lpFired = false;
-      }, 60);
+      setTimeout(() => { this._lpFired = false; }, 60);
     };
     document.addEventListener('mousedown', this._lpStart, true);
     document.addEventListener('touchstart', this._lpStart, true);
@@ -168,6 +166,10 @@ window.VH_LOGIC = {
     const h = this.state.history.slice();
     const prev = h.pop() || 'home';
     this.setState({screen: prev, history: h, navDir: 'back', sheet: null, modal: null});
+    if (prev === 'threed') {
+      this.setState({threeDPlaying: true});
+      this.start3D();
+    } else this.stop3D();
   },
   goTab(t) {
     if (this._lpFired) return;
@@ -524,6 +526,23 @@ window.VH_LOGIC = {
     clearInterval(this._audioT);
     this.nav('artifact', 'fwd');
   },
+  // Mở thẳng Màn 1 (mô hình 3D) cho card "Đang chờ khám phá"
+  openArtifactModel(id) {
+    if (this._lpFired) return;
+    this.setState({curArtId: id, isPlaying: false, audioProgress: 0, _fromScan: false});
+    clearInterval(this._audioT);
+    this.nav('threed', 'fwd');
+  },
+  // Sau khi quét/QR nhận diện: hiện Màn 1, thay scanner trong history (back về nguồn vào)
+  revealArtifact(id) {
+    this.setState({
+      curArtId: id, isPlaying: false, audioProgress: 0, _fromScan: true,
+      screen: 'threed', navDir: 'fwd', sheet: null, modal: null, threeDPlaying: true,
+      history: this.state.history.filter(s => s !== 'scan' && s !== 'qrscanner')
+    });
+    clearInterval(this._audioT);
+    this.start3D();
+  },
   openVenue(id) {
     if (this._lpFired) return;
     this.setState({curVenueId: id});
@@ -558,7 +577,7 @@ window.VH_LOGIC = {
     if (navigator.vibrate) navigator.vibrate(15);
     setTimeout(() => {
       this.setState({scanState: 'idle'});
-      this.openArtifact(1, true);
+      this.revealArtifact(1);
       this.showToast('✦ Đã nhận diện — Trống đồng Đông Sơn');
     }, 480);
   },
@@ -592,7 +611,7 @@ window.VH_LOGIC = {
       if (navigator.vibrate) navigator.vibrate(15);
       setTimeout(() => {
         this.setState({qrState: 'idle'});
-        this.openArtifact(1, true);
+        this.revealArtifact(1);
         this.showToast('✦ Mã QR hợp lệ — Trống đồng Đông Sơn');
       }, 460);
     }, 2200);
@@ -633,6 +652,27 @@ window.VH_LOGIC = {
     const m = Math.floor(cur / 60);
     const s = cur % 60;
     return m + ':' + (s < 10 ? '0' : '') + s;
+  },
+  // kéo tua trên thanh tiến trình (click + drag)
+  audioScrubStart(e) {
+    const bar = e.currentTarget;
+    const seek = (clientX) => {
+      const r = bar.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(100, (clientX - r.left) / r.width * 100));
+      this.setState({audioProgress: pct});
+    };
+    seek(e.touches ? e.touches[0].clientX : e.clientX);
+    const move = (ev) => seek(ev.touches ? ev.touches[0].clientX : ev.clientX);
+    const up = () => {
+      document.removeEventListener('mousemove', move);
+      document.removeEventListener('mouseup', up);
+      document.removeEventListener('touchmove', move);
+      document.removeEventListener('touchend', up);
+    };
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', up);
+    document.addEventListener('touchmove', move, {passive: true});
+    document.addEventListener('touchend', up);
   },
 
   // ---- 3D viewer ----
