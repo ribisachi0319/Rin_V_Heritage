@@ -717,7 +717,13 @@ window.VH_RENDER = {
     const isPremium = hasPremium;
     const cpStrength = this.passStrength(st._cpNew);
     const cpStrengthColor = ['var(--error)', 'var(--warning)', 'var(--info)', 'var(--success)'][cpStrength];
-    const cpInvalid = !st._cpOld || cpStrength < 2 || st._cpNew.length < 8 || st._cpNew !== st._cpConfirm;
+    const cpHasLen = st._cpNew.length >= 8;
+    const cpHasUpper = /[A-Z]/.test(st._cpNew);
+    const cpHasLower = /[a-z]/.test(st._cpNew);
+    const cpHasNum = /[0-9]/.test(st._cpNew);
+    const cpInvalid = !st._cpOld || !cpHasLen || !cpHasUpper || !cpHasLower || !cpHasNum || st._cpNew !== st._cpConfirm;
+    const cpNewInvalid = st._cpNew.length > 0 && (!cpHasLen || !cpHasUpper || !cpHasLower || !cpHasNum);
+    const cpNewErrMsg = cpNewInvalid ? ('Cần có ' + [!cpHasLen && 'ít nhất 8 ký tự', !cpHasUpper && 'chữ hoa', !cpHasLower && 'chữ thường', !cpHasNum && 'chữ số'].filter(Boolean).join(', ')) : null;
     const ceInvalid = !this.validEmail(st._ceNew);
     const daInvalid = !st._daConfirm || !st._daPass;
     const tierName = (hasPremium && hasAcademic) ? 'Nhà nghiên cứu · Học giả' : hasAcademic ? 'Học giả' : hasPremium ? 'Nhà nghiên cứu' : 'Khách tham quan';
@@ -1048,6 +1054,8 @@ window.VH_RENDER = {
       cpBars: [0, 1, 2].map(i => i < cpStrength ? cpStrengthColor : 'var(--bg-tertiary)'),
       cpConfirmBorder: (st._cpConfirm && st._cpConfirm !== st._cpNew) ? 'var(--error)' : 'var(--border)',
       cpErr: (st._cpConfirm && st._cpConfirm !== st._cpNew) ? 'Mật khẩu xác nhận không khớp' : null,
+      cpNewBorder: cpNewInvalid ? 'var(--error)' : 'var(--border)',
+      cpNewErr: cpNewErrMsg,
       cpDisabled: cpInvalid,
       cpOpacity: cpInvalid ? '0.5' : '1',
       submitCp: () => {

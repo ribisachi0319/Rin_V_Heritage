@@ -2852,7 +2852,7 @@
                       style="font-size:12px;font-weight:600;color:var(--text-secondary);">Mật khẩu
                     mới</label>
                     <div
-                        style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid var(--border);border-radius:8px;padding:13px 14px;margin-top:6px;">
+                        style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ cpNewBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
                       <i class="ti ti-lock-plus"
                          style="font-size:18px;color:var(--text-tertiary);"></i><input
                         value="{{ cpNew }}" onInput="{{ onCpNew }}" type="password"
@@ -2865,6 +2865,11 @@
                             style="flex:1;height:5px;border-radius:99px;background:{{ b }};transition:background .2s;"></div>
                       </sc-for>
                     </div>
+                    <sc-if value="{{ cpNewErr }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
+                        <i class="ti ti-alert-circle" style="font-size:14px;"></i>{{ cpNewErr }}
+                      </div>
+                    </sc-if>
                   </div>
                   <div style="margin-top:16px;"><label
                       style="font-size:12px;font-weight:600;color:var(--text-secondary);">Xác nhận
@@ -4079,7 +4084,7 @@
         <!-- TOAST -->
         <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
           <div
-              style="position:absolute;left:50%;bottom:100px;transform:translateX(-50%);z-index:200;background:{{ toastBg }};color:#fff;font-size:13px;font-weight:500;padding:12px 18px;border-radius:99px;box-shadow:0 8px 24px rgba(0,0,0,.3);display:flex;align-items:center;gap:8px;animation:vhUp .25s ease;max-width:330px;">
+              style="position:absolute;left:16px;right:16px;bottom:100px;margin:0 auto;width:fit-content;z-index:200;background:{{ toastBg }};color:#fff;font-size:13px;font-weight:500;padding:12px 18px;border-radius:99px;box-shadow:0 8px 24px rgba(0,0,0,.3);display:flex;align-items:center;gap:8px;animation:vhUp .25s ease;max-width:330px;">
             <i class="ti {{ toastIcon }}" style="font-size:16px;flex:none;"></i><span
               style="overflow:hidden;text-overflow:ellipsis;">{{ toast }}</span>
           </div>
