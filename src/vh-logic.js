@@ -74,6 +74,22 @@ window.VH_LOGIC = {
     document.addEventListener('touchmove', this._lpMove, true);
     document.addEventListener('mouseup', this._lpEnd, true);
     document.addEventListener('touchend', this._lpEnd, true);
+    // swipe ngang giữa các bước đăng ký (nghe ở document để không mất khi thả ngoài khung)
+    this._rgDown = (e) => {
+      if (this.state.screen !== 'register') return;
+      this._rgSwipeOk = ['INPUT', 'TEXTAREA', 'BUTTON'].indexOf(e.target.tagName) === -1;
+      this._rgX = e.clientX;
+      this._rgY = e.clientY;
+    };
+    this._rgUp = (e) => {
+      if (this.state.screen !== 'register' || !this._rgSwipeOk) return;
+      this._rgSwipeOk = false;
+      const dx = e.clientX - (this._rgX || 0), dy = e.clientY - (this._rgY || 0);
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+      if (dx < 0) this.rgGoNext(); else this.rgGoPrev();
+    };
+    document.addEventListener('mousedown', this._rgDown, true);
+    document.addEventListener('mouseup', this._rgUp, true);
   },
   componentDidUpdate() {
     if (this.state.screen === 'audioplayer' && this._apLyricsEl) {
@@ -99,6 +115,8 @@ window.VH_LOGIC = {
     document.removeEventListener('touchstart', this._lpStart, true);
     document.removeEventListener('mouseup', this._lpEnd, true);
     document.removeEventListener('touchend', this._lpEnd, true);
+    document.removeEventListener('mousedown', this._rgDown, true);
+    document.removeEventListener('mouseup', this._rgUp, true);
   },
 
   // ---- utility ----
@@ -264,16 +282,46 @@ window.VH_LOGIC = {
       } else this.setState({lockCountdown: left});
     }, 500);
   },
-  nextRgStep() {
+  rgValidateStep(step) {
     const rg = this.state.rg;
     const err = {};
-    if (!rg.name.trim()) err.name = true;
-    const birth = parseInt(rg.birth, 10);
-    const age = birth >= 1900 ? (2026 - birth) : null;
-    if (!age || age < 0 || age > 130) err.birth = 'Năm sinh không hợp lệ';
-    this.setState({rg: Object.assign({}, rg, {err})});
-    if (Object.keys(err).length) return;
-    this.setState({rg: Object.assign({}, rg, {step: 2, err: {}})});
+    if (step === 1) {
+      const birth = parseInt(rg.birth, 10);
+      const age = birth >= 1900 ? (2026 - birth) : null;
+      if (!age || age < 0 || age > 130) err.birth = 'Năm sinh không hợp lệ';
+    } else if (step === 2) {
+      if (!rg.first.trim()) err.first = true;
+    }
+    return err;
+  },
+  rgGoNext() {
+    const rg = this.state.rg;
+    const step = rg.step || 1;
+    if (step >= 3) return;
+    const err = this.rgValidateStep(step);
+    if (Object.keys(err).length) {
+      this.setState({rg: Object.assign({}, rg, {err})});
+      return;
+    }
+    this.setState({rg: Object.assign({}, rg, {step: step + 1, err: {}, _dir: 'fwd'})});
+  },
+  rgGoPrev() {
+    const rg = this.state.rg;
+    const step = rg.step || 1;
+    if (step <= 1) return;
+    this.setState({rg: Object.assign({}, rg, {step: step - 1, err: {}, _dir: 'back'})});
+  },
+  onRgTouchStart(e) {
+    this._rgTSwipeOk = ['INPUT', 'TEXTAREA', 'BUTTON'].indexOf(e.target.tagName) === -1;
+    this._rgTX = e.touches[0].clientX;
+    this._rgTY = e.touches[0].clientY;
+  },
+  onRgTouchEnd(e) {
+    if (!this._rgTSwipeOk) return;
+    const dx = e.changedTouches[0].clientX - (this._rgTX || 0);
+    const dy = e.changedTouches[0].clientY - (this._rgTY || 0);
+    if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < 0) this.rgGoNext(); else this.rgGoPrev();
   },
   doRegister() {
     const rg = this.state.rg;
@@ -300,7 +348,8 @@ window.VH_LOGIC = {
       this.nav('parental', 'fwd');
       return;
     }
-    this.setState({user: {name: rg.name, email: rg.email, isLoggedIn: true, age}});
+    const fullName = (rg.last.trim() + ' ' + rg.first.trim()).trim();
+    this.setState({user: {name: fullName, email: rg.email, isLoggedIn: true, age}});
     this.showToast('Chào mừng đến với V-Heritage ✦', 'success');
     this.nav('language', 'fwd');
   },

@@ -295,7 +295,10 @@ window.VH_RENDER = {
       onWalkMouseDown: (e) => this.onWalkMouseDown(e),
       onWalkMouseUp: (e) => this.onWalkMouseUp(e),
       goLogin: () => this.nav('login', 'fwd'),
-      goRegister: () => this.nav('register', 'fwd'),
+      goRegister: () => {
+        this.setState({rg: Object.assign({}, rg, {step: 1, err: {}, _dir: 'fwd'})});
+        this.nav('register', 'fwd');
+      },
       guestEnter: () => {
         this.setState({user: {name: 'Khách', email: '', isLoggedIn: false, age: null}});
         this.nav('language', 'fwd');
@@ -340,16 +343,27 @@ window.VH_RENDER = {
       rgStep: rg.step || 1,
       rgStep1: (rg.step || 1) === 1,
       rgStep2: (rg.step || 1) === 2,
-      nextRgStep: () => this.nextRgStep(),
-      prevRgStep: () => this.setState({rg: Object.assign({}, rg, {step: 1, err: {}})}),
-      rgName: rg.name,
+      rgStep3: (rg.step || 1) === 3,
+      rgThumbLeft: ((rg.step || 1) - 1) * 33.333 + '%',
+      rgStepKey: 'rgstep-' + (rg.step || 1),
+      rgPanelAnim: rg._dir === 'back' ? 'vhPopIn' : 'vhPushIn',
+      rgGoNext: () => this.rgGoNext(),
+      rgGoPrev: () => this.rgGoPrev(),
+      rgBackTap: () => { if ((rg.step || 1) <= 1) this.back(); else this.rgGoPrev(); },
+      onRgTouchStart: (e) => this.onRgTouchStart(e),
+      onRgTouchEnd: (e) => this.onRgTouchEnd(e),
+      rgFirst: rg.first,
+      rgLast: rg.last,
+      rgFirstBorder: rerr.first ? 'var(--error)' : 'var(--border)',
+      rgFirstErr: rerr.first ? 'Vui lòng nhập tên của bạn' : null,
+      onRgFirst: (e) => this.upRg('first', e.target.value),
+      onRgLast: (e) => this.upRg('last', e.target.value),
       rgEmail: rg.email,
       rgBirth: rg.birth,
       rgPass: rg.pass,
       rgConfirm: rg.confirm,
       rgPassType: rg.show ? 'text' : 'password',
       rgPassEye: rg.show ? 'ti-eye-off' : 'ti-eye',
-      rgNameBorder: rerr.name ? 'var(--error)' : 'var(--border)',
       rgEmailBorder: rerr.email ? 'var(--error)' : 'var(--border)',
       rgBirthBorder: rerr.birth ? 'var(--error)' : 'var(--border)',
       rgEmailErr: rerr.email,
@@ -383,7 +397,6 @@ window.VH_RENDER = {
           rgA11yBtnLabel: st.a11y.visualLow ? 'Đã bật trợ năng' : 'Bật ngay',
         };
       })()),
-      onRgName: (e) => this.upRg('name', e.target.value),
       onRgEmail: (e) => this.upRg('email', e.target.value, ['email']),
       onRgEmailBlur: () => {
         if (rg.email && !this.validEmail(rg.email)) this.setState({rg: Object.assign({}, rg, {err: Object.assign({}, rerr, {email: 'Định dạng email không đúng'})})});

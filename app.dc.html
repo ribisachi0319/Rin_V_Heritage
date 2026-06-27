@@ -297,39 +297,26 @@
             <!-- 08 REGISTER -->
             <sc-if value="{{ isRegister }}" hint-placeholder-val="{{ false }}">
               <div data-screen-label="Register"
-                   style="position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg-primary);">
-                <div style="padding:46px 24px 0;flex:none;display:flex;align-items:center;justify-content:space-between;">
-                  <sc-if value="{{ rgStep1 }}" hint-placeholder-val="{{ true }}">
-                    <button data-ripple="1" onClick="{{ back }}"
-                            style="position:relative;overflow:hidden;width:42px;height:42px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
-                      <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
-                  </sc-if>
-                  <sc-if value="{{ rgStep2 }}" hint-placeholder-val="{{ false }}">
-                    <button data-ripple="1" onClick="{{ prevRgStep }}"
-                            style="position:relative;overflow:hidden;width:42px;height:42px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
-                      <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
-                  </sc-if>
-                  <div style="font-size:13px;font-weight:600;color:var(--text-secondary);">Bước {{ rgStep }}/2</div>
-                  <div style="width:42px;"></div>
+                   style="position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg-primary);"
+                   onTouchStart="{{ onRgTouchStart }}" onTouchEnd="{{ onRgTouchEnd }}">
+                <!-- header: back + thanh trượt tiến trình -->
+                <div style="padding:46px 24px 0;flex:none;display:flex;align-items:center;gap:14px;">
+                  <button data-ripple="1" onClick="{{ rgBackTap }}"
+                          style="position:relative;overflow:hidden;width:42px;height:42px;flex:none;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
+                    <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
+                  <div style="flex:1;height:6px;border-radius:99px;background:var(--bg-tertiary);position:relative;">
+                    <div style="position:absolute;top:0;bottom:0;width:33.333%;left:{{ rgThumbLeft }};background:var(--cta);border-radius:99px;transition:left .3s ease;"></div>
+                  </div>
+                  <div style="width:42px;flex:none;"></div>
                 </div>
 
-                <!-- STEP 1: thông tin cá nhân -->
+                <!-- STEP 1: tuổi + trợ năng -->
                 <sc-if value="{{ rgStep1 }}" hint-placeholder-val="{{ true }}">
-                  <div class="vh-scroll" style="flex:1;overflow-y:auto;padding:18px 28px 28px;">
+                  <div class="vh-scroll" key="{{ rgStepKey }}" style="flex:1;overflow-y:auto;padding:18px 28px 28px;animation:{{ rgPanelAnim }} .3s ease;">
                     <div class="vh-serif" style="font-size:28px;font-weight:600;">Tạo tài khoản</div>
                     <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">Bắt đầu hành trình khám phá di sản của bạn</div>
-                    <!-- name -->
-                    <div style="margin-top:22px;">
-                      <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Họ và tên</label>
-                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgNameBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
-                        <i class="ti ti-user" style="font-size:18px;color:var(--text-tertiary);"></i><input
-                          value="{{ rgName }}" onInput="{{ onRgName }}"
-                          placeholder="Nguyễn Minh Anh"
-                          style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
-                      </div>
-                    </div>
                     <!-- birth year -->
-                    <div style="margin-top:14px;">
+                    <div style="margin-top:22px;">
                       <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Năm sinh</label>
                       <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgBirthBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
                         <i class="ti ti-cake" style="font-size:18px;color:var(--text-tertiary);"></i><input
@@ -360,7 +347,7 @@
                         </button>
                       </div>
                     </sc-if>
-                    <button data-ripple="1" onClick="{{ nextRgStep }}"
+                    <button data-ripple="1" onClick="{{ rgGoNext }}"
                             style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;margin-top:28px;">
                       Tiếp tục
                     </button>
@@ -374,9 +361,46 @@
                   </div>
                 </sc-if>
 
-                <!-- STEP 2: thông tin tài khoản -->
+                <!-- STEP 2: họ và tên -->
                 <sc-if value="{{ rgStep2 }}" hint-placeholder-val="{{ false }}">
-                  <div class="vh-scroll" style="flex:1;overflow-y:auto;padding:18px 28px 28px;">
+                  <div class="vh-scroll" key="{{ rgStepKey }}" style="flex:1;overflow-y:auto;padding:18px 28px 28px;animation:{{ rgPanelAnim }} .3s ease;">
+                    <div class="vh-serif" style="font-size:28px;font-weight:600;">Bạn tên gì?</div>
+                    <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">Tên này sẽ hiển thị trong ứng dụng của bạn</div>
+                    <!-- họ (không bắt buộc) -->
+                    <div style="margin-top:22px;">
+                      <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Họ <span style="color:var(--text-tertiary);font-weight:400;">(không bắt buộc)</span></label>
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid var(--border);border-radius:8px;padding:13px 14px;margin-top:6px;">
+                        <i class="ti ti-user" style="font-size:18px;color:var(--text-tertiary);"></i><input
+                          value="{{ rgLast }}" onInput="{{ onRgLast }}"
+                          placeholder="Nguyễn"
+                          style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
+                      </div>
+                    </div>
+                    <!-- tên (bắt buộc) -->
+                    <div style="margin-top:14px;">
+                      <label style="font-size:12px;font-weight:600;color:var(--text-secondary);">Tên</label>
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ rgFirstBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
+                        <i class="ti ti-user-circle" style="font-size:18px;color:var(--text-tertiary);"></i><input
+                          value="{{ rgFirst }}" onInput="{{ onRgFirst }}"
+                          placeholder="Minh Anh"
+                          style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
+                      </div>
+                      <sc-if value="{{ rgFirstErr }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
+                          <i class="ti ti-alert-circle" style="font-size:14px;"></i>{{ rgFirstErr }}
+                        </div>
+                      </sc-if>
+                    </div>
+                    <button data-ripple="1" onClick="{{ rgGoNext }}"
+                            style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;margin-top:28px;">
+                      Tiếp tục
+                    </button>
+                  </div>
+                </sc-if>
+
+                <!-- STEP 3: email + mật khẩu -->
+                <sc-if value="{{ rgStep3 }}" hint-placeholder-val="{{ false }}">
+                  <div class="vh-scroll" key="{{ rgStepKey }}" style="flex:1;overflow-y:auto;padding:18px 28px 28px;animation:{{ rgPanelAnim }} .3s ease;">
                     <div class="vh-serif" style="font-size:28px;font-weight:600;">Tài khoản của bạn</div>
                     <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">Nhập email và mật khẩu để đăng nhập sau</div>
                     <!-- email -->
@@ -4145,7 +4169,7 @@ class Component extends DCLogic {
     failedLogin: 0, lockedUntil: 0, lockCountdown: 0,
     // forms
     liEmail: '', liPass: '', liPassShow: false, liErr: { email: null, pass: null },
-    rg: { name: '', email: '', birth: '', pass: '', confirm: '', terms: false, show: false, err: {}, step: 1 }, rgTermsShake: 0,
+    rg: { first: '', last: '', email: '', birth: '', pass: '', confirm: '', terms: false, show: false, err: {}, step: 1 }, rgTermsShake: 0,
     fpStep: 'email', fpEmail: '', fpErr: null, fpOtp: '', fpOtpErr: null, fpNewPass: '', fpResendCd: 0, parentEmail: '', otpArr: ['', '', '', '', '', ''],
     // overlays
     sheet: null, modal: null, modalData: {},
