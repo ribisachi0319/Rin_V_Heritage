@@ -1354,7 +1354,7 @@ window.VH_RENDER = {
     // Explore
     const mapPins = this.venues.map(v => ({
       ...v,
-      select: () => this.setState({curVenueId: v.id}),
+      select: () => this.selectPin(v.id),
       color: st.curVenueId === v.id ? 'var(--cta)' : 'var(--primary)',
       z: st.curVenueId === v.id ? 6 : 3,
       dim: (st.a11y.motor && !v.wheelchair) ? '0.35' : '1'
@@ -1429,6 +1429,37 @@ window.VH_RENDER = {
       mapPins,
       venuesView,
       exploreCount: venuesView.length,
+      exploreH: (st._exploreH || 18) + '%',
+      exSheetRef: (el) => { this._exSheetEl = el; },
+      exToggleH: () => {
+        if (this._exDragged) { this._exDragged = false; return; }
+        this.setState({_exploreH: (st._exploreH || 18) >= 40 ? 18 : 46});
+      },
+      exDragStart: (e) => {
+        this._exDragged = false;
+        const sy = e.touches ? e.touches[0].clientY : e.clientY;
+        const sh = st._exploreH || 18;
+        const move = (ev) => {
+          const y = ev.touches ? ev.touches[0].clientY : ev.clientY;
+          if (Math.abs(sy - y) > 4) this._exDragged = true;
+          const vh = (this._exSheetEl ? this._exSheetEl.parentElement.clientHeight : 700);
+          let nh = sh + (sy - y) / vh * 100;
+          nh = Math.max(14, Math.min(82, nh));
+          this.setState({_exploreH: nh});
+        };
+        const up = () => {
+          document.removeEventListener('mousemove', move);
+          document.removeEventListener('mouseup', up);
+          document.removeEventListener('touchmove', move);
+          document.removeEventListener('touchend', up);
+          const cur = this.state._exploreH || 18;
+          this.setState({_exploreH: cur < 32 ? 18 : 46});
+        };
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', up);
+        document.addEventListener('touchmove', move, {passive: true});
+        document.addEventListener('touchend', up);
+      },
       usingFallbackLoc: st._fallbackLoc,
       openSearchFromExplore: () => this.nav('search', 'fwd'),
       // SEARCH

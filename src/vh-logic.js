@@ -512,6 +512,14 @@ window.VH_LOGIC = {
     this.setState({curVenueId: id});
     this.nav('place', 'fwd');
   },
+  selectPin(id) {
+    this.setState({curVenueId: id, _exploreH: 46});
+    clearTimeout(this._exScrollT);
+    this._exScrollT = setTimeout(() => {
+      const el = document.querySelector('[data-venue-card="' + id + '"]');
+      if (el) el.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+    }, 320);
+  },
   stub(name) {
     this.setState({_stubName: name});
     this.nav('stub', 'fwd');

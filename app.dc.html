@@ -1021,17 +1021,20 @@
                     định: Hà Nội
                   </div>
                 </sc-if>
-                <div
-                    style="position:absolute;left:0;right:0;bottom:0;height:46%;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;">
-                  <div
-                      style="width:40px;height:4px;border-radius:99px;background:var(--border-2);margin:12px auto 8px;flex:none;"></div>
-                  <div class="vh-serif"
-                       style="font-size:18px;font-weight:600;padding:0 18px 8px;flex:none;">{{
-                    exploreCount }} địa điểm gần bạn
+                <div ref="{{ exSheetRef }}"
+                    style="position:absolute;left:0;right:0;bottom:0;height:{{ exploreH }};z-index:10;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;transition:height .25s cubic-bezier(.32,.72,0,1);">
+                  <div onMouseDown="{{ exDragStart }}" onTouchStart="{{ exDragStart }}" onClick="{{ exToggleH }}"
+                       style="flex:none;cursor:grab;touch-action:none;padding-top:4px;">
+                    <div
+                        style="width:40px;height:4px;border-radius:99px;background:var(--border-2);margin:8px auto;"></div>
+                    <div class="vh-serif"
+                         style="font-size:18px;font-weight:600;padding:0 18px 8px;">{{
+                      exploreCount }} địa điểm gần bạn
+                    </div>
                   </div>
                   <div class="vh-scroll" style="flex:1;overflow-y:auto;padding:4px 18px 20px;">
                     <sc-for list="{{ venuesView }}" as="v" hint-placeholder-count="5">
-                      <div data-ripple="1" onClick="{{ v.open }}"
+                      <div data-ripple="1" data-venue-card="{{ v.id }}" onClick="{{ v.open }}"
                            style="position:relative;overflow:hidden;display:flex;gap:12px;padding:10px;border-radius:12px;border:1px solid {{ v.activeBorder }};margin-bottom:10px;cursor:pointer;background:var(--bg-secondary);">
                         <img src="{{ v.img }}" alt=""
                              style="width:60px;height:60px;border-radius:8px;object-fit:cover;flex:none;">
@@ -4174,7 +4177,7 @@ class Component extends DCLogic {
     sheet: null, modal: null, modalData: {},
     curArtId: 1, curVenueId: 1,
     scanState: 'idle', scanFailReason: null, qrState: 'idle', isPlaying: false, audioProgress: 0, audioHD: false, audioSpeed: 1,
-    libTab: 'art', searchQuery: '', searchFilter: 'all',
+    libTab: 'art', searchQuery: '', searchFilter: 'all', _exploreH: 18,
     wheelchair: false, voiceDesc: false,
     threeDRot: 0, threeDZoom: 1, threeDPlaying: true, timeIdx: 1,
     paymentMethod: null, paymentTier: 'premium', notifList: null, twoFA: false, failedPayment: 0,
