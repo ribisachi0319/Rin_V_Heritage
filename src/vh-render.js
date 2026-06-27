@@ -1506,7 +1506,20 @@ window.VH_RENDER = {
       venAccessNote: ven.wheelchair ? ('Có lối tiếp cận — ' + ven.floor) : ('Khó tiếp cận — ' + ven.floor),
       venAccessColor: ven.wheelchair ? 'var(--success)' : 'var(--warning)',
       venAccessIcon: ven.wheelchair ? 'ti-wheelchair' : 'ti-stairs',
+      openAreaMap: () => this.nav('areamap', 'fwd'),
       readArticle: () => this.nav('article', 'fwd'),
+      // AREA MAP (lối tiếp cận khu vực)
+      isAreaMap: st.screen === 'areamap',
+      amVenName: ven.name,
+      amVenCity: ven.city,
+      amPinX: ven.x,
+      amPinY: ven.y,
+      amAccessNote: ven.wheelchair ? ('Có lối tiếp cận — ' + ven.floor) : ('Khó tiếp cận — ' + ven.floor),
+      amAccessColor: ven.wheelchair ? 'var(--success)' : 'var(--warning)',
+      amAccessIcon: ven.wheelchair ? 'ti-wheelchair' : 'ti-stairs',
+      amAccessDesc: ven.wheelchair
+        ? 'Đường vào bằng phẳng, có lối dắt và không gian xoay trở rộng — thân thiện với xe lăn và người cao tuổi ♿'
+        : 'Khu vực có bậc thang và mặt nền không bằng phẳng — cân nhắc nếu di chuyển khó khăn.',
       // VENUE ARTICLE
       isArticle: st.screen === 'article',
       articleTitle: ven.name,
