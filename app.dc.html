@@ -812,6 +812,29 @@
                       class="ti ti-microphone" style="font-size:18px;color:var(--cta);"></i>
                   </button>
                 </div>
+                <!-- tiếp tục tham quan -->
+                <sc-if value="{{ showContinueCard }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:14px 18px 0;">
+                    <div class="vh-serif" style="font-size:18px;font-weight:600;margin-bottom:10px;">Tiếp tục tham quan</div>
+                    <div style="display:flex;align-items:center;gap:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:12px;box-shadow:var(--shadow);">
+                      <img src="{{ contImg }}" alt=""
+                           style="width:60px;height:60px;border-radius:10px;object-fit:cover;flex:none;">
+                      <div style="flex:1;min-width:0;">
+                        <div class="vh-serif"
+                             style="font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ contVenName }}</div>
+                        <div style="display:flex;align-items:center;gap:8px;margin-top:9px;">
+                          <div style="flex:1;height:6px;border-radius:99px;background:var(--bg-tertiary);overflow:hidden;">
+                            <div style="height:100%;width:{{ contPct }};background:var(--cta);border-radius:99px;transition:width .3s;"></div>
+                          </div>
+                          <span style="font-size:11px;font-weight:600;color:var(--text-tertiary);font-variant-numeric:tabular-nums;flex:none;">{{ contX }}/{{ contY }}</span>
+                        </div>
+                      </div>
+                      <button data-ripple="1" onClick="{{ contContinue }}"
+                              style="position:relative;overflow:hidden;width:44px;height:44px;border-radius:99px;border:none;background:var(--cta);color:#fff;cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center;">
+                        <i class="ti ti-arrow-right" style="font-size:22px;"></i></button>
+                    </div>
+                  </div>
+                </sc-if>
                 <!-- hero -->
                 <div style="padding:10px 18px 0;">
                   <div data-ripple="1" data-longpress="7" onClick="{{ heroOpen }}"
@@ -4518,6 +4541,7 @@ class Component extends DCLogic {
     user: { name: '', email: '', isLoggedIn: false, age: null },
     tiers: { premium: false, academic: false }, saved: [], guestbookPosted: 0, liked: {},
     collections: [], _ccName: '', _ccEmoji: '📁', _ccAddArt: null, _curCollection: null, _curArticle: 1, _gbSheetH: 60,
+    _visited: [], _visitVenue: null,
     _refundTier: null, _refundReason: null,
     walkStep: 0,
     permissions: { camera: 0, location: 0, audio: 0, notification: 0 },

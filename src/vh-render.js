@@ -627,7 +627,25 @@ window.VH_RENDER = {
       img: this.vimg(d.seed, 130, 130),
       open: () => this.openVenue(d.venueId || 1)
     }));
+    // card "Tiếp tục tham quan" — di tích đang khám phá dở (x hiện vật đã mở < tổng y)
+    const visitVen = st._visitVenue ? this.venues.find(v => v.id === st._visitVenue) : null;
+    let showContinue = false, contX = 0, contY = 0;
+    if (visitVen) {
+      const arts = this.artifacts.filter(a => a.venue === visitVen.id);
+      contY = arts.length;
+      contX = arts.filter(a => (st._visited || []).includes(a.id)).length;
+      showContinue = contY > 0 && contX < contY;
+    }
     return {
+      showContinueCard: showContinue,
+      contVenName: visitVen ? visitVen.name : '',
+      contImg: visitVen ? this.vimg(visitVen.seed, 160, 160) : '',
+      contX: contX,
+      contY: contY,
+      contPct: contY > 0 ? Math.round(contX / contY * 100) + '%' : '0%',
+      contContinue: () => {
+        if (visitVen) this.openVenue(visitVen.id);
+      },
       isHome: st.screen === 'home',
       isStub: st.screen === 'stub', stubName: st._stubName || '',
       t_greet: this.homeGreeting(), t_homeTitle: this.t('homeSubtitle'),

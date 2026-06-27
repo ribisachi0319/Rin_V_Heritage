@@ -546,10 +546,19 @@ window.VH_LOGIC = {
   },
 
   // ---- artifact / venue ----
+  // ghi nhận hiện vật đã mở xem + di tích đang tham quan dở (cho card "Tiếp tục tham quan")
+  recordVisit(id) {
+    const art = this.artifacts.find(a => a.id === id);
+    if (!art) return;
+    const visited = this.state._visited || [];
+    const nv = visited.includes(id) ? visited : visited.concat([id]);
+    this.setState({_visited: nv, _visitVenue: art.venue});
+  },
   openArtifact(id, fromScan) {
     if (this._lpFired) return;
     this.setState({curArtId: id, isPlaying: false, audioProgress: 0, _fromScan: !!fromScan});
     clearInterval(this._audioT);
+    this.recordVisit(id);
     this.nav('artifact', 'fwd');
   },
   // Mở thẳng Màn 1 (mô hình 3D) cho card "Đang chờ khám phá"
@@ -557,6 +566,7 @@ window.VH_LOGIC = {
     if (this._lpFired) return;
     this.setState({curArtId: id, isPlaying: false, audioProgress: 0, _fromScan: false});
     clearInterval(this._audioT);
+    this.recordVisit(id);
     this.nav('threed', 'fwd');
   },
   // Sau khi quét/QR nhận diện: hiện Màn 1, thay scanner trong history (back về nguồn vào)
@@ -567,11 +577,12 @@ window.VH_LOGIC = {
       history: this.state.history.filter(s => s !== 'scan' && s !== 'qrscanner')
     });
     clearInterval(this._audioT);
+    this.recordVisit(id);
     this.start3D();
   },
   openVenue(id) {
     if (this._lpFired) return;
-    this.setState({curVenueId: id});
+    this.setState({curVenueId: id, _visitVenue: id});
     this.nav('place', 'fwd');
   },
   selectPin(id) {
