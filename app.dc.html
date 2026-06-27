@@ -4314,9 +4314,23 @@
                  style="flex:none;padding:10px 0 4px;cursor:grab;touch-action:none;">
               <div style="width:40px;height:4px;border-radius:99px;background:var(--border-2);margin:0 auto;"></div>
             </div>
-            <div style="flex:none;display:flex;align-items:center;justify-content:space-between;padding:6px 20px 10px;">
-              <div class="vh-serif" style="font-size:18px;font-weight:600;">AR Guestbook</div>
-              <div style="font-size:12px;color:var(--text-tertiary);">{{ gbCount }} lời nhắn</div>
+            <div style="flex:none;padding:6px 20px 10px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="vh-serif" style="font-size:18px;font-weight:600;">AR Guestbook</div>
+                  <span style="display:{{ gbPremiumDisp }};align-items:center;gap:3px;background:var(--cta);color:#fff;font-size:9px;font-weight:700;letter-spacing:.03em;padding:3px 8px;border-radius:99px;">
+                    <i class="ti ti-crown" style="font-size:11px;"></i>PREMIUM</span>
+                </div>
+                <div style="font-size:12px;color:var(--text-tertiary);">{{ gbCount }} lời nhắn</div>
+              </div>
+              <sc-if value="{{ gbIsPremium }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;gap:8px;margin-top:8px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;background:var(--bg-tertiary);color:var(--text-secondary);font-size:11px;font-weight:600;padding:5px 10px;border-radius:99px;">
+                    <i class="ti ti-calendar-time" style="font-size:13px;color:var(--cta);"></i>60 ngày hiển thị</span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;background:var(--bg-tertiary);color:var(--text-secondary);font-size:11px;font-weight:600;padding:5px 10px;border-radius:99px;">
+                    <i class="ti ti-pencil" style="font-size:13px;color:var(--cta);"></i>{{ gbRemaining }} lượt còn lại hôm nay</span>
+                </div>
+              </sc-if>
             </div>
             <div class="vh-scroll" style="flex:1;overflow-y:auto;padding:0 20px;">
               <sc-for list="{{ guestbookList }}" as="g" hint-placeholder-count="3">
@@ -4333,35 +4347,43 @@
                   <div style="font-size:14px;color:var(--text-primary);line-height:1.5;margin-top:8px;">
                     {{ g.text }}
                   </div>
-                  <div
-                      style="display:flex;align-items:center;gap:5px;margin-top:8px;font-size:12px;color:var(--text-tertiary);">
-                    <i class="ti ti-heart" style="font-size:15px;"></i>{{ g.likes }}
-                  </div>
+                  <button data-ripple="1" onClick="{{ g.toggleLike }}"
+                      style="position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:12px;color:{{ g.heartColor }};background:transparent;border:none;cursor:pointer;padding:2px 0;">
+                    <i class="ti {{ g.heartIcon }}" style="font-size:16px;"></i>{{ g.likeCount }}
+                  </button>
                 </div>
               </sc-for>
             </div>
             <div style="flex:none;border-top:1px solid var(--border);padding:12px 20px 24px;">
-              <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;" class="vh-scroll">
-                <sc-for list="{{ gbTemplates }}" as="t" hint-placeholder-count="3">
-                  <button data-ripple="1" onClick="{{ t.use }}"
-                          style="position:relative;overflow:hidden;flex:none;border:1px solid var(--border-2);background:var(--bg-secondary);color:var(--text-secondary);font-size:12px;padding:8px 13px;border-radius:99px;cursor:pointer;white-space:nowrap;">
-                    {{ t.t }}
-                  </button>
-                </sc-for>
-              </div>
               <sc-if value="{{ gbCustomLocked }}" hint-placeholder-val="{{ true }}">
                 <button data-ripple="1" onClick="{{ gbUnlock }}"
-                        style="position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:1px dashed var(--cta);background:rgba(237,137,39,.08);color:var(--cta);font-size:13px;font-weight:600;padding:13px;border-radius:10px;cursor:pointer;">
-                  <i class="ti ti-lock" style="font-size:16px;"></i>Viết lời nhắn tự do — gói Nhà
-                  nghiên cứu
+                        style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px dashed var(--cta);background:rgba(237,137,39,.08);border-radius:12px;padding:14px;cursor:pointer;">
+                  <i class="ti ti-lock" style="font-size:24px;color:var(--cta);flex:none;"></i>
+                  <div style="flex:1;">
+                    <div style="font-size:13px;font-weight:600;color:var(--cta);">Mở khoá viết lời nhắn</div>
+                    <div style="font-size:11px;color:var(--text-secondary);">Nâng cấp gói Nhà nghiên cứu để để lại dấu ấn của bạn</div>
+                  </div>
+                  <i class="ti ti-crown" style="font-size:18px;color:var(--cta);flex:none;"></i>
                 </button>
               </sc-if>
               <sc-if value="{{ gbCustomOpen }}" hint-placeholder-val="{{ false }}">
-                <div style="display:flex;gap:10px;"><input value="{{ gbText }}" onInput="{{ onGbText }}"
-                                                           placeholder="Để lại dấu ấn của bạn..."
-                                                           style="flex:1;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:13px 14px;font-size:14px;color:var(--text-primary);outline:none;">
+                <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;" class="vh-scroll">
+                  <sc-for list="{{ gbTemplates }}" as="t" hint-placeholder-count="3">
+                    <button data-ripple="1" onClick="{{ t.use }}"
+                            style="position:relative;overflow:hidden;flex:none;border:1px solid var(--border-2);background:var(--bg-secondary);color:var(--text-secondary);font-size:12px;padding:8px 13px;border-radius:99px;cursor:pointer;white-space:nowrap;">
+                      {{ t.t }}
+                    </button>
+                  </sc-for>
+                </div>
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                  <div style="flex:1;position:relative;">
+                    <input value="{{ gbText }}" onInput="{{ onGbText }}" maxlength="200"
+                           placeholder="Để lại dấu ấn của bạn..."
+                           style="width:100%;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:13px 58px 13px 14px;font-size:14px;color:var(--text-primary);outline:none;">
+                    <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:10px;color:var(--text-tertiary);font-variant-numeric:tabular-nums;">{{ gbCharCount }}/200</span>
+                  </div>
                   <button data-ripple="1" onClick="{{ postGuestbook }}"
-                          style="position:relative;overflow:hidden;width:48px;border:none;background:var(--cta);color:#fff;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;">
+                          style="position:relative;overflow:hidden;width:48px;height:48px;border:none;background:var(--cta);color:#fff;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;">
                     <i class="ti ti-send" style="font-size:20px;"></i></button>
                 </div>
               </sc-if>

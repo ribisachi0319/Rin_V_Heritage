@@ -489,7 +489,29 @@ window.VH_LOGIC = {
     });
     this.showToast('Đã tạo bộ sưu tập "' + name + '" ✦');
   },
+  gbLimitReached() {
+    this.setState({
+      modal: 'generic',
+      modalData: {
+        icon: 'ti-clock-pause',
+        iconBg: 'rgba(255,165,0,.14)',
+        iconColor: 'var(--warning)',
+        title: 'Đã đạt giới hạn',
+        body: 'Bạn đã đăng 3 lời nhắn hôm nay. Quay lại ngày mai nhé!',
+        primary: 'Đã hiểu'
+      }
+    });
+  },
+  toggleGbLike(id) {
+    const liked = Object.assign({}, this.state.liked);
+    liked[id] = !liked[id];
+    this.setState({liked});
+  },
   postGuestbookTemplate(t) {
+    if (this.state.guestbookPosted >= 3) {
+      this.gbLimitReached();
+      return;
+    }
     this.guestbook = [{
       id: Date.now(),
       text: t,
@@ -502,23 +524,13 @@ window.VH_LOGIC = {
     this.showToast('Đã gửi lời nhắn ✦');
   },
   postGuestbook() {
-    const txt = (this.state._gbText || '').trim();
+    const txt = (this.state._gbText || '').trim().slice(0, 200);
     if (!txt) {
       this.showToast('Hãy viết vài dòng nhé', 'error');
       return;
     }
     if (this.state.guestbookPosted >= 3) {
-      this.setState({
-        modal: 'generic',
-        modalData: {
-          icon: 'ti-clock-pause',
-          iconBg: 'rgba(255,165,0,.14)',
-          iconColor: 'var(--warning)',
-          title: 'Đã đạt giới hạn',
-          body: 'Bạn đã đăng 3 lời nhắn trong phiên này. Quay lại sau nhé!',
-          primary: 'Đã hiểu'
-        }
-      });
+      this.gbLimitReached();
       return;
     }
     this.guestbook = [{

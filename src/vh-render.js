@@ -133,13 +133,27 @@ window.VH_RENDER = {
         document.addEventListener('touchmove', move, {passive: true});
         document.addEventListener('touchend', up);
       },
-      guestbookList: this.guestbook.map(g => ({...g, initial: (g.author || 'B')[0]})),
+      guestbookList: this.guestbook.map(g => {
+        const liked = !!(st.liked && st.liked[g.id]);
+        return {
+          ...g,
+          initial: (g.author || 'B')[0],
+          likeCount: (g.likes || 0) + (liked ? 1 : 0),
+          heartIcon: liked ? 'ti-heart-filled' : 'ti-heart',
+          heartColor: liked ? 'var(--error)' : 'var(--text-tertiary)',
+          toggleLike: () => this.toggleGbLike(g.id),
+        };
+      }),
       gbCount: this.guestbook.length,
+      gbIsPremium: !!(st.tiers && st.tiers.premium),
+      gbPremiumDisp: (st.tiers && st.tiers.premium) ? 'inline-flex' : 'none',
       gbCustomLocked: !(st.tiers && st.tiers.premium),
       gbCustomOpen: !!(st.tiers && st.tiers.premium),
+      gbRemaining: Math.max(0, 3 - (st.guestbookPosted || 0)),
       gbUnlock: () => this.premiumGate(),
       gbText: st._gbText || '',
-      onGbText: (e) => this.setState({_gbText: e.target.value}),
+      gbCharCount: (st._gbText || '').length,
+      onGbText: (e) => this.setState({_gbText: e.target.value.slice(0, 200)}),
       postGuestbook: () => this.postGuestbook(),
       gbTemplates: ['Tự hào về di sản Việt Nam 🇻🇳', 'Cảm ơn vì đã gìn giữ lịch sử', 'Một trải nghiệm khó quên!', 'Đẹp và ý nghĩa quá!'].map(t => ({
         t,
