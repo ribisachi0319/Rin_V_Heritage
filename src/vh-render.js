@@ -100,7 +100,7 @@ window.VH_RENDER = {
       toastIcon: st.toastType === 'error' ? 'ti-alert-triangle' : 'ti-circle-check-filled',
       // overlays
       anyOverlay: (!!st.sheet || !!st.modal),
-      dismissOverlay: () => this.setState({sheet: null, modal: null}),
+      dismissOverlay: () => this.setState({sheet: null, modal: null, _delMode: null}),
       sheetLang: st.sheet === 'lang',
       sheetShare: st.sheet === 'share',
       sheetContext: st.sheet === 'context',
@@ -189,22 +189,37 @@ window.VH_RENDER = {
         this.setState({modal: null});
         if (f) f();
       },
-      // delete-pack modal (3 options)
+      // delete-pack modal (radio chọn rồi xác nhận)
       modalDelPack: st.modal === 'delpack',
       delPackName: md.name,
       delPackSize: md.size,
       stopProp: (e) => {
         if (e && e.stopPropagation) e.stopPropagation();
       },
-      delPackCache: () => {
-        this.setState({modal: null});
-        this.showToast('Đã xoá cache · giữ lại hiện vật sưu tầm ✦');
+      delMode: st._delMode || null,
+      delCacheBorder: st._delMode === 'cache' ? 'var(--cta)' : 'var(--border)',
+      delCacheBg: st._delMode === 'cache' ? 'rgba(237,137,39,.1)' : 'transparent',
+      delAllBorder: st._delMode === 'all' ? 'var(--error)' : 'var(--border)',
+      delAllBg: st._delMode === 'all' ? 'rgba(221,14,14,.08)' : 'transparent',
+      delCacheDot: st._delMode === 'cache' ? 'var(--cta)' : 'transparent',
+      delAllDot: st._delMode === 'all' ? 'var(--error)' : 'transparent',
+      pickDelCache: () => this.setState({_delMode: 'cache'}),
+      pickDelAll: () => this.setState({_delMode: 'all'}),
+      delConfirmDisabled: !st._delMode,
+      delConfirmOpacity: st._delMode ? '1' : '.4',
+      delConfirmCursor: st._delMode ? 'pointer' : 'not-allowed',
+      confirmDelPack: () => {
+        if (!st._delMode) return;
+        if (st._delMode === 'cache') {
+          this.setState({modal: null, _delMode: null});
+          this.showToast('Đã xoá cache · giữ lại hiện vật sưu tầm ✦');
+        } else {
+          const id = md.id;
+          this.setState({modal: null, _delMode: null, packs: (st.packs || []).filter(p => p.id !== id)});
+          this.showToast('Đã xoá toàn bộ gói ' + (md.name || ''));
+        }
       },
-      delPackAll: () => {
-        const id = md.id;
-        this.setState({modal: null, packs: (st.packs || []).filter(p => p.id !== id)});
-        this.showToast('Đã xoá toàn bộ gói ' + (md.name || ''));
-      },
+      cancelDelPack: () => this.setState({modal: null, _delMode: null}),
       // create collection modal
       modalCreateCollection: st.modal === 'createcollection',
       ccName: st._ccName || '',
@@ -741,6 +756,7 @@ window.VH_RENDER = {
         },
         del: () => this.setState({
           modal: 'delpack',
+          _delMode: null,
           modalData: {name: d.name, size: String(d.size).replace('.', ',') + ' GB', id: d.id}
         })
       })),

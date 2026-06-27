@@ -3882,8 +3882,8 @@
                 delPackSize }} dữ liệu đã tải
               </div>
               <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
-                <button data-ripple="1" onClick="{{ delPackCache }}"
-                        style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:rgba(237,137,39,.1);border:2px solid var(--cta);border-radius:10px;padding:13px;cursor:pointer;color:var(--text-primary);">
+                <button data-ripple="1" onClick="{{ pickDelCache }}"
+                        style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:{{ delCacheBg }};border:2px solid {{ delCacheBorder }};border-radius:10px;padding:13px;cursor:pointer;color:var(--text-primary);">
                   <i class="ti ti-database-cog"
                      style="font-size:22px;color:var(--cta);flex:none;"></i>
                   <div style="flex:1;">
@@ -3892,11 +3892,13 @@
                       tầm trong gói này
                     </div>
                   </div>
-                  <span
-                      style="font-size:10px;font-weight:700;color:var(--cta);background:var(--bg-card);padding:3px 7px;border-radius:99px;flex:none;">Khuyên dùng</span>
+                  <div
+                      style="width:20px;height:20px;border-radius:99px;border:2px solid {{ delCacheBorder }};flex:none;display:flex;align-items:center;justify-content:center;">
+                    <div style="width:10px;height:10px;border-radius:99px;background:{{ delCacheDot }};"></div>
+                  </div>
                 </button>
-                <button data-ripple="1" onClick="{{ delPackAll }}"
-                        style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:transparent;border:1px solid var(--border);border-radius:10px;padding:13px;cursor:pointer;color:var(--text-primary);">
+                <button data-ripple="1" onClick="{{ pickDelAll }}"
+                        style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:{{ delAllBg }};border:2px solid {{ delAllBorder }};border-radius:10px;padding:13px;cursor:pointer;color:var(--text-primary);">
                   <i class="ti ti-trash-x" style="font-size:22px;color:var(--error);flex:none;"></i>
                   <div style="flex:1;">
                     <div style="font-size:14px;font-weight:600;color:var(--error);">Xoá hết</div>
@@ -3904,11 +3906,21 @@
                       tầm trong gói này
                     </div>
                   </div>
+                  <div
+                      style="width:20px;height:20px;border-radius:99px;border:2px solid {{ delAllBorder }};flex:none;display:flex;align-items:center;justify-content:center;">
+                    <div style="width:10px;height:10px;border-radius:99px;background:{{ delAllDot }};"></div>
+                  </div>
                 </button>
-                <button data-ripple="1" onClick="{{ dismissOverlay }}"
-                        style="position:relative;overflow:hidden;width:100%;border:none;background:transparent;color:var(--text-secondary);font-size:14px;font-weight:600;padding:8px;cursor:pointer;">
-                  Huỷ
-                </button>
+                <div style="display:flex;gap:10px;margin-top:6px;">
+                  <button data-ripple="1" onClick="{{ cancelDelPack }}"
+                          style="position:relative;overflow:hidden;flex:1;border:1px solid var(--border);background:transparent;color:var(--text-secondary);font-size:14px;font-weight:600;padding:12px;border-radius:8px;cursor:pointer;">
+                    Huỷ
+                  </button>
+                  <button data-ripple="1" onClick="{{ confirmDelPack }}" disabled="{{ delConfirmDisabled }}"
+                          style="position:relative;overflow:hidden;flex:1;border:none;background:var(--error);color:#fff;font-size:14px;font-weight:600;padding:12px;border-radius:8px;cursor:{{ delConfirmCursor }};opacity:{{ delConfirmOpacity }};">
+                    Xác nhận
+                  </button>
+                </div>
               </div>
             </div>
           </div>
