@@ -479,10 +479,8 @@ window.VH_RENDER = {
       strengthLabel: strengthLabels[strength],
       // live password criteria validation
       ...((() => {
-        const hasLen = rg.pass.length >= 8, hasUpper = /[A-Z]/.test(rg.pass);
-        const hasLower = /[a-z]/.test(rg.pass), hasNum = /[0-9]/.test(rg.pass);
-        const passInvalid = rg.pass.length > 0 && (!hasLen || !hasUpper || !hasLower || !hasNum);
-        const passErrMsg = passInvalid ? ('Cần có ' + [!hasLen && 'ít nhất 8 ký tự', !hasUpper && 'chữ hoa', !hasLower && 'chữ thường', !hasNum && 'chữ số'].filter(Boolean).join(', ')) : null;
+        const passErrMsg = rg.pass.length > 0 ? this.passErr(rg.pass) : null;
+        const passInvalid = !!passErrMsg;
         const confirmLiveErr = rg.confirm.length > 0 && rg.confirm !== rg.pass ? 'Mật khẩu xác nhận không khớp' : null;
         const rgBirthNum = parseInt(rg.birth, 10);
         const rgBirthAge = rgBirthNum >= 1900 ? (2026 - rgBirthNum) : null;
@@ -585,11 +583,11 @@ window.VH_RENDER = {
       toggleFpConfirm: () => this.setState({_fpShowConfirm: !st._fpShowConfirm}),
       fpConfirmBorder: (st._fpConfirm && st._fpConfirm !== st.fpNewPass) ? 'var(--error)' : 'var(--border)',
       fpConfirmErr: (st._fpConfirm && st._fpConfirm !== st.fpNewPass) ? 'Mật khẩu xác nhận không khớp' : null,
-      fpNewBorder: (() => { const p = st.fpNewPass; if (!p) return 'var(--border)'; return (p.length < 8 || !/[A-Z]/.test(p) || !/[a-z]/.test(p) || !/[0-9]/.test(p)) ? 'var(--error)' : 'var(--border)'; })(),
-      fpNewErr: (() => { const p = st.fpNewPass; if (!p) return null; const bad = [p.length < 8 && 'ít nhất 8 ký tự', !/[A-Z]/.test(p) && 'chữ hoa', !/[a-z]/.test(p) && 'chữ thường', !/[0-9]/.test(p) && 'chữ số'].filter(Boolean); return bad.length ? 'Mật khẩu cần ' + bad.join(', ') : null; })(),
+      fpNewBorder: this.passErr(st.fpNewPass) ? 'var(--error)' : 'var(--border)',
+      fpNewErr: this.passErr(st.fpNewPass),
       submitNewPass: () => {
-        if (this.passStrength(st.fpNewPass) < 2 || st.fpNewPass.length < 8) {
-          this.showToast('Mật khẩu cần từ mức Khá trở lên', 'error');
+        if (!this.passOk(st.fpNewPass)) {
+          this.showToast(this.passErr(st.fpNewPass) || 'Mật khẩu chưa hợp lệ', 'error');
           return;
         }
         if (st.fpNewPass !== (st._fpConfirm || '')) {
@@ -903,13 +901,9 @@ window.VH_RENDER = {
     const isPremium = hasPremium;
     const cpStrength = this.passStrength(st._cpNew);
     const cpStrengthColor = ['var(--error)', 'var(--warning)', 'var(--info)', 'var(--success)'][cpStrength];
-    const cpHasLen = st._cpNew.length >= 8;
-    const cpHasUpper = /[A-Z]/.test(st._cpNew);
-    const cpHasLower = /[a-z]/.test(st._cpNew);
-    const cpHasNum = /[0-9]/.test(st._cpNew);
-    const cpInvalid = !st._cpOld || !cpHasLen || !cpHasUpper || !cpHasLower || !cpHasNum || st._cpNew !== st._cpConfirm;
-    const cpNewInvalid = st._cpNew.length > 0 && (!cpHasLen || !cpHasUpper || !cpHasLower || !cpHasNum);
-    const cpNewErrMsg = cpNewInvalid ? ('Mật khẩu cần ' + [!cpHasLen && 'ít nhất 8 ký tự', !cpHasUpper && 'chữ hoa', !cpHasLower && 'chữ thường', !cpHasNum && 'chữ số'].filter(Boolean).join(', ')) : null;
+    const cpNewErrMsg = st._cpNew.length > 0 ? this.passErr(st._cpNew) : null;
+    const cpNewInvalid = !!cpNewErrMsg;
+    const cpInvalid = !st._cpOld || !this.passOk(st._cpNew) || st._cpNew !== st._cpConfirm;
     const ceInvalid = !this.validEmail(st._ceNew);
     const daInvalid = !st._daConfirm || !st._daPass;
     const tierName = (hasPremium && hasAcademic) ? 'Nhà nghiên cứu · Học giả' : hasAcademic ? 'Học giả' : hasPremium ? 'Nhà nghiên cứu' : 'Khách tham quan';

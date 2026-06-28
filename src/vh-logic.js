@@ -262,6 +262,20 @@ window.VH_LOGIC = {
     if (/[^A-Za-z0-9]/.test(p)) s = Math.min(3, s + 1);
     return Math.min(3, s);
   },
+  // Quy tắc hợp lệ: tối thiểu 8 ký tự + đạt ít nhất 2/3 (chữ hoa, chữ thường, chữ số)
+  passCharTypes(p) {
+    return [/[A-Z]/.test(p), /[a-z]/.test(p), /[0-9]/.test(p)].filter(Boolean).length;
+  },
+  passOk(p) {
+    return p.length >= 8 && this.passCharTypes(p) >= 2;
+  },
+  passErr(p) {
+    if (!p) return null;
+    const bad = [];
+    if (p.length < 8) bad.push('ít nhất 8 ký tự');
+    if (this.passCharTypes(p) < 2) bad.push('ít nhất 2 trong 3: chữ hoa, chữ thường, chữ số');
+    return bad.length ? 'Mật khẩu cần ' + bad.join(' và ') : null;
+  },
 
   // ---- auth actions ----
   doLogin() {
@@ -452,7 +466,7 @@ window.VH_LOGIC = {
       err.email = 'Email này đã có tài khoản.';
       err.emailAction = 'Đăng nhập';
     }
-    if (this.passStrength(rg.pass) < 2 || rg.pass.length < 8) err.pass = true;
+    if (!this.passOk(rg.pass)) err.pass = true;
     if (rg.confirm !== rg.pass || !rg.confirm) err.confirm = 'Mật khẩu xác nhận không khớp';
     if (!rg.terms) {
       this.setState({rgTermsShake: Date.now()});
