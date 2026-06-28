@@ -85,7 +85,7 @@
         <!-- ===== SCREEN STAGE ===== -->
         <div style="position:relative;flex:1;overflow:hidden;">
           <div class="vh-stage vh-scroll" key="{{ screen }}"
-               style="position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;animation:{{ navAnim }} .3s ease-out;-webkit-overflow-scrolling:touch;">
+               style="position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;background:var(--bg-primary);animation:{{ navAnim }} .35s ease-in-out;-webkit-overflow-scrolling:touch;">
 
             <!-- 01 SPLASH -->
             <sc-if value="{{ isSplash }}" hint-placeholder-val="{{ true }}">
@@ -116,6 +116,12 @@
                    onTouchStart="{{ onWalkTouchStart }}" onTouchEnd="{{ onWalkTouchEnd }}"
                    onMouseDown="{{ onWalkMouseDown }}" onMouseUp="{{ onWalkMouseUp }}"
                    style="position:absolute;inset:0;background:var(--bg-primary);display:flex;flex-direction:column;">
+                <!-- nút back ở slide đầu: quay lại đổi ngôn ngữ -->
+                <sc-if value="{{ isFirstWalk }}" hint-placeholder-val="{{ true }}">
+                  <button data-ripple="1" onClick="{{ back }}"
+                          style="position:absolute;top:46px;left:24px;z-index:5;overflow:hidden;width:42px;height:42px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
+                    <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
+                </sc-if>
                 <div key="walkstep-{{ walkStep }}"
                      style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 38px;text-align:center;animation:vhUp .4s ease;">
                   <div
@@ -842,25 +848,32 @@
             <!-- 11 LANGUAGE -->
             <sc-if value="{{ isLangScreen }}" hint-placeholder-val="{{ false }}">
               <div data-screen-label="Language"
-                   style="position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg-primary);padding:54px 28px 30px;">
-                <div class="vh-serif" style="font-size:26px;font-weight:600;">Chọn ngôn ngữ</div>
-                <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;margin-bottom:26px;">
-                  Bạn có thể đổi lại bất cứ lúc nào
+                   style="position:absolute;inset:0;display:flex;flex-direction:column;box-sizing:border-box;background:var(--bg-primary);padding:52px 24px 24px;">
+                <!-- Khối giữa: gộp tiêu đề + subtext + cụm 3 ô, căn giữa cả dọc lẫn ngang -->
+                <div style="flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:28px;">
+                  <div style="text-align:center;">
+                    <div class="vh-serif" style="font-size:26px;font-weight:600;">Chọn ngôn ngữ</div>
+                    <div style="font-size:14px;color:var(--text-secondary);margin-top:6px;">
+                      Bạn có thể đổi lại bất cứ lúc nào
+                    </div>
+                  </div>
+                  <div style="width:100%;display:flex;flex-direction:column;gap:16px;">
+                    <sc-for list="{{ langs }}" as="lg" hint-placeholder-count="3">
+                      <button data-ripple="1" onClick="{{ lg.pickScreen }}"
+                              style="position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;width:100%;text-align:left;background:var(--bg-card);border:2px solid {{ lg.border }};border-radius:12px;padding:16px;cursor:pointer;color:var(--text-primary);">
+                        <img src="{{ lg.flagUrl }}" alt="" width="24" height="24"
+                             style="width:24px;height:24px;border-radius:50%;object-fit:cover;flex:none;"><span
+                          style="flex:1;font-size:15px;font-weight:500;">{{ lg.name }}</span>
+                        <sc-if value="{{ lg.active }}" hint-placeholder-val="{{ false }}"><i
+                            class="ti ti-circle-check-filled"
+                            style="margin-left:auto;font-size:22px;color:var(--cta);"></i></sc-if>
+                      </button>
+                    </sc-for>
+                  </div>
                 </div>
-                <sc-for list="{{ langs }}" as="lg" hint-placeholder-count="3">
-                  <button data-ripple="1" onClick="{{ lg.pickScreen }}"
-                          style="position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;width:100%;text-align:left;background:var(--bg-card);border:2px solid {{ lg.border }};border-radius:12px;padding:16px;margin-bottom:12px;cursor:pointer;color:var(--text-primary);">
-                    <img src="{{ lg.flagUrl }}" alt="" width="24" height="24"
-                         style="width:24px;height:24px;border-radius:50%;object-fit:cover;flex:none;"><span
-                      style="flex:1;font-size:15px;font-weight:500;">{{ lg.name }}</span>
-                    <sc-if value="{{ lg.active }}" hint-placeholder-val="{{ false }}"><i
-                        class="ti ti-circle-check-filled"
-                        style="margin-left:auto;font-size:22px;color:var(--cta);"></i></sc-if>
-                  </button>
-                </sc-for>
-                <div style="flex:1;"></div>
+                <!-- Khối 3 (Bottom): nút Tiếp tục cố định dưới cùng -->
                 <button data-ripple="1" onClick="{{ langContinue }}"
-                        style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;">
+                        style="flex:none;position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:17px;border-radius:12px;cursor:pointer;">
                   Tiếp tục
                 </button>
               </div>

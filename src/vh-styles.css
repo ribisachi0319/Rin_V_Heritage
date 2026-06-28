@@ -21,8 +21,8 @@ html,body{margin:0;padding:0;}
 @keyframes vhScan{0%{top:6%}100%{top:94%}}
 @keyframes vhSpin{to{transform:rotate(360deg)}}
 @keyframes vhFlash{0%{opacity:0}45%{opacity:.5}100%{opacity:0}}
-@keyframes vhPushIn{from{opacity:.4;transform:translateX(28px)}to{opacity:1;transform:translateX(0)}}
-@keyframes vhPopIn{from{opacity:.4;transform:translateX(-28px)}to{opacity:1;transform:translateX(0)}}
+@keyframes vhPushIn{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:translateX(0)}}
+@keyframes vhPopIn{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:translateX(0)}}
 @keyframes vhSheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 @keyframes vhFade{from{opacity:0}to{opacity:1}}
 @keyframes vhUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}

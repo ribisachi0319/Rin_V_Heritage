@@ -365,6 +365,7 @@ window.VH_RENDER = {
       })),
       walkBtn: st.walkStep === 3 ? 'Bắt đầu' : 'Tiếp theo',
       isLastWalk,
+      isFirstWalk: st.walkStep === 0,
       t_walkStart: this.t('walkStart'),
       showPrevArrow: st.walkStep > 0 && !isLastWalk,
       showNextArrow: !isLastWalk,
