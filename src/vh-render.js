@@ -850,7 +850,7 @@ window.VH_RENDER = {
     const cpHasNum = /[0-9]/.test(st._cpNew);
     const cpInvalid = !st._cpOld || !cpHasLen || !cpHasUpper || !cpHasLower || !cpHasNum || st._cpNew !== st._cpConfirm;
     const cpNewInvalid = st._cpNew.length > 0 && (!cpHasLen || !cpHasUpper || !cpHasLower || !cpHasNum);
-    const cpNewErrMsg = cpNewInvalid ? ('Cần có ' + [!cpHasLen && 'ít nhất 8 ký tự', !cpHasUpper && 'chữ hoa', !cpHasLower && 'chữ thường', !cpHasNum && 'chữ số'].filter(Boolean).join(', ')) : null;
+    const cpNewErrMsg = cpNewInvalid ? ('Mật khẩu cần ' + [!cpHasLen && 'ít nhất 8 ký tự', !cpHasUpper && 'chữ hoa', !cpHasLower && 'chữ thường', !cpHasNum && 'chữ số'].filter(Boolean).join(', ')) : null;
     const ceInvalid = !this.validEmail(st._ceNew);
     const daInvalid = !st._daConfirm || !st._daPass;
     const tierName = (hasPremium && hasAcademic) ? 'Nhà nghiên cứu · Học giả' : hasAcademic ? 'Học giả' : hasPremium ? 'Nhà nghiên cứu' : 'Khách tham quan';
@@ -1194,6 +1194,15 @@ window.VH_RENDER = {
       onCpOld: (e) => this.setState({_cpOld: e.target.value}),
       onCpNew: (e) => this.setState({_cpNew: e.target.value}),
       onCpConfirm: (e) => this.setState({_cpConfirm: e.target.value}),
+      cpOldType: st._cpShowOld ? 'text' : 'password',
+      cpNewType: st._cpShowNew ? 'text' : 'password',
+      cpConfirmType: st._cpShowConfirm ? 'text' : 'password',
+      cpOldEye: st._cpShowOld ? 'ti-eye-off' : 'ti-eye',
+      cpNewEye: st._cpShowNew ? 'ti-eye-off' : 'ti-eye',
+      cpConfirmEye: st._cpShowConfirm ? 'ti-eye-off' : 'ti-eye',
+      toggleCpOld: () => this.setState({_cpShowOld: !st._cpShowOld}),
+      toggleCpNew: () => this.setState({_cpShowNew: !st._cpShowNew}),
+      toggleCpConfirm: () => this.setState({_cpShowConfirm: !st._cpShowConfirm}),
       cpBars: [0, 1, 2].map(i => i < cpStrength ? cpStrengthColor : 'var(--bg-tertiary)'),
       cpConfirmBorder: (st._cpConfirm && st._cpConfirm !== st._cpNew) ? 'var(--error)' : 'var(--border)',
       cpErr: (st._cpConfirm && st._cpConfirm !== st._cpNew) ? 'Mật khẩu xác nhận không khớp' : null,
