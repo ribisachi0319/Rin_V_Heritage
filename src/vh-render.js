@@ -418,6 +418,9 @@ window.VH_RENDER = {
       rgStepA11y: rg.step === 'a11y',
       rgStepName: rg.step === 'name',
       rgStepAccount: rg.step === 'account',
+      rgStepOtp: rg.step === 'otp',
+      rgOtpEmail: rg.email,
+      rgResendLabel: st.fpResendCd > 0 ? ('Gửi lại mã sau (' + st.fpResendCd + 's)') : 'Gửi lại mã',
       ...((() => {
         const order = this.rgOrder();
         const idx = Math.max(0, order.indexOf(rg.step || 'age'));

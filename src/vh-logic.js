@@ -383,7 +383,7 @@ window.VH_LOGIC = {
   },
   // thứ tự bước đăng ký; chèn bước 'a11y' khi chọn 45+ (needA11y)
   rgOrder() {
-    return this.state.rg.needA11y ? ['age', 'a11y', 'name', 'account'] : ['age', 'name', 'account'];
+    return this.state.rg.needA11y ? ['age', 'a11y', 'name', 'account', 'otp'] : ['age', 'name', 'account', 'otp'];
   },
   rgValidateStep(step) {
     const rg = this.state.rg;
@@ -423,6 +423,8 @@ window.VH_LOGIC = {
       });
       return;
     }
+    // account → otp chỉ đi qua nút "Tạo tài khoản" (doRegister: validate + gửi OTP), không cho vuốt nhảy
+    if (step === 'account') return;
     const order = this.rgOrder();
     const idx = order.indexOf(step);
     if (idx < 0 || idx >= order.length - 1) return;
@@ -512,6 +514,21 @@ window.VH_LOGIC = {
       if (err.terms && Object.keys(err).length === 1) this.showToast('Vui lòng đồng ý điều khoản để tiếp tục', 'error');
       return;
     }
+    // hợp lệ → gửi OTP về email, sang màn Xác thực Email (bước 'otp')
+    this.setState({
+      rg: Object.assign({}, this.state.rg, {step: 'otp', err: {}, _dir: 'fwd'}),
+      otpArr: ['', '', '', '', '', ''], fpOtpErr: null, _otpTries: 0,
+    });
+    this.startResend();
+    this.showToast('Đã gửi mã OTP đến email — demo: 123456');
+    setTimeout(() => {
+      if (this._otpRefs && this._otpRefs[0]) this._otpRefs[0].focus();
+    }, 120);
+  },
+  // hoàn tất đăng ký sau khi xác thực OTP thành công
+  completeRegister() {
+    const rg = this.state.rg;
+    clearInterval(this._resendT);
     // năm sinh tuỳ chọn: nếu trống thì suy tuổi từ nhóm đã chọn (mặc định là người lớn)
     const birthStr = (rg.birth || '').trim();
     const birth = parseInt(birthStr, 10);
@@ -544,8 +561,13 @@ window.VH_LOGIC = {
   verifyOtp() {
     const code = (this.state.otpArr || []).join('');
     const tries = (this.state._otpTries || 0) + 1;
+    const isReg = this.state.screen === 'register' && this.state.rg.step === 'otp';
     if (code === '123456') {
       clearInterval(this._resendT);
+      if (isReg) {
+        this.completeRegister();
+        return;
+      }
       this.setState({fpStep: 'reset', fpNewPass: '', fpResendCd: 0, fpOtpErr: null});
       return;
     }
