@@ -7,12 +7,11 @@ html,body{margin:0;padding:0;}
 .vh-scroll{scrollbar-width:none;-ms-overflow-style:none;cursor:grab;}.vh-scroll:active{cursor:grabbing;}
 [data-theme="light"]{--bg-primary:#EFDEC4;--bg-secondary:#F5EDD8;--bg-tertiary:#EDE4C4;--bg-card:#FAF5EC;--text-primary:#1A2540;--text-secondary:#4B5675;--text-tertiary:#8E98A8;--primary:#304574;--primary-d:#2B3E68;--cta:#ED8927;--cta-d:#d2761c;--info:#5F8AEC;--cream:#EFDEC4;--on-primary:#EFDEC4;--success:#008000;--warning:#FFA500;--error:#DD0E0E;--border:rgba(48,69,116,0.15);--border-2:rgba(48,69,116,0.28);--shadow:0 4px 8px rgba(26,37,64,0.10);--shadow-lg:0 10px 24px rgba(26,37,64,0.18);--map:#c3b79a;--mapline:rgba(48,69,116,.12);}
 [data-theme="dark"]{--bg-primary:#0D1220;--bg-secondary:#1A2540;--bg-tertiary:#243050;--bg-card:#1E2C48;--text-primary:#F0EDE6;--text-secondary:#A8B0C0;--text-tertiary:#717a8c;--primary:#EFDEC4;--primary-d:#cbbfa0;--cta:#ED8927;--cta-d:#f59c43;--info:#5F8AEC;--cream:#EFDEC4;--on-primary:#304574;--success:#3DBA6A;--warning:#FFA500;--error:#FF6B6B;--border:rgba(240,237,230,0.12);--border-2:rgba(240,237,230,0.22);--shadow:0 4px 10px rgba(0,0,0,.3);--shadow-lg:0 12px 28px rgba(0,0,0,.45);--map:#0a0f18;--mapline:rgba(240,237,230,.08);}
-/* a11y visual-low: reflow at narrower width then scale up = bigger text/controls, no overflow */
-.vh-app[data-vlow="1"] .vh-stage{zoom:1.2;width:83.3%;}
-.vh-app .vh-stage{transition:zoom .2s ease;}
+/* a11y visual-low: render nội dung ở 83.3% rồi transform scale(1.2) = phóng to đều, hit-test chuẩn, không lệch chạm */
+.vh-content{position:relative;flex:1 1 auto;min-height:0;width:100%;display:flex;flex-direction:column;transition:transform .2s ease;}
+.vh-app[data-vlow="1"] .vh-content{width:83.333%;height:83.333%;flex:none;transform:scale(1.2);transform-origin:top left;}
 .vh-app[data-vlow="1"]{--text-secondary:#2c3a5c;--text-tertiary:#516084;}
 .vh-app[data-theme="dark"][data-vlow="1"]{--text-secondary:#cfd6e2;--text-tertiary:#9aa4b8;}
-.vh-app[data-vlow="1"] button{min-height:56px;transition:min-height .2s ease;}
 .vh-app[data-vblind="1"] button:focus,.vh-app[data-vblind="1"] input:focus,.vh-app[data-vblind="1"] [tabindex]:focus{outline:3px solid var(--cta);outline-offset:2px;}
 @keyframes vhShimmer{0%{background-position:-150% 0}100%{background-position:150% 0}}
 @keyframes vhPulse{0%{box-shadow:0 0 0 0 rgba(237,137,39,.5)}70%{box-shadow:0 0 0 16px rgba(237,137,39,0)}100%{box-shadow:0 0 0 0 rgba(237,137,39,0)}}

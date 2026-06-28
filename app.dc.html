@@ -67,6 +67,8 @@
       <div class="vh-app" data-theme="{{ theme }}" data-vlow="{{ vlow }}" data-vblind="{{ vblind }}"
            data-vmotor="{{ vmotor }}"
            style="position:relative;width:390px;height:844px;border-radius:35px;overflow:hidden;transform:translateZ(0);background:var(--bg-primary);color:var(--text-primary);display:flex;flex-direction:column;">
+        <!-- vh-content: lớp bao để phóng to (trợ năng) bằng transform scale, không lệch chạm -->
+        <div class="vh-content">
 
         <!-- offline banner -->
         <sc-if value="{{ offlineBanner }}" hint-placeholder-val="{{ false }}">
@@ -4667,6 +4669,8 @@
               style="overflow:hidden;text-overflow:ellipsis;">{{ toast }}</span>
           </div>
         </sc-if>
+        </div>
+        <!-- /vh-content -->
 
       </div>
     </div>
