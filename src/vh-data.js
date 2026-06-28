@@ -822,7 +822,13 @@ window.VH_DATA = {
       secDiscover: 'Đang chờ bạn khám phá',
       secFeatured: 'Di tích đặc sắc tuần này',
       secArt: 'Hiện vật nổi bật',
-      offlineBanner: 'Chế độ offline — Đang dùng dữ liệu đã tải'
+      offlineBanner: 'Chế độ offline — Đang dùng dữ liệu đã tải',
+      skip: 'Bỏ qua',
+      walkStart: 'Khám phá ngay',
+      walk0: 'Mỗi hiện vật đều có câu chuyện chưa được kể. Bạn sẽ là người khám phá nó.',
+      walk1: 'Giơ điện thoại lên. Lịch sử sẽ hiện ra trước mắt bạn.',
+      walk2: 'Nghe di sản kể chuyện — bằng giọng nói của chính nó.',
+      walk3: 'Để lại dấu ấn của bạn tại những nơi lịch sử đã đi qua.'
     },
     en: {
       home: 'Home',
@@ -835,7 +841,13 @@ window.VH_DATA = {
       secDiscover: 'Waiting to be discovered',
       secFeatured: 'Featured sites this week',
       secArt: 'Featured artifacts',
-      offlineBanner: 'Offline mode — Using downloaded data'
+      offlineBanner: 'Offline mode — Using downloaded data',
+      skip: 'Skip',
+      walkStart: 'Explore now',
+      walk0: 'Every artifact holds an untold story. You will be the one to uncover it.',
+      walk1: 'Raise your phone. History unfolds right before your eyes.',
+      walk2: 'Hear heritage tell its story — in its own voice.',
+      walk3: 'Leave your mark where history once passed.'
     },
     cn: {
       home: '首页',
@@ -848,20 +860,26 @@ window.VH_DATA = {
       secDiscover: '等待你的发现',
       secFeatured: '本周精选遗址',
       secArt: '精选文物',
-      offlineBanner: '离线模式 — 使用已下载数据'
+      offlineBanner: '离线模式 — 使用已下载数据',
+      skip: '跳过',
+      walkStart: '立即探索',
+      walk0: '每件文物都有一段未被讲述的故事，等待你来发现。',
+      walk1: '举起手机，历史就在你眼前展开。',
+      walk2: '聆听文化遗产讲述自己的故事——用它自己的声音。',
+      walk3: '在历史走过的地方留下你的印记。'
     },
   },
 
   walkSlides: [
-    {icon: 'ti-sparkles', title: 'Mỗi hiện vật đều có câu chuyện chưa được kể. Bạn sẽ là người khám phá nó.'},
-    {icon: 'ti-device-mobile', title: 'Giơ điện thoại lên. Lịch sử sẽ hiện ra trước mắt bạn.'},
-    {icon: 'ti-headphones', title: 'Nghe di sản kể chuyện — bằng giọng nói của chính nó.'},
-    {icon: 'ti-message-2-heart', title: 'Để lại dấu ấn của bạn tại những nơi lịch sử đã đi qua.'},
+    {icon: 'ti-sparkles', key: 'walk0'},
+    {icon: 'ti-device-mobile', key: 'walk1'},
+    {icon: 'ti-headphones', key: 'walk2'},
+    {icon: 'ti-message-2-heart', key: 'walk3'},
   ],
 
   langDefs: [
-    {code: 'vi', flag: '🇻🇳', name: 'Tiếng Việt'},
-    {code: 'en', flag: '🇬🇧', name: 'English'},
-    {code: 'cn', flag: '🇨🇳', name: '中文'},
+    {code: 'vi', flag: '🇻🇳', iso: 'vn', name: 'Tiếng Việt'},
+    {code: 'en', flag: '🇬🇧', iso: 'gb', name: 'English'},
+    {code: 'cn', flag: '🇨🇳', iso: 'cn', name: '中文'},
   ],
 };

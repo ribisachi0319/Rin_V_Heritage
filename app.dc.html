@@ -127,13 +127,13 @@
                   </div>
                 </div>
                 <div style="padding:0 30px 14px;display:flex;align-items:center;justify-content:space-between;">
-                  <sc-if value="{{ showPrevWalk }}">
+                  <sc-if value="{{ showPrevArrow }}">
                     <button data-ripple="1" onClick="{{ prevWalk }}"
                             style="position:relative;overflow:hidden;width:30px;height:30px;border:none;background:transparent;cursor:pointer;color:var(--text-tertiary);display:flex;align-items:center;justify-content:center;flex:none;padding:0;">
                       <i class="ti ti-chevron-left" style="font-size:24px;"></i>
                     </button>
                   </sc-if>
-                  <sc-if value="{{ !showPrevWalk }}">
+                  <sc-if value="{{ !showPrevArrow }}">
                     <div style="width:30px;flex:none;"></div>
                   </sc-if>
                   <div style="display:flex;gap:8px;align-items:center;">
@@ -142,17 +142,33 @@
                            style="width:{{ d.w }};height:7px;border-radius:99px;background:{{ d.c }};transition:all .25s;cursor:pointer;"></div>
                     </sc-for>
                   </div>
-                  <button data-ripple="1" onClick="{{ nextWalk }}"
-                          style="position:relative;overflow:hidden;width:30px;height:30px;border:none;background:transparent;cursor:pointer;color:var(--cta);display:flex;align-items:center;justify-content:center;flex:none;padding:0;">
-                    <i class="ti ti-chevron-right" style="font-size:24px;"></i>
-                  </button>
+                  <sc-if value="{{ showNextArrow }}">
+                    <button data-ripple="1" onClick="{{ nextWalk }}"
+                            style="position:relative;overflow:hidden;width:30px;height:30px;border:none;background:transparent;cursor:pointer;color:var(--cta);display:flex;align-items:center;justify-content:center;flex:none;padding:0;">
+                      <i class="ti ti-chevron-right" style="font-size:24px;"></i>
+                    </button>
+                  </sc-if>
+                  <sc-if value="{{ !showNextArrow }}">
+                    <div style="width:30px;flex:none;"></div>
+                  </sc-if>
                 </div>
-                <div style="padding:4px 24px 36px;text-align:center;">
-                  <button data-ripple="1" onClick="{{ skipWalk }}"
-                          style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--text-tertiary);font-size:13px;font-weight:500;cursor:pointer;padding:8px 20px;border-radius:8px;">
-                    Bỏ qua
-                  </button>
-                </div>
+                <!-- slide cuối: nút primary to thay cho "Bỏ qua" -->
+                <sc-if value="{{ isLastWalk }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:6px 28px 34px;">
+                    <button data-ripple="1" onClick="{{ nextWalk }}"
+                            style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:17px;border-radius:14px;cursor:pointer;box-shadow:var(--shadow-lg);">
+                      {{ t_walkStart }}
+                    </button>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ !isLastWalk }}" hint-placeholder-val="{{ true }}">
+                  <div style="padding:4px 24px 36px;text-align:center;">
+                    <button data-ripple="1" onClick="{{ skipWalk }}"
+                            style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--text-tertiary);font-size:13px;font-weight:500;cursor:pointer;padding:8px 20px;border-radius:8px;">
+                      {{ t_skipWalk }}
+                    </button>
+                  </div>
+                </sc-if>
               </div>
             </sc-if>
 
@@ -833,12 +849,13 @@
                 </div>
                 <sc-for list="{{ langs }}" as="lg" hint-placeholder-count="3">
                   <button data-ripple="1" onClick="{{ lg.pickScreen }}"
-                          style="position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--bg-card);border:2px solid {{ lg.border }};border-radius:12px;padding:16px;margin-bottom:12px;cursor:pointer;color:var(--text-primary);">
-                    <span style="font-size:26px;">{{ lg.flag }}</span><span
+                          style="position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;width:100%;text-align:left;background:var(--bg-card);border:2px solid {{ lg.border }};border-radius:12px;padding:16px;margin-bottom:12px;cursor:pointer;color:var(--text-primary);">
+                    <img src="{{ lg.flagUrl }}" alt="" width="24" height="24"
+                         style="width:24px;height:24px;border-radius:50%;object-fit:cover;flex:none;"><span
                       style="flex:1;font-size:15px;font-weight:500;">{{ lg.name }}</span>
                     <sc-if value="{{ lg.active }}" hint-placeholder-val="{{ false }}"><i
                         class="ti ti-circle-check-filled"
-                        style="font-size:22px;color:var(--cta);"></i></sc-if>
+                        style="margin-left:auto;font-size:22px;color:var(--cta);"></i></sc-if>
                   </button>
                 </sc-for>
                 <div style="flex:1;"></div>
@@ -4606,11 +4623,12 @@
             </div>
             <sc-for list="{{ langs }}" as="lg" hint-placeholder-count="3">
               <button data-ripple="1" onClick="{{ lg.pickSheet }}"
-                      style="position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;width:100%;height:52px;padding:0 24px;background:transparent;border:none;cursor:pointer;color:var(--text-primary);">
-                <span style="font-size:22px;">{{ lg.flag }}</span><span
+                      style="position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;width:100%;height:52px;padding:0 24px;background:transparent;border:none;cursor:pointer;color:var(--text-primary);">
+                <img src="{{ lg.flagUrl }}" alt="" width="24" height="24"
+                     style="width:24px;height:24px;border-radius:50%;object-fit:cover;flex:none;"><span
                   style="flex:1;text-align:left;font-size:15px;font-weight:500;">{{ lg.name }}</span>
                 <sc-if value="{{ lg.active }}" hint-placeholder-val="{{ false }}"><i class="ti ti-check"
-                                                                                     style="font-size:22px;color:var(--cta);"></i>
+                                                                                     style="margin-left:auto;font-size:22px;color:var(--cta);"></i>
                 </sc-if>
               </button>
             </sc-for>

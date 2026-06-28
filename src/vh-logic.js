@@ -22,7 +22,13 @@ window.VH_LOGIC = {
 
   // ---- lifecycle ----
   componentDidMount() {
-    this._splashT = setTimeout(() => this.nav('walkthrough', 'fwd'), 1600);
+    // nạp lại ngôn ngữ đã lưu (nếu có) để cấu hình hệ thống ngay từ đầu
+    try {
+      const sl = localStorage.getItem('vh_lang');
+      if (sl && this.langDefs.some(l => l.code === sl)) this.setState({language: sl});
+    } catch (e) {}
+    // onboarding: splash → chọn ngôn ngữ (màn cấu hình đầu tiên)
+    this._splashT = setTimeout(() => this.nav('language', 'fwd'), 1600);
     const PH = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240"><rect width="240" height="240" fill="#EDE4C4"/><g fill="#cdbf9f"><rect x="70" y="150" width="100" height="40" rx="4"/><polygon points="120,70 160,110 80,110"/><rect x="92" y="110" width="56" height="42"/></g><circle cx="120" cy="92" r="6" fill="#ED8927"/></svg>');
     this._imgErr = (e) => {
       const el = e.target;
@@ -540,7 +546,7 @@ window.VH_LOGIC = {
     const fullName = (rg.last.trim() + ' ' + rg.first.trim()).trim();
     this.setState({user: {name: fullName, email: rg.email, isLoggedIn: true, age}});
     this.showToast('Chào mừng đến với V-Heritage ✦', 'success');
-    this.nav('language', 'fwd');
+    this.enterApp();
   },
   socialLogin(name, icon, color) {
     this.setState({modal: 'social', modalData: {name, icon, color}});

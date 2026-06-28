@@ -33,6 +33,7 @@ window.VH_RENDER = {
     });
     const langs = this.langDefs.map(l => ({
       ...l,
+      flagUrl: 'https://cdn.jsdelivr.net/gh/HatScripts/circle-flags/flags/' + l.iso + '.svg',
       active: st.language === l.code,
       border: st.language === l.code ? 'var(--cta)' : 'var(--border)',
       pickScreen: () => this.setState({language: l.code}),
@@ -265,7 +266,9 @@ window.VH_RENDER = {
 
   authVals() {
     const st = this.state;
-    const ws = this.walkSlides[Math.min(st.walkStep, 3)];
+    const lastWalk = this.walkSlides.length - 1;
+    const ws = this.walkSlides[Math.min(st.walkStep, lastWalk)];
+    const isLastWalk = st.walkStep >= lastWalk;
     const social = [
       {
         name: 'Google', icon: '', paths: [
@@ -353,13 +356,18 @@ window.VH_RENDER = {
     return {
       walkStep: st.walkStep,
       walkIcon: ws.icon,
-      walkTitle: ws.title,
+      walkTitle: this.t(ws.key),
+      t_skipWalk: this.t('skip'),
       walkDots: this.walkSlides.map((s, i) => ({
         w: i === st.walkStep ? '22px' : '7px',
         c: i === st.walkStep ? 'var(--cta)' : 'var(--border-2)',
         tap: () => this.goWalkStep(i),
       })),
       walkBtn: st.walkStep === 3 ? 'Bắt đầu' : 'Tiếp theo',
+      isLastWalk,
+      t_walkStart: this.t('walkStart'),
+      showPrevArrow: st.walkStep > 0 && !isLastWalk,
+      showNextArrow: !isLastWalk,
       showPrevWalk: st.walkStep > 0,
       nextWalk: () => this.nextWalk(),
       prevWalk: () => this.prevWalk(),
@@ -375,7 +383,7 @@ window.VH_RENDER = {
       },
       guestEnter: () => {
         this.setState({user: {name: 'Khách', email: '', isLoggedIn: false, age: null}});
-        this.nav('language', 'fwd');
+        this.enterApp();
       },
       back: () => this.back(),
       // login
@@ -670,7 +678,11 @@ window.VH_RENDER = {
         this.nav('authchoice', 'back');
       },
       // language + permissions
-      langContinue: () => this.enterApp(),
+      langContinue: () => {
+        // lưu cấu hình ngôn ngữ vào localStorage rồi sang Tutorial
+        try { localStorage.setItem('vh_lang', this.state.language); } catch (e) {}
+        this.nav('walkthrough', 'fwd');
+      },
       // NEARBY (gợi ý tải gói AR gần đây sau đăng nhập, khi đã bật vị trí)
       isNearby: st.screen === 'nearby',
       nearbyImg: this.vimg(this.venues[1].seed, 200, 200),
