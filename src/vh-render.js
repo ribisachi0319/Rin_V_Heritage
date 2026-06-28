@@ -735,7 +735,28 @@ window.VH_RENDER = {
       contX = arts.filter(a => (st._visited || []).includes(a.id)).length;
       showContinue = contY > 0 && contX < contY;
     }
+    // ---- Home: thẻ địa điểm dạng poster + các nhóm carousel ----
+    const VTYPE = {1: 'Bảo tàng', 2: 'Bảo tàng', 3: 'Di tích', 4: 'Khu di tích', 5: 'Khu di tích', 6: 'Phố cổ', 11: 'Di sản', 12: 'Di sản', 13: 'Thánh địa', 14: 'Thắng cảnh', 15: 'Di sản', 16: 'Di tích', 17: 'Khu di tích', 18: 'Di sản'};
+    const posterCard = (id) => {
+      const v = this.findVenue(id) || {};
+      return {
+        id, name: v.name || '', city: v.city || '', count: v.count || 0,
+        type: VTYPE[id] || 'Di tích',
+        dist: v.dist || '',
+        accIcon: v.wheelchair ? 'ti-wheelchair' : 'ti-stairs',
+        accColor: v.wheelchair ? '#74D99F' : 'rgba(255,255,255,.7)',
+        accText: v.floor || '',
+        img: this.vimg(v.seed, 360, 440),
+        open: () => this.openVenue(id),
+      };
+    };
+    const placesMain = [11, 6, 12, 1, 14, 13, 3, 16, 15, 18, 2, 17].map(posterCard);
+    const grpHanoi = [1, 2, 4, 11, 16].map(posterCard);
+    const grpHcm = [3, 17].map(posterCard);
+    const grpMuseum = [1, 2].map(posterCard);
+    const grpNature = [14, 18, 13, 6].map(posterCard);
     return {
+      placesMain, grpHanoi, grpHcm, grpMuseum, grpNature,
       showContinueCard: showContinue,
       contVenName: visitVen ? visitVen.name : '',
       contImg: visitVen ? this.vimg(visitVen.seed, 160, 160) : '',
@@ -1671,7 +1692,7 @@ window.VH_RENDER = {
       venArtifacts: venArtifacts.map(a => ({
         ...a,
         img: this.vimg(a.seed, 200, 200),
-        open: () => this.openArtifact(a.id)
+        open: () => this.openArtifactModel(a.id)
       })),
       venArtCount: venArtifacts.length,
       showWheelchairToggle: st.a11y.motor,
