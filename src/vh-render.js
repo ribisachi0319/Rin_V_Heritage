@@ -178,7 +178,7 @@ window.VH_RENDER = {
       socialContinue: () => {
         this.setState({modal: null, user: {name: 'Minh Anh', email: 'minhanh@gmail.com', isLoggedIn: true, age: 31}});
         this.showToast('Chào mừng trở lại ✦');
-        this.nav('permissions', 'fwd');
+        this.enterApp();
       },
       socialCancel: () => {
         this.setState({modal: null});
@@ -532,16 +532,32 @@ window.VH_RENDER = {
       fpNewPass: st.fpNewPass,
       onNewPass: (e) => this.setState({fpNewPass: e.target.value}),
       fpNewBars: [0, 1, 2].map(i => i < this.passStrength(st.fpNewPass) ? ['var(--error)', 'var(--warning)', 'var(--info)', 'var(--success)'][this.passStrength(st.fpNewPass)] : 'var(--bg-tertiary)'),
+      fpNewType: st._fpShowNew ? 'text' : 'password',
+      fpNewEye: st._fpShowNew ? 'ti-eye-off' : 'ti-eye',
+      toggleFpNew: () => this.setState({_fpShowNew: !st._fpShowNew}),
+      fpConfirm: st._fpConfirm || '',
+      onFpConfirm: (e) => this.setState({_fpConfirm: e.target.value}),
+      fpConfirmType: st._fpShowConfirm ? 'text' : 'password',
+      fpConfirmEye: st._fpShowConfirm ? 'ti-eye-off' : 'ti-eye',
+      toggleFpConfirm: () => this.setState({_fpShowConfirm: !st._fpShowConfirm}),
+      fpConfirmBorder: (st._fpConfirm && st._fpConfirm !== st.fpNewPass) ? 'var(--error)' : 'var(--border)',
+      fpConfirmErr: (st._fpConfirm && st._fpConfirm !== st.fpNewPass) ? 'Mật khẩu xác nhận không khớp' : null,
+      fpNewBorder: (() => { const p = st.fpNewPass; if (!p) return 'var(--border)'; return (p.length < 8 || !/[A-Z]/.test(p) || !/[a-z]/.test(p) || !/[0-9]/.test(p)) ? 'var(--error)' : 'var(--border)'; })(),
+      fpNewErr: (() => { const p = st.fpNewPass; if (!p) return null; const bad = [p.length < 8 && 'ít nhất 8 ký tự', !/[A-Z]/.test(p) && 'chữ hoa', !/[a-z]/.test(p) && 'chữ thường', !/[0-9]/.test(p) && 'chữ số'].filter(Boolean); return bad.length ? 'Mật khẩu cần ' + bad.join(', ') : null; })(),
       submitNewPass: () => {
         if (this.passStrength(st.fpNewPass) < 2 || st.fpNewPass.length < 8) {
           this.showToast('Mật khẩu cần từ mức Khá trở lên', 'error');
           return;
         }
-        this.setState({fpStep: 'done'});
+        if (st.fpNewPass !== (st._fpConfirm || '')) {
+          this.showToast('Mật khẩu xác nhận không khớp', 'error');
+          return;
+        }
+        this.setState({fpStep: 'done', _fpConfirm: '', _fpShowNew: false, _fpShowConfirm: false});
       },
       backToLogin: () => {
         this.setState({fpStep: 'email'});
-        this.nav('login', 'back');
+        this.back();
       },
       // parental
       parentEmail: st.parentEmail,

@@ -633,32 +633,58 @@
                 </sc-if>
                 <!-- step: reset -->
                 <sc-if value="{{ fpStepReset }}" hint-placeholder-val="{{ false }}">
-                  <div style="flex:1;padding:18px 28px;animation:vhUp .3s ease;">
-                    <div class="vh-serif" style="font-size:24px;font-weight:600;">Đặt mật khẩu mới
-                    </div>
-                    <div style="font-size:14px;color:var(--text-secondary);margin-top:8px;line-height:1.6;">
-                      Chọn mật khẩu từ mức Khá trở lên (tối thiểu 8 ký tự).
-                    </div>
-                    <div style="margin-top:22px;"><label
-                        style="font-size:12px;font-weight:600;color:var(--text-secondary);">Mật
-                      khẩu mới</label>
-                      <div
-                          style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid var(--border);border-radius:8px;padding:13px 14px;margin-top:6px;">
-                        <i class="ti ti-lock"
-                           style="font-size:18px;color:var(--text-tertiary);"></i><input
-                          value="{{ fpNewPass }}" onInput="{{ onNewPass }}" type="password"
-                          placeholder="Mật khẩu mới"
-                          style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
+                  <div class="vh-scroll" style="flex:1;overflow-y:auto;padding:18px 24px 20px;animation:vhUp .3s ease;">
+                    <div class="vh-serif" style="font-size:24px;font-weight:600;">Đặt mật khẩu mới</div>
+                    <div style="margin-top:20px;"><label
+                        style="font-size:16px;font-weight:600;color:var(--text-secondary);">Mật khẩu mới</label>
+                      <div style="font-size:12px;color:var(--text-tertiary);margin-top:4px;line-height:1.5;">
+                        Chọn mật khẩu từ mức Khá trở lên (tối thiểu 8 ký tự, gồm chữ hoa, chữ thường và chữ số).
+                      </div>
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ fpNewBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
+                        <i class="ti ti-lock-plus" style="font-size:18px;color:var(--text-tertiary);"></i>
+                        <input value="{{ fpNewPass }}" onInput="{{ onNewPass }}" type="{{ fpNewType }}"
+                               placeholder="Nhập mật khẩu mới"
+                               style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
+                        <button data-ripple="1" onClick="{{ toggleFpNew }}" type="button"
+                                style="border:none;background:transparent;cursor:pointer;color:var(--text-tertiary);display:flex;align-items:center;padding:0;flex:none;">
+                          <i class="ti {{ fpNewEye }}" style="font-size:18px;"></i></button>
                       </div>
                       <div style="display:flex;gap:5px;margin-top:8px;">
                         <sc-for list="{{ fpNewBars }}" as="b" hint-placeholder-count="3">
-                          <div
-                              style="flex:1;height:5px;border-radius:99px;background:{{ b }};transition:background .2s;"></div>
+                          <div style="flex:1;height:5px;border-radius:99px;background:{{ b }};transition:background .2s;"></div>
                         </sc-for>
                       </div>
+                      <sc-if value="{{ fpNewErr }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
+                          <i class="ti ti-alert-circle" style="font-size:14px;"></i>{{ fpNewErr }}
+                        </div>
+                      </sc-if>
                     </div>
+                    <div style="margin-top:16px;"><label
+                        style="font-size:16px;font-weight:600;color:var(--text-secondary);">Xác nhận mật khẩu mới</label>
+                      <div style="display:flex;align-items:center;gap:10px;background:var(--bg-card);border:2px solid {{ fpConfirmBorder }};border-radius:8px;padding:13px 14px;margin-top:6px;">
+                        <i class="ti ti-lock-check" style="font-size:18px;color:var(--text-tertiary);"></i>
+                        <input value="{{ fpConfirm }}" onInput="{{ onFpConfirm }}" type="{{ fpConfirmType }}"
+                               placeholder="Nhập lại mật khẩu mới"
+                               style="flex:1;border:none;background:transparent;outline:none;font-size:15px;color:var(--text-primary);">
+                        <button data-ripple="1" onClick="{{ toggleFpConfirm }}" type="button"
+                                style="border:none;background:transparent;cursor:pointer;color:var(--text-tertiary);display:flex;align-items:center;padding:0;flex:none;">
+                          <i class="ti {{ fpConfirmEye }}" style="font-size:18px;"></i></button>
+                      </div>
+                      <sc-if value="{{ fpConfirmErr }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
+                          <i class="ti ti-alert-circle" style="font-size:14px;"></i>{{ fpConfirmErr }}
+                        </div>
+                      </sc-if>
+                    </div>
+                  </div>
+                  <div style="flex:none;background:var(--bg-card);border-top:1px solid var(--border);padding:14px 18px 26px;display:flex;gap:10px;">
+                    <button data-ripple="1" onClick="{{ back }}"
+                            style="position:relative;overflow:hidden;flex:none;border:1px solid var(--border-2);background:transparent;color:var(--text-secondary);font-size:15px;font-weight:600;padding:15px 22px;border-radius:8px;cursor:pointer;">
+                      Huỷ
+                    </button>
                     <button data-ripple="1" onClick="{{ submitNewPass }}"
-                            style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;margin-top:22px;">
+                            style="position:relative;overflow:hidden;flex:1;border:none;background:var(--cta);color:#fff;font-size:15px;font-weight:600;padding:15px;border-radius:8px;cursor:pointer;">
                       Đặt lại mật khẩu
                     </button>
                   </div>
