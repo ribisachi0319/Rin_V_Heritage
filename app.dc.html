@@ -518,14 +518,12 @@
                                 style="position:relative;overflow:hidden;border:none;background:transparent;cursor:pointer;color:var(--text-tertiary);display:flex;align-items:center;padding:0;flex:none;">
                           <i class="ti {{ rgPassEye }}" style="font-size:18px;"></i></button>
                       </div>
-                      <sc-if value="{{ rgPassShow }}" hint-placeholder-val="{{ false }}">
-                        <div style="display:flex;gap:5px;margin-top:8px;">
-                          <sc-for list="{{ strengthBars }}" as="b" hint-placeholder-count="3">
-                            <div
-                                style="flex:1;height:5px;border-radius:99px;background:{{ b }};transition:background .2s;"></div>
-                          </sc-for>
-                        </div>
-                      </sc-if>
+                      <div style="display:flex;gap:5px;margin-top:8px;">
+                        <sc-for list="{{ strengthBars }}" as="b" hint-placeholder-count="3">
+                          <div
+                              style="flex:1;height:5px;border-radius:99px;background:{{ b }};transition:background .2s;"></div>
+                        </sc-for>
+                      </div>
                       <sc-if value="{{ rgPassErr }}" hint-placeholder-val="{{ false }}">
                         <div
                             style="display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);">
