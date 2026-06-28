@@ -114,22 +114,7 @@
                    onTouchStart="{{ onWalkTouchStart }}" onTouchEnd="{{ onWalkTouchEnd }}"
                    onMouseDown="{{ onWalkMouseDown }}" onMouseUp="{{ onWalkMouseUp }}"
                    style="position:absolute;inset:0;background:var(--bg-primary);display:flex;flex-direction:column;">
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 20px 0;">
-                  <sc-if value="{{ showPrevWalk }}">
-                    <button data-ripple="1" onClick="{{ prevWalk }}"
-                            style="position:relative;overflow:hidden;width:36px;height:36px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
-                      <i class="ti ti-arrow-left" style="font-size:18px;"></i>
-                    </button>
-                  </sc-if>
-                  <sc-if value="{{ !showPrevWalk }}">
-                    <div style="width:36px;"></div>
-                  </sc-if>
-                  <button data-ripple="1" onClick="{{ skipWalk }}"
-                          style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--text-tertiary);font-size:13px;font-weight:500;cursor:pointer;padding:8px 10px;border-radius:8px;">
-                    Bỏ qua
-                  </button>
-                </div>
-                <div key="{{ walkStep }}"
+                <div key="walkstep-{{ walkStep }}"
                      style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 38px;text-align:center;animation:vhUp .4s ease;">
                   <div
                       style="width:168px;height:168px;border-radius:50%;background:var(--bg-card);box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center;margin-bottom:42px;">
@@ -139,16 +124,32 @@
                     walkTitle }}
                   </div>
                 </div>
-                <div style="display:flex;justify-content:center;gap:8px;padding:14px;">
-                  <sc-for list="{{ walkDots }}" as="d" hint-placeholder-count="4">
-                    <div onClick="{{ d.tap }}"
-                         style="width:{{ d.w }};height:7px;border-radius:99px;background:{{ d.c }};transition:all .25s;cursor:pointer;"></div>
-                  </sc-for>
-                </div>
-                <div style="padding:8px 24px 36px;">
+                <div style="padding:0 30px 14px;display:flex;align-items:center;justify-content:space-between;">
+                  <sc-if value="{{ showPrevWalk }}">
+                    <button data-ripple="1" onClick="{{ prevWalk }}"
+                            style="position:relative;overflow:hidden;width:30px;height:30px;border:none;background:transparent;cursor:pointer;color:var(--text-tertiary);display:flex;align-items:center;justify-content:center;flex:none;padding:0;">
+                      <i class="ti ti-chevron-left" style="font-size:24px;"></i>
+                    </button>
+                  </sc-if>
+                  <sc-if value="{{ !showPrevWalk }}">
+                    <div style="width:30px;flex:none;"></div>
+                  </sc-if>
+                  <div style="display:flex;gap:8px;align-items:center;">
+                    <sc-for list="{{ walkDots }}" as="d" hint-placeholder-count="4">
+                      <div onClick="{{ d.tap }}"
+                           style="width:{{ d.w }};height:7px;border-radius:99px;background:{{ d.c }};transition:all .25s;cursor:pointer;"></div>
+                    </sc-for>
+                  </div>
                   <button data-ripple="1" onClick="{{ nextWalk }}"
-                          style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
-                    {{ walkBtn }}<i class="ti ti-arrow-right" style="font-size:18px;"></i></button>
+                          style="position:relative;overflow:hidden;width:30px;height:30px;border:none;background:transparent;cursor:pointer;color:var(--cta);display:flex;align-items:center;justify-content:center;flex:none;padding:0;">
+                    <i class="ti ti-chevron-right" style="font-size:24px;"></i>
+                  </button>
+                </div>
+                <div style="padding:4px 24px 36px;text-align:center;">
+                  <button data-ripple="1" onClick="{{ skipWalk }}"
+                          style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--text-tertiary);font-size:13px;font-weight:500;cursor:pointer;padding:8px 20px;border-radius:8px;">
+                    Bỏ qua
+                  </button>
                 </div>
               </div>
             </sc-if>
