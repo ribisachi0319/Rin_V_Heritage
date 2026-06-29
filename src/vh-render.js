@@ -778,12 +778,15 @@ window.VH_RENDER = {
       contX = arts.filter(a => (st._visited || []).includes(a.id)).length;
       showContinue = contY > 0 && contX < contY;
     }
-    // ---- Home: thẻ địa điểm dạng poster + các nhóm carousel ----
+    // ---- Home: feed chỉ Địa điểm + Bài viết (không có Hiện vật) ----
     const VTYPE = {1: 'Bảo tàng', 2: 'Bảo tàng', 3: 'Di tích', 4: 'Khu di tích', 5: 'Khu di tích', 6: 'Phố cổ', 11: 'Di sản', 12: 'Di sản', 13: 'Thánh địa', 14: 'Thắng cảnh', 15: 'Di sản', 16: 'Di tích', 17: 'Khu di tích', 18: 'Di sản'};
     const posterCard = (id) => {
       const v = this.findVenue(id) || {};
       return {
-        id, name: v.name || '', city: v.city || '', count: v.count || 0,
+        id, name: v.name || '', city: v.city || '',
+        badge: 'ĐỊA ĐIỂM NỔI BẬT',
+        badgeBg: 'var(--cta)', badgeColor: '#fff',
+        subtitle: v.city || '',
         type: VTYPE[id] || 'Di tích',
         dist: v.dist || '',
         accIcon: v.wheelchair ? 'ti-wheelchair' : 'ti-stairs',
@@ -798,8 +801,26 @@ window.VH_RENDER = {
     const grpHcm = [3, 17].map(posterCard);
     const grpMuseum = [1, 2].map(posterCard);
     const grpNature = [14, 18, 13, 6].map(posterCard);
+    // homeFeed: xen kẽ Địa điểm & Bài viết, KHÔNG có Hiện vật
+    const homeFeedVenues = [11, 6, 1, 14, 3, 12].map(posterCard);
+    const homeFeedArticles = this.articles.slice(0, 4).map(a => ({
+      id: 'art_' + a.id, name: a.title,
+      badge: 'BÀI VIẾT',
+      badgeBg: 'var(--primary)', badgeColor: 'var(--on-primary)',
+      subtitle: a.tag + ' · ' + a.read,
+      img: this.vimg(a.seed, 360, 440),
+      open: () => { this.setState({_curArticle: a.id}); this.nav('articledetail', 'fwd'); },
+    }));
+    // xen kẽ: venue, article, venue, article...
+    const homeFeed = homeFeedVenues.reduce((acc, v, i) => {
+      acc.push(v);
+      if (homeFeedArticles[i]) acc.push(homeFeedArticles[i]);
+      return acc;
+    }, []);
     return {
-      placesMain, grpHanoi, grpHcm, grpMuseum, grpNature,
+      placesMain, grpHanoi, grpHcm, grpMuseum, grpNature, homeFeed,
+      homeFeatVenue: placesMain[0],
+      homeFeatArticle: articlesView[0],
       showContinueCard: showContinue,
       contVenName: visitVen ? visitVen.name : '',
       contImg: visitVen ? this.vimg(visitVen.seed, 160, 160) : '',

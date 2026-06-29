@@ -983,6 +983,9 @@
                     </div>
                   </div>
                   <div style="display:flex;gap:8px;">
+                    <button data-ripple="1" onClick="{{ openSearch }}"
+                            style="position:relative;overflow:hidden;width:40px;height:40px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
+                      <i class="ti ti-search" style="font-size:20px;"></i></button>
                     <button data-ripple="1" onClick="{{ openNotifs }}"
                             style="position:relative;overflow:hidden;width:40px;height:40px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
                       <i class="ti ti-bell" style="font-size:20px;"></i></button>
@@ -990,15 +993,6 @@
                             style="position:relative;overflow:hidden;width:40px;height:40px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
                       <i class="ti {{ themeIcon }}" style="font-size:20px;"></i></button>
                   </div>
-                </div>
-                <!-- search bar (FIX-08) -->
-                <div style="padding:6px 18px 4px;">
-                  <button data-ripple="1" onClick="{{ openSearch }}"
-                          style="position:relative;overflow:hidden;display:flex;align-items:center;gap:10px;width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:13px 14px;cursor:pointer;color:var(--text-tertiary);text-align:left;box-shadow:var(--shadow);">
-                    <i class="ti ti-search" style="font-size:19px;"></i><span
-                      style="flex:1;font-size:14px;">Tìm di tích, hiện vật...</span><i
-                      class="ti ti-microphone" style="font-size:18px;color:var(--cta);"></i>
-                  </button>
                 </div>
                 <!-- tiếp tục tham quan -->
                 <sc-if value="{{ showContinueCard }}" hint-placeholder-val="{{ false }}">
@@ -1037,26 +1031,26 @@
                     <div style="flex:1;height:1px;background:var(--border);"></div>
                   </div>
                 </sc-if>
-                <!-- hiện vật tiêu biểu -->
+                <!-- card địa điểm nổi bật -->
                 <div style="padding:14px 18px 0;">
-                  <div data-ripple="1" data-longpress="1" onClick="{{ featOpen }}"
+                  <div data-ripple="1" onClick="{{ homeFeatVenue.open }}"
                        style="position:relative;overflow:hidden;border-radius:16px;height:264px;cursor:pointer;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;">
-                    <img src="{{ featImg }}" alt=""
+                    <img src="{{ homeFeatVenue.img }}" alt=""
                          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                     <div
                         style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,37,64,.55),rgba(26,37,64,.2) 42%,rgba(26,37,64,.82));"></div>
                     <div style="position:relative;display:flex;justify-content:center;padding:16px;">
                       <div
                           style="background:var(--cta);color:#fff;font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:5px 12px;border-radius:99px;box-shadow:0 2px 8px rgba(0,0,0,.25);">
-                        Hiện vật tiêu biểu
+                        ĐỊA ĐIỂM NỔI BẬT
                       </div>
                     </div>
                     <div
                         style="position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:0 22px 22px;">
-                      <div style="font-size:12px;color:var(--cream);letter-spacing:.01em;">500 năm TCN · đồng thau · 1247 lượt khám phá</div>
+                      <div style="font-size:12px;color:var(--cream);letter-spacing:.01em;">{{ homeFeatVenue.type }} · {{ homeFeatVenue.city }}</div>
                       <div class="vh-serif"
                            style="font-size:28px;font-weight:600;color:#fff;line-height:1.18;margin-top:8px;text-shadow:0 2px 12px rgba(0,0,0,.4);">
-                        Trống đồng Đông Sơn
+                        {{ homeFeatVenue.name }}
                       </div>
                       <div
                           style="margin-top:16px;display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.55);color:#fff;font-size:14px;font-weight:600;padding:10px 22px;border-radius:99px;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);">
@@ -1065,41 +1059,35 @@
                     </div>
                   </div>
                 </div>
-                <!-- hero -->
+                <!-- card bài viết nổi bật -->
                 <div style="padding:10px 18px 0;">
-                  <div data-ripple="1" data-longpress="7" onClick="{{ heroOpen }}"
+                  <div data-ripple="1" onClick="{{ homeFeatArticle.open }}"
                        style="position:relative;overflow:hidden;border-radius:16px;height:200px;cursor:pointer;box-shadow:var(--shadow-lg);">
-                    <img src="{{ heroImg }}" alt=""
+                    <img src="{{ homeFeatArticle.img }}" alt=""
                          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                     <div
                         style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,37,64,.92) 8%,rgba(26,37,64,.25) 55%,transparent);"></div>
                     <div
                         style="position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:5px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;font-weight:600;padding:4px 9px;border-radius:99px;">
-                      <i class="ti ti-headphones" style="font-size:13px;"></i>{{ heroDur }}
+                      <i class="ti ti-clock" style="font-size:13px;"></i>{{ homeFeatArticle.read }}
                     </div>
                     <div style="position:absolute;left:16px;right:16px;bottom:16px;">
                       <div
-                          style="display:inline-block;background:var(--cta);color:#fff;font-size:10px;font-weight:600;letter-spacing:.08em;padding:3px 8px;border-radius:4px;margin-bottom:8px;">
-                        AUDIO GUIDE
+                          style="display:inline-block;background:var(--primary);color:var(--on-primary);font-size:10px;font-weight:600;letter-spacing:.08em;padding:3px 8px;border-radius:4px;margin-bottom:8px;">
+                        BÀI VIẾT
                       </div>
                       <div class="vh-serif"
-                           style="font-size:22px;font-weight:600;color:#fff;line-height:1.2;">Cồng
-                        chiêng Tây Nguyên
+                           style="font-size:20px;font-weight:600;color:#fff;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
+                        {{ homeFeatArticle.title }}
                       </div>
                       <div class="vh-serif"
                            style="font-style:italic;font-size:13px;color:var(--cream);margin-top:4px;">
-                        Di sản truyền khẩu của nhân loại
+                        {{ homeFeatArticle.tag }}
                       </div>
                     </div>
                   </div>
                 </div>
-                <!-- vạch phân cách: Cồng chiêng ↔ Đang chờ bạn khám phá -->
-                <div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:28px 18px 4px;">
-                  <div style="flex:1;height:1px;background:var(--border);"></div>
-                  <div style="color:var(--cta);font-size:13px;">✦</div>
-                  <div style="flex:1;height:1px;background:var(--border);"></div>
-                </div>
-                <!-- đang chờ bạn khám phá (carousel poster) -->
+                <!-- đang chờ bạn khám phá: chỉ Địa điểm (carousel poster) -->
                 <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 18px 12px;">
                   <div class="vh-serif" style="font-size:18px;font-weight:600;">{{ t_secDiscover }}</div>
                   <button data-ripple="1" onClick="{{ goExplore }}"
@@ -1116,27 +1104,16 @@
                       <div
                           style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,37,64,.96) 34%,rgba(26,37,64,.45) 64%,transparent 90%);"></div>
                       <div
-                          style="position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);color:var(--primary);font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;">
-                        {{ p.type }}
+                          style="position:absolute;top:10px;left:10px;background:var(--cta);color:#fff;font-size:10px;font-weight:700;letter-spacing:.07em;padding:3px 9px;border-radius:99px;">
+                        ĐỊA ĐIỂM NỔI BẬT
                       </div>
                       <div style="position:absolute;left:14px;right:14px;bottom:14px;">
                         <div class="vh-serif"
                              style="font-size:17px;font-weight:600;color:#fff;line-height:1.22;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
                           {{ p.name }}
                         </div>
-                        <div
-                            style="display:flex;align-items:center;gap:12px;margin-top:7px;font-size:11.5px;color:var(--cream);">
-                          <span style="display:flex;align-items:center;gap:4px;min-width:0;"><i class="ti ti-map-pin"
-                                                                                                style="font-size:13px;flex:none;"></i>{{ p.city }}</span>
-                          <span style="display:flex;align-items:center;gap:4px;flex:none;"><i class="ti ti-building-arch"
-                                                                                              style="font-size:13px;"></i>{{ p.count }} hiện vật</span>
-                        </div>
-                        <div
-                            style="display:flex;align-items:center;gap:12px;margin-top:5px;font-size:11.5px;color:rgba(255,255,255,.82);">
-                          <span style="display:flex;align-items:center;gap:4px;min-width:0;"><i class="ti ti-route"
-                                                                                                style="font-size:13px;flex:none;"></i>{{ p.dist }}</span>
-                          <span style="display:flex;align-items:center;gap:4px;flex:none;color:{{ p.accColor }};"><i
-                              class="ti {{ p.accIcon }}" style="font-size:13px;"></i>{{ p.accText }}</span>
+                        <div style="display:flex;align-items:center;gap:4px;margin-top:7px;font-size:11.5px;color:var(--cream);">
+                          <i class="ti ti-map-pin" style="font-size:13px;flex:none;"></i>{{ p.city }}
                         </div>
                       </div>
                     </div>
@@ -1162,19 +1139,8 @@
                              style="font-size:17px;font-weight:600;color:#fff;line-height:1.22;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
                           {{ p.name }}
                         </div>
-                        <div
-                            style="display:flex;align-items:center;gap:12px;margin-top:7px;font-size:11.5px;color:var(--cream);">
-                          <span style="display:flex;align-items:center;gap:4px;min-width:0;"><i class="ti ti-map-pin"
-                                                                                                style="font-size:13px;flex:none;"></i>{{ p.city }}</span>
-                          <span style="display:flex;align-items:center;gap:4px;flex:none;"><i class="ti ti-building-arch"
-                                                                                              style="font-size:13px;"></i>{{ p.count }} hiện vật</span>
-                        </div>
-                        <div
-                            style="display:flex;align-items:center;gap:12px;margin-top:5px;font-size:11.5px;color:rgba(255,255,255,.82);">
-                          <span style="display:flex;align-items:center;gap:4px;min-width:0;"><i class="ti ti-route"
-                                                                                                style="font-size:13px;flex:none;"></i>{{ p.dist }}</span>
-                          <span style="display:flex;align-items:center;gap:4px;flex:none;color:{{ p.accColor }};"><i
-                              class="ti {{ p.accIcon }}" style="font-size:13px;"></i>{{ p.accText }}</span>
+                        <div style="display:flex;align-items:center;gap:4px;margin-top:7px;font-size:11.5px;color:var(--cream);">
+                          <i class="ti ti-map-pin" style="font-size:13px;flex:none;"></i>{{ p.city }}
                         </div>
                       </div>
                     </div>
@@ -1200,19 +1166,8 @@
                              style="font-size:17px;font-weight:600;color:#fff;line-height:1.22;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
                           {{ p.name }}
                         </div>
-                        <div
-                            style="display:flex;align-items:center;gap:12px;margin-top:7px;font-size:11.5px;color:var(--cream);">
-                          <span style="display:flex;align-items:center;gap:4px;min-width:0;"><i class="ti ti-map-pin"
-                                                                                                style="font-size:13px;flex:none;"></i>{{ p.city }}</span>
-                          <span style="display:flex;align-items:center;gap:4px;flex:none;"><i class="ti ti-building-arch"
-                                                                                              style="font-size:13px;"></i>{{ p.count }} hiện vật</span>
-                        </div>
-                        <div
-                            style="display:flex;align-items:center;gap:12px;margin-top:5px;font-size:11.5px;color:rgba(255,255,255,.82);">
-                          <span style="display:flex;align-items:center;gap:4px;min-width:0;"><i class="ti ti-route"
-                                                                                                style="font-size:13px;flex:none;"></i>{{ p.dist }}</span>
-                          <span style="display:flex;align-items:center;gap:4px;flex:none;color:{{ p.accColor }};"><i
-                              class="ti {{ p.accIcon }}" style="font-size:13px;"></i>{{ p.accText }}</span>
+                        <div style="display:flex;align-items:center;gap:4px;margin-top:7px;font-size:11.5px;color:var(--cream);">
+                          <i class="ti ti-map-pin" style="font-size:13px;flex:none;"></i>{{ p.city }}
                         </div>
                       </div>
                     </div>
@@ -1239,19 +1194,8 @@
                              style="font-size:17px;font-weight:600;color:#fff;line-height:1.22;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
                           {{ p.name }}
                         </div>
-                        <div
-                            style="display:flex;align-items:center;gap:12px;margin-top:7px;font-size:11.5px;color:var(--cream);">
-                          <span style="display:flex;align-items:center;gap:4px;min-width:0;"><i class="ti ti-map-pin"
-                                                                                                style="font-size:13px;flex:none;"></i>{{ p.city }}</span>
-                          <span style="display:flex;align-items:center;gap:4px;flex:none;"><i class="ti ti-building-arch"
-                                                                                              style="font-size:13px;"></i>{{ p.count }} hiện vật</span>
-                        </div>
-                        <div
-                            style="display:flex;align-items:center;gap:12px;margin-top:5px;font-size:11.5px;color:rgba(255,255,255,.82);">
-                          <span style="display:flex;align-items:center;gap:4px;min-width:0;"><i class="ti ti-route"
-                                                                                                style="font-size:13px;flex:none;"></i>{{ p.dist }}</span>
-                          <span style="display:flex;align-items:center;gap:4px;flex:none;color:{{ p.accColor }};"><i
-                              class="ti {{ p.accIcon }}" style="font-size:13px;"></i>{{ p.accText }}</span>
+                        <div style="display:flex;align-items:center;gap:4px;margin-top:7px;font-size:11.5px;color:var(--cream);">
+                          <i class="ti ti-map-pin" style="font-size:13px;flex:none;"></i>{{ p.city }}
                         </div>
                       </div>
                     </div>
@@ -1278,19 +1222,8 @@
                              style="font-size:17px;font-weight:600;color:#fff;line-height:1.22;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
                           {{ p.name }}
                         </div>
-                        <div
-                            style="display:flex;align-items:center;gap:12px;margin-top:7px;font-size:11.5px;color:var(--cream);">
-                          <span style="display:flex;align-items:center;gap:4px;min-width:0;"><i class="ti ti-map-pin"
-                                                                                                style="font-size:13px;flex:none;"></i>{{ p.city }}</span>
-                          <span style="display:flex;align-items:center;gap:4px;flex:none;"><i class="ti ti-building-arch"
-                                                                                              style="font-size:13px;"></i>{{ p.count }} hiện vật</span>
-                        </div>
-                        <div
-                            style="display:flex;align-items:center;gap:12px;margin-top:5px;font-size:11.5px;color:rgba(255,255,255,.82);">
-                          <span style="display:flex;align-items:center;gap:4px;min-width:0;"><i class="ti ti-route"
-                                                                                                style="font-size:13px;flex:none;"></i>{{ p.dist }}</span>
-                          <span style="display:flex;align-items:center;gap:4px;flex:none;color:{{ p.accColor }};"><i
-                              class="ti {{ p.accIcon }}" style="font-size:13px;"></i>{{ p.accText }}</span>
+                        <div style="display:flex;align-items:center;gap:4px;margin-top:7px;font-size:11.5px;color:var(--cream);">
+                          <i class="ti ti-map-pin" style="font-size:13px;flex:none;"></i>{{ p.city }}
                         </div>
                       </div>
                     </div>
@@ -1314,7 +1247,7 @@
                     </button>
                   </div>
                 </sc-if>
-                <!-- articles -->
+                <!-- articles: Badge "BÀI VIẾT", subtitle tag + thời gian đọc -->
                 <div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:28px 18px 4px;">
                   <div style="flex:1;height:1px;background:var(--border);"></div>
                   <div style="color:var(--cta);font-size:13px;">✦</div>
@@ -1327,16 +1260,15 @@
                     Xem tất cả
                   </button>
                 </div>
-                <div class="vh-scroll"
-                     style="display:flex;align-items:flex-start;gap:12px;overflow-x:auto;padding:0 18px 4px;">
+                <div class="vh-scroll" style="display:flex;align-items:flex-start;gap:12px;overflow-x:auto;padding:0 18px 4px;">
                   <sc-for list="{{ articlesView }}" as="ar" hint-placeholder-count="3">
                     <div data-ripple="1" onClick="{{ ar.open }}"
                          style="position:relative;overflow:hidden;flex:none;width:240px;background:var(--bg-card);border-radius:14px;box-shadow:var(--shadow);cursor:pointer;">
-                      <div style="position:relative;height:130px;"><img src="{{ ar.img }}" alt=""
-                                                                        style="width:100%;height:100%;object-fit:cover;">
+                      <div style="position:relative;height:130px;">
+                        <img src="{{ ar.img }}" alt="" style="width:100%;height:100%;object-fit:cover;">
                         <div
-                            style="position:absolute;top:8px;left:8px;font-size:9px;font-weight:600;padding:3px 8px;border-radius:4px;background:rgba(0,0,0,.5);color:#fff;">
-                          {{ ar.tag }}
+                            style="position:absolute;top:8px;left:8px;background:var(--primary);color:var(--on-primary);font-size:9px;font-weight:700;letter-spacing:.07em;padding:3px 8px;border-radius:4px;">
+                          BÀI VIẾT
                         </div>
                       </div>
                       <div style="padding:12px 14px 14px;">
@@ -1344,10 +1276,8 @@
                              style="font-size:15px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
                           {{ ar.title }}
                         </div>
-                        <div
-                            style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-tertiary);margin-top:8px;">
-                          <i class="ti ti-clock" style="font-size:13px;"></i>{{ ar.read }} ·
-                          {{ ar.date }}
+                        <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-tertiary);margin-top:8px;">
+                          <i class="ti ti-clock" style="font-size:13px;"></i>{{ ar.tag }} · {{ ar.read }}
                         </div>
                       </div>
                     </div>
