@@ -1936,7 +1936,7 @@
 
                 <!-- info panel + CTA -->
                 <div
-                    style="position:absolute;left:0;right:0;bottom:0;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.4);padding:10px 20px 24px;transform:translateY({{ threeDPanelY }}px);transition:{{ panelTransition }};height:380px;z-index:20;display:flex;flex-direction:column;">
+                    style="position:absolute;left:0;right:0;bottom:0;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.4);padding:10px 20px 24px;transform:translateY({{ threeDPanelY }}px);transition:{{ panelTransition }};height:440px;z-index:20;display:flex;flex-direction:column;">
                   <!-- Drag Handle -->
                   <div onMouseDown="{{ dragPanelStart }}" onTouchStart="{{ dragPanelStart }}"
                        style="width:100%;height:22px;display:flex;align-items:center;justify-content:center;cursor:ns-resize;flex:none;margin-bottom:2px;">
@@ -2003,19 +2003,19 @@
                       <div style="display:flex;flex-direction:column;gap:10px;">
                         <div style="font-size:11px;color:var(--text-tertiary);font-weight:600;text-transform:uppercase;">Lý do báo cáo</div>
                         
-                        <button data-ripple="1" onClick="{{ () => setReportReason('wrong_info') }}"
+                        <button data-ripple="1" onClick="{{ reportReasonWrongInfo }}"
                                 style="border:1px solid var(--border);background:var(--bg-secondary);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;color:var(--text-primary);">
                           <i class="ti {{ reportReasonIcon('wrong_info') }}" style="font-size:18px;color:{{ reportReasonColor('wrong_info') }};"></i>
                           <span style="font-size:13.5px;font-weight:500;">Sai thông tin lịch sử / văn hóa</span>
                         </button>
                         
-                        <button data-ripple="1" onClick="{{ () => setReportReason('wrong_model') }}"
+                        <button data-ripple="1" onClick="{{ reportReasonWrongModel }}"
                                 style="border:1px solid var(--border);background:var(--bg-secondary);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;color:var(--text-primary);">
                           <i class="ti {{ reportReasonIcon('wrong_model') }}" style="font-size:18px;color:{{ reportReasonColor('wrong_model') }};"></i>
                           <span style="font-size:13.5px;font-weight:500;">Mô hình hiển thị lỗi / không tải được</span>
                         </button>
                         
-                        <button data-ripple="1" onClick="{{ () => setReportReason('typo') }}"
+                        <button data-ripple="1" onClick="{{ reportReasonTypo }}"
                                 style="border:1px solid var(--border);background:var(--bg-secondary);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;color:var(--text-primary);">
                           <i class="ti {{ reportReasonIcon('typo') }}" style="font-size:18px;color:{{ reportReasonColor('typo') }};"></i>
                           <span style="font-size:13.5px;font-weight:500;">Lỗi chính tả / dịch thuật sai</span>
