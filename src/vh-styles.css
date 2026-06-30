@@ -79,3 +79,4 @@ html,body{margin:0;padding:0;}
 .vh-ripple{position:absolute;border-radius:999px;background:rgba(255,255,255,.45);transform:scale(0);animation:vhRipple .6s ease-out forwards;pointer-events:none;}
 [data-theme="light"] .vh-ripple{background:rgba(48,69,116,.16);}
 .vh-skel{background:linear-gradient(90deg,var(--bg-tertiary) 25%,var(--bg-secondary) 50%,var(--bg-tertiary) 75%);background-size:200% 100%;animation:vhShimmer 1.4s infinite;}
+@keyframes heroBgFadeZoom{from{opacity:0;transform:scale(1.05)}to{opacity:1;transform:scale(1)}}
