@@ -2009,19 +2009,19 @@
                         
                         <button data-ripple="1" onClick="{{ reportReasonWrongInfo }}"
                                 style="border:1px solid var(--border);background:var(--bg-secondary);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;color:var(--text-primary);">
-                          <i class="ti {{ reportReasonIcon('wrong_info') }}" style="font-size:18px;color:{{ reportReasonColor('wrong_info') }};"></i>
+                          <i class="ti {{ reportIconWrongInfo }}" style="font-size:18px;color:{{ reportColorWrongInfo }};"></i>
                           <span style="font-size:13.5px;font-weight:500;">Sai thông tin lịch sử / văn hóa</span>
                         </button>
                         
                         <button data-ripple="1" onClick="{{ reportReasonWrongModel }}"
                                 style="border:1px solid var(--border);background:var(--bg-secondary);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;color:var(--text-primary);">
-                          <i class="ti {{ reportReasonIcon('wrong_model') }}" style="font-size:18px;color:{{ reportReasonColor('wrong_model') }};"></i>
+                          <i class="ti {{ reportIconWrongModel }}" style="font-size:18px;color:{{ reportColorWrongModel }};"></i>
                           <span style="font-size:13.5px;font-weight:500;">Mô hình hiển thị lỗi / không tải được</span>
                         </button>
                         
                         <button data-ripple="1" onClick="{{ reportReasonTypo }}"
                                 style="border:1px solid var(--border);background:var(--bg-secondary);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;color:var(--text-primary);">
-                          <i class="ti {{ reportReasonIcon('typo') }}" style="font-size:18px;color:{{ reportReasonColor('typo') }};"></i>
+                          <i class="ti {{ reportIconTypo }}" style="font-size:18px;color:{{ reportColorTypo }};"></i>
                           <span style="font-size:13.5px;font-weight:500;">Lỗi chính tả / dịch thuật sai</span>
                         </button>
                       </div>
@@ -2041,10 +2041,10 @@
                                 style="flex:1;border:none;background:var(--cta);color:#fff;font-size:14.5px;font-weight:600;padding:12px;border-radius:10px;cursor:pointer;box-shadow:0 4px 12px rgba(237,137,39,.2);">Gửi báo cáo</button>
                       </div>
                     </div>
-                </div>
-              </sc-if>
-            </div>
-          </sc-if>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
 
             <!-- 21 TIME TRAVEL -->
             <sc-if value="{{ isTimeTravel }}" hint-placeholder-val="{{ false }}">

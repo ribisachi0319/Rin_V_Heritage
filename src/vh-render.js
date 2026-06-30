@@ -2156,8 +2156,13 @@ window.VH_RENDER = {
       reportReasonWrongModel: () => this.setState({_reportReason: 'wrong_model'}),
       reportReasonTypo: () => this.setState({_reportReason: 'typo'}),
       setReportText: (e) => this.setState({_reportText: e.target.value}),
-      reportReasonIcon: (reason) => (st._reportReason || 'wrong_info') === reason ? 'ti-checkbox' : 'ti-square',
-      reportReasonColor: (reason) => (st._reportReason || 'wrong_info') === reason ? 'var(--cta)' : 'var(--text-tertiary)',
+      // Props tính sẵn cho từng lý do báo cáo (tránh gọi hàm trong template)
+      reportIconWrongInfo: (st._reportReason || 'wrong_info') === 'wrong_info' ? 'ti-checkbox' : 'ti-square',
+      reportIconWrongModel: (st._reportReason || 'wrong_info') === 'wrong_model' ? 'ti-checkbox' : 'ti-square',
+      reportIconTypo: (st._reportReason || 'wrong_info') === 'typo' ? 'ti-checkbox' : 'ti-square',
+      reportColorWrongInfo: (st._reportReason || 'wrong_info') === 'wrong_info' ? 'var(--cta)' : 'var(--text-tertiary)',
+      reportColorWrongModel: (st._reportReason || 'wrong_info') === 'wrong_model' ? 'var(--cta)' : 'var(--text-tertiary)',
+      reportColorTypo: (st._reportReason || 'wrong_info') === 'typo' ? 'var(--cta)' : 'var(--text-tertiary)',
 
       exit3D: () => {
         this.stop3D();
