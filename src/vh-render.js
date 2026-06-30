@@ -2143,7 +2143,7 @@ window.VH_RENDER = {
         activeColor: st.activeHotspot === h.id ? 'var(--cta)' : 'var(--info)',
         tap: () => this.selectHotspot(h.id)
       })),
-      showDetailBtn: st.threeDPanelY <= 100,
+      showDetailBtn: (st.threeDPanelY !== undefined ? st.threeDPanelY : 130) <= 170,
 
       // Report artifact flow
       openReportArtifact: () => this.openReportArtifact(),
