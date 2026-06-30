@@ -2088,7 +2088,66 @@ window.VH_RENDER = {
       threeDPanelY: st.threeDPanelY !== undefined ? st.threeDPanelY : 130,
       panelTransition: this._draggingPanel ? 'none' : 'transform 0.3s ease',
       dragPanelStart: (e) => this.dragPanelStart(e),
-      curArtSummary: cur.summary || (cur.desc ? (cur.desc.substring(0, 85) + '...') : 'Chưa có mô tả cơ bản'),
+      
+      // Dynamic Hotspot and details
+      curArtName: (() => {
+        const curHotspots = cur.hotspots || [
+          { id: 1, title: 'Đỉnh hiện vật', summary: 'Phần phía trên của hiện vật chứa nhiều chi tiết trang trí tinh xảo.', desc: 'Đặc trưng hoa văn trang trí ở phần trên thể hiện tính thẩm mỹ cao và tài năng của các nghệ nhân chế tác cổ đại.' },
+          { id: 2, title: 'Thân hiện vật', summary: 'Phần thân chính nâng đỡ cấu trúc hiện vật với chất liệu bền bỉ.', desc: 'Cấu trúc thân chính làm bằng chất liệu đặc trưng giúp hiện vật trường tồn qua hàng ngàn năm lịch sử.' },
+          { id: 3, title: 'Chân đế hiện vật', summary: 'Đế vững chãi nâng đỡ toàn bộ hiện vật.', desc: 'Chân đế được gia cố vững chắc, có kết cấu đặc trưng để giữ thăng bằng cho hiện vật trong suốt thời kỳ trưng bày.' }
+        ];
+        const activeH = curHotspots.find(h => h.id === st.activeHotspot);
+        return activeH ? activeH.title : cur.name;
+      })(),
+      curArtSummary: (() => {
+        const curHotspots = cur.hotspots || [
+          { id: 1, title: 'Đỉnh hiện vật', summary: 'Phần phía trên của hiện vật chứa nhiều chi tiết trang trí tinh xảo.', desc: 'Đặc trưng hoa văn trang trí ở phần trên thể hiện tính thẩm mỹ cao và tài năng của các nghệ nhân chế tác cổ đại.' },
+          { id: 2, title: 'Thân hiện vật', summary: 'Phần thân chính nâng đỡ cấu trúc hiện vật với chất liệu bền bỉ.', desc: 'Cấu trúc thân chính làm bằng chất liệu đặc trưng giúp hiện vật trường tồn qua hàng ngàn năm lịch sử.' },
+          { id: 3, title: 'Chân đế hiện vật', summary: 'Đế vững chãi nâng đỡ toàn bộ hiện vật.', desc: 'Chân đế được gia cố vững chắc, có kết cấu đặc trưng để giữ thăng bằng cho hiện vật trong suốt thời kỳ trưng bày.' }
+        ];
+        const activeH = curHotspots.find(h => h.id === st.activeHotspot);
+        return activeH ? activeH.summary : cur.summary;
+      })(),
+      curArtDesc: (() => {
+        const curHotspots = cur.hotspots || [
+          { id: 1, title: 'Đỉnh hiện vật', summary: 'Phần phía trên của hiện vật chứa nhiều chi tiết trang trí tinh xảo.', desc: 'Đặc trưng hoa văn trang trí ở phần trên thể hiện tính thẩm mỹ cao và tài năng của các nghệ nhân chế tác cổ đại.' },
+          { id: 2, title: 'Thân hiện vật', summary: 'Phần thân chính nâng đỡ cấu trúc hiện vật với chất liệu bền bỉ.', desc: 'Cấu trúc thân chính làm bằng chất liệu đặc trưng giúp hiện vật trường tồn qua hàng ngàn năm lịch sử.' },
+          { id: 3, title: 'Chân đế hiện vật', summary: 'Đế vững chãi nâng đỡ toàn bộ hiện vật.', desc: 'Chân đế được gia cố vững chắc, có kết cấu đặc trưng để giữ thăng bằng cho hiện vật trong suốt thời kỳ trưng bày.' }
+        ];
+        const activeH = curHotspots.find(h => h.id === st.activeHotspot);
+        return activeH ? activeH.desc : cur.desc;
+      })(),
+      activeHotspot: st.activeHotspot,
+      curHotspots: (cur.hotspots || [
+        { id: 1, title: 'Đỉnh hiện vật', summary: 'Phần phía trên của hiện vật chứa nhiều chi tiết trang trí tinh xảo.', desc: 'Đặc trưng hoa văn trang trí ở phần trên thể hiện tính thẩm mỹ cao và tài năng của các nghệ nhân chế tác cổ đại.' },
+        { id: 2, title: 'Thân hiện vật', summary: 'Phần thân chính nâng đỡ cấu trúc hiện vật với chất liệu bền bỉ.', desc: 'Cấu trúc thân chính làm bằng chất liệu đặc trưng giúp hiện vật trường tồn qua hàng ngàn năm lịch sử.' },
+        { id: 3, title: 'Chân đế hiện vật', summary: 'Đế vững chãi nâng đỡ toàn bộ hiện vật.', desc: 'Chân đế được gia cố vững chắc, có kết cấu đặc trưng để giữ thăng bằng cho hiện vật trong suốt thời kỳ trưng bày.' }
+      ]).map(h => ({
+        ...h,
+        isActive: st.activeHotspot === h.id,
+        style: [
+          'position:absolute;top:20%;left:78%;',
+          'position:absolute;top:62%;left:14%;',
+          'position:absolute;top:40%;left:50%;'
+        ][h.id - 1] || 'position:absolute;top:50%;left:50%;',
+        activeScale: st.activeHotspot === h.id ? 'scale(1.4)' : 'scale(1)',
+        activeColor: st.activeHotspot === h.id ? 'var(--cta)' : 'var(--info)',
+        tap: () => this.selectHotspot(h.id)
+      })),
+      showDetailBtn: st.threeDPanelY <= 100,
+
+      // Report artifact flow
+      openReportArtifact: () => this.openReportArtifact(),
+      submitReportArtifact: () => this.submitReportArtifact(),
+      sheetReportArtifact: st.sheet === 'report_artifact',
+      closeReportArtifact: () => this.setState({sheet: null}),
+      reportReason: st._reportReason || 'wrong_info',
+      reportText: st._reportText || '',
+      setReportReason: (reason) => this.setState({_reportReason: reason}),
+      setReportText: (e) => this.setState({_reportText: e.target.value}),
+      reportReasonIcon: (reason) => (st._reportReason || 'wrong_info') === reason ? 'ti-checkbox' : 'ti-square',
+      reportReasonColor: (reason) => (st._reportReason || 'wrong_info') === reason ? 'var(--cta)' : 'var(--text-tertiary)',
+
       exit3D: () => {
         this.stop3D();
         this.back();

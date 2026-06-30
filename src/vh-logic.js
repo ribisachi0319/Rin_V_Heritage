@@ -1412,6 +1412,21 @@ window.VH_LOGIC = {
     document.addEventListener('touchend', up);
   },
 
+  selectHotspot(id) {
+    if (this.state.activeHotspot === id) {
+      this.setState({activeHotspot: null});
+    } else {
+      this.setState({activeHotspot: id});
+      this.showToast('Đang khám phá chi tiết điểm chạm ✦');
+    }
+  },
+  openReportArtifact() {
+    this.setState({sheet: 'report_artifact', _reportReason: 'wrong_info', _reportText: ''});
+  },
+  submitReportArtifact() {
+    this.setState({sheet: null});
+    this.showToast('Đã gửi báo cáo! Ban Nghiên cứu di sản sẽ xác minh trong 24h tới ✦', 'success');
+  },
   // ---- 3D viewer ----
   start3D() {
     clearInterval(this._threeDT);

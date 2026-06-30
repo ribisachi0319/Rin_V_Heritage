@@ -1883,49 +1883,57 @@
                           style="position:relative;overflow:hidden;width:44px;height:44px;border-radius:99px;border:none;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
                     <i class="ti ti-x" style="font-size:22px;"></i></button>
                   <div style="color:#fff;font-size:15px;font-weight:600;">Mô hình 3D</div>
-                  <div style="display:flex;gap:8px;">
-                    <button data-ripple="1" onClick="{{ openSaveSheet }}"
-                            style="position:relative;overflow:hidden;width:44px;height:44px;border-radius:99px;border:none;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);color:{{ saveHeroColor }};cursor:pointer;display:flex;align-items:center;justify-content:center;"
-                            title="{{ saveLabel }}">
-                      <i class="ti {{ saveIcon }}" style="font-size:20px;"></i>
-                    </button>
-                    <button data-ripple="1" onClick="{{ show3DHint }}"
-                            style="position:relative;overflow:hidden;width:44px;height:44px;border-radius:99px;border:none;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                      <i class="ti ti-info-circle" style="font-size:22px;"></i></button>
-                  </div>
+                  <button data-ripple="1" onClick="{{ openReportArtifact }}"
+                          style="position:relative;overflow:hidden;width:44px;height:44px;border-radius:99px;border:none;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);color:var(--error);cursor:pointer;display:flex;align-items:center;justify-content:center;"
+                          title="Báo cáo sai sót di sản">
+                    <i class="ti ti-flag" style="font-size:22px;"></i></button>
                 </div>
-                <!-- controls (đẩy lên trên) -->
+                
+                <!-- vertical control bar on the right -->
                 <div
-                    style="position:absolute;top:100px;left:0;right:0;display:flex;justify-content:center;gap:12px;z-index:10;">
+                    style="position:absolute;top:150px;right:18px;display:flex;flex-direction:column;gap:12px;z-index:10;background:rgba(10,13,20,.6);backdrop-filter:blur(10px);padding:10px;border-radius:99px;border:1px solid rgba(255,255,255,.1);">
                   <button data-ripple="1" onClick="{{ toggle3DPlay }}"
-                          style="position:relative;overflow:hidden;width:46px;height:46px;border-radius:99px;border:none;background:var(--cta);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                    <i class="ti {{ threeDPlayIcon }}" style="font-size:22px;"></i></button>
-                  <button data-ripple="1" onClick="{{ zoom3DOut }}"
-                          style="position:relative;overflow:hidden;width:46px;height:46px;border-radius:99px;border:none;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                    <i class="ti ti-zoom-out" style="font-size:21px;"></i></button>
+                          style="position:relative;overflow:hidden;width:40px;height:40px;border-radius:99px;border:none;background:var(--cta);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;"
+                          title="Tự động xoay">
+                    <i class="ti {{ threeDPlayIcon }}" style="font-size:18px;"></i></button>
                   <button data-ripple="1" onClick="{{ zoom3DIn }}"
-                          style="position:relative;overflow:hidden;width:46px;height:46px;border-radius:99px;border:none;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                    <i class="ti ti-zoom-in" style="font-size:21px;"></i></button>
+                          style="position:relative;overflow:hidden;width:40px;height:40px;border-radius:99px;border:none;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;"
+                          title="Phóng to">
+                    <i class="ti ti-zoom-in" style="font-size:18px;"></i></button>
+                  <button data-ripple="1" onClick="{{ zoom3DOut }}"
+                          style="position:relative;overflow:hidden;width:40px;height:40px;border-radius:99px;border:none;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;"
+                          title="Thu nhỏ">
+                    <i class="ti ti-zoom-out" style="font-size:18px;"></i></button>
                   <button data-ripple="1" onClick="{{ reset3D }}"
-                          style="position:relative;overflow:hidden;width:46px;height:46px;border-radius:99px;border:none;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                    <i class="ti ti-refresh" style="font-size:20px;"></i></button>
+                          style="position:relative;overflow:hidden;width:40px;height:40px;border-radius:99px;border:none;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;"
+                          title="Đặt lại góc nhìn">
+                    <i class="ti ti-refresh" style="font-size:18px;"></i></button>
+                  <button data-ripple="1" onClick="{{ openPhoto }}"
+                          style="position:relative;overflow:hidden;width:40px;height:40px;border-radius:99px;border:none;background:rgba(255,255,255,.15);color:var(--cta);cursor:pointer;display:flex;align-items:center;justify-content:center;"
+                          title="Chụp ảnh mô hình">
+                    <i class="ti ti-camera" style="font-size:18px;"></i></button>
                 </div>
-                <!-- model -->
+
+                <!-- model and interactive hotspots -->
                 <div onMouseDown="{{ drag3DStart }}" onTouchStart="{{ drag3DStart }}"
-                     style="position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);width:236px;height:236px;perspective:900px;cursor:grab;touch-action:none;">
+                     style="position:absolute;top:44%;left:50%;transform:translate(-50%,-50%);width:236px;height:236px;perspective:900px;cursor:grab;touch-action:none;">
                   <img src="{{ threeDImg }}" alt="" draggable="false"
                        style="width:100%;height:100%;object-fit:cover;border-radius:16px;box-shadow:0 30px 60px rgba(0,0,0,.5);transform:{{ threeDRot }};transition:transform .1s linear;pointer-events:none;">
-                  <div
-                      style="position:absolute;top:20%;left:78%;width:18px;height:18px;border-radius:99px;background:var(--cta);border:3px solid #fff;animation:vhPulse 1.8s infinite;"></div>
-                  <div
-                      style="position:absolute;top:62%;left:14%;width:18px;height:18px;border-radius:99px;background:var(--info);border:3px solid #fff;animation:vhPulse 2.1s infinite;"></div>
-                  <div
-                      style="position:absolute;top:40%;left:50%;width:18px;height:18px;border-radius:99px;background:var(--success);border:3px solid #fff;animation:vhPulse 2.4s infinite;"></div>
+                  
+                  <!-- Render dynamic hotspots -->
+                  <sc-for list="{{ curHotspots }}" as="h" hint-placeholder-count="3">
+                    <div onClick="{{ h.tap }}" style="{{ h.style }}transform: {{ h.activeScale }} translate(-50%,-50%); transition: transform 0.2s; z-index: 5; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+                      <div style="width:24px;height:24px;border-radius:99px;background:rgba(237,137,39,.25);display:flex;align-items:center;justify-content:center;animation:vhPulse 2s infinite;">
+                        <div style="width:13px;height:13px;border-radius:99px;background:{{ h.activeColor }};border:2px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,.3);"></div>
+                      </div>
+                    </div>
+                  </sc-for>
                 </div>
                 <div
                     style="position:absolute;bottom:188px;left:0;right:0;text-align:center;color:rgba(255,255,255,.5);font-size:12px;">
-                  <i class="ti ti-rotate-360" style="font-size:15px;vertical-align:-2px;"></i> Kéo để xoay mô hình
+                  <i class="ti ti-rotate-360" style="font-size:15px;vertical-align:-2px;"></i> Kéo để xoay mô hình · Chạm điểm sáng khám phá
                 </div>
+
                 <!-- info panel + CTA -->
                 <div
                     style="position:absolute;left:0;right:0;bottom:0;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.4);padding:10px 20px 24px;transform:translateY({{ threeDPanelY }}px);transition:{{ panelTransition }};height:380px;z-index:20;display:flex;flex-direction:column;">
@@ -1935,62 +1943,104 @@
                     <div style="width:44px;height:5px;border-radius:99px;background:var(--border-2);"></div>
                   </div>
                   
-                  <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding-right:2px;">
-                    <div class="vh-serif" style="font-size:20px;font-weight:600;color:var(--text-primary);line-height:1.2;">{{ curArt.name }}</div>
+                  <!-- Panel content area with transitions on hotspot changes -->
+                  <div key="hotspot-content-{{ activeHotspot }}" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding-right:2px;animation:vhFadeIn .25s ease-out;">
+                    <div class="vh-serif" style="font-size:20px;font-weight:600;color:var(--text-primary);line-height:1.2;">{{ curArtName }}</div>
                     
-                    <div style="display:flex;gap:8px;flex:none;">
-                      <div style="flex:1;background:var(--bg-tertiary);border-radius:8px;padding:6px 10px;border:1px solid var(--border);">
-                        <div style="font-size:9px;color:var(--text-tertiary);text-transform:uppercase;">Niên đại</div>
-                        <div class="vh-serif" style="font-size:13px;font-weight:600;color:var(--text-primary);margin-top:2px;">{{ curArt.era }}</div>
+                    <div style="display:flex;gap:12px;flex:none;width:100%;">
+                      <div style="flex:1;background:var(--bg-tertiary);border-radius:8px;padding:6px 12px;border:1px solid var(--border);">
+                        <div style="font-size:9px;color:var(--text-tertiary);text-transform:uppercase;font-weight:600;">Niên đại</div>
+                        <div class="vh-serif" style="font-size:13.5px;font-weight:600;color:var(--text-primary);margin-top:2px;">{{ curArt.era }}</div>
                       </div>
-                      <div style="flex:1;background:var(--bg-tertiary);border-radius:8px;padding:6px 10px;border:1px solid var(--border);">
-                        <div style="font-size:9px;color:var(--text-tertiary);text-transform:uppercase;">Chất liệu</div>
-                        <div class="vh-serif" style="font-size:13px;font-weight:600;color:var(--text-primary);margin-top:2px;">{{ curArt.material }}</div>
-                      </div>
-                      <div style="flex:1;background:var(--bg-tertiary);border-radius:8px;padding:6px 10px;border:1px solid var(--border);">
-                        <div style="font-size:9px;color:var(--text-tertiary);text-transform:uppercase;">Lượt xem</div>
-                        <div class="vh-serif" style="font-size:13px;font-weight:600;color:var(--text-primary);margin-top:2px;">{{ curArt.views }}</div>
+                      <div style="flex:1;background:var(--bg-tertiary);border-radius:8px;padding:6px 12px;border:1px solid var(--border);">
+                        <div style="font-size:9px;color:var(--text-tertiary);text-transform:uppercase;font-weight:600;">Chất liệu</div>
+                        <div class="vh-serif" style="font-size:13.5px;font-weight:600;color:var(--text-primary);margin-top:2px;">{{ curArt.material }}</div>
                       </div>
                     </div>
 
-                    <!-- basic summary description -->
+                    <!-- basic summary description (always visible) -->
                     <div style="flex:none;">
                       <div style="font-size:11px;color:var(--text-tertiary);font-weight:600;text-transform:uppercase;line-height:1.2;">Mô tả cơ bản</div>
-                      <div style="font-size:13.5px;line-height:1.55;color:var(--text-secondary);margin-top:4px;">{{ curArtSummary }}</div>
+                      <div style="font-size:13.5px;line-height:1.6;color:var(--text-secondary);margin-top:4px;">{{ curArtSummary }}</div>
                     </div>
 
-                    <!-- mini audio guide player -->
-                    <div style="display:flex;align-items:center;gap:12px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:8px 12px;flex:none;box-shadow:var(--shadow);">
-                      <button data-ripple="1" onClick="{{ toggleAudio }}"
-                              style="position:relative;overflow:hidden;width:34px;height:34px;border-radius:99px;border:none;background:var(--cta);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;">
-                        <i class="ti {{ audioIcon }}" style="font-size:16px;"></i>
+                    <!-- full description (only visible when expanded) -->
+                    <sc-if value="{{ showDetailBtn }}" hint-placeholder-val="{{ false }}">
+                      <div style="flex:none;border-top:1px solid var(--border-2);padding-top:12px;animation:vhFadeIn .2s ease-out;">
+                        <div style="font-size:11px;color:var(--text-tertiary);font-weight:600;text-transform:uppercase;line-height:1.2;">Chi tiết di sản</div>
+                        <div style="font-size:13.5px;line-height:1.6;color:var(--text-secondary);margin-top:4px;">{{ curArtDesc }}</div>
+                      </div>
+                    </sc-if>
+                  </div>
+
+                  <!-- CTA buttons (only shows View Detail button when panel is expanded) -->
+                  <sc-if value="{{ showDetailBtn }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;gap:10px;margin-top:12px;flex:none;animation:vhFadeIn .2s ease-out;">
+                      <button data-ripple="1" onClick="{{ toDetail }}"
+                              style="position:relative;overflow:hidden;flex:1;border:none;background:var(--cta);color:#fff;font-size:14.5px;font-weight:600;padding:13px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 12px rgba(237,137,39,.25);">
+                        Xem chi tiết hiện vật<i class="ti ti-arrow-right" style="font-size:18px;"></i>
                       </button>
-                      <div style="flex:1;min-width:0;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--text-tertiary);">
-                          <span style="font-weight:600;color:var(--text-primary);">Thuyết minh di sản</span>
-                          <span>{{ audioTime }} / {{ audioTotal }}</span>
-                        </div>
-                        <div onMouseDown="{{ audioScrub }}" onTouchStart="{{ audioScrub }}"
-                             style="height:5px;border-radius:99px;background:var(--bg-tertiary);margin-top:6px;overflow:hidden;cursor:pointer;touch-action:none;">
-                          <div style="height:100%;width:{{ audioPct }};background:var(--cta);border-radius:99px;transition:width .1s linear;"></div>
-                        </div>
+                    </div>
+                  </sc-if>
+                </div>
+
+                <!-- BOTTOM SHEET BÁO CÁO SAI SÓT -->
+                <sc-if value="{{ sheetReportArtifact }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:99;display:flex;align-items:flex-end;">
+                    <!-- Click overlay to close -->
+                    <div onClick="{{ closeReportArtifact }}" style="position:absolute;inset:0;z-index:1;"></div>
+                    <!-- Content panel -->
+                    <div style="position:relative;z-index:2;width:100%;background:var(--bg-card);border-radius:24px 24px 0 0;padding:24px 20px 28px;box-shadow:0 -10px 40px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:18px;">
+                      <!-- Drag indicator -->
+                      <div style="width:40px;height:4px;border-radius:99px;background:var(--border-2);margin:0 auto -6px;"></div>
+                      
+                      <div>
+                        <div class="vh-serif" style="font-size:19px;font-weight:600;color:var(--text-primary);">Báo cáo sai sót di sản</div>
+                        <div style="font-size:12px;color:var(--text-tertiary);margin-top:4px;">Giúp chúng tôi hoàn thiện thông tin chính xác nhất</div>
+                      </div>
+
+                      <!-- Reason options -->
+                      <div style="display:flex;flex-direction:column;gap:10px;">
+                        <div style="font-size:11px;color:var(--text-tertiary);font-weight:600;text-transform:uppercase;">Lý do báo cáo</div>
+                        
+                        <button data-ripple="1" onClick="{{ () => setReportReason('wrong_info') }}"
+                                style="border:1px solid var(--border);background:var(--bg-secondary);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;color:var(--text-primary);">
+                          <i class="ti {{ reportReasonIcon('wrong_info') }}" style="font-size:18px;color:{{ reportReasonColor('wrong_info') }};"></i>
+                          <span style="font-size:13.5px;font-weight:500;">Sai thông tin lịch sử / văn hóa</span>
+                        </button>
+                        
+                        <button data-ripple="1" onClick="{{ () => setReportReason('wrong_model') }}"
+                                style="border:1px solid var(--border);background:var(--bg-secondary);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;color:var(--text-primary);">
+                          <i class="ti {{ reportReasonIcon('wrong_model') }}" style="font-size:18px;color:{{ reportReasonColor('wrong_model') }};"></i>
+                          <span style="font-size:13.5px;font-weight:500;">Mô hình hiển thị lỗi / không tải được</span>
+                        </button>
+                        
+                        <button data-ripple="1" onClick="{{ () => setReportReason('typo') }}"
+                                style="border:1px solid var(--border);background:var(--bg-secondary);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;color:var(--text-primary);">
+                          <i class="ti {{ reportReasonIcon('typo') }}" style="font-size:18px;color:{{ reportReasonColor('typo') }};"></i>
+                          <span style="font-size:13.5px;font-weight:500;">Lỗi chính tả / dịch thuật sai</span>
+                        </button>
+                      </div>
+
+                      <!-- Textarea description -->
+                      <div style="display:flex;flex-direction:column;gap:8px;">
+                        <div style="font-size:11px;color:var(--text-tertiary);font-weight:600;text-transform:uppercase;">Mô tả chi tiết sai sót</div>
+                        <textarea onInput="{{ setReportText }}" value="{{ reportText }}" placeholder="Vui lòng cung cấp chi tiết sai sót để Ban Nghiên cứu đối chiếu..."
+                                  style="width:100%;height:80px;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:10px;padding:10px;font-size:13px;color:var(--text-primary);resize:none;outline:none;font-family:inherit;line-height:1.4;"></textarea>
+                      </div>
+
+                      <!-- Action CTA -->
+                      <div style="display:flex;gap:10px;margin-top:4px;">
+                        <button data-ripple="1" onClick="{{ closeReportArtifact }}"
+                                style="flex:1;border:1px solid var(--border);background:var(--bg-secondary);color:var(--text-secondary);font-size:14.5px;font-weight:600;padding:12px;border-radius:10px;cursor:pointer;">Để sau</button>
+                        <button data-ripple="1" onClick="{{ submitReportArtifact }}"
+                                style="flex:1;border:none;background:var(--cta);color:#fff;font-size:14.5px;font-weight:600;padding:12px;border-radius:10px;cursor:pointer;box-shadow:0 4px 12px rgba(237,137,39,.2);">Gửi báo cáo</button>
                       </div>
                     </div>
-                  </div>
-
-                  <!-- CTA buttons -->
-                  <div style="display:flex;gap:10px;margin-top:12px;flex:none;">
-                    <button data-ripple="1" onClick="{{ toDetail }}"
-                            style="position:relative;overflow:hidden;flex:1;border:none;background:var(--cta);color:#fff;font-size:14.5px;font-weight:600;padding:13px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 12px rgba(237,137,39,.25);">
-                      Xem chi tiết hiện vật<i class="ti ti-arrow-right" style="font-size:18px;"></i>
-                    </button>
-                    <button data-ripple="1" onClick="{{ openPhoto }}"
-                            style="position:relative;overflow:hidden;flex:none;width:52px;height:48px;border:1px solid var(--border);background:var(--bg-secondary);color:var(--cta);border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                      <i class="ti ti-camera" style="font-size:22px;"></i></button>
-                  </div>
                 </div>
-              </div>
-            </sc-if>
+              </sc-if>
+            </div>
+          </sc-if>
 
             <!-- 21 TIME TRAVEL -->
             <sc-if value="{{ isTimeTravel }}" hint-placeholder-val="{{ false }}">

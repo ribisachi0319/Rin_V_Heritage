@@ -174,7 +174,12 @@ window.VH_DATA = {
       views: '1.247',
       summary: 'Biểu tượng của nền văn minh Đông Sơn rực rỡ.',
       desc: 'Trống đồng Đông Sơn là biểu tượng của nền văn minh Đông Sơn rực rỡ. Mặt trống khắc hoa văn hình ngôi sao, chim Lạc và cảnh sinh hoạt — phản ánh đời sống tinh thần phong phú của người Việt cổ. Đây là hiện vật khảo cổ quan trọng bậc nhất, minh chứng cho kỹ thuật đúc đồng đỉnh cao cách đây hơn 2.500 năm.',
-      shape: 'Hình trụ tròn, mặt trống phẳng đường kính khoảng 79cm, thân phình ở giữa và loe ra ở chân.'
+      shape: 'Hình trụ tròn, mặt trống phẳng đường kính khoảng 79cm, thân phình ở giữa và loe ra ở chân.',
+      hotspots: [
+        { id: 1, title: 'Hoa văn Mặt trời', summary: 'Ngôi sao 14 cánh biểu tượng của nguồn sống.', desc: 'Hoa văn ngôi sao nhiều cánh ở tâm trống tượng trưng cho thần Mặt trời và hệ thống lịch nông nghiệp của cư dân Lạc Việt cổ.' },
+        { id: 2, title: 'Vành Chim Lạc', summary: 'Hình ảnh chim lạc bay ngược chiều kim đồng hồ.', desc: 'Chim Lạc bay đại diện cho totem (vật tổ) của người Việt cổ và khát vọng vươn tới trời cao, khát vọng tự do.' },
+        { id: 3, title: 'Quai trống đồng', summary: 'Quai kép hình thừng dùng để treo hoặc di chuyển.', desc: 'Bốn quai trống được đúc đối xứng dạng thừng bện hoặc bông lúa, thể hiện sự khéo léo trong công nghệ đúc đồng cổ đại.' }
+      ]
     },
     {
       id: 2,
@@ -186,7 +191,12 @@ window.VH_DATA = {
       views: '842',
       summary: 'Trang phục truyền thống của phụ nữ Bắc Bộ.',
       desc: 'Trang phục truyền thống của phụ nữ Bắc Bộ, gồm bốn vạt áo tượng trưng cho tứ thân phụ mẫu. Thường mặc cùng yếm đào và khăn mỏ quạ trong các dịp lễ hội, thể hiện vẻ đẹp duyên dáng, kín đáo của người phụ nữ Việt xưa.',
-      shape: 'Áo dài tới gối với bốn tà, hai tà trước buộc lại, màu nâu non và the thâm.'
+      shape: 'Áo dài tới gối với bốn tà, hai tà trước buộc lại, màu nâu non và the thâm.',
+      hotspots: [
+        { id: 1, title: 'Yếm đào bên trong', summary: 'Nét tinh tế, duyên dáng của phụ nữ Kinh Bắc.', desc: 'Chiếc yếm đỏ thắm hay yếm đào mặc bên trong, che khéo léo và tạo điểm nhấn quyến rũ cho trang phục áo tứ thân.' },
+        { id: 2, title: 'Thân tà áo dài', summary: 'Tứ thân tượng trưng cho tứ thân phụ mẫu.', desc: 'Hai tà sau được khâu liền, hai tà trước buông thả để thắt nút, tượng trưng cho bốn bậc sinh thành nuôi dưỡng.' },
+        { id: 3, title: 'Thắt lưng bao sồi', summary: 'Giúp giữ dáng và tô điểm sắc màu.', desc: 'Dải lụa thắt ngang lưng màu xanh sồi hay vàng chanh tạo nên sự thắt đáy lưng ong vô cùng thướt tha, uyển chuyển.' }
+      ]
     },
     {
       id: 3,
