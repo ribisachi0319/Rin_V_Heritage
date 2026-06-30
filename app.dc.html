@@ -1021,28 +1021,43 @@
                       <i class="ti ti-arrow-right" style="font-size:22px;"></i></button>
                   </div>
                 </sc-if>
-                <!-- card địa điểm nổi bật -->
-                <div data-ripple="1" onClick="{{ homeFeatVenue.open }}"
-                     style="position:relative;overflow:hidden;border-radius:16px;height:var(--home-hero-height);cursor:pointer;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;margin:14px 18px 0;">
-                    <img src="{{ homeFeatVenue.img }}" alt=""
-                         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-                    <div
-                        style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.45) 0%,rgba(0,0,0,.1) 40%,rgba(26,37,64,.88) 100%);"></div>
-                    <div
-                        style="position:relative;flex:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;text-align:left;padding:0 22px 22px;">
-                      <div class="vh-serif"
-                           style="font-size:32px;font-weight:600;color:#fff;line-height:1.18;text-shadow:0 2px 12px rgba(0,0,0,.4);">
-                        {{ homeFeatVenue.displayName }}
-                      </div>
-                      <div
-                          style="font-size:12px;font-weight:500;color:rgba(255,255,255,.85);margin-top:8px;letter-spacing:0.02em;">
-                        {{ homeFeatVenue.contextLabel }}
-                      </div>
-                      <div
-                          style="margin-top:20px;display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.55);color:#fff;font-size:14px;font-weight:600;padding:10px 22px;border-radius:99px;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);">
-                        Khám phá ngay<i class="ti ti-arrow-right" style="font-size:18px;"></i>
-                      </div>
+                <!-- card địa điểm nổi bật (Carousel) -->
+                <div class="vh-scroll"
+                     style="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 18px 0;">
+                  <sc-for list="{{ homeFeatVenues }}" as="hv" hint-placeholder-count="3">
+                    <div data-ripple="1" onClick="{{ hv.open }}"
+                         style="position:relative;overflow:hidden;border-radius:16px;height:var(--home-hero-height);width:354px;flex:none;scroll-snap-align:start;cursor:pointer;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;">
+                        <img src="{{ hv.img }}" alt=""
+                             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                        <div
+                            style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.45) 0%,rgba(0,0,0,.1) 40%,rgba(26,37,64,.88) 100%);"></div>
+                        <div
+                            style="position:relative;flex:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;text-align:left;padding:0 22px 22px;">
+                          <div class="vh-serif"
+                               style="font-size:32px;font-weight:600;color:#fff;line-height:1.18;text-shadow:0 2px 12px rgba(0,0,0,.4);">
+                            {{ hv.displayName }}
+                          </div>
+                          <div
+                              style="font-size:12px;font-weight:500;color:rgba(255,255,255,.85);margin-top:8px;letter-spacing:0.02em;">
+                            {{ hv.contextLabel }}
+                          </div>
+                          <div
+                              style="margin-top:20px;display:flex;align-items:center;justify-content:space-between;width:100%;">
+                            <!-- CTA căn trái -->
+                            <div
+                                style="display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.55);color:#fff;font-size:14px;font-weight:600;padding:10px 22px;border-radius:99px;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);">
+                              Khám phá ngay<i class="ti ti-arrow-right" style="font-size:18px;"></i>
+                            </div>
+                            <!-- Pagination Dots căn phải -->
+                            <div style="display:flex;gap:5px;align-items:center;">
+                              <sc-for list="{{ hv.dots }}" as="dot" hint-placeholder-count="3">
+                                <div style="height:6px;width:{{ dot.width }};border-radius:99px;background:#fff;opacity:{{ dot.opacity }};transition:all 0.2s;"></div>
+                              </sc-for>
+                            </div>
+                          </div>
+                        </div>
                     </div>
+                  </sc-for>
                 </div>
                 <!-- card bài viết nổi bật -->
                 <div data-ripple="1" onClick="{{ homeFeatArticle.open }}"

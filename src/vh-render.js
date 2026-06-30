@@ -832,7 +832,13 @@ window.VH_RENDER = {
     }, []);
     return {
       placesMain, grpHanoi, grpHcm, grpMuseum, grpNature, homeFeed,
-      homeFeatVenue: placesMain[0],
+      homeFeatVenues: placesMain.slice(0, 3).map((v, idx) => {
+        const dots = [0, 1, 2].map(i => ({
+          width: i === idx ? '12px' : '6px',
+          opacity: i === idx ? '1' : '0.4'
+        }));
+        return Object.assign({}, v, { dots });
+      }),
       homeFeatArticle: articlesView[0],
       showContinueCard: showContinue,
       contVenName: visitVen ? visitVen.name : '',
