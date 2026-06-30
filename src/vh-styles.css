@@ -25,15 +25,6 @@ html,body{margin:0;padding:0;}
 .vh-home-section-title{padding:var(--home-section-gap) var(--home-pad-x) 0;}
 .vh-home-section-head{display:flex;align-items:center;justify-content:space-between;padding:var(--home-section-gap) var(--home-pad-x) 0;}
 .vh-home-section-list{display:flex;gap:var(--home-list-gap);overflow-x:auto;padding:var(--home-title-list-gap) var(--home-pad-x) 0;}
-.vh-location-ask{--loc-ask-space-1:10px;--loc-ask-space-2:24px;--loc-ask-space-3:28px;--loc-ask-space-4:8px;--loc-ask-space-5:20px;}
-.vh-location-ask-body{padding-top:32px;display:flex;flex-direction:column;align-items:center;text-align:center;}
-.vh-location-ask-copy{font-size:14px;color:var(--text-secondary);line-height:1.6;margin-top:var(--loc-ask-space-1);max-width:300px;}
-.vh-location-ask-actions{padding:var(--loc-ask-space-3) 0 34px;}
-.vh-location-ask-secondary{margin-top:var(--loc-ask-space-4);}
-.vh-location-ask-pref{display:flex;flex-direction:column;align-items:center;gap:var(--loc-ask-space-5);margin-top:var(--loc-ask-space-2);}
-.vh-location-ask-divider{width:100%;height:1px;background:var(--border);}
-.vh-location-ask-check{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;text-align:center;background:transparent;border:none;cursor:pointer;padding:6px 2px;}
-.vh-location-ask-check-text{font-size:13px;color:var(--text-secondary);}
 /* a11y visual-low: render nội dung ở 83.3% rồi transform scale(1.2) = phóng to đều, hit-test chuẩn, không lệch chạm */
 .vh-content{position:relative;flex:1 1 auto;min-height:0;width:100%;display:flex;flex-direction:column;transition:transform .2s ease;}
 .vh-app[data-vlow="1"] .vh-content{width:83.333%;height:83.333%;flex:none;transform:scale(1.2);transform-origin:top left;}
