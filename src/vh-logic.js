@@ -132,6 +132,7 @@ window.VH_LOGIC = {
     clearTimeout(this._splashT);
     clearTimeout(this._notifPromptT);
     clearTimeout(this._scanT);
+    clearTimeout(this._accessDlT);
     clearTimeout(this._lpTimer);
     clearInterval(this._audioT);
     clearInterval(this._lockT);
@@ -556,6 +557,51 @@ window.VH_LOGIC = {
     }
     this.showToast('Đã tải gói AR — Bảo tàng Mỹ thuật Việt Nam ✦');
     this.goTab('home');
+  },
+  downloadVenueAccessInfo(venueId) {
+    if (this.state._accessDownloadLoading) return;
+    const ven = this.findVenue(venueId || this.state.curVenueId);
+    if (!ven) {
+      this.setState({_accessDownloadError: 'Không tìm thấy thông tin tiếp cận của địa điểm này.'});
+      this.showToast('Không tìm thấy thông tin tiếp cận', 'error');
+      return;
+    }
+    clearTimeout(this._accessDlT);
+    this.setState({_accessDownloadLoading: true, _accessDownloadError: null});
+    this._accessDlT = setTimeout(() => {
+      try {
+        if (typeof Blob === 'undefined' || typeof URL === 'undefined' || typeof document === 'undefined') {
+          throw new Error('download-unavailable');
+        }
+        const lines = [
+          'V-Heritage — Thông tin tiếp cận',
+          '',
+          'Địa điểm: ' + ven.name,
+          'Thành phố: ' + ven.city,
+          'Tình trạng: ' + (ven.wheelchair ? 'Có lối tiếp cận' : 'Khó tiếp cận'),
+          'Hướng dẫn: ' + ven.floor,
+          '',
+          'Gợi ý: lưu file này để xem nhanh bản đồ lối đi hoặc hướng dẫn tiếp cận khi tham quan.'
+        ];
+        const blob = new Blob([lines.join('\n')], {type: 'text/plain;charset=utf-8'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'v-heritage-loi-tiep-can-' + ven.id + '.txt';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 800);
+        this.setState({_accessDownloadLoading: false, _accessDownloadError: null});
+        this.showToast('Đã tải thông tin tiếp cận ✦');
+      } catch (e) {
+        this.setState({
+          _accessDownloadLoading: false,
+          _accessDownloadError: 'Không thể tải file. Vui lòng thử lại.'
+        });
+        this.showToast('Không thể tải file tiếp cận', 'error');
+      }
+    }, 600);
   },
   lockLogin() {
     this.setState({lockedUntil: Date.now() + 60000, lockCountdown: 60});

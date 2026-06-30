@@ -1453,16 +1453,26 @@
                     <i class="ti ti-map-pin" style="font-size:15px;color:var(--cta);"></i>{{
                     curVen.city }} · {{ venArtCount }} hiện vật · {{ curVen.dist }}
                   </div>
-                  <!-- accessibility note (tap -> area map) -->
-                  <button data-ripple="1" onClick="{{ openAreaMap }}"
-                          style="position:relative;overflow:hidden;display:flex;align-items:center;gap:8px;width:100%;text-align:left;margin-top:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:11px 13px;cursor:pointer;">
-                    <i class="ti {{ venAccessIcon }}"
-                       style="font-size:20px;color:{{ venAccessColor }};"></i><span
-                      style="flex:1;font-size:12px;color:var(--text-secondary);">{{ venAccessNote }}</span>
-                    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
-                  </button>
-                  <!-- wheelchair toggle (motor a11y) -->
+                  <!-- accessibility note + download (motor a11y) -->
                   <sc-if value="{{ showWheelchairToggle }}" hint-placeholder-val="{{ false }}">
+                    <button data-ripple="1" onClick="{{ openAreaMap }}"
+                            style="position:relative;overflow:hidden;display:flex;align-items:center;gap:8px;width:100%;text-align:left;margin-top:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:11px 13px;cursor:pointer;">
+                      <i class="ti {{ venAccessIcon }}"
+                         style="font-size:20px;color:{{ venAccessColor }};"></i><span
+                        style="flex:1;font-size:12px;color:var(--text-secondary);">{{ venAccessNote }}</span>
+                      <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+                    </button>
+                    <button data-ripple="1" onClick="{{ downloadVenueAccess }}"
+                            disabled="{{ accessDownloadDisabled }}"
+                            class="vh-place-access-download">
+                      <i class="ti {{ accessDownloadIcon }}"
+                         style="font-size:18px;animation:{{ accessDownloadIconSpin }};"></i>{{ accessDownloadText }}
+                    </button>
+                    <sc-if value="{{ showAccessDownloadError }}" hint-placeholder-val="{{ false }}">
+                      <div class="vh-place-access-download-error">
+                        <i class="ti ti-alert-triangle" style="font-size:14px;"></i>{{ accessDownloadError }}
+                      </div>
+                    </sc-if>
                     <button data-ripple="1" onClick="{{ toggleWheelchair }}"
                             style="position:relative;overflow:hidden;display:flex;align-items:center;gap:10px;width:100%;text-align:left;margin-top:10px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:13px;cursor:pointer;color:var(--text-primary);">
                       <i class="ti ti-wheelchair"
@@ -4888,7 +4898,7 @@ class Component extends DCLogic {
     curArtId: 1, curVenueId: 1,
     scanState: 'idle', scanFailReason: null, qrState: 'idle', isPlaying: false, audioProgress: 0, audioHD: false, audioSpeed: 1, audioVoice: 'Tiêu chuẩn',
     libTab: 'art', searchQuery: '', searchFilter: 'all', _exploreH: 18,
-    wheelchair: false, voiceDesc: false,
+    wheelchair: false, voiceDesc: false, _accessDownloadLoading: false, _accessDownloadError: null,
     threeDRot: 0, threeDZoom: 1, threeDPlaying: true, timeIdx: 1,
     paymentMethod: null, paymentTier: 'premium', notifList: null, twoFA: false, failedPayment: 0,
     _cpOld: '', _cpNew: '', _cpConfirm: '', _ceNew: '', _daConfirm: false, _daPass: '', _revoked: [],

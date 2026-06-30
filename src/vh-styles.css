@@ -35,6 +35,9 @@ html,body{margin:0;padding:0;}
 .vh-collection-card-body{min-height:58px;padding:11px 13px 13px;}
 .vh-collection-create-card{width:100%;padding:0;font:inherit;color:var(--text-primary);border-style:dashed;}
 .vh-collection-create-icon{width:42px;height:42px;border-radius:999px;border:1px solid var(--border);background:var(--bg-card);color:var(--cta);display:flex;align-items:center;justify-content:center;}
+.vh-place-access-download{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;border:none;background:var(--primary);color:var(--on-primary);font-size:14px;font-weight:600;padding:13px;border-radius:10px;cursor:pointer;}
+.vh-place-access-download[disabled]{cursor:default;opacity:.78;}
+.vh-place-access-download-error{display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);}
 .vh-tutorial-back{position:absolute;top:46px;left:18px;z-index:5;overflow:hidden;width:48px;height:48px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--primary);cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .vh-tutorial-back i{font-size:22px;}
 .vh-location-ask-screen{--loc-ask-copy-gap:10px;--loc-ask-secondary-gap:8px;--loc-ask-pref-gap:14px;--loc-ask-bottom:34px;--loc-ask-max:320px;}

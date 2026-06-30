@@ -1826,6 +1826,13 @@ window.VH_RENDER = {
       venAccessNote: ven.wheelchair ? ('Có lối tiếp cận — ' + ven.floor) : ('Khó tiếp cận — ' + ven.floor),
       venAccessColor: ven.wheelchair ? 'var(--success)' : 'var(--warning)',
       venAccessIcon: ven.wheelchair ? 'ti-wheelchair' : 'ti-stairs',
+      downloadVenueAccess: () => this.downloadVenueAccessInfo(ven.id),
+      accessDownloadDisabled: !!st._accessDownloadLoading,
+      accessDownloadIcon: st._accessDownloadLoading ? 'ti-loader-2' : 'ti-download',
+      accessDownloadIconSpin: st._accessDownloadLoading ? 'vhSpin .9s linear infinite' : 'none',
+      accessDownloadText: st._accessDownloadLoading ? 'Đang tải...' : 'Tải xuống',
+      accessDownloadError: st._accessDownloadError || '',
+      showAccessDownloadError: !!st._accessDownloadError,
       openAreaMap: () => this.nav('areamap', 'fwd'),
       readArticle: () => this.nav('article', 'fwd'),
       // AREA MAP (lối tiếp cận khu vực)
