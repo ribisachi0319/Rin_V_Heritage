@@ -1454,13 +1454,15 @@
                     curVen.city }} · {{ venArtCount }} hiện vật · {{ curVen.dist }}
                   </div>
                   <!-- accessibility note (tap -> area map) -->
-                  <button data-ripple="1" onClick="{{ openAreaMap }}"
-                          style="position:relative;overflow:hidden;display:flex;align-items:center;gap:8px;width:100%;text-align:left;margin-top:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:11px 13px;cursor:pointer;">
-                    <i class="ti {{ venAccessIcon }}"
-                       style="font-size:20px;color:{{ venAccessColor }};"></i><span
-                      style="flex:1;font-size:12px;color:var(--text-secondary);">{{ venAccessNote }}</span>
-                    <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
-                  </button>
+                  <sc-if value="{{ showWheelchairToggle }}" hint-placeholder-val="{{ false }}">
+                    <button data-ripple="1" onClick="{{ openAreaMap }}"
+                            style="position:relative;overflow:hidden;display:flex;align-items:center;gap:8px;width:100%;text-align:left;margin-top:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:11px 13px;cursor:pointer;">
+                      <i class="ti {{ venAccessIcon }}"
+                         style="font-size:20px;color:{{ venAccessColor }};"></i><span
+                        style="flex:1;font-size:12px;color:var(--text-secondary);">{{ venAccessNote }}</span>
+                      <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);"></i>
+                    </button>
+                  </sc-if>
                   <button data-ripple="1" onClick="{{ downloadVenuePack }}"
                           disabled="{{ venueDownloadDisabled }}"
                           class="vh-place-download">
