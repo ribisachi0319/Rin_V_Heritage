@@ -82,6 +82,51 @@ window.VH_DATA = {
     },
   ],
 
+  venueInfos: {
+    1: {
+      hours: '08:00 - 12:00, 13:30 - 17:00 (Thứ Ba - Chủ Nhật)',
+      tickets: '40.000đ (Người lớn) · 20.000đ (Học sinh) · Miễn phí (Trẻ em < 6 tuổi)',
+      address: '25 Tông Đản, Tràng Tiền, Hoàn Kiếm, Hà Nội',
+      phone: '024 3825 2853',
+      amenities: ['wifi', 'parking', 'guide', 'shop', 'cafe']
+    },
+    2: {
+      hours: '08:30 - 17:00 (Hàng ngày)',
+      tickets: '40.000đ (Người lớn) · 20.000đ (Học sinh) · 10.000đ (Trẻ em)',
+      address: '66 Nguyễn Thái Học, Ba Đình, Hà Nội',
+      phone: '024 3823 3084',
+      amenities: ['wifi', 'parking', 'guide', 'shop']
+    },
+    3: {
+      hours: '08:00 - 16:30 (Hàng ngày)',
+      tickets: '65.000đ (Dinh + Trưng bày) · 15.000đ (Trẻ em)',
+      address: '135 Nam Kỳ Khởi Nghĩa, Bến Thành, Quận 1, TP.HCM',
+      phone: '028 3822 3652',
+      amenities: ['parking', 'guide', 'shop', 'cafe']
+    },
+    4: {
+      hours: '08:00 - 16:00 (Hàng ngày)',
+      tickets: 'Miễn phí vé vào cửa',
+      address: 'Đá Chông, Minh Quang, Ba Vì, Hà Nội',
+      phone: '024 3833 0088',
+      amenities: ['parking', 'guide']
+    },
+    5: {
+      hours: '07:00 - 17:00 (Hàng ngày)',
+      tickets: 'Miễn phí vé vào cửa',
+      address: 'Trí Bưu, Phường 2, Thị xã Quảng Trị, Quảng Trị',
+      phone: '0233 386 1279',
+      amenities: ['parking', 'guide']
+    },
+    6: {
+      hours: 'Cả ngày (Hàng ngày) · Tham quan di tích: 07:30 - 18:00',
+      tickets: '80.000đ (Khách Việt Nam) · 120.000đ (Khách Quốc tế)',
+      address: 'Minh An, Hội An, Quảng Nam',
+      phone: '0235 386 1327',
+      amenities: ['wifi', 'parking', 'guide', 'shop', 'cafe']
+    }
+  },
+
   artifacts: [
     {
       id: 1,

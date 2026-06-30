@@ -1815,6 +1815,17 @@ window.VH_RENDER = {
       // PLACE DETAIL
       isPlace: st.screen === 'place',
       curVen: {...ven, img: this.vimg(ven.seed, 600, 400)},
+      venHours: (this.venueInfos[ven.id]?.hours) || '08:00 - 17:00 (Hàng ngày)',
+      venTickets: (this.venueInfos[ven.id]?.tickets) || 'Theo quy định của ban quản lý di tích',
+      venAddress: (this.venueInfos[ven.id]?.address) || (ven.name + ', ' + ven.city),
+      venPhone: (this.venueInfos[ven.id]?.phone) || '024 1234 5678',
+      venPhoneLink: 'tel:' + ((this.venueInfos[ven.id]?.phone) || '024 1234 5678').replace(/\s+/g, ''),
+      venHasWifi: (this.venueInfos[ven.id]?.amenities || ['wifi', 'parking', 'guide']).includes('wifi'),
+      venHasParking: (this.venueInfos[ven.id]?.amenities || ['wifi', 'parking', 'guide']).includes('parking'),
+      venHasGuide: (this.venueInfos[ven.id]?.amenities || ['wifi', 'parking', 'guide']).includes('guide'),
+      venHasShop: (this.venueInfos[ven.id]?.amenities || ['wifi', 'parking', 'guide']).includes('shop'),
+      venHasCafe: (this.venueInfos[ven.id]?.amenities || ['wifi', 'parking', 'guide']).includes('cafe'),
+      openGoogleMaps: () => this.openGoogleMaps(ven.id),
       venArtifacts: venArtifacts.map(a => ({
         ...a,
         img: this.vimg(a.seed, 200, 200),

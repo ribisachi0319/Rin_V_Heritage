@@ -1202,6 +1202,13 @@ window.VH_LOGIC = {
   findVenue(id) {
     return this.venues.concat(this.destVenues || []).find(v => v.id === id);
   },
+  openGoogleMaps(venueId) {
+    const ven = this.findVenue(venueId);
+    if (!ven) return;
+    const info = this.venueInfos[ven.id] || { address: ven.city };
+    const query = ven.name + ' ' + info.address;
+    window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query), '_blank');
+  },
   // hiện vật hiển thị của một nơi (điểm đến Top 10 không có hiện vật riêng → mẫu)
   venueArtifacts(venId) {
     let arr = this.artifacts.filter(a => a.venue === venId);

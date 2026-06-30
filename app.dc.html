@@ -1502,6 +1502,88 @@
                       </div>
                     </button>
                   </sc-if>
+                  <!-- VISITOR INFO CARD -->
+                  <div class="vh-serif" style="font-size:18px;font-weight:600;margin-top:22px;margin-bottom:10px;">Thông tin tham quan</div>
+                  <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:14px;margin-top:10px;">
+                    <!-- Hours -->
+                    <div style="display:flex;align-items:flex-start;gap:12px;">
+                      <div style="width:28px;height:28px;border-radius:99px;background:rgba(237,137,39,.1);display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px;">
+                        <i class="ti ti-clock" style="font-size:15px;color:var(--cta);line-height:1;display:inline-flex;align-items:center;justify-content:center;"></i>
+                      </div>
+                      <div style="flex:1;min-width:0;">
+                        <div style="font-size:12px;color:var(--text-tertiary);line-height:1;">Giờ mở cửa</div>
+                        <div style="font-size:13.5px;color:var(--text-primary);font-weight:500;margin-top:4px;line-height:1.4;">{{ venHours }}</div>
+                      </div>
+                    </div>
+                    <!-- Tickets -->
+                    <div style="display:flex;align-items:flex-start;gap:12px;">
+                      <div style="width:28px;height:28px;border-radius:99px;background:rgba(237,137,39,.1);display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px;">
+                        <i class="ti ti-ticket" style="font-size:15px;color:var(--cta);line-height:1;display:inline-flex;align-items:center;justify-content:center;"></i>
+                      </div>
+                      <div style="flex:1;min-width:0;">
+                        <div style="font-size:12px;color:var(--text-tertiary);line-height:1;">Giá vé tham quan</div>
+                        <div style="font-size:13.5px;color:var(--text-primary);font-weight:500;margin-top:4px;line-height:1.4;">{{ venTickets }}</div>
+                      </div>
+                    </div>
+                    <!-- Address & Direction -->
+                    <div style="display:flex;align-items:flex-start;gap:12px;">
+                      <div style="width:28px;height:28px;border-radius:99px;background:rgba(237,137,39,.1);display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px;">
+                        <i class="ti ti-map-pin" style="font-size:15px;color:var(--cta);line-height:1;display:inline-flex;align-items:center;justify-content:center;"></i>
+                      </div>
+                      <div style="flex:1;min-width:0;">
+                        <div style="font-size:12px;color:var(--text-tertiary);line-height:1;">Địa chỉ</div>
+                        <div style="font-size:13.5px;color:var(--text-primary);font-weight:500;margin-top:4px;line-height:1.4;word-break:break-word;">{{ venAddress }}</div>
+                        <button data-ripple="1" onClick="{{ openGoogleMaps }}"
+                                style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--cta);font-size:12px;font-weight:600;cursor:pointer;padding:4px 0 0;display:inline-flex;align-items:center;gap:4px;line-height:1;">
+                          <i class="ti ti-direction" style="font-size:13px;line-height:1;display:inline-flex;align-items:center;justify-content:center;margin-top:-1px;"></i><span>Chỉ đường (Google Maps)</span>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- Phone -->
+                    <div style="display:flex;align-items:flex-start;gap:12px;">
+                      <div style="width:28px;height:28px;border-radius:99px;background:rgba(237,137,39,.1);display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px;">
+                        <i class="ti ti-phone" style="font-size:15px;color:var(--cta);line-height:1;display:inline-flex;align-items:center;justify-content:center;"></i>
+                      </div>
+                      <div style="flex:1;min-width:0;">
+                        <div style="font-size:12px;color:var(--text-tertiary);line-height:1;">Hotline hỗ trợ</div>
+                        <a href="{{ venPhoneLink }}"
+                           style="display:inline-block;font-size:13.5px;color:var(--text-primary);font-weight:500;margin-top:4px;line-height:1.4;text-decoration:none;cursor:pointer;">{{ venPhone }}</a>
+                      </div>
+                    </div>
+
+                    <!-- Amenities -->
+                    <div style="border-top:1px solid var(--border);margin-top:4px;padding-top:12px;">
+                      <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:8px;line-height:1;">Dịch vụ & Tiện ích</div>
+                      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                        <sc-if value="{{ venHasWifi }}" hint-placeholder-val="{{ true }}">
+                          <div style="display:inline-flex;align-items:center;gap:4px;background:var(--bg-tertiary);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--text-secondary);font-weight:500;">
+                            <i class="ti ti-wifi" style="font-size:12px;line-height:1;"></i><span>Wifi miễn phí</span>
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{ venHasParking }}" hint-placeholder-val="{{ true }}">
+                          <div style="display:inline-flex;align-items:center;gap:4px;background:var(--bg-tertiary);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--text-secondary);font-weight:500;">
+                            <i class="ti ti-parking" style="font-size:12px;line-height:1;"></i><span>Chỗ đỗ xe</span>
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{ venHasGuide }}" hint-placeholder-val="{{ true }}">
+                          <div style="display:inline-flex;align-items:center;gap:4px;background:var(--bg-tertiary);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--text-secondary);font-weight:500;">
+                            <i class="ti ti-microphone" style="font-size:12px;line-height:1;"></i><span>Thuyết minh</span>
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{ venHasShop }}" hint-placeholder-val="{{ true }}">
+                          <div style="display:inline-flex;align-items:center;gap:4px;background:var(--bg-tertiary);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--text-secondary);font-weight:500;">
+                            <i class="ti ti-shopping-bag" style="font-size:12px;line-height:1;"></i><span>Quà lưu niệm</span>
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{ venHasCafe }}" hint-placeholder-val="{{ true }}">
+                          <div style="display:inline-flex;align-items:center;gap:4px;background:var(--bg-tertiary);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--text-secondary);font-weight:500;">
+                            <i class="ti ti-coffee" style="font-size:12px;line-height:1;"></i><span>Quán cà phê</span>
+                          </div>
+                        </sc-if>
+                      </div>
+                    </div>
+                  </div>
+
                   <!-- story -->
                   <div class="vh-serif" style="font-size:18px;font-weight:600;margin-top:22px;">Câu
                     chuyện
