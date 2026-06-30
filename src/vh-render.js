@@ -2085,7 +2085,7 @@ window.VH_RENDER = {
       threeDPlayIcon: st.threeDPlaying ? 'ti-player-pause' : 'ti-player-play',
       toggle3DPlay: () => this.toggle3DPlay(),
       drag3DStart: (e) => this.drag3DStart(e),
-      clearHotspot: (e) => { this.setState({activeHotspot: null}); },
+      clearHotspot: (e) => { if (!this._3dHasDragged) this.setState({activeHotspot: null}); },
       threeDPanelY: st.threeDPanelY !== undefined ? st.threeDPanelY : 130,
       panelTransition: this._draggingPanel ? 'none' : 'transform 0.3s ease',
       dragPanelStart: (e) => this.dragPanelStart(e),

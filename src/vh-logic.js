@@ -1463,20 +1463,20 @@ window.VH_LOGIC = {
   },
   drag3DStart(e) {
     this._dragging3D = true;
+    this._3dHasDragged = false;
     this.record3DInteraction();
     const startX = e.touches ? e.touches[0].clientX : e.clientX;
     const startRot = this.state.threeDRot;
-    let hasDragged = false;
     const move = (ev) => {
       this.record3DInteraction();
       const x = ev.touches ? ev.touches[0].clientX : ev.clientX;
-      if (Math.abs(x - startX) > 5) hasDragged = true;
+      if (Math.abs(x - startX) > 5) this._3dHasDragged = true;
       this.setState({threeDRot: ((startRot + (x - startX) * 0.8) % 360 + 360) % 360});
     };
     const up = () => {
       this._dragging3D = false;
-      // Nếu không kéo (chỉ tap) → deselect hotspot, hiện panel chi tiết hiện vật
-      if (!hasDragged) this.setState({activeHotspot: null});
+      // reset cờ sau 100ms để onTouchEnd/onMouseUp trên tap-catcher kịp đọc
+      setTimeout(() => { this._3dHasDragged = false; }, 100);
       document.removeEventListener('mousemove', move);
       document.removeEventListener('mouseup', up);
       document.removeEventListener('touchmove', move);
