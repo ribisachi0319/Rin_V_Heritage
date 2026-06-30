@@ -710,8 +710,13 @@ window.VH_LOGIC = {
   },
   openPhotoCapture() {
     const camOn = this.state.permissions && this.state.permissions.camera === 1;
+    const snoozed = this.state._camSnoozeDay === new Date().toDateString();
     if (!camOn) {
-      this.nav('cameraask', 'fwd');
+      if (snoozed) {
+        this.showToast('Bạn cần cấp quyền camera trong cài đặt máy để chụp hình AR.', 'error');
+      } else {
+        this.nav('cameraask', 'fwd');
+      }
     } else {
       this.nav('camerashot', 'fwd');
     }
@@ -729,11 +734,17 @@ window.VH_LOGIC = {
     });
   },
   camAskSkip() {
+    if (this.state._camAskChecked) {
+      this.setState({_camSnoozeDay: new Date().toDateString()});
+    }
     this.showToast('Bạn cần cấp quyền camera để chụp hình AR.');
     this.back();
   },
   camAskBack() {
     this.back();
+  },
+  toggleCamAsk() {
+    this.setState({_camAskChecked: !this.state._camAskChecked});
   },
   takePhoto() {
     if (this.state._shutterFlash) return;

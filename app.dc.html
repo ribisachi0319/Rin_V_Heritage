@@ -1911,32 +1911,40 @@
             <!-- CAMERA ASK (Hỏi quyền camera trước khi vào Chụp ảnh AR) -->
             <sc-if value="{{ isCameraAsk }}" hint-placeholder-val="{{ false }}">
               <div data-screen-label="CameraAsk"
+                   class="vh-location-ask-screen"
                    style="position:absolute;inset:0;background:var(--bg-primary);display:flex;flex-direction:column;padding:0 24px;">
                 <div style="padding:46px 0 0;flex:none;">
                   <button data-ripple="1" onClick="{{ camAskBack }}"
                           style="position:relative;overflow:hidden;width:42px;height:42px;border-radius:99px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;">
                     <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
                 </div>
-                <div style="flex:1;display:flex;align-items:center;justify-content:center;text-align:center;">
-                  <div style="display:flex;flex-direction:column;align-items:center;padding:0 12px;">
+                <div class="vh-location-ask-main">
+                  <div class="vh-location-ask-stack">
                     <div
                         style="width:96px;height:96px;border-radius:99px;background:rgba(237,137,39,.14);display:flex;align-items:center;justify-content:center;">
                       <i class="ti ti-camera" style="font-size:46px;color:var(--cta);"></i>
                     </div>
                     <div class="vh-serif" style="font-size:26px;font-weight:600;margin-top:24px;">Cấp quyền Camera?</div>
-                    <div style="font-size:14px;color:var(--text-secondary);line-height:1.5;margin-top:14px;">
+                    <div class="vh-location-ask-copy">
                       V-Heritage cần quyền truy cập camera để đưa mô hình hiện vật 3D hiển thị ngay trong không gian thực và cho phép bạn chụp hình lưu niệm.
                     </div>
                   </div>
                 </div>
-                <div style="flex:none;display:flex;flex-direction:column;gap:12px;padding-bottom:34px;">
+                <div class="vh-location-ask-actions">
                   <button data-ripple="1" onClick="{{ camAskGrant }}"
                           style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:16px;font-weight:600;padding:16px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
                     <i class="ti ti-camera" style="font-size:19px;"></i>Cấp quyền Camera
                   </button>
-                  <button data-ripple="1" onClick="{{ camAskSkip }}"
+                  <button data-ripple="1" onClick="{{ camAskSkip }}" class="vh-location-ask-secondary"
                           style="position:relative;overflow:hidden;border:none;background:transparent;color:var(--text-secondary);font-size:14px;font-weight:600;padding:12px 16px;border-radius:12px;cursor:pointer;">
                     Để sau
+                  </button>
+                  <button data-ripple="1" onClick="{{ toggleCamAsk }}" class="vh-location-ask-preference">
+                    <div
+                        style="width:20px;height:20px;border-radius:6px;border:2px solid {{ camAskBoxBorder }};background:{{ camAskBoxBg }};display:flex;align-items:center;justify-content:center;flex:none;">
+                      <i class="ti ti-check" style="font-size:13px;color:#fff;display:{{ camAskCheckDisp }};"></i>
+                    </div>
+                    <span class="vh-location-ask-pref-label">Đừng hỏi lại hôm nay</span>
                   </button>
                 </div>
               </div>
@@ -5072,7 +5080,7 @@ class Component extends DCLogic {
     sheet: null, modal: null, modalData: {},
     curArtId: 1, curVenueId: 1,
     scanState: 'idle', scanFailReason: null, qrState: 'idle', isPlaying: false, audioProgress: 0, audioHD: false, audioSpeed: 1, audioVoice: 'Tiêu chuẩn',
-    libTab: 'art', searchQuery: '', searchFilter: 'all', _exploreH: 18,
+    libTab: 'art', searchQuery: '', searchFilter: 'all', _exploreH: 18, _camAskChecked: false, _camSnoozeDay: '',
     wheelchair: false, voiceDesc: false, _venueDownloadLoading: false, _venueDownloadProgress: 0, _venueDownloadError: null,
     threeDRot: 0, threeDZoom: 1, threeDPlaying: true, timeIdx: 1,
     paymentMethod: null, paymentTier: 'premium', notifList: null, twoFA: false, failedPayment: 0,
