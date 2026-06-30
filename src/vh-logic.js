@@ -24,6 +24,84 @@ window.VH_LOGIC = {
       el.addEventListener('mouseup', (e) => this.handleHeroTouchEnd(e));
     }
   },
+  deselectPin() {
+    this.setState({curVenueId: null, _exploreH: 18});
+  },
+  exToggleH() {
+    if (!(this.state.permissions && this.state.permissions.location === 1)) return;
+    if (this._exDragged) {
+      this._exDragged = false;
+      return;
+    }
+    const cur = this.state._exploreH || 18;
+    let next = 46;
+    if (cur >= 32 && cur < 60) next = 80;
+    else if (cur >= 60) next = 18;
+    this.setState({_exploreH: next});
+  },
+  exDragStart(e) {
+    if (!(this.state.permissions && this.state.permissions.location === 1)) return;
+    if (e.button !== undefined && e.button !== 0) return;
+    this._exDragged = false;
+    const el = this._exSheetEl;
+    const parentH = (el && el.parentElement && el.parentElement.clientHeight) || 700;
+    const sy = e.touches ? e.touches[0].clientY : e.clientY;
+    const sh = this.state._exploreH || 18;
+    let liveH = sh;
+    if (el) el.style.transition = 'none'; // Tắt transition để bám tay khi kéo
+    
+    const move = (ev) => {
+      const y = ev.touches ? ev.touches[0].clientY : ev.clientY;
+      if (Math.abs(sy - y) > 4) this._exDragged = true;
+      liveH = Math.max(14, Math.min(82, sh + (sy - y) / parentH * 100));
+      if (el) el.style.height = liveH + '%';
+    };
+    
+    const up = () => {
+      document.removeEventListener('mousemove', move);
+      document.removeEventListener('mouseup', up);
+      document.removeEventListener('touchmove', move);
+      document.removeEventListener('touchend', up);
+      if (el) el.style.transition = 'height .25s cubic-bezier(.32,.72,0,1)'; // Bật lại transition
+      
+      if (this._exDragged) {
+        const dy = liveH - sh;
+        let snapped = sh;
+        if (Math.abs(dy) >= 6) { // Ngưỡng vuốt tối thiểu 6% chiều cao
+          if (dy > 0) { // Kéo lên
+            if (sh === 18) snapped = 46;
+            else if (sh === 46) snapped = 80;
+            else snapped = 80;
+          } else { // Kéo xuống
+            if (sh === 80) snapped = 46;
+            else if (sh === 46) snapped = 18;
+            else snapped = 18;
+          }
+        }
+        if (el) {
+          void el.offsetHeight;
+          el.style.height = snapped + '%';
+        }
+        this.setState({_exploreH: snapped});
+      } else {
+        if (el) el.style.height = sh + '%';
+      }
+    };
+    
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', up);
+    document.addEventListener('touchmove', move, {passive: true});
+    document.addEventListener('touchend', up);
+  },
+  setupExploreDrag() {
+    const el = document.querySelector('.vh-explore-sheet-header');
+    if (el && !el._vhDragBound) {
+      el._vhDragBound = true;
+      el.addEventListener('touchstart', (e) => this.exDragStart(e), { passive: true });
+      el.addEventListener('mousedown', (e) => this.exDragStart(e));
+      el.addEventListener('click', () => this.exToggleH());
+    }
+  },
   // ---- notif ----
   markRead(id) {
     const l = (this.state.notifList || this.NOTIF_SEED).map(n => n.id === id ? {...n, read: true} : n);
@@ -136,6 +214,7 @@ window.VH_LOGIC = {
       }
     }, 5000);
     this.setupHeroSwipe();
+    this.setupExploreDrag();
   },
   componentDidUpdate() {
     // pre-permission Thông báo: lần đầu vào Home sau khi tạo tài khoản (chỉ 1 lần)
@@ -161,6 +240,7 @@ window.VH_LOGIC = {
       }
     }
     this.setupHeroSwipe();
+    this.setupExploreDrag();
   },
   componentWillUnmount() {
     clearInterval(this._heroTimer);

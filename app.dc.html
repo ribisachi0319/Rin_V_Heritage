@@ -1249,7 +1249,7 @@
               <div data-screen-label="Explore"
                    style="position:absolute;inset:0;background:var(--map);overflow:hidden;">
                 <sc-if value="{{ showMap }}" hint-placeholder-val="{{ true }}">
-                  <div style="position:absolute;inset:0;">
+                  <div onClick="{{ deselectPin }}" style="position:absolute;inset:0;">
                     <img src="https://picsum.photos/seed/vhmaptiles6/420/860?grayscale" alt=""
                          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3;filter:saturate(.4);">
                     <div
@@ -1307,7 +1307,7 @@
                 <div ref="{{ exSheetRef }}"
                      style="position:absolute;left:0;right:0;bottom:0;height:{{ exploreH }};z-index:9;background:var(--bg-card);border-radius:{{ exPanelRadius }};box-shadow:0 -8px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;transition:height .25s cubic-bezier(.32,.72,0,1);padding-top:{{ exPanelPadTop }};">
                   <!-- header kéo được: cả tay cầm + tiêu đề (vùng kéo rộng; danh sách bên dưới vẫn cuộn) -->
-                  <div onMouseDown="{{ exDragStart }}" onTouchStart="{{ exDragStart }}" onClick="{{ exToggleH }}"
+                  <div class="vh-explore-sheet-header"
                        style="flex:none;cursor:{{ exHeaderCursor }};touch-action:none;">
                     <div style="padding-top:4px;">
                       <div

@@ -1785,55 +1785,9 @@ window.VH_RENDER = {
       exSheetRef: (el) => {
         this._exSheetEl = el;
       },
-      exToggleH: () => {
-        // chỉ kéo/đổi cao-thấp khi đã bật vị trí (chế độ fallback panel full màn)
-        if (!(this.state.permissions && this.state.permissions.location === 1)) return;
-        // chỉ chạm (không kéo) → đổi cao/thấp; nếu vừa kéo xong thì bỏ qua. Đọc STATE THẬT, không dùng closure cũ.
-        if (this._exDragged) {
-          this._exDragged = false;
-          return;
-        }
-        const cur = this.state._exploreH || 18;
-        this.setState({_exploreH: cur >= 40 ? 18 : 46});
-      },
-      exDragStart: (e) => {
-        // fallback (chưa bật vị trí) → panel full màn, không kéo
-        if (!(this.state.permissions && this.state.permissions.location === 1)) return;
-        if (e.button !== undefined && e.button !== 0) return;
-        this._exDragged = false;
-        const el = this._exSheetEl;
-        const parentH = (el && el.parentElement && el.parentElement.clientHeight) || 700;
-        const sy = e.touches ? e.touches[0].clientY : e.clientY;
-        const sh = this.state._exploreH || 18;
-        let liveH = sh;
-        if (el) el.style.transition = 'none'; // tắt transition khi kéo → bám tay, không lag/giật
-        const move = (ev) => {
-          const y = ev.touches ? ev.touches[0].clientY : ev.clientY;
-          if (Math.abs(sy - y) > 4) this._exDragged = true;
-          liveH = Math.max(14, Math.min(82, sh + (sy - y) / parentH * 100));
-          if (el) el.style.height = liveH + '%'; // cập nhật DOM trực tiếp → mượt, KHÔNG re-render cả app
-        };
-        const up = () => {
-          document.removeEventListener('mousemove', move);
-          document.removeEventListener('mouseup', up);
-          document.removeEventListener('touchmove', move);
-          document.removeEventListener('touchend', up);
-          if (el) el.style.transition = 'height .25s cubic-bezier(.32,.72,0,1)'; // bật lại để snap có animation
-          if (this._exDragged) {
-            const snapped = liveH < 32 ? 18 : 46;
-            if (el) {
-              void el.offsetHeight; // ép reflow để snap mượt từ vị trí đang kéo
-              el.style.height = snapped + '%';
-            }
-            this.setState({_exploreH: snapped});
-          }
-          // nếu chỉ chạm → không setState ở đây, để onClick (exToggleH) toggle
-        };
-        document.addEventListener('mousemove', move);
-        document.addEventListener('mouseup', up);
-        document.addEventListener('touchmove', move, {passive: true});
-        document.addEventListener('touchend', up);
-      },
+      exToggleH: () => this.exToggleH(),
+      exDragStart: (e) => this.exDragStart(e),
+      deselectPin: () => this.deselectPin(),
       usingFallbackLoc: st._fallbackLoc,
       openSearchFromExplore: () => this.nav('search', 'fwd'),
       // SEARCH
