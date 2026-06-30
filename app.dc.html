@@ -1979,15 +1979,13 @@
                     </sc-if>
                   </div>
 
-                  <!-- CTA buttons (only shows View Detail button when panel is expanded) -->
-                  <sc-if value="{{ showDetailBtn }}" hint-placeholder-val="{{ false }}">
-                    <div style="display:flex;gap:10px;margin-top:12px;flex:none;animation:vhFadeIn .2s ease-out;">
-                      <button data-ripple="1" onClick="{{ toDetail }}"
-                              style="position:relative;overflow:hidden;flex:1;border:none;background:var(--cta);color:#fff;font-size:14.5px;font-weight:600;padding:13px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 12px rgba(237,137,39,.25);">
-                        Xem chi tiết hiện vật<i class="ti ti-arrow-right" style="font-size:18px;"></i>
-                      </button>
-                    </div>
-                  </sc-if>
+                  <!-- CTA — luôn hiển thị dưới cùng panel -->
+                  <div style="display:flex;gap:10px;margin-top:12px;flex:none;">
+                    <button data-ripple="1" onClick="{{ toDetail }}"
+                            style="position:relative;overflow:hidden;flex:1;border:none;background:var(--cta);color:#fff;font-size:14.5px;font-weight:600;padding:13px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 12px rgba(237,137,39,.25);">
+                      Xem chi tiết hiện vật<i class="ti ti-arrow-right" style="font-size:18px;"></i>
+                    </button>
+                  </div>
                 </div>
 
                 <!-- BOTTOM SHEET BÁO CÁO SAI SÓT -->
