@@ -29,10 +29,7 @@ window.VH_LOGIC = {
   },
   exToggleH() {
     if (!(this.state.permissions && this.state.permissions.location === 1)) return;
-    if (this._exDragged) {
-      this._exDragged = false;
-      return;
-    }
+    if (this._blockClick) return;
     const cur = this.state._exploreH || 18;
     let next = 46;
     if (cur >= 32 && cur < 60) next = 80;
@@ -43,7 +40,7 @@ window.VH_LOGIC = {
     if (!(this.state.permissions && this.state.permissions.location === 1)) return;
     if (e.button !== undefined && e.button !== 0) return;
     this._exDragged = false;
-    const el = this._exSheetEl;
+    const el = document.querySelector('.vh-explore-sheet-container');
     const parentH = (el && el.parentElement && el.parentElement.clientHeight) || 700;
     const sy = e.touches ? e.touches[0].clientY : e.clientY;
     const sh = this.state._exploreH || 18;
@@ -65,6 +62,10 @@ window.VH_LOGIC = {
       if (el) el.style.transition = 'height .25s cubic-bezier(.32,.72,0,1)'; // Bật lại transition
       
       if (this._exDragged) {
+        this._blockClick = true;
+        setTimeout(() => { this._blockClick = false; }, 80);
+        this._exDragged = false;
+        
         const dy = liveH - sh;
         let snapped = sh;
         if (Math.abs(dy) >= 6) { // Ngưỡng vuốt tối thiểu 6% chiều cao
