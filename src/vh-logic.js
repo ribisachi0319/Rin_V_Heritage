@@ -435,7 +435,6 @@ window.VH_LOGIC = {
       failedLogin: 0,
       user: {name: 'Minh Anh', email: liEmail, isLoggedIn: true, age: 31}
     });
-    this.showToast('Chào mừng trở lại ✦', 'success');
     this.enterApp();
   },
   // sau đăng nhập/đăng ký: đưa qua màn bật vị trí locationask nếu chưa có quyền vị trí
