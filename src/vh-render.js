@@ -789,8 +789,8 @@ window.VH_RENDER = {
       const v = this.findVenue(id) || {};
       return {
         id, name: v.name || '', city: v.city || '',
-        badge: 'ĐỊA ĐIỂM NỔI BẬT',
-        badgeBg: 'var(--cta)', badgeColor: '#fff',
+        badge: 'Địa điểm nổi bật',
+        badgeBg: 'var(--chip-badge-bg)', badgeColor: 'var(--chip-badge-fg)',
         subtitle: v.city || '',
         type: VTYPE[id] || 'Di tích',
         dist: v.dist || '',
@@ -810,8 +810,8 @@ window.VH_RENDER = {
     const homeFeedVenues = [11, 6, 1, 14, 3, 12].map(posterCard);
     const homeFeedArticles = this.articles.slice(0, 4).map(a => ({
       id: 'art_' + a.id, name: a.title,
-      badge: 'BÀI VIẾT',
-      badgeBg: 'var(--primary)', badgeColor: 'var(--on-primary)',
+      badge: 'Bài viết',
+      badgeBg: 'var(--chip-badge-bg)', badgeColor: 'var(--chip-badge-fg)',
       subtitle: a.tag + ' · ' + a.read,
       img: this.vimg(a.seed, 360, 440),
       open: () => { this.setState({_curArticle: a.id}); this.nav('articledetail', 'fwd'); },
@@ -880,7 +880,7 @@ window.VH_RENDER = {
         locked: !a.earned,
         border: a.earned ? 'var(--cta)' : 'var(--border)',
         bg: a.earned ? 'var(--cta)' : 'var(--bg-tertiary)',
-        iconColor: a.earned ? '#fff' : 'var(--text-tertiary)',
+        iconColor: a.earned ? 'var(--on-cta)' : 'var(--text-tertiary)',
         filter: a.earned ? 'none' : 'grayscale(1)',
         pct: pct + '%',
         progressText: (a.progress || 0) + '/' + (a.target || 0),
@@ -895,7 +895,7 @@ window.VH_RENDER = {
         pick: () => this.setState({libTab: t.k}),
         border: st.libTab === t.k ? 'var(--cta)' : 'var(--border)',
         bg: st.libTab === t.k ? 'var(--cta)' : 'transparent',
-        color: st.libTab === t.k ? '#fff' : 'var(--text-secondary)'
+        color: st.libTab === t.k ? 'var(--on-cta)' : 'var(--text-secondary)'
       })),
       libArtTab: st.libTab === 'art',
       libPhotoTab: st.libTab === 'photo',
@@ -1076,7 +1076,7 @@ window.VH_RENDER = {
       profNotPremium: !hasPremium,
       tierChipLabel: tierName,
       tierChipBg: (hasPremium || hasAcademic) ? 'var(--cta)' : 'var(--primary)',
-      tierChipColor: (hasPremium || hasAcademic) ? '#fff' : 'var(--on-primary)',
+      tierChipColor: (hasPremium || hasAcademic) ? 'var(--on-cta)' : 'var(--on-primary)',
       tierChipIcon: (hasPremium || hasAcademic) ? 'ti-crown' : 'ti-user',
       profName: st.user.name || 'Khách tham quan',
       profInitial: (st.user.name || 'K')[0],
@@ -1140,7 +1140,7 @@ window.VH_RENDER = {
         ...t,
         border: st._refundTier === t.k ? 'var(--error)' : 'var(--border)',
         bg: st._refundTier === t.k ? 'var(--error)' : 'var(--bg-card)',
-        color: st._refundTier === t.k ? '#fff' : 'var(--text-secondary)',
+        color: st._refundTier === t.k ? 'var(--on-cta)' : 'var(--text-secondary)',
         pick: () => this.setState({_refundTier: t.k})
       })),
       refundReasons: [{k: 'mistake', label: 'Đăng ký nhầm'}, {k: 'unused', label: 'Không dùng đến'}, {
@@ -1301,7 +1301,7 @@ window.VH_RENDER = {
         ...f,
         border: (st._notifFilter || 'all') === f.k ? 'var(--cta)' : 'var(--border)',
         bg: (st._notifFilter || 'all') === f.k ? 'var(--cta)' : 'var(--bg-card)',
-        color: (st._notifFilter || 'all') === f.k ? '#fff' : 'var(--text-secondary)',
+        color: (st._notifFilter || 'all') === f.k ? 'var(--on-cta)' : 'var(--text-secondary)',
         pick: () => this.setState({_notifFilter: f.k})
       })),
       markAllRead: () => this.markAllRead(),
@@ -1621,7 +1621,7 @@ window.VH_RENDER = {
         pick: () => this.setState({_csIssue: it.k}),
         border: st._csIssue === it.k ? 'var(--cta)' : 'var(--border)',
         bg: st._csIssue === it.k ? 'var(--cta)' : 'var(--bg-card)',
-        color: st._csIssue === it.k ? '#fff' : 'var(--text-secondary)'
+        color: st._csIssue === it.k ? 'var(--on-cta)' : 'var(--text-secondary)'
       })),
       csAttached: st._csAttached,
       csAttachIcon: st._csAttached ? 'ti-circle-check-filled' : 'ti-paperclip',
@@ -1706,7 +1706,7 @@ window.VH_RENDER = {
       ...c,
       pick: () => this.setState({searchFilter: c.k}),
       bg: st.searchFilter === c.k ? 'var(--cta)' : 'transparent',
-      color: st.searchFilter === c.k ? '#fff' : 'var(--text-secondary)',
+      color: st.searchFilter === c.k ? 'var(--on-cta)' : 'var(--text-secondary)',
       border: st.searchFilter === c.k ? 'var(--cta)' : 'var(--border)'
     }));
 

@@ -118,8 +118,8 @@
                    style="position:absolute;inset:0;background:var(--bg-primary);display:flex;flex-direction:column;">
                 <button data-ripple="1" onClick="{{ walkBack }}"
                         aria-label="Quay lại chọn ngôn ngữ"
-                        style="position:absolute;top:46px;left:24px;z-index:5;overflow:hidden;width:42px;height:42px;border-radius:99px;border:1px solid {{ walkBackBtnBorder }};background:{{ walkBackBtnBg }};cursor:pointer;color:{{ walkBackBtnColor }};display:flex;align-items:center;justify-content:center;">
-                  <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
+                        style="position:absolute;top:46px;left:18px;z-index:5;overflow:hidden;width:44px;height:44px;border-radius:99px;border:none;background:rgba(0,0,0,.32);backdrop-filter:blur(8px);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;">
+                  <i class="ti ti-arrow-left" style="font-size:22px;"></i></button>
                 <div key="walkstep-{{ walkStep }}"
                      style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 38px;text-align:center;animation:vhUp .4s ease;">
                   <div
@@ -1029,8 +1029,7 @@
                     <div
                         style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.45) 0%,rgba(0,0,0,.1) 40%,rgba(26,37,64,.88) 100%);"></div>
                     <div style="position:relative;display:flex;justify-content:center;padding:16px;">
-                      <div
-                          style="background:rgba(255,255,255,.92);color:var(--primary);font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;">
+                      <div class="vh-chip vh-chip--label vh-chip--badge">
                         Địa điểm nổi bật
                       </div>
                     </div>
@@ -1054,13 +1053,8 @@
                        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                   <div
                       style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,37,64,.92) 8%,rgba(26,37,64,.25) 55%,transparent);"></div>
-                  <div
-                      style="position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.82);color:var(--primary);font-size:11px;font-weight:600;padding:4px 9px;border-radius:99px;">
-                    <i class="ti ti-clock" style="font-size:13px;"></i>{{ homeFeatArticle.read }}
-                  </div>
                   <div style="position:absolute;left:16px;right:16px;bottom:16px;">
-                    <div
-                        style="display:inline-block;background:rgba(255,255,255,.92);color:var(--primary);font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;margin-bottom:8px;">
+                    <div class="vh-chip vh-chip--label vh-chip--badge" style="margin-bottom:8px;">
                       Bài viết
                     </div>
                     <div class="vh-serif"
@@ -1085,8 +1079,8 @@
                            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                       <div
                           style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,37,64,.96) 34%,rgba(26,37,64,.45) 64%,transparent 90%);"></div>
-                      <div
-                          style="position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);color:var(--primary);font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;">
+                      <div class="vh-chip vh-chip--label vh-chip--badge"
+                           style="position:absolute;top:10px;left:10px;">
                         Địa điểm nổi bật
                       </div>
                       <div style="position:absolute;left:14px;right:14px;bottom:14px;">
@@ -1112,8 +1106,8 @@
                            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                       <div
                           style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,37,64,.96) 34%,rgba(26,37,64,.45) 64%,transparent 90%);"></div>
-                      <div
-                          style="position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);color:var(--primary);font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;">
+                      <div class="vh-chip vh-chip--label vh-chip--badge"
+                           style="position:absolute;top:10px;left:10px;">
                         {{ p.type }}
                       </div>
                       <div style="position:absolute;left:14px;right:14px;bottom:14px;">
@@ -1157,8 +1151,8 @@
                            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                       <div
                           style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,37,64,.96) 34%,rgba(26,37,64,.45) 64%,transparent 90%);"></div>
-                      <div
-                          style="position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);color:var(--primary);font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;">
+                      <div class="vh-chip vh-chip--label vh-chip--badge"
+                           style="position:absolute;top:10px;left:10px;">
                         {{ p.type }}
                       </div>
                       <div style="position:absolute;left:14px;right:14px;bottom:14px;">
@@ -1185,8 +1179,8 @@
                            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                       <div
                           style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,37,64,.96) 34%,rgba(26,37,64,.45) 64%,transparent 90%);"></div>
-                      <div
-                          style="position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);color:var(--primary);font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;">
+                      <div class="vh-chip vh-chip--label vh-chip--badge"
+                           style="position:absolute;top:10px;left:10px;">
                         {{ p.type }}
                       </div>
                       <div style="position:absolute;left:14px;right:14px;bottom:14px;">
@@ -1215,8 +1209,8 @@
                          style="position:relative;overflow:hidden;flex:none;width:240px;background:var(--bg-card);border-radius:14px;box-shadow:var(--shadow);cursor:pointer;">
                       <div style="position:relative;height:130px;">
                         <img src="{{ ar.img }}" alt="" style="width:100%;height:100%;object-fit:cover;">
-                        <div
-                            style="position:absolute;top:8px;left:8px;background:rgba(255,255,255,.92);color:var(--primary);font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;">
+                        <div class="vh-chip vh-chip--label vh-chip--badge"
+                             style="position:absolute;top:8px;left:8px;">
                           Bài viết
                         </div>
                       </div>
@@ -1226,8 +1220,8 @@
                           {{ ar.title }}
                         </div>
                         <div style="display:flex;align-items:center;gap:6px;margin-top:8px;">
-                          <span style="background:rgba(48,69,116,.1);color:var(--primary);font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;">{{ ar.tag }}</span>
-                          <span style="display:flex;align-items:center;gap:3px;font-size:11px;color:var(--text-tertiary);"><i class="ti ti-clock" style="font-size:12px;"></i>{{ ar.read }}</span>
+                          <span class="vh-chip vh-chip--xs vh-chip--badge">{{ ar.tag }}</span>
+                          <span style="font-size:11px;color:var(--text-tertiary);">{{ ar.read }}</span>
                         </div>
                       </div>
                     </div>
@@ -1401,7 +1395,8 @@
                 <div style="display:flex;gap:8px;padding:8px 18px;flex:none;">
                   <sc-for list="{{ searchChips }}" as="c" hint-placeholder-count="3">
                     <button data-ripple="1" onClick="{{ c.pick }}"
-                            style="position:relative;overflow:hidden;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};font-size:12px;font-weight:600;padding:7px 14px;border-radius:99px;cursor:pointer;">
+                            class="vh-chip vh-chip--filter"
+                            style="position:relative;overflow:hidden;cursor:pointer;--vh-chip-border:{{ c.border }};--vh-chip-bg:{{ c.bg }};--vh-chip-color:{{ c.color }};">
                       {{ c.l }}
                     </button>
                   </sc-for>
@@ -2172,7 +2167,8 @@
                      class="vh-scroll">
                   <sc-for list="{{ libTabs }}" as="tb" hint-placeholder-count="4">
                     <button data-ripple="1" onClick="{{ tb.pick }}"
-                            style="position:relative;overflow:hidden;flex:none;border:1px solid {{ tb.border }};background:{{ tb.bg }};color:{{ tb.color }};font-size:12px;font-weight:600;padding:7px 14px;border-radius:99px;cursor:pointer;">
+                            class="vh-chip vh-chip--filter"
+                            style="position:relative;overflow:hidden;flex:none;cursor:pointer;--vh-chip-border:{{ tb.border }};--vh-chip-bg:{{ tb.bg }};--vh-chip-color:{{ tb.color }};">
                       {{ tb.l }}
                     </button>
                   </sc-for>
@@ -2417,8 +2413,7 @@
                             style="position:absolute;top:46px;left:18px;width:44px;height:44px;border-radius:99px;border:none;background:rgba(0,0,0,.32);backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
                       <i class="ti ti-arrow-left" style="font-size:22px;"></i></button>
                     <div style="position:absolute;left:18px;right:18px;bottom:16px;">
-                      <div
-                          style="display:inline-block;font-size:10px;font-weight:600;padding:3px 9px;border-radius:4px;background:var(--cta);color:#fff;margin-bottom:8px;">
+                      <div class="vh-chip vh-chip--label vh-chip--badge" style="margin-bottom:8px;">
                         {{ adTag }}
                       </div>
                       <div class="vh-serif"
@@ -2526,8 +2521,8 @@
                 </button>
                 <button data-ripple="1" onClick="{{ openManageTier }}"
                         style="position:relative;overflow:hidden;display:flex;align-items:center;gap:10px;width:calc(100% - 36px);margin:0 18px 8px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;cursor:pointer;text-align:left;color:var(--text-primary);">
-                  <div
-                      style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:99px;background:{{ tierChipBg }};color:{{ tierChipColor }};">
+                  <div class="vh-chip"
+                       style="--vh-chip-gap:5px;--vh-chip-fs:12px;--vh-chip-fw:600;--vh-chip-pad:4px 10px;--vh-chip-border:{{ tierChipBg }};--vh-chip-bg:{{ tierChipBg }};--vh-chip-color:{{ tierChipColor }};">
                     <i class="ti {{ tierChipIcon }}" style="font-size:13px;"></i>{{ tierChipLabel }}
                   </div>
                   <span style="flex:1;font-size:12px;color:var(--text-tertiary);">Quản lý gói của bạn</span>
@@ -2988,8 +2983,8 @@
                   </div>
                 </div>
                 <div style="flex:1;margin-top:18px;">
-                  <div
-                      style="font-size:13px;color:var(--text-secondary);line-height:1.6;background:rgba(255,165,0,.1);border:1px solid var(--warning);border-radius:10px;padding:12px;">
+                  <div class="vh-chip vh-chip--warning-soft"
+                       style="display:block;white-space:normal;border-radius:10px;padding:12px;font-size:13px;line-height:1.6;">
                     Hoàn tiền áp dụng trong 14 ngày đầu nếu bạn chưa sử dụng tính năng Premium quá 3
                     lần.
                   </div>
@@ -3066,7 +3061,8 @@
                      class="vh-scroll">
                   <sc-for list="{{ notifFilters }}" as="f" hint-placeholder-count="4">
                     <button data-ripple="1" onClick="{{ f.pick }}"
-                            style="position:relative;overflow:hidden;flex:none;border:1px solid {{ f.border }};background:{{ f.bg }};color:{{ f.color }};font-size:12px;font-weight:600;padding:7px 14px;border-radius:99px;cursor:pointer;">
+                            class="vh-chip vh-chip--filter"
+                            style="position:relative;overflow:hidden;flex:none;cursor:pointer;--vh-chip-border:{{ f.border }};--vh-chip-bg:{{ f.bg }};--vh-chip-color:{{ f.color }};">
                       {{ f.label }}
                     </button>
                   </sc-for>
@@ -3531,9 +3527,8 @@
                             style="position:absolute;top:46px;left:18px;width:44px;height:44px;border-radius:99px;border:none;background:rgba(0,0,0,.32);backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
                       <i class="ti ti-arrow-left" style="font-size:22px;"></i></button>
                     <div style="position:absolute;left:18px;right:18px;bottom:16px;">
-                      <div
-                          style="display:inline-block;background:var(--cta);color:#fff;font-size:10px;font-weight:700;letter-spacing:.08em;padding:4px 9px;border-radius:4px;margin-bottom:10px;">
-                        TRIỂN LÃM ĐẶC BIỆT
+                      <div class="vh-chip vh-chip--label vh-chip--badge" style="margin-bottom:10px;">
+                        Triển lãm đặc biệt
                       </div>
                       <div class="vh-serif"
                            style="font-size:24px;font-weight:600;color:#fff;line-height:1.2;">Hành
@@ -3542,18 +3537,15 @@
                     </div>
                   </div>
                   <div style="display:flex;gap:10px;padding:16px 18px 4px;flex-wrap:wrap;">
-                    <div
-                        style="display:flex;align-items:center;gap:6px;background:var(--bg-card);border:1px solid var(--border);border-radius:99px;padding:8px 13px;font-size:12px;color:var(--text-secondary);">
+                    <div class="vh-chip vh-chip--surface" style="--vh-chip-gap:6px;--vh-chip-pad:8px 13px;">
                       <i class="ti ti-calendar-event"
                          style="font-size:15px;color:var(--cta);"></i>Đến hết 28/06/2026
                     </div>
-                    <div
-                        style="display:flex;align-items:center;gap:6px;background:var(--bg-card);border:1px solid var(--border);border-radius:99px;padding:8px 13px;font-size:12px;color:var(--text-secondary);">
+                    <div class="vh-chip vh-chip--surface" style="--vh-chip-gap:6px;--vh-chip-pad:8px 13px;">
                       <i class="ti ti-map-pin" style="font-size:15px;color:var(--cta);"></i>BT Mỹ
                       thuật VN, Hà Nội
                     </div>
-                    <div
-                        style="display:flex;align-items:center;gap:6px;background:rgba(221,14,14,.1);border:1px solid var(--error);border-radius:99px;padding:8px 13px;font-size:12px;color:var(--error);font-weight:600;">
+                    <div class="vh-chip vh-chip--danger-soft" style="--vh-chip-gap:6px;--vh-chip-pad:8px 13px;">
                       <i class="ti ti-clock-hour-4" style="font-size:15px;"></i>Còn 3 ngày
                     </div>
                   </div>
@@ -3942,7 +3934,8 @@
                     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
                       <sc-for list="{{ csIssues }}" as="it" hint-placeholder-count="4">
                         <button data-ripple="1" onClick="{{ it.pick }}"
-                                style="position:relative;overflow:hidden;border:1px solid {{ it.border }};background:{{ it.bg }};color:{{ it.color }};font-size:12px;font-weight:600;padding:8px 13px;border-radius:99px;cursor:pointer;">
+                                class="vh-chip"
+                                style="position:relative;overflow:hidden;cursor:pointer;--vh-chip-fs:12px;--vh-chip-fw:600;--vh-chip-pad:8px 13px;--vh-chip-border:{{ it.border }};--vh-chip-bg:{{ it.bg }};--vh-chip-color:{{ it.color }};">
                           {{ it.label }}
                         </button>
                       </sc-for>
@@ -4034,8 +4027,8 @@
                   <!-- venue pin -->
                   <div
                       style="position:absolute;left:{{ amPinX }};top:{{ amPinY }};transform:translate(-50%,-100%);z-index:5;display:flex;flex-direction:column;align-items:center;">
-                    <div
-                        style="background:var(--bg-card);color:var(--text-primary);font-size:11px;font-weight:600;padding:4px 9px;border-radius:99px;box-shadow:var(--shadow);white-space:nowrap;margin-bottom:6px;">
+                    <div class="vh-chip vh-chip--sm vh-chip--surface"
+                         style="white-space:nowrap;margin-bottom:6px;">
                       {{ amVenName }}
                     </div>
                     <div
@@ -4094,12 +4087,12 @@
                   <button data-ripple="1" onClick="{{ back }}"
                           style="position:absolute;top:48px;left:18px;width:42px;height:42px;border-radius:99px;border:none;background:rgba(0,0,0,.4);backdrop-filter:blur(6px);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;">
                     <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
-                  <div
-                      style="position:absolute;top:50px;right:18px;display:flex;align-items:center;gap:5px;background:var(--cta);color:#fff;font-size:10px;font-weight:700;letter-spacing:.04em;padding:5px 11px;border-radius:99px;">
-                    <i class="ti ti-crown" style="font-size:13px;"></i>NHÀ NGHIÊN CỨU
+                  <div class="vh-chip vh-chip--label vh-chip--badge"
+                       style="position:absolute;top:50px;right:18px;--vh-chip-gap:5px;--vh-chip-pad:5px 11px;">
+                    <i class="ti ti-crown" style="font-size:13px;"></i>Nhà nghiên cứu
                   </div>
-                  <div
-                      style="position:absolute;bottom:12px;left:18px;display:inline-flex;align-items:center;gap:6px;background:var(--bg-card);color:var(--text-primary);font-size:12px;font-weight:600;padding:6px 12px;border-radius:99px;box-shadow:var(--shadow);">
+                  <div class="vh-chip vh-chip--badge"
+                       style="position:absolute;bottom:12px;left:18px;">
                     <i class="ti ti-building-monument" style="font-size:14px;color:var(--cta);"></i>{{ a3ArtName }}
                   </div>
                 </div>
@@ -4638,19 +4631,17 @@
               <div style="display:flex;align-items:center;justify-content:space-between;">
                 <div style="display:flex;align-items:center;gap:8px;">
                   <div class="vh-serif" style="font-size:18px;font-weight:600;">AR Guestbook</div>
-                  <span
-                      style="display:{{ gbPremiumDisp }};align-items:center;gap:3px;background:var(--cta);color:#fff;font-size:9px;font-weight:700;letter-spacing:.03em;padding:3px 8px;border-radius:99px;">
-                    <i class="ti ti-crown" style="font-size:11px;"></i>PREMIUM</span>
+                  <span class="vh-chip vh-chip--label vh-chip--badge"
+                        style="display:{{ gbPremiumDisp }};--vh-chip-gap:3px;--vh-chip-fs:9px;--vh-chip-pad:3px 8px;">
+                    <i class="ti ti-crown" style="font-size:11px;"></i>Premium</span>
                 </div>
                 <div style="font-size:12px;color:var(--text-tertiary);">{{ gbCount }} lời nhắn</div>
               </div>
               <sc-if value="{{ gbIsPremium }}" hint-placeholder-val="{{ false }}">
                 <div style="display:flex;gap:8px;margin-top:8px;">
-                  <span
-                      style="display:inline-flex;align-items:center;gap:4px;background:var(--bg-tertiary);color:var(--text-secondary);font-size:11px;font-weight:600;padding:5px 10px;border-radius:99px;">
+                  <span class="vh-chip vh-chip--sm vh-chip--muted">
                     <i class="ti ti-calendar-time" style="font-size:13px;color:var(--cta);"></i>60 ngày hiển thị</span>
-                  <span
-                      style="display:inline-flex;align-items:center;gap:4px;background:var(--bg-tertiary);color:var(--text-secondary);font-size:11px;font-weight:600;padding:5px 10px;border-radius:99px;">
+                  <span class="vh-chip vh-chip--sm vh-chip--muted">
                     <i class="ti ti-pencil" style="font-size:13px;color:var(--cta);"></i>{{ gbRemaining }} lượt còn lại hôm nay</span>
                 </div>
               </sc-if>
@@ -4695,7 +4686,8 @@
                 <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;" class="vh-scroll">
                   <sc-for list="{{ gbTemplates }}" as="t" hint-placeholder-count="3">
                     <button data-ripple="1" onClick="{{ t.use }}"
-                            style="position:relative;overflow:hidden;flex:none;border:1px solid var(--border-2);background:var(--bg-secondary);color:var(--text-secondary);font-size:12px;padding:8px 13px;border-radius:99px;cursor:pointer;white-space:nowrap;">
+                            class="vh-chip vh-chip--surface"
+                            style="position:relative;overflow:hidden;flex:none;cursor:pointer;white-space:nowrap;--vh-chip-pad:8px 13px;--vh-chip-border:var(--border-2);--vh-chip-bg:var(--bg-secondary);">
                       {{ t.t }}
                     </button>
                   </sc-for>
