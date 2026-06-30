@@ -833,6 +833,8 @@ window.VH_RENDER = {
     return {
       placesMain, grpHanoi, grpHcm, grpMuseum, grpNature, homeFeed,
       heroIndex: st.heroIndex || 0,
+      handleHeroTouchStart: (e) => this.handleHeroTouchStart(e),
+      handleHeroTouchEnd: (e) => this.handleHeroTouchEnd(e),
       homeFeatVenue: Object.assign({}, placesMain[st.heroIndex || 0] || placesMain[0], {
         dots: [0, 1, 2].map(i => ({
           width: i === (st.heroIndex || 0) ? '12px' : '6px',
