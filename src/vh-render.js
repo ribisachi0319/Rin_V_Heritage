@@ -1835,7 +1835,9 @@ window.VH_RENDER = {
       venHasShop: (this.venueInfos[ven.id]?.amenities || ['wifi', 'parking', 'guide']).includes('shop'),
       venHasCafe: (this.venueInfos[ven.id]?.amenities || ['wifi', 'parking', 'guide']).includes('cafe'),
       openGoogleMaps: () => this.openGoogleMaps(ven.id),
-      copyAddress: () => this.copyToClipboard((this.venueInfos[ven.id]?.address) || (ven.name + ', ' + ven.city)),
+      copyAddress: () => this.copyToClipboard((this.venueInfos[ven.id]?.address) || (ven.name + ', ' + ven.city), 'địa chỉ'),
+      copyPhone: () => this.copyToClipboard((this.venueInfos[ven.id]?.phone) || 'Không có', 'số điện thoại'),
+      copyEmail: () => this.copyToClipboard((this.venueInfos[ven.id]?.email) || 'Không có', 'email'),
       venArtifacts: venArtifacts.map(a => ({
         ...a,
         img: this.vimg(a.seed, 200, 200),

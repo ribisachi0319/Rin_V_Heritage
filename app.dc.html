@@ -1623,8 +1623,11 @@
                       </div>
                       <div style="flex:1;min-width:0;">
                         <div style="font-size:12px;color:var(--text-tertiary);line-height:1;">Đường dây nóng</div>
-                        <a href="{{ venPhoneLink }}"
-                           style="display:inline-block;font-size:13.5px;color:var(--cta);font-weight:600;margin-top:4px;line-height:1.4;text-decoration:none;cursor:pointer;">{{ venPhone }}</a>
+                        <div style="display:flex;align-items:center;gap:8px;margin-top:4px;flex-wrap:wrap;">
+                          <a href="{{ venPhoneLink }}"
+                             style="display:inline-block;font-size:13.5px;color:var(--cta);font-weight:600;line-height:1.4;text-decoration:none;cursor:pointer;">{{ venPhone }}</a>
+                          <i onClick="{{ copyPhone }}" class="ti ti-copy" style="font-size:12px;color:var(--cta);cursor:pointer;padding:2px;" title="Sao chép số điện thoại"></i>
+                        </div>
                       </div>
                     </div>
 
@@ -1639,7 +1642,10 @@
                           <div style="font-size:12px;color:var(--text-tertiary);line-height:1;">Website di tích</div>
                           <sc-if value="{{ venWebsiteLink }}" hint-placeholder-val="{{ true }}">
                             <a href="{{ venWebsiteLink }}" target="_blank"
-                               style="display:inline-block;font-size:13px;color:var(--cta);font-weight:600;margin-top:4px;line-height:1.4;text-decoration:none;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">{{ venWebsite }}</a>
+                               style="display:inline-flex;align-items:center;gap:4px;font-size:13.5px;color:var(--cta);font-weight:600;margin-top:4px;line-height:1.4;text-decoration:none;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">
+                              <span>{{ venWebsite }}</span>
+                              <i class="ti ti-external-link" style="font-size:12px;color:var(--cta);line-height:1;"></i>
+                            </a>
                           </sc-if>
                           <sc-if value="{{ !venWebsiteLink }}" hint-placeholder-val="{{ false }}">
                             <div style="font-size:13.5px;color:var(--text-secondary);margin-top:4px;line-height:1.4;">Chưa cập nhật</div>
@@ -1649,8 +1655,11 @@
                         <div style="flex:1;min-width:0;border-left:1px solid var(--border-2);padding-left:16px;">
                           <div style="font-size:12px;color:var(--text-tertiary);line-height:1;">Thư điện tử</div>
                           <sc-if value="{{ venEmailLink }}" hint-placeholder-val="{{ true }}">
-                            <a href="{{ venEmailLink }}"
-                               style="display:inline-block;font-size:13px;color:var(--cta);font-weight:600;margin-top:4px;line-height:1.4;text-decoration:none;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">{{ venEmail }}</a>
+                            <div style="display:flex;align-items:center;gap:6px;margin-top:4px;flex-wrap:wrap;">
+                              <a href="{{ venEmailLink }}"
+                                 style="display:inline-block;font-size:13px;color:var(--cta);font-weight:600;line-height:1.4;text-decoration:none;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:85px;">{{ venEmail }}</a>
+                              <i onClick="{{ copyEmail }}" class="ti ti-copy" style="font-size:12px;color:var(--cta);cursor:pointer;padding:2px;" title="Sao chép email"></i>
+                            </div>
                           </sc-if>
                           <sc-if value="{{ !venEmailLink }}" hint-placeholder-val="{{ false }}">
                             <div style="font-size:13.5px;color:var(--text-secondary);margin-top:4px;line-height:1.4;">Chưa cập nhật</div>

@@ -1212,12 +1212,13 @@ window.VH_LOGIC = {
     }
     window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query), '_blank');
   },
-  copyToClipboard(text) {
+  copyToClipboard(text, type = 'địa chỉ') {
+    const msg = `Đã sao chép ${type} di tích ✦`;
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(() => {
-        this.showToast('Đã sao chép địa chỉ di tích ✦', 'success');
+        this.showToast(msg, 'success');
       }).catch(() => {
-        this.showToast('Không thể sao chép địa chỉ');
+        this.showToast('Không thể sao chép ' + type);
       });
     } else {
       const el = document.createElement('textarea');
@@ -1226,7 +1227,7 @@ window.VH_LOGIC = {
       el.select();
       document.execCommand('copy');
       document.body.removeChild(el);
-      this.showToast('Đã sao chép địa chỉ di tích ✦', 'success');
+      this.showToast(msg, 'success');
     }
   },
   // hiện vật hiển thị của một nơi (điểm đến Top 10 không có hiện vật riêng → mẫu)
