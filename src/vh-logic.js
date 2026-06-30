@@ -164,6 +164,7 @@ window.VH_LOGIC = {
   },
   componentWillUnmount() {
     clearInterval(this._heroTimer);
+    clearInterval(this._preDlTimer);
     clearTimeout(this._splashT);
     clearTimeout(this._notifPromptT);
     clearTimeout(this._scanT);
@@ -295,22 +296,35 @@ window.VH_LOGIC = {
     this.setState({_locAskChecked: !this.state._locAskChecked});
   },
   locAskGrant() {
-    // bật vị trí → vào thẳng Explore (bản đồ), history rỗng nên không lui về màn hỏi được
-    this.setState({
-      permissions: Object.assign({}, this.state.permissions, {location: 1}),
-      _exploreH: 18, screen: 'explore', history: [], navDir: 'fwd', sheet: null, modal: null
-    });
-  },
-  locAskSkip() {
-    if (this.state._locAskChecked) {
-      // không nhắc lại trong hôm nay → hoãn cả ngày, vào Explore (Hà Nội), không lui về màn hỏi
+    if (this.state._fromOnboarding) {
       this.setState({
-        _locSnoozeDay: new Date().toDateString(),
-        screen: 'explore', history: [], navDir: 'fwd', sheet: null, modal: null
+        permissions: Object.assign({}, this.state.permissions, {location: 1}),
+        screen: 'home', history: [], navDir: 'fwd', sheet: 'preDownloadPack', modal: null, _fromOnboarding: false
       });
     } else {
-      // không bật, không hoãn → đẩy Explore lên trên màn hỏi (từ Explore lui về được)
-      this.nav('explore', 'fwd');
+      // bật vị trí → vào thẳng Explore (bản đồ), history rỗng nên không lui về màn hỏi được
+      this.setState({
+        permissions: Object.assign({}, this.state.permissions, {location: 1}),
+        _exploreH: 18, screen: 'explore', history: [], navDir: 'fwd', sheet: null, modal: null
+      });
+    }
+  },
+  locAskSkip() {
+    if (this.state._fromOnboarding) {
+      this.setState({
+        screen: 'home', history: [], navDir: 'fwd', sheet: null, modal: null, _fromOnboarding: false
+      });
+    } else {
+      if (this.state._locAskChecked) {
+        // không nhắc lại trong hôm nay → hoãn cả ngày, vào Explore (Hà Nội), không lui về màn hỏi
+        this.setState({
+          _locSnoozeDay: new Date().toDateString(),
+          screen: 'explore', history: [], navDir: 'fwd', sheet: null, modal: null
+        });
+      } else {
+        // không bật, không hoãn → đẩy Explore lên trên màn hỏi (từ Explore lui về được)
+        this.nav('explore', 'fwd');
+      }
     }
   },
 
@@ -424,16 +438,44 @@ window.VH_LOGIC = {
     this.showToast('Chào mừng trở lại ✦', 'success');
     this.enterApp();
   },
-  // sau đăng nhập/đăng ký: nếu đã bật vị trí → gợi ý tải gói AR gần đây, ngược lại vào thẳng Home
+  // sau đăng nhập/đăng ký: đưa qua màn bật vị trí locationask nếu chưa có quyền vị trí
   enterApp() {
-    if (this.state.permissions && this.state.permissions.location === 1) this.nav('nearby', 'fwd');
-    else this.goTab('home');
+    const locOn = this.state.permissions && this.state.permissions.location === 1;
+    if (!locOn) {
+      this.setState({screen: 'locationask', history: [], navDir: 'fwd', sheet: null, modal: null, _locAskChecked: false, _fromOnboarding: true});
+    } else {
+      this.goTab('home');
+    }
   },
   // ---- màn "Hỗ trợ đặc biệt" (tuỳ chọn) ----
   finishSpecial() {
     // lưu cấu hình trợ năng rồi vào app
     try { localStorage.setItem('vh_a11y', JSON.stringify(this.state.a11y)); } catch (e) {}
     this.enterApp();
+  },
+  startPreDownload() {
+    if (this.state._preDlLoading) return;
+    this.setState({_preDlLoading: true, _preDlProgress: 0});
+    clearInterval(this._preDlTimer);
+    this._preDlTimer = setInterval(() => {
+      const cur = this.state._preDlProgress || 0;
+      const next = Math.min(100, cur + 10);
+      this.setState({_preDlProgress: next});
+      if (next >= 100) {
+        clearInterval(this._preDlTimer);
+        this.downloadVenueDataPack(2); // Bảo tàng Mỹ thuật Việt Nam (venue id = 2)
+        this.setState({_preDlLoading: false});
+      }
+    }, 150);
+  },
+  finishPreDownload() {
+    clearInterval(this._preDlTimer);
+    this.setState({
+      sheet: null,
+      _preDlLoading: false,
+      _preDlProgress: 0
+    });
+    this.showToast('Chào mừng bạn đến với V-Heritage ✦', 'success');
   },
   // ---- pre-permission Thông báo: chỉ hiện 1 lần đầu khi user mới vào Home ----
   showNotifPrompt() {

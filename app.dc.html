@@ -4635,6 +4635,63 @@
           </div>
         </sc-if>
 
+        <!-- PRE-DOWNLOAD PACK SHEET (ONBOARDING) -->
+        <sc-if value="{{ sheetPreDownloadPack }}" hint-placeholder-val="{{ false }}">
+          <div
+              style="position:absolute;left:0;right:0;bottom:0;z-index:170;background:var(--bg-card);border-radius:24px 24px 0 0;padding:8px 22px 28px;animation:vhSheetUp .3s cubic-bezier(.32,.72,0,1);">
+            <div style="width:40px;height:4px;border-radius:99px;background:var(--border-2);margin:8px auto 14px;"></div>
+            
+            <div style="display:flex;align-items:center;gap:8px;justify-content:center;color:var(--cta);">
+              <i class="ti ti-map-pin" style="font-size:20px;"></i>
+              <span style="font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">Phát hiện vị trí</span>
+            </div>
+            
+            <div class="vh-serif" style="font-size:20px;font-weight:600;text-align:center;margin-top:8px;">
+              Bảo tàng Mỹ thuật Việt Nam
+            </div>
+            
+            <div style="font-size:13px;color:var(--text-secondary);text-align:center;margin-top:10px;line-height:1.6;padding:0 8px;">
+              Chào mừng bạn đến di tích! Tường gạch dày hoặc phòng trưng bày kín có thể làm sóng di động (4G/5G) bị yếu.
+            </div>
+            
+            <div style="font-size:12.5px;color:var(--text-tertiary);text-align:center;margin-top:8px;line-height:1.5;background:var(--bg-tertiary);padding:10px;border-radius:10px;margin-bottom:20px;">
+              Hãy tải nhanh <strong>Gói dữ liệu offline (12.4 MB)</strong> để xem AR và Audio Guide HD mượt mà nhất.
+            </div>
+            
+            <div style="display:flex;flex-direction:column;gap:10px;width:100%;">
+              <!-- Nút chính: Tải về / Đang tải / Đã tải thành công -->
+              <sc-if value="{{ preDlSuccess }}" hint-placeholder-val="{{ false }}">
+                <button data-ripple="1" onClick="{{ finishPreDownload }}"
+                        style="position:relative;overflow:hidden;width:100%;border:none;background:var(--success);color:#fff;font-size:14px;font-weight:600;padding:13px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+                  <i class="ti ti-circle-check" style="font-size:20px;"></i>Bắt đầu khám phá
+                </button>
+              </sc-if>
+              
+              <sc-if value="{{ !preDlSuccess }}" hint-placeholder-val="{{ true }}">
+                <button data-ripple="1" onClick="{{ startPreDownload }}"
+                        disabled="{{ preDlLoading }}"
+                        style="position:relative;overflow:hidden;width:100%;border:none;background:var(--cta);color:#fff;font-size:14px;font-weight:600;padding:13px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+                  <!-- Thanh tiến trình đang tải -->
+                  <sc-if value="{{ preDlLoading }}" hint-placeholder-val="{{ false }}">
+                    <span style="position:absolute;inset:0 auto 0 0;width:{{ preDlProgressW }};background:rgba(255,255,255,.2);transition:width .1s;"></span>
+                    <i class="ti ti-loader" style="font-size:20px;animation:vhSpin 1s linear infinite;"></i>Đang tải gói dữ liệu... {{ preDlPercent }}
+                  </sc-if>
+                  <sc-if value="{{ !preDlLoading }}" hint-placeholder-val="{{ true }}">
+                    <i class="ti ti-download" style="font-size:20px;"></i>Tải gói dữ liệu offline
+                  </sc-if>
+                </button>
+              </sc-if>
+              
+              <!-- Nút phụ: Để sau (Bỏ qua) -->
+              <button data-ripple="1" onClick="{{ finishPreDownload }}"
+                      disabled="{{ preDlLoading }}"
+                      style="position:relative;overflow:hidden;width:100%;border:none;background:transparent;color:var(--text-tertiary);font-size:13px;font-weight:600;padding:10px;border-radius:10px;cursor:pointer;text-align:center;">
+                Để sau, vào trang chủ
+              </button>
+            </div>
+          </div>
+        </sc-if>
+
         <!-- AUTO-CLEAN SHEET -->
         <sc-if value="{{ sheetAutoClean }}" hint-placeholder-val="{{ false }}">
           <div

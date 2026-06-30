@@ -115,6 +115,13 @@ window.VH_RENDER = {
       sheetShare: st.sheet === 'share',
       sheetContext: st.sheet === 'context',
       sheetGuestbook: st.sheet === 'guestbook',
+      sheetPreDownloadPack: st.sheet === 'preDownloadPack',
+      preDlLoading: !!st._preDlLoading,
+      preDlProgressW: (st._preDlProgress || 0) + '%',
+      preDlPercent: (st._preDlProgress || 0) + '%',
+      preDlSuccess: (st._preDlProgress || 0) === 100,
+      startPreDownload: () => this.startPreDownload(),
+      finishPreDownload: () => this.finishPreDownload(),
       gbSheetH: (st._gbSheetH || 60) + '%',
       gbSheetRef: (el) => {
         this._gbSheetEl = el;
