@@ -2175,18 +2175,16 @@
                 </div>
                 <!-- TAB: Hiện vật -->
                 <sc-if value="{{ libEmpty }}" hint-placeholder-val="{{ true }}">
-                  <div
-                      style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:70px 40px;text-align:center;">
-                    <i class="ti ti-lamp"
-                       style="font-size:64px;color:var(--text-tertiary);opacity:.5;"></i>
-                    <div class="vh-serif" style="font-size:18px;font-weight:600;margin-top:20px;">
+                  <div class="vh-library-empty">
+                    <i class="ti ti-lamp vh-library-empty-icon"></i>
+                    <div class="vh-serif vh-library-empty-title">
                       Chưa có gì ở đây cả
                     </div>
-                    <div style="font-size:14px;color:var(--text-secondary);margin-top:8px;line-height:1.5;">
+                    <div class="vh-library-empty-copy">
                       Hãy bắt đầu khám phá và thêm hiện vật vào bộ sưu tập của bạn!
                     </div>
                     <button data-ripple="1" onClick="{{ goExploreLib }}"
-                            style="position:relative;overflow:hidden;margin-top:24px;border:none;background:var(--cta);color:#fff;font-size:14px;font-weight:600;padding:12px 22px;border-radius:8px;cursor:pointer;">
+                            class="vh-library-empty-cta">
                       Khám phá ngay
                     </button>
                   </div>
@@ -2214,18 +2212,17 @@
                 <!-- TAB: Bộ sưu tập -->
                 <sc-if value="{{ libCollectionsTab }}" hint-placeholder-val="{{ false }}">
                   <sc-if value="{{ collectionsEmpty }}" hint-placeholder-val="{{ true }}">
-                    <div
-                        style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:50px 40px;text-align:center;">
-                      <div class="vh-serif"
-                           style="font-size:17px;font-weight:600;">Chưa có bộ sưu tập
+                    <div class="vh-library-empty">
+                      <i class="ti ti-lamp vh-library-empty-icon"></i>
+                      <div class="vh-serif vh-library-empty-title">Chưa có bộ sưu tập
                       </div>
-                      <div style="font-size:13px;color:var(--text-secondary);margin-top:8px;line-height:1.5;">
-                        Tạo bộ sưu tập riêng để sắp xếp hiện vật theo cách của bạn — như "Triều
+                      <div class="vh-library-empty-copy">
+                        Tạo bộ sưu tập riêng để sắp xếp hiện vật theo cách của bạn – như "Triều
                         Lý" hay "Chuyến đi Huế".
                       </div>
                       <button data-ripple="1" onClick="{{ openCreateCollection }}"
-                              style="position:relative;overflow:hidden;display:flex;align-items:center;gap:6px;border:none;background:var(--cta);color:#fff;font-size:13px;font-weight:600;padding:9px 14px;border-radius:99px;cursor:pointer;margin-top:20px;">
-                        <i class="ti ti-plus" style="font-size:17px;"></i>Tạo bộ sưu tập
+                              class="vh-library-empty-cta">
+                        Tạo bộ sưu tập
                       </button>
                     </div>
                   </sc-if>
