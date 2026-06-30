@@ -1943,16 +1943,17 @@
                     <div style="width:44px;height:5px;border-radius:99px;background:var(--border-2);"></div>
                   </div>
                   
+                  <!-- Nút quay lại tổng quan - ngoài scroll area, luôn hiện đầu panel -->
+                  <sc-if value="{{ hasActiveHotspot }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ clearHotspot }}"
+                            style="display:flex;align-items:center;gap:6px;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:99px;padding:6px 14px 6px 10px;font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;flex:none;margin-bottom:2px;">
+                      <i class="ti ti-chevron-left" style="font-size:14px;"></i>Tổng quan hiện vật
+                    </button>
+                  </sc-if>
+
                   <!-- Panel content area with transitions on hotspot changes -->
                   <div key="hotspot-content-{{ activeHotspot }}" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding-right:2px;animation:vhFadeIn .25s ease-out;">
 
-                    <!-- Nút quay lại tổng quan khi đang xem hotspot -->
-                    <sc-if value="{{ hasActiveHotspot }}" hint-placeholder-val="{{ false }}">
-                      <button onClick="{{ clearHotspot }}"
-                              style="display:inline-flex;align-items:center;gap:6px;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:99px;padding:5px 12px 5px 8px;font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;width:fit-content;flex:none;">
-                        <i class="ti ti-chevron-left" style="font-size:14px;"></i>Tổng quan hiện vật
-                      </button>
-                    </sc-if>
 
                     <div class="vh-serif" style="font-size:20px;font-weight:600;color:var(--text-primary);line-height:1.2;">{{ curArtName }}</div>
                     
