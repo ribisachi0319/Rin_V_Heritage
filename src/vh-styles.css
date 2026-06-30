@@ -38,6 +38,8 @@ html,body{margin:0;padding:0;}
 .vh-place-download{position:relative;overflow:hidden;display:flex;align-items:center;gap:8px;width:100%;text-align:left;margin-top:10px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:11px 13px;cursor:pointer;color:var(--text-secondary);}
 .vh-place-download span{flex:1;font-size:12px;color:var(--text-secondary);}
 .vh-place-download[disabled]{cursor:default;opacity:.78;}
+.vh-place-download-progress{height:4px;margin-top:8px;border-radius:99px;background:var(--bg-tertiary);overflow:hidden;}
+.vh-place-download-progress-bar{height:100%;border-radius:99px;background:var(--cta);transition:width .12s linear;}
 .vh-place-download-error{display:flex;align-items:center;gap:6px;margin-top:7px;font-size:12px;color:var(--error);}
 .vh-tutorial-back{position:absolute;top:46px;left:18px;z-index:5;overflow:hidden;width:48px;height:48px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--primary);cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .vh-tutorial-back i{font-size:22px;}

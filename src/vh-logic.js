@@ -133,6 +133,8 @@ window.VH_LOGIC = {
     clearTimeout(this._notifPromptT);
     clearTimeout(this._scanT);
     clearTimeout(this._venueDlT);
+    clearTimeout(this._venueDlResetT);
+    clearInterval(this._venueDlProgressT);
     clearTimeout(this._lpTimer);
     clearInterval(this._audioT);
     clearInterval(this._lockT);
@@ -567,7 +569,14 @@ window.VH_LOGIC = {
       return;
     }
     clearTimeout(this._venueDlT);
-    this.setState({_venueDownloadLoading: true, _venueDownloadError: null});
+    clearTimeout(this._venueDlResetT);
+    clearInterval(this._venueDlProgressT);
+    this.setState({_venueDownloadLoading: true, _venueDownloadProgress: 0, _venueDownloadError: null});
+    this._venueDlProgressT = setInterval(() => {
+      const next = Math.min(95, (this.state._venueDownloadProgress || 0) + 12);
+      this.setState({_venueDownloadProgress: next});
+      if (next >= 95) clearInterval(this._venueDlProgressT);
+    }, 120);
     this._venueDlT = setTimeout(() => {
       try {
         if (typeof Blob === 'undefined' || typeof URL === 'undefined' || typeof document === 'undefined') {
@@ -599,11 +608,15 @@ window.VH_LOGIC = {
         a.click();
         a.remove();
         setTimeout(() => URL.revokeObjectURL(url), 800);
-        this.setState({_venueDownloadLoading: false, _venueDownloadError: null});
+        clearInterval(this._venueDlProgressT);
+        this.setState({_venueDownloadLoading: false, _venueDownloadProgress: 100, _venueDownloadError: null});
+        this._venueDlResetT = setTimeout(() => this.setState({_venueDownloadProgress: 0}), 700);
         this.showToast('Đã tải gói dữ liệu địa điểm ✦');
       } catch (e) {
+        clearInterval(this._venueDlProgressT);
         this.setState({
           _venueDownloadLoading: false,
+          _venueDownloadProgress: 0,
           _venueDownloadError: 'Không thể tải gói dữ liệu. Vui lòng thử lại.'
         });
         this.showToast('Không thể tải gói dữ liệu', 'error');
