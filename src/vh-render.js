@@ -787,6 +787,7 @@ window.VH_RENDER = {
       return {
         id, name: v.name || '', city: v.city || '',
         badge: 'Địa điểm nổi bật',
+        locationBadge: '📍 ' + (v.city || ''),
         badgeBg: 'var(--chip-badge-bg)', badgeColor: 'var(--chip-badge-fg)',
         subtitle: v.city || '',
         type: VTYPE[id] || 'Di tích',
