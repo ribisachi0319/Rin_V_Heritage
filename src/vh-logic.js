@@ -1421,7 +1421,6 @@ window.VH_LOGIC = {
         nextState.threeDPanelY = 120; // Trượt nhẹ panel lên để hiển thị thông tin hotspot
       }
       this.setState(nextState);
-      this.showToast('Đang khám phá chi tiết điểm chạm ✦');
     }
   },
   openReportArtifact() {
