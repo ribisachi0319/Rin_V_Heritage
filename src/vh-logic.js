@@ -1206,8 +1206,28 @@ window.VH_LOGIC = {
     const ven = this.findVenue(venueId);
     if (!ven) return;
     const info = this.venueInfos[ven.id] || { address: ven.city };
-    const query = ven.name + ' ' + info.address;
+    let query = ven.name + ' ' + info.address;
+    if (info.latitude && info.longitude) {
+      query = info.latitude + ',' + info.longitude;
+    }
     window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query), '_blank');
+  },
+  copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        this.showToast('Đã sao chép địa chỉ di tích ✦', 'success');
+      }).catch(() => {
+        this.showToast('Không thể sao chép địa chỉ');
+      });
+    } else {
+      const el = document.createElement('textarea');
+      el.value = text;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      this.showToast('Đã sao chép địa chỉ di tích ✦', 'success');
+    }
   },
   // hiện vật hiển thị của một nơi (điểm đến Top 10 không có hiện vật riêng → mẫu)
   venueArtifacts(venId) {
