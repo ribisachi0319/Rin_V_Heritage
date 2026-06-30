@@ -2026,9 +2026,19 @@ window.VH_RENDER = {
         _ccAddArt: null
       }),
       openShareArt: () => this.setState({sheet: 'share'}),
-      openPhoto: () => this.nav('photo', 'fwd'),
+      openPhoto: () => this.openPhotoCapture(),
       showVoiceDesc: st.a11y.visualBlind,
       openAudioDesc: () => this.nav('audiodesc', 'fwd'),
+      // CAMERA ASK & SHOT
+      isCameraAsk: st.screen === 'cameraask',
+      isCameraShot: st.screen === 'camerashot',
+      camAskGrant: () => this.camAskGrant(),
+      camAskSkip: () => this.camAskSkip(),
+      camAskBack: () => this.camAskBack(),
+      takePhoto: () => this.takePhoto(),
+      cameraShotImg: this.vimg(cur.seed, 500, 500),
+      shutterFlash: st._shutterFlash ? 'block' : 'none',
+      camerashotBack: () => this.nav('threed', 'back'),
       // 3D VIEWER
       isThreeD: st.screen === 'threed',
       threeDRot: 'rotateY(' + st.threeDRot + 'deg) scale(' + st.threeDZoom + ')',

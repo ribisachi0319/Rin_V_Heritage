@@ -705,10 +705,45 @@ window.VH_LOGIC = {
     });
   },
   openSystemSettings(kind) {
-    // RN/Flutter: Linking.openSettings() → mở thẳng trang quản lý quyền của App.
-    // Web/PWA: trình duyệt không cho mở cài đặt OS bằng JS → hướng dẫn người dùng thao tác tay.
     if (typeof Linking !== 'undefined' && Linking.openSettings) { Linking.openSettings(); return; }
     this.showToast('Mở Cài đặt thiết bị → Ứng dụng → V-Heritage → bật lại quyền ' + this._permLabel(kind));
+  },
+  openPhotoCapture() {
+    const camOn = this.state.permissions && this.state.permissions.camera === 1;
+    if (!camOn) {
+      this.setState({screen: 'cameraask', history: this.state.history.concat(this.state.screen), navDir: 'fwd'});
+    } else {
+      this.setState({screen: 'camerashot', history: this.state.history.concat(this.state.screen), navDir: 'fwd'});
+    }
+  },
+  camAskGrant() {
+    this._requestDevicePerm('camera').then((ok) => {
+      this._setDevicePerm('camera', ok ? 'granted' : 'denied');
+      if (ok) {
+        this._setPermFlag('camera', 1);
+        this.showToast('Đã cấp quyền camera ✦', 'success');
+        this.setState({screen: 'camerashot'});
+      } else {
+        this.showSystemSettingsDialog('camera');
+      }
+    });
+  },
+  camAskSkip() {
+    this.showToast('Bạn cần cấp quyền camera để chụp hình AR.');
+    this.setState({screen: 'threed', navDir: 'back'});
+  },
+  camAskBack() {
+    this.setState({screen: 'threed', navDir: 'back'});
+  },
+  takePhoto() {
+    if (this.state._shutterFlash) return;
+    this.setState({_shutterFlash: true});
+    if (navigator.vibrate) navigator.vibrate(40);
+    setTimeout(() => {
+      this.setState({_shutterFlash: false});
+      this.setState({screen: 'photo'});
+      this.showToast('Đã lưu ảnh AR vào Bộ sưu tập ✦', 'success');
+    }, 180);
   },
   downloadNearby() {
     const packs = this.state.packs || [];
