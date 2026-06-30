@@ -21,7 +21,7 @@ html,body{margin:0;padding:0;}
 .vh-chip--warning-soft{--vh-chip-bg:var(--chip-warning-soft-bg);--vh-chip-border:var(--chip-warning-soft-border);--vh-chip-color:var(--chip-warning-soft-fg);}
 .vh-chip--danger-soft{--vh-chip-bg:var(--chip-danger-soft-bg);--vh-chip-border:var(--chip-danger-soft-border);--vh-chip-color:var(--chip-danger-soft-fg);}
 .vh-chip--filter{--vh-chip-fs:12px;--vh-chip-fw:600;--vh-chip-pad:7px 14px;}
-.vh-home{--home-pad-x:18px;--home-section-gap:24px;--home-title-list-gap:12px;--home-list-gap:12px;--home-hero-height:300px;}
+.vh-home{--home-pad-x:18px;--home-section-gap:24px;--home-title-list-gap:12px;--home-list-gap:12px;--home-hero-height:284px;}
 .vh-home-section-title{padding:var(--home-section-gap) var(--home-pad-x) 0;}
 .vh-home-section-head{display:flex;align-items:center;justify-content:space-between;padding:var(--home-section-gap) var(--home-pad-x) 0;}
 .vh-home-section-list{display:flex;gap:var(--home-list-gap);overflow-x:auto;padding:var(--home-title-list-gap) var(--home-pad-x) 0;}
