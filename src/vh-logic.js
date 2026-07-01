@@ -1663,9 +1663,10 @@ window.VH_LOGIC = {
     
     const update = (clientX) => {
       const relativeX = clientX - startX;
-      const pixel16 = width * (1 / 6);
-      const usableWidth = width * (2 / 3);
-      let pct = ((relativeX - pixel16) / usableWidth) * 100;
+      // Thumb di chuyển trong vùng 25% → 75% của chiều rộng track
+      const startPx = width * 0.25;
+      const usableWidth = width * 0.5;
+      let pct = ((relativeX - startPx) / usableWidth) * 100;
       pct = Math.max(0, Math.min(100, pct));
       
       // 2 mốc: ngưỡng snap tại 50%

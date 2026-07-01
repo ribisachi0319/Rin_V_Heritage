@@ -2294,15 +2294,15 @@
                       <!-- Line nền (Track phụ) -->
                       <div style="width:100%;height:4px;border-radius:99px;background:rgba(255,255,255,0.15);"></div>
                       
-                      <!-- Line màu Primary chạy theo phần trăm (Tránh chiều rộng âm) -->
-                      <div style="position:absolute;left:16.666%;height:4px;border-radius:99px;background:var(--primary);pointer-events:none;transition:{{ timeTrackTransition }};width:calc(66.666% * ({{ timeSliderPct }} / 100));"></div>
+                      <!-- Line màu Primary chạy theo phần trăm -->
+                      <div style="position:absolute;left:25%;height:4px;border-radius:99px;background:var(--primary);pointer-events:none;transition:{{ timeTrackTransition }};width:calc(50% * ({{ timeSliderPct }} / 100));"></div>
                       
-                      <!-- 2 Dot mốc ở hai đầu track (16.67% và 83.33%) -->
-                      <div style="position:absolute;left:16.666%;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.4);transform:translate(-50%, -50%);top:50%;pointer-events:none;"></div>
-                      <div style="position:absolute;left:83.333%;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.4);transform:translate(-50%, -50%);top:50%;pointer-events:none;"></div>
+                      <!-- 2 Dot mốc ở 25% và 75% (khớp tâm cột nhãn flex:1) -->
+                      <div style="position:absolute;left:25%;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.4);transform:translate(-50%, -50%);top:50%;pointer-events:none;"></div>
+                      <div style="position:absolute;left:75%;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.4);transform:translate(-50%, -50%);top:50%;pointer-events:none;"></div>
 
                       <!-- Thumb kéo 20px (bám theo timeSliderPct) -->
-                      <div style="position:absolute;top:50%;transform:translate(-50%, -50%);left:calc(16.666% + 66.666% * ({{ timeSliderPct }} / 100));width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--primary);box-shadow:0 3px 8px rgba(0,0,0,0.4);cursor:grab;pointer-events:none;transition:{{ timeThumbTransition }};"></div>
+                      <div style="position:absolute;top:50%;transform:translate(-50%, -50%);left:calc(25% + 50% * ({{ timeSliderPct }} / 100));width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--primary);box-shadow:0 3px 8px rgba(0,0,0,0.4);cursor:grab;pointer-events:none;transition:{{ timeThumbTransition }};"></div>
                     </div>
 
                     <!-- Nhãn mốc nằm dưới Slider (Chia đều bằng Expanded/Flex và căn giữa) -->
