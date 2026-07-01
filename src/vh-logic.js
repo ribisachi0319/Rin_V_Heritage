@@ -1585,21 +1585,10 @@ window.VH_LOGIC = {
         document.addEventListener('click', blockClick, true);
         this._panelDragged = false;
 
-        const dy = liveY - startPanelY;
-        if (Math.abs(dy) >= 20) {
-          if (dy > 0) { // Kéo xuống
-            if (startPanelY === topSnap) snappedY = middleSnap;
-            else snappedY = bottomSnap;
-          } else { // Kéo lên
-            if (startPanelY === bottomSnap) snappedY = middleSnap;
-            else snappedY = topSnap;
-          }
-        } else {
-          // snap về mốc gần nhất trong 3 mốc hiện tại
-          if (liveY < (topSnap + middleSnap) / 2) snappedY = topSnap;
-          else if (liveY < (middleSnap + bottomSnap) / 2) snappedY = middleSnap;
-          else snappedY = bottomSnap;
-        }
+        // Snap về mốc gần nhất trong 3 mốc (top: 0, middle: 80, bottom: 270)
+        if (liveY < (topSnap + middleSnap) / 2) snappedY = topSnap;
+        else if (liveY < (middleSnap + bottomSnap) / 2) snappedY = middleSnap;
+        else snappedY = bottomSnap;
       } else {
         // Click nhẹ -> Toggle xoay vòng các mốc hiện tại
         if (startPanelY === middleSnap) snappedY = topSnap;
