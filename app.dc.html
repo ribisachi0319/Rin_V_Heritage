@@ -2048,10 +2048,10 @@
                       </div>
 
                       <!-- Form nhập lời nhắn (Premium / Free) -->
-                      <div style="flex:none;margin-bottom:24px;display:flex;flex-direction:column;">
+                      <div style="flex:none;margin-bottom:24px;display:flex;flex-direction:column;position:relative;">
                         <!-- PREMIUM USER -->
                         <sc-if value="{{ arGbIsPremium }}" hint-placeholder-val="{{ false }}">
-                          <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;">
+                          <div style="background:var(--bg-secondary);border:1px solid {{ arGbTextareaBorder }};box-shadow:{{ arGbTextareaShadow }};border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;transition:all 0.25s ease;">
                             <!-- Badge Premium tinh tế -->
                             <div style="display:flex;align-items:center;justify-content:space-between;">
                               <span style="font-size:11px;font-weight:600;color:var(--cta);display:flex;align-items:center;gap:3px;">
@@ -2060,7 +2060,7 @@
                             </div>
                             <!-- Textarea -->
                             <div style="position:relative;width:100%;">
-                              <textarea value="{{ arGbText }}" onInput="{{ onARGbText }}" maxlength="200"
+                              <textarea value="{{ arGbText }}" onInput="{{ onARGbText }}" onFocus="{{ onARGbFocus }}" onBlur="{{ onARGbBlur }}" maxlength="200"
                                         placeholder="Chia sẻ cảm nhận của bạn về hiện vật hoặc di sản..."
                                         style="width:100%;height:80px;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:8px;padding:8px 8px 24px;font-size:13.5px;color:var(--text-primary);outline:none;box-sizing:border-box;resize:none;font-family:inherit;line-height:1.5;"></textarea>
                               <span style="position:absolute;right:10px;bottom:8px;font-size:9.5px;color:var(--text-tertiary);font-variant-numeric:tabular-nums;">{{ arGbCharCount }}/200</span>
@@ -2068,32 +2068,44 @@
                           </div>
                           <!-- Button Gửi rộng toàn ngang, nằm dưới Card -->
                           <button data-ripple="1" onClick="{{ handleSendGbAR }}" disabled="{{ arGbSendDisabled }}"
-                                  style="width:100%;background:{{ arGbSendBtnBg }};color:{{ arGbSendBtnFg }};opacity:{{ arGbSendBtnOpacity }};cursor:{{ arGbSendBtnCursor }};border:none;border-radius:8px;padding:10px;font-size:13.5px;font-weight:600;transition:all 0.2s;height:38px;display:flex;align-items:center;justify-content:center;margin-top:8px;outline:none;">
+                                  style="width:100%;background:{{ arGbSendBtnBg }};color:{{ arGbSendBtnFg }};opacity:{{ arGbSendBtnOpacity }};cursor:{{ arGbSendBtnCursor }};border:none;border-radius:8px;padding:10px;font-size:13.5px;font-weight:600;transition:all 0.2s;height:38px;display:flex;align-items:center;justify-content:center;margin-top:8px;outline:none;box-shadow:0 4px 12px rgba(237,137,39,.15);">
                             Gửi lời nhắn
                           </button>
                         </sc-if>
 
                         <!-- FREE USER -->
                         <sc-if value="{{ arGbNotPremium }}" hint-placeholder-val="{{ true }}">
-                          <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;">
+                          <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;position:relative;">
                             <div style="font-size:12.5px;font-weight:600;color:var(--text-secondary);text-align:left;">Chọn lời nhắn mẫu</div>
-                            <!-- Dropdown Selector cách điệu -->
+                            
+                            <!-- Custom Dropdown Selector -->
                             <div style="position:relative;width:100%;">
-                              <select onChange="{{ onARGbSelectTemplate }}"
-                                      style="width:100%;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:8px;padding:10px 36px 10px 12px;font-size:13.5px;color:var(--text-primary);outline:none;appearance:none;-webkit-appearance:none;cursor:pointer;font-family:inherit;font-weight:500;">
-                                <option value="">-- Chọn một lời nhắn mẫu --</option>
-                                <sc-for list="{{ arGbTemplatesV3 }}" as="t" hint-placeholder-count="3">
-                                  <option value="{{ t.text }}">{{ t.text }}</option>
-                                </sc-for>
-                              </select>
-                              <div style="position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--text-secondary);font-size:14px;display:flex;align-items:center;">
-                                <i class="ti ti-chevron-down"></i>
-                              </div>
+                              <button data-ripple="1" onClick="{{ toggleArGbDropdown }}"
+                                      style="width:100%;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:8px;padding:10px 36px 10px 12px;font-size:13.5px;color:{{ arGbSelectedTemplateColor }};outline:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s;font-family:inherit;font-weight:500;">
+                                <span>{{ arGbSelectedTemplateLabel }}</span>
+                                <i class="ti ti-chevron-down" style="font-size:14px;color:var(--text-secondary);transition:transform 0.2s;transform:{{ arGbDropdownArrowTransform }};"></i>
+                              </button>
+                              
+                              <!-- Custom Dropdown Options -->
+                              <sc-if value="{{ arGbDropdownOpen }}" hint-placeholder-val="{{ false }}">
+                                <div style="position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:90;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.15);overflow:hidden;animation:vhFadeIn .2s ease-out;display:flex;flex-direction:column;max-height:180px;overflow-y:auto;">
+                                  <sc-for list="{{ arGbTemplatesV3 }}" as="t" hint-placeholder-count="3">
+                                    <button data-ripple="1" onClick="{{ t.select }}"
+                                            style="width:100%;background:transparent;border:none;padding:11px 12px;text-align:left;font-size:13px;color:var(--text-primary);cursor:pointer;transition:all 0.15s;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+                                      <span>{{ t.text }}</span>
+                                      <sc-if value="{{ t.isSelected }}" hint-placeholder-val="{{ false }}">
+                                        <i class="ti ti-check" style="color:var(--cta);font-size:14px;"></i>
+                                      </sc-if>
+                                    </button>
+                                  </sc-for>
+                                </div>
+                              </sc-if>
                             </div>
+
                           </div>
                           <!-- Button Gửi rộng toàn ngang, nằm dưới Card -->
                           <button data-ripple="1" onClick="{{ handleSendGbAR }}" disabled="{{ arGbSendDisabled }}"
-                                  style="width:100%;background:{{ arGbSendBtnBg }};color:{{ arGbSendBtnFg }};opacity:{{ arGbSendBtnOpacity }};cursor:{{ arGbSendBtnCursor }};border:none;border-radius:8px;padding:10px;font-size:13.5px;font-weight:600;transition:all 0.2s;height:38px;display:flex;align-items:center;justify-content:center;margin-top:8px;outline:none;">
+                                  style="width:100%;background:{{ arGbSendBtnBg }};color:{{ arGbSendBtnFg }};opacity:{{ arGbSendBtnOpacity }};cursor:{{ arGbSendBtnCursor }};border:none;border-radius:8px;padding:10px;font-size:13.5px;font-weight:600;transition:all 0.2s;height:38px;display:flex;align-items:center;justify-content:center;margin-top:8px;outline:none;box-shadow:0 4px 12px rgba(237,137,39,.15);">
                             Gửi lời nhắn
                           </button>
                           <!-- Crown Link -->

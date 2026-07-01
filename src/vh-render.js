@@ -824,14 +824,22 @@ window.VH_RENDER = {
       arGbText: st._arGbText || '',
       arGbCharCount: (st._arGbText || '').length,
       onARGbText: (e) => this.setState({_arGbText: e.target.value.slice(0, 200)}),
-      onARGbSelectTemplate: (e) => this.setState({_arGbSelectedTemplateText: e.target.value}),
+      onARGbFocus: () => this.setState({_arGbTextareaFocused: true}),
+      onARGbBlur: () => this.setState({_arGbTextareaFocused: false}),
+      arGbTextareaBorder: st._arGbTextareaFocused ? 'var(--cta)' : 'var(--border)',
+      arGbTextareaShadow: st._arGbTextareaFocused ? '0 0 0 3px rgba(237, 137, 39, 0.12)' : 'none',
       arGbIsPremium: !!(st.tiers && st.tiers.premium),
       arGbNotPremium: !(st.tiers && st.tiers.premium),
       arGbList,
       gbCount: this.guestbook.length,
       gbUnlock: () => this.premiumGate(),
       handleSendGbAR: () => this.handleSendGbAR(),
+      arGbDropdownOpen: !!st._arGbDropdownOpen,
+      toggleArGbDropdown: () => this.setState({_arGbDropdownOpen: !st._arGbDropdownOpen}),
       arGbSelectedTemplateText: st._arGbSelectedTemplateText || '',
+      arGbSelectedTemplateLabel: st._arGbSelectedTemplateText || 'Chọn một lời nhắn mẫu...',
+      arGbSelectedTemplateColor: st._arGbSelectedTemplateText ? 'var(--text-primary)' : 'var(--text-tertiary)',
+      arGbDropdownArrowTransform: st._arGbDropdownOpen ? 'rotate(180deg)' : 'rotate(0)',
       arGbTemplatesV3: [
         '❤️ Thật tuyệt vời!',
         '👏 Di sản rất đẹp.',
@@ -840,10 +848,8 @@ window.VH_RENDER = {
         '🏛 Sẽ quay lại lần sau.'
       ].map(t => ({
         text: t,
-        borderColor: st._arGbSelectedTemplateText === t ? 'var(--cta)' : 'var(--border)',
-        bgColor: st._arGbSelectedTemplateText === t ? 'rgba(237, 137, 39, 0.08)' : 'var(--bg-secondary)',
-        textColor: st._arGbSelectedTemplateText === t ? 'var(--cta)' : 'var(--text-primary)',
-        select: () => this.setState({_arGbSelectedTemplateText: t})
+        isSelected: st._arGbSelectedTemplateText === t,
+        select: () => this.setState({_arGbSelectedTemplateText: t, _arGbDropdownOpen: false})
       })),
       arGbSendDisabled: (() => {
         const isPremium = !!(st.tiers && st.tiers.premium);
@@ -856,7 +862,7 @@ window.VH_RENDER = {
       arGbSendBtnBg: (() => {
         const isPremium = !!(st.tiers && st.tiers.premium);
         const disabled = isPremium ? !(st._arGbText && st._arGbText.trim().length > 0) : !st._arGbSelectedTemplateText;
-        return disabled ? 'var(--bg-tertiary)' : 'var(--cta)';
+        return disabled ? 'var(--bg-tertiary)' : 'linear-gradient(135deg, var(--cta), #FF9F43)';
       })(),
       arGbSendBtnFg: (() => {
         const isPremium = !!(st.tiers && st.tiers.premium);
