@@ -2355,18 +2355,13 @@ window.VH_RENDER = {
       timeTrackTransition: this._draggingTimeSlider ? 'none' : 'width 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
       onTimeSliderStart: (e) => this.timeSliderStart(e),
       
-      timeStages: [
-        {idx: 0, label: 'Hiện trạng'},
-        {idx: 1, label: 'Phục dựng 3D'},
-      ].map(s => {
-        const active = st.timeIdx === s.idx;
-        return {
-          ...s,
-          active,
-          labelColor: active ? '#fff' : 'rgba(255,255,255,.45)',
-          pick: () => this.pickTimeStage(s.idx),
-        };
-      }),
+      // Props riêng cho 2 nhãn mốc (tránh sc-for wrapper phá flex:1)
+      timePick0: () => this.pickTimeStage(0),
+      timePick1: () => this.pickTimeStage(1),
+      timeLabel0Color: st.timeIdx === 0 ? '#fff' : 'rgba(255,255,255,.45)',
+      timeLabel1Color: st.timeIdx === 1 ? '#fff' : 'rgba(255,255,255,.45)',
+      timeLabel0Weight: st.timeIdx === 0 ? '700' : '500',
+      timeLabel1Weight: st.timeIdx === 1 ? '700' : '500',
       // PHOTO DETAIL
       isPhoto: st.screen === 'photo',
       photoImg: this.vimg(cur.seed, 600, 700),
