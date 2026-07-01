@@ -1273,7 +1273,8 @@ window.VH_LOGIC = {
       isPlaying: false,
       audioProgress: 0,
       _fromScan: false,
-      _visitVenue: art ? art.venue : this.state._visitVenue
+      _visitVenue: art ? art.venue : this.state._visitVenue,
+      _arMode: 'camera'
     });
     clearInterval(this._audioT);
     this.recordVisit(id);
@@ -1285,6 +1286,7 @@ window.VH_LOGIC = {
     this.setState({
       curArtId: id, isPlaying: false, audioProgress: 0, _fromScan: true,
       _visitVenue: art ? art.venue : this.state._visitVenue,
+      _arMode: 'camera',
       screen: 'threed', navDir: 'fwd', sheet: null, modal: null, threeDPlaying: true,
       history: this.state.history.filter(s => s !== 'scan' && s !== 'qrscanner')
     });
