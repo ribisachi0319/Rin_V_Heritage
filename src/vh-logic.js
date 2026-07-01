@@ -759,6 +759,14 @@ window.VH_LOGIC = {
     const next = this.state._arMode === 'camera' ? 'guestbook' : 'camera';
     this.setState({_arMode: next, _arGbBubble: null, _arGbText: ''});
   },
+  setARModeCamera() {
+    if (this.state._arMode === 'camera') return;
+    this.setState({_arMode: 'camera', _arGbBubble: null, _arGbText: ''});
+  },
+  setARModeGuestbook() {
+    if (this.state._arMode === 'guestbook') return;
+    this.setState({_arMode: 'guestbook', _arGbBubble: null, _arGbText: ''});
+  },
   selectARBubble(id) {
     this.setState({_arGbBubble: this.state._arGbBubble === id ? null : id});
   },
@@ -786,6 +794,23 @@ window.VH_LOGIC = {
       premium: true
     }, ...this.guestbook];
     this.setState({_arGbText: '', guestbookPosted: this.state.guestbookPosted + 1, _arGbBubble: null});
+    this.showToast('Đã gửi lời nhắn AR ✦', 'success');
+  },
+  postCustomMessage(text) {
+    if (!text) return;
+    if (this.state.guestbookPosted >= 3) {
+      this.gbLimitReached();
+      return;
+    }
+    this.guestbook = [{
+      id: Date.now(),
+      text,
+      author: this.state.user.name || 'Bạn',
+      likes: 0,
+      time: 'vừa xong',
+      premium: false
+    }, ...this.guestbook];
+    this.setState({guestbookPosted: this.state.guestbookPosted + 1});
     this.showToast('Đã gửi lời nhắn AR ✦', 'success');
   },
   downloadNearby() {

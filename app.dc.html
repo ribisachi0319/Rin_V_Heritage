@@ -1882,19 +1882,30 @@
                   <button data-ripple="1" onClick="{{ exit3D }}"
                           style="position:relative;overflow:hidden;width:44px;height:44px;border-radius:99px;border:none;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
                     <i class="ti ti-x" style="font-size:22px;"></i></button>
-                  <!-- Tên màn + badge chế độ -->
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
-                    <div style="color:#fff;font-size:15px;font-weight:600;">Mô hình 3D</div>
-                    <sc-if value="{{ isARGbMode }}" hint-placeholder-val="{{ false }}">
-                      <div style="font-size:10px;font-weight:700;color:var(--cta);letter-spacing:.04em;">💬 AR GUESTBOOK</div>
-                    </sc-if>
+                  <!-- Segmented Toggle giữa AR Scan và Guestbook ở giữa Header -->
+                  <div style="position:relative;width:210px;height:48px;background:rgba(10,13,20,.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:24px;padding:4px;display:flex;align-items:center;box-sizing:border-box;">
+                    <!-- Sliding Indicator (Nền trượt) -->
+                    <div style="position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:20px;background:{{ arTabActiveBg }};transition:transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);transform:{{ arSlidingTransform }};z-index:1;"></div>
+                    
+                    <!-- Tab 1: AR Scan -->
+                    <button data-ripple="1" onClick="{{ setARModeCamera }}"
+                            style="position:relative;z-index:2;flex:1;height:100%;border:none;background:transparent;cursor:pointer;color:{{ arCamTabFg }};font-weight:{{ arCamTabFw }};font-size:11.5px;display:flex;align-items:center;justify-content:center;gap:4px;transition:color 0.25s;"
+                            title="Chế độ AR Scan">
+                      <i class="ti ti-scan" style="font-size:13px;"></i>AR Scan
+                    </button>
+                    
+                    <!-- Tab 2: Guestbook -->
+                    <button data-ripple="1" onClick="{{ setARModeGuestbook }}"
+                            style="position:relative;z-index:2;flex:1;height:100%;border:none;background:transparent;cursor:pointer;color:{{ arGbTabFg }};font-weight:{{ arGbTabFw }};font-size:11.5px;display:flex;align-items:center;justify-content:center;gap:4px;transition:color 0.25s;"
+                            title="Chế độ Guestbook">
+                      <i class="ti ti-message-2" style="font-size:13px;"></i>Guestbook
+                    </button>
                   </div>
-                  <!-- Switch Mode: toggle trực tiếp, label thay đổi theo chế độ đang hoạt động -->
-                  <button data-ripple="1" onClick="{{ switchARMode }}"
-                          style="position:relative;overflow:hidden;height:36px;padding:0 14px;border-radius:99px;border:{{ switchModeBorder }};background:{{ switchModeBg }};backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;transition:background .25s,border .25s;"
-                          title="Chuyển chế độ AR">
-                    <i class="ti ti-switch-3" style="font-size:15px;"></i>{{ switchModeLabel }}
-                  </button>
+                  <!-- Nút report ở góc phải -->
+                  <button data-ripple="1" onClick="{{ openReportArtifact }}"
+                          style="position:relative;overflow:hidden;width:44px;height:44px;border-radius:99px;border:none;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);color:var(--error);cursor:pointer;display:flex;align-items:center;justify-content:center;"
+                          title="Báo cáo sai sót di sản">
+                    <i class="ti ti-flag" style="font-size:22px;"></i></button>
                 </div>
                 
                 <!-- vertical control bar on the right -->
@@ -1980,78 +1991,139 @@
                   </sc-if>
                 </sc-if>
 
-                <!-- Thanh viết lời nhắn AR (chỉ hiện ở chế độ Guestbook) -->
-                <sc-if value="{{ isARGbMode }}" hint-placeholder-val="{{ false }}">
-                  <div style="position:absolute;bottom:200px;left:0;right:0;z-index:18;padding:0 16px;animation:vhFade .3s ease;">
-                    <sc-if value="{{ arGbIsPremium }}" hint-placeholder-val="{{ false }}">
-                      <div style="display:flex;gap:8px;align-items:center;">
-                        <div style="flex:1;position:relative;">
-                          <input value="{{ arGbText }}" onInput="{{ onARGbText }}" maxlength="200"
-                                 placeholder="Để lại dấu ấn AR của bạn..."
-                                 style="width:100%;min-width:0;background:rgba(10,13,20,.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:10px 44px 10px 16px;font-size:13px;color:#fff;outline:none;box-sizing:border-box;">
-                          <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:9px;color:rgba(255,255,255,.4);">{{ arGbCharCount }}/200</span>
-                        </div>
-                        <button data-ripple="1" onClick="{{ postARMessage }}"
-                                style="position:relative;overflow:hidden;width:44px;height:44px;border:none;border-radius:99px;cursor:{{ arGbPostCursor }};pointer-events:{{ arGbPostPointerEvents }};background:{{ arGbPostBg }};color:{{ arGbPostFg }};display:flex;align-items:center;justify-content:center;flex:none;">
-                          <i class="ti ti-send" style="font-size:18px;"></i></button>
+
+
+                  <!-- CASE 1: PANEL CHẾ ĐỘ AR SCAN (Chỉ hiện khi isARScanMode = true) -->
+                  <sc-if value="{{ isARScanMode }}" hint-placeholder-val="{{ true }}">
+                    <div
+                        style="position:absolute;left:0;right:0;bottom:0;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.4);padding:8px 20px 16px;transform:translateY({{ threeDPanelY }}px);transition:{{ panelTransition }};height:440px;z-index:20;display:flex;flex-direction:column;gap:8px;">
+                      <!-- Drag Handle -->
+                      <div onMouseDown="{{ dragPanelStart }}" onTouchStart="{{ dragPanelStart }}"
+                           style="width:100%;height:20px;display:flex;align-items:center;justify-content:center;cursor:ns-resize;flex:none;">
+                        <div style="width:44px;height:4px;border-radius:99px;background:var(--border-2);"></div>
                       </div>
-                    </sc-if>
-                    <sc-if value="{{ arGbIsPremium }}" hint-placeholder-val="{{ true }}">
-                      <button data-ripple="1" onClick="{{ gbUnlock }}"
-                              style="position:relative;overflow:hidden;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;border:1px dashed rgba(237,137,39,.6);background:rgba(10,13,20,.6);backdrop-filter:blur(8px);color:var(--cta);border-radius:99px;padding:11px 20px;cursor:pointer;font-size:13px;font-weight:600;">
-                        <i class="ti ti-crown" style="font-size:16px;"></i>Premium để viết lời nhắn AR
+
+                      <!-- Nút quay lại tổng quan - secondary button, chỉ hiện khi đang xem hotspot -->
+                      <sc-if value="{{ hasActiveHotspot }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ clearHotspot }}"
+                                style="display:flex;align-items:center;align-self:flex-start;gap:6px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12.5px;font-weight:500;color:var(--text-secondary);cursor:pointer;flex:none;">
+                          <i class="ti ti-arrow-left" style="font-size:14px;color:var(--text-tertiary);"></i>Tổng quan hiện vật
+                        </button>
+                      </sc-if>
+
+                      <!-- Panel content area with transitions on hotspot changes -->
+                      <div key="hotspot-content-{{ activeHotspot }}" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-right:2px;animation:vhFadeIn .25s ease-out;">
+
+                        <div class="vh-serif" style="font-size:19px;font-weight:600;color:var(--text-primary);line-height:1.25;">{{ curArtName }}</div>
+
+                        <div style="display:flex;gap:8px;flex:none;width:100%;">
+                          <div style="flex:1;background:var(--bg-tertiary);border-radius:8px;padding:5px 10px;border:1px solid var(--border);">
+                            <div style="font-size:9px;color:var(--text-tertiary);text-transform:uppercase;font-weight:600;">Niên đại</div>
+                            <div class="vh-serif" style="font-size:13px;font-weight:600;color:var(--text-primary);margin-top:1px;">{{ curArt.era }}</div>
+                          </div>
+                          <div style="flex:1;background:var(--bg-tertiary);border-radius:8px;padding:5px 10px;border:1px solid var(--border);">
+                            <div style="font-size:9px;color:var(--text-tertiary);text-transform:uppercase;font-weight:600;">Chất liệu</div>
+                            <div class="vh-serif" style="font-size:13px;font-weight:600;color:var(--text-primary);margin-top:1px;">{{ curArt.material }}</div>
+                          </div>
+                        </div>
+
+                        <!-- Chi tiết di sản (chỉ hiện khi kéo panel lên) -->
+                        <sc-if value="{{ showDetailBtn }}" hint-placeholder-val="{{ false }}">
+                          <div style="flex:none;animation:vhFadeIn .2s ease-out;">
+                            <div style="font-size:10px;color:var(--text-tertiary);font-weight:600;text-transform:uppercase;margin-bottom:4px;">Chi tiết di sản</div>
+                            <div style="font-size:13px;line-height:1.6;color:var(--text-secondary);">{{ curArtDesc }}</div>
+                          </div>
+                        </sc-if>
+                      </div>
+
+                      <!-- CTA — luôn hiển thị dưới cùng panel -->
+                      <button data-ripple="1" onClick="{{ toDetail }}" style="position:relative;overflow:hidden;flex:none;width:100%;border:none;background:var(--cta);color:#fff;font-size:14px;font-weight:600;padding:12px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 12px rgba(237,137,39,.3);">
+                        Xem chi tiết hiện vật<i class="ti ti-arrow-right" style="font-size:17px;"></i>
                       </button>
-                    </sc-if>
-                  </div>
-                </sc-if>
-
-                <!-- info panel + CTA -->
-                <div
-                    style="position:absolute;left:0;right:0;bottom:0;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.4);padding:8px 20px 16px;transform:translateY({{ threeDPanelY }}px);transition:{{ panelTransition }};height:440px;z-index:20;display:flex;flex-direction:column;gap:8px;">
-                  <!-- Drag Handle -->
-                  <div onMouseDown="{{ dragPanelStart }}" onTouchStart="{{ dragPanelStart }}"
-                       style="width:100%;height:20px;display:flex;align-items:center;justify-content:center;cursor:ns-resize;flex:none;">
-                    <div style="width:44px;height:4px;border-radius:99px;background:var(--border-2);"></div>
-                  </div>
-
-                  <!-- Nút quay lại tổng quan - secondary button, chỉ hiện khi đang xem hotspot -->
-                  <sc-if value="{{ hasActiveHotspot }}" hint-placeholder-val="{{ false }}">
-                    <button onClick="{{ clearHotspot }}"
-                            style="display:flex;align-items:center;align-self:flex-start;gap:6px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12.5px;font-weight:500;color:var(--text-secondary);cursor:pointer;flex:none;">
-                      <i class="ti ti-arrow-left" style="font-size:14px;color:var(--text-tertiary);"></i>Tổng quan hiện vật
-                    </button>
+                    </div>
                   </sc-if>
 
-                  <!-- Panel content area with transitions on hotspot changes -->
-                  <div key="hotspot-content-{{ activeHotspot }}" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-right:2px;animation:vhFadeIn .25s ease-out;">
-
-                    <div class="vh-serif" style="font-size:19px;font-weight:600;color:var(--text-primary);line-height:1.25;">{{ curArtName }}</div>
-
-                    <div style="display:flex;gap:8px;flex:none;width:100%;">
-                      <div style="flex:1;background:var(--bg-tertiary);border-radius:8px;padding:5px 10px;border:1px solid var(--border);">
-                        <div style="font-size:9px;color:var(--text-tertiary);text-transform:uppercase;font-weight:600;">Niên đại</div>
-                        <div class="vh-serif" style="font-size:13px;font-weight:600;color:var(--text-primary);margin-top:1px;">{{ curArt.era }}</div>
+                  <!-- CASE 2: PANEL CHẾ ĐỘ AR GUESTBOOK (Chỉ hiện khi isARGbMode = true) -->
+                  <sc-if value="{{ isARGbMode }}" hint-placeholder-val="{{ false }}">
+                    <div
+                        style="position:absolute;left:0;right:0;bottom:0;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.4);padding:16px 20px 14px;height:380px;z-index:20;display:flex;flex-direction:column;gap:10px;box-sizing:border-box;animation:vhFadeIn .25s ease-out;">
+                      <!-- Header -->
+                      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;flex:none;">
+                        <div class="vh-serif" style="font-size:16px;font-weight:600;color:var(--text-primary);">Lời nhắn di sản</div>
+                        <div style="font-size:12px;color:var(--text-tertiary);">{{ gbCount }} lời nhắn</div>
                       </div>
-                      <div style="flex:1;background:var(--bg-tertiary);border-radius:8px;padding:5px 10px;border:1px solid var(--border);">
-                        <div style="font-size:9px;color:var(--text-tertiary);text-transform:uppercase;font-weight:600;">Chất liệu</div>
-                        <div class="vh-serif" style="font-size:13px;font-weight:600;color:var(--text-primary);margin-top:1px;">{{ curArt.material }}</div>
+
+                      <!-- List Lời nhắn (cuộn được) -->
+                      <div class="vh-scroll" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:8px;padding-right:2px;">
+                        <sc-for list="{{ arGbList }}" as="item" hint-placeholder-count="3">
+                          <div style="display:flex;gap:10px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;padding:10px;box-sizing:border-box;">
+                            <!-- Avatar -->
+                            <div style="width:28px;height:28px;border-radius:99px;background:var(--cta);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none;">{{ item.initial }}</div>
+                            <!-- Body -->
+                            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;">
+                              <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+                                <span style="font-size:12px;font-weight:600;color:var(--text-primary);">{{ item.author }}</span>
+                                <span style="font-size:10px;color:var(--text-tertiary);">{{ item.time }}</span>
+                              </div>
+                              <div style="font-size:12px;color:var(--text-secondary);line-height:1.4;word-break:break-word;">{{ item.text }}</div>
+                              <!-- Thả tim -->
+                              <button data-ripple="1" onClick="{{ item.toggleLike }}"
+                                      style="position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:3px;align-self:flex-start;font-size:11px;color:{{ item.heartColor }};background:transparent;border:none;cursor:pointer;padding:2px 0;margin-top:2px;">
+                                <i class="ti {{ item.heartIcon }}" style="font-size:13px;"></i>{{ item.likeCount }}
+                              </button>
+                            </div>
+                          </div>
+                        </sc-for>
+                      </div>
+
+                      <!-- Footer: Soạn thảo / Câu mẫu custom (cố định dưới cùng) -->
+                      <div style="flex:none;background:var(--bg-card);border-top:1px solid var(--border);padding-top:8px;">
+                        <!-- PREMIUM: Ô soạn thảo tự do -->
+                        <sc-if value="{{ arGbIsPremium }}" hint-placeholder-val="{{ false }}">
+                          <div style="display:flex;gap:8px;align-items:center;">
+                            <div style="flex:1;position:relative;">
+                              <input value="{{ arGbText }}" onInput="{{ onARGbText }}" maxlength="200"
+                                     placeholder="Để lại dấu ấn AR của bạn..."
+                                     style="width:100%;min-width:0;background:var(--bg-tertiary);border:1px solid var(--border);border-radius:99px;padding:9px 44px 9px 14px;font-size:12.5px;color:var(--text-primary);outline:none;box-sizing:border-box;">
+                              <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:9px;color:var(--text-tertiary);">{{ arGbCharCount }}/200</span>
+                            </div>
+                            <button data-ripple="1" onClick="{{ postARMessage }}"
+                                    style="position:relative;overflow:hidden;width:38px;height:38px;border:none;border-radius:99px;cursor:{{ arGbPostCursor }};pointer-events:{{ arGbPostPointerEvents }};background:{{ arGbPostBg }};color:{{ arGbPostFg }};display:flex;align-items:center;justify-content:center;flex:none;">
+                              <i class="ti ti-send" style="font-size:16px;"></i></button>
+                          </div>
+                        </sc-if>
+                        
+                        <!-- FREE: Danh sách câu mẫu custom -->
+                        <sc-if value="{{ arGbIsPremium }}" hint-placeholder-val="{{ true }}">
+                          <div style="display:flex;flex-direction:column;gap:6px;width:100%;">
+                            <div style="font-size:11px;color:var(--text-tertiary);font-weight:500;">Chọn nhanh câu mẫu gửi làm dấu ấn AR:</div>
+                            <div class="vh-scroll" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;width:100%;">
+                              <button data-ripple="1" onClick="{{ postCustomMsg1 }}"
+                                      style="border:1px solid var(--border);background:var(--bg-secondary);border-radius:99px;padding:6px 12px;font-size:11px;font-weight:500;color:var(--text-primary);cursor:pointer;white-space:nowrap;transition:all 0.2s;">
+                                Tuyệt vời quá! 🇻🇳
+                              </button>
+                              <button data-ripple="1" onClick="{{ postCustomMsg2 }}"
+                                      style="border:1px solid var(--border);background:var(--bg-secondary);border-radius:99px;padding:6px 12px;font-size:11px;font-weight:500;color:var(--text-primary);cursor:pointer;white-space:nowrap;transition:all 0.2s;">
+                                Rất tự hào lịch sử!
+                              </button>
+                              <button data-ripple="1" onClick="{{ postCustomMsg3 }}"
+                                      style="border:1px solid var(--border);background:var(--bg-secondary);border-radius:99px;padding:6px 12px;font-size:11px;font-weight:500;color:var(--text-primary);cursor:pointer;white-space:nowrap;transition:all 0.2s;">
+                                Mô hình 3D AR trực quan
+                              </button>
+                              <button data-ripple="1" onClick="{{ postCustomMsg4 }}"
+                                      style="border:1px solid var(--border);background:var(--bg-secondary);border-radius:99px;padding:6px 12px;font-size:11px;font-weight:500;color:var(--text-primary);cursor:pointer;white-space:nowrap;transition:all 0.2s;">
+                                Trải nghiệm thú vị 👍
+                              </button>
+                            </div>
+                            <!-- Nhãn premium mở Gate -->
+                            <div onClick="{{ gbUnlock }}" style="font-size:10.5px;color:var(--cta);font-weight:600;display:flex;align-items:center;gap:3px;cursor:pointer;margin-top:2px;">
+                              <i class="ti ti-crown" style="font-size:13px;vertical-align:-1px;"></i>Nâng cấp Premium để viết lời nhắn tự do
+                            </div>
+                          </div>
+                        </sc-if>
                       </div>
                     </div>
-
-                    <!-- Chi tiết di sản (chỉ hiện khi kéo panel lên) -->
-                    <sc-if value="{{ showDetailBtn }}" hint-placeholder-val="{{ false }}">
-                      <div style="flex:none;animation:vhFadeIn .2s ease-out;">
-                        <div style="font-size:10px;color:var(--text-tertiary);font-weight:600;text-transform:uppercase;margin-bottom:4px;">Chi tiết di sản</div>
-                        <div style="font-size:13px;line-height:1.6;color:var(--text-secondary);">{{ curArtDesc }}</div>
-                      </div>
-                    </sc-if>
-                  </div>
-
-                  <!-- CTA — luôn hiển thị dưới cùng panel -->
-                  <button data-ripple="1" onClick="{{ toDetail }}" style="position:relative;overflow:hidden;flex:none;width:100%;border:none;background:var(--cta);color:#fff;font-size:14px;font-weight:600;padding:12px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 12px rgba(237,137,39,.3);">
-                    Xem chi tiết hiện vật<i class="ti ti-arrow-right" style="font-size:17px;"></i>
-                  </button>
-                </div>
+                  </sc-if>
 
               </div>
             </sc-if>

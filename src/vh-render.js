@@ -768,6 +768,17 @@ window.VH_RENDER = {
     const selectedBubble = isARGbMode ? (arBubbles.find(b => b.id === st._arGbBubble) || null) : null;
     const hasSelectedBubble = !!selectedBubble;
 
+    const arGbList = this.guestbook.map(g => {
+      return {
+        ...g,
+        initial: (g.author || 'B')[0],
+        heartIcon: (st.liked && st.liked[g.id]) ? 'ti-heart-filled' : 'ti-heart',
+        heartColor: (st.liked && st.liked[g.id]) ? 'var(--error)' : 'var(--text-tertiary)',
+        likeCount: (g.likes || 0) + ((st.liked && st.liked[g.id]) ? 1 : 0),
+        toggleLike: () => this.toggleGbLike(g.id),
+      };
+    });
+
     return {
       isScan: st.screen === 'scan',
       isQR: st.screen === 'qrscanner',
@@ -799,13 +810,18 @@ window.VH_RENDER = {
           this.nav('artifact', 'back');
         }
       })),
-      // Switch Mode toggle
-      switchARMode: () => this.switchARMode(),
+      // Segmented AR Mode Toggle
+      setARModeCamera: () => this.setARModeCamera(),
+      setARModeGuestbook: () => this.setARModeGuestbook(),
       isARGbMode,
-      // Label + icon của nút Switch Mode (thể hiện chế độ SẮP chuyển sang)
-      switchModeLabel: isARGbMode ? '📷 Camera' : '💬 Guestbook',
-      switchModeBorder: isARGbMode ? '1px solid rgba(237,137,39,.6)' : '1px solid rgba(255,255,255,.3)',
-      switchModeBg: isARGbMode ? 'rgba(237,137,39,.2)' : 'rgba(255,255,255,.14)',
+      isARScanMode: !isARGbMode,
+      arTabActiveBg: st.theme === 'dark' ? '#1A2540' : '#304574',
+      arSlidingTransform: !isARGbMode ? 'translateX(0)' : 'translateX(100%)',
+      arCamTabFg: !isARGbMode ? '#fff' : 'rgba(255,255,255,0.6)',
+      arCamTabFw: !isARGbMode ? '600' : '500',
+      arGbTabFg: isARGbMode ? '#fff' : 'rgba(255,255,255,0.6)',
+      arGbTabFw: isARGbMode ? '600' : '500',
+      switchARMode: () => this.switchARMode(),
       // Overlay bubble guestbook
       arBubbles,
       hasARBubbles: isARGbMode && arBubbles.length > 0,
@@ -831,12 +847,20 @@ window.VH_RENDER = {
       arGbPostFg: (st._arGbText || '').trim() ? '#fff' : 'var(--disabled-fg)',
       arGbPostCursor: (st._arGbText || '').trim() ? 'pointer' : 'not-allowed',
       arGbPostPointerEvents: (st._arGbText || '').trim() ? 'auto' : 'none',
+      arGbList,
+      gbCount: this.guestbook.length,
+      postCustomMsg1: () => this.postCustomMessage("Tuyệt vời quá! 🇻🇳"),
+      postCustomMsg2: () => this.postCustomMessage("Rất tự hào về lịch sử Việt Nam!"),
+      postCustomMsg3: () => this.postCustomMessage("Mô hình 3D AR rất trực quan"),
+      postCustomMsg4: () => this.postCustomMessage("Trải nghiệm học tập thú vị 👍"),
+      gbUnlock: () => this.premiumGate(),
     };
   },
 
 
   mainVals() {
     const st = this.state;
+    const isARGbMode = (st._arMode || 'camera') === 'guestbook';
     const mainTabs = ['home', 'explore', 'library', 'profile'];
     const artifactsView = this.artifacts.map(a => ({
       ...a,
@@ -1765,6 +1789,7 @@ window.VH_RENDER = {
 
   placeVals() {
     const st = this.state;
+    const isARGbMode = (st._arMode || 'camera') === 'guestbook';
     const cur = this.artifacts.find(a => a.id === st.curArtId) || this.artifacts[0];
     const ven = this.findVenue(st.curVenueId) || this.venues[0];
     const venArtifacts = this.venueArtifacts(ven.id);
@@ -2200,7 +2225,7 @@ window.VH_RENDER = {
         return activeH ? activeH.desc : cur.desc;
       })(),
       activeHotspot: st.activeHotspot,
-      curHotspots: (cur.hotspots || [
+      curHotspots: isARGbMode ? [] : (cur.hotspots || [
         { id: 1, title: 'Đỉnh hiện vật', summary: 'Phần phía trên của hiện vật chứa nhiều chi tiết trang trí tinh xảo.', desc: 'Đặc trưng hoa văn trang trí ở phần trên thể hiện tính thẩm mỹ cao và tài năng của các nghệ nhân chế tác cổ đại.' },
         { id: 2, title: 'Thân hiện vật', summary: 'Phần thân chính nâng đỡ cấu trúc hiện vật với chất liệu bền bỉ.', desc: 'Cấu trúc thân chính làm bằng chất liệu đặc trưng giúp hiện vật trường tồn qua hàng ngàn năm lịch sử.' },
         { id: 3, title: 'Chân đế hiện vật', summary: 'Đế vững chãi nâng đỡ toàn bộ hiện vật.', desc: 'Chân đế được gia cố vững chắc, có kết cấu đặc trưng để giữ thăng bằng cho hiện vật trong suốt thời kỳ trưng bày.' }
