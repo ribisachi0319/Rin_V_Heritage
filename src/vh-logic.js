@@ -1640,16 +1640,79 @@ window.VH_LOGIC = {
   },
   // ---- time travel ----
   pickTimeStage(idx) {
-    if (idx === 2 && !(this.state.tiers && this.state.tiers.premium)) {
-      this.premiumGate();
-      return;
-    }
-    this.setState({timeIdx: idx});
+    this.setState({
+      timeIdx: idx,
+      _timeTravelPct: idx === 0 ? 0 : (idx === 1 ? 50 : 100)
+    });
   },
   changeTimeStage(dir) {
     const next = Math.min(2, Math.max(0, this.state.timeIdx + dir));
     if (next === this.state.timeIdx) return;
     this.pickTimeStage(next);
+  },
+  timeSliderStart(e) {
+    if (e.button !== undefined && e.button !== 0) return;
+    this._draggingTimeSlider = true;
+    
+    const track = document.getElementById('time-travel-track');
+    if (!track) return;
+    
+    const rect = track.getBoundingClientRect();
+    const width = rect.width;
+    const startX = rect.left;
+    
+    const update = (clientX) => {
+      let pct = ((clientX - startX) / width) * 100;
+      pct = Math.max(0, Math.min(100, pct));
+      
+      let nextIdx = 1;
+      if (pct < 25) nextIdx = 0;
+      else if (pct >= 75) nextIdx = 2;
+      
+      const nextState = {_timeTravelPct: pct};
+      if (nextIdx !== this.state.timeIdx) {
+        nextState.timeIdx = nextIdx;
+      }
+      this.setState(nextState);
+    };
+    
+    const initialX = e.touches ? e.touches[0].clientX : e.clientX;
+    update(initialX);
+    
+    const move = (ev) => {
+      const x = ev.touches ? ev.touches[0].clientX : ev.clientX;
+      update(x);
+    };
+    
+    const up = () => {
+      this._draggingTimeSlider = false;
+      document.removeEventListener('mousemove', move);
+      document.removeEventListener('mouseup', up);
+      document.removeEventListener('touchmove', move);
+      document.removeEventListener('touchend', up);
+      
+      // Snap về mốc gần nhất
+      const pct = this.state._timeTravelPct !== undefined ? this.state._timeTravelPct : 50;
+      let snappedIdx = 1;
+      let snappedPct = 50;
+      if (pct < 25) {
+        snappedIdx = 0;
+        snappedPct = 0;
+      } else if (pct >= 75) {
+        snappedIdx = 2;
+        snappedPct = 100;
+      }
+      
+      this.setState({
+        timeIdx: snappedIdx,
+        _timeTravelPct: snappedPct
+      });
+    };
+    
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', up);
+    document.addEventListener('touchmove', move, {passive: true});
+    document.addEventListener('touchend', up);
   },
   timeSwipeStart(e) {
     const startX = e.touches ? e.touches[0].clientX : e.clientX;

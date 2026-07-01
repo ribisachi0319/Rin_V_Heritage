@@ -2343,31 +2343,31 @@ window.VH_RENDER = {
         'Mô hình phục dựng 3D đầy đủ — chi tiết, màu sắc và hoa văn nguyên gốc.'
       ][st.timeIdx],
       timeSwipe: (e) => this.timeSwipeStart(e),
-      timeImg: this.vimg(cur.seed, 600, 760),
-      timeFilter: [
-        'sepia(.55) contrast(1.05) brightness(.92) saturate(.85)',
-        'none',
-        'saturate(1.25) contrast(1.12) hue-rotate(-6deg)'
-      ][st.timeIdx],
+      timeImg0: this.vimg(cur.seed, 600, 760),
+      timeImg1: this.vimg(cur.seed, 600, 760),
+      timeImg2: this.vimg(cur.seed, 600, 760),
+      timeImg0Opacity: st.timeIdx === 0 ? 1 : 0,
+      timeImg1Opacity: st.timeIdx === 1 ? 1 : 0,
+      timeImg2Opacity: st.timeIdx === 2 ? 1 : 0,
       time3DDisp: st.timeIdx === 2 ? 'block' : 'none',
       timeBadge: ['Tư liệu phục chế', 'Hiện trạng trưng bày', 'Mô hình phục dựng 3D'][st.timeIdx],
       timeBadgeIcon: ['ti-photo-scan', 'ti-building-museum', 'ti-cube-3d-sphere'][st.timeIdx],
-      timeActiveLineWidth: (st.timeIdx * 50) + '%',
+      
+      timeSliderPct: st._timeTravelPct !== undefined ? st._timeTravelPct : (st.timeIdx * 50),
+      timeThumbTransition: this._draggingTimeSlider ? 'none' : 'left 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+      timeTrackTransition: this._draggingTimeSlider ? 'none' : 'width 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+      onTimeSliderStart: (e) => this.timeSliderStart(e),
+      
       timeStages: [
-        {idx: 0, label: 'Nguyên bản', locked: false},
-        {idx: 1, label: 'Hiện tại', locked: false},
-        {idx: 2, label: 'Phục dựng', locked: !isPremium},
+        {idx: 0, label: 'Nguyên bản', position: '0%'},
+        {idx: 1, label: 'Hiện tại', position: '50%'},
+        {idx: 2, label: 'Phục dựng', position: '100%'},
       ].map(s => {
         const active = st.timeIdx === s.idx;
         return {
           ...s,
           active,
-          dotSize: active ? 18 : 12,
-          dotBg: active ? 'var(--cta)' : (s.locked ? '#2a221a' : '#fff'),
-          dotBorder: active ? '4px solid rgba(237,137,39,0.35)' : '3px solid rgba(255,255,255,0.3)',
-          dotShadow: active ? '0 0 10px var(--cta)' : 'none',
-          lockIconDisp: !active && s.locked ? 'block' : 'none',
-          labelColor: active ? '#fff' : 'rgba(255,255,255,.5)',
+          labelColor: active ? '#fff' : 'rgba(255,255,255,.45)',
           pick: () => this.pickTimeStage(s.idx),
         };
       }),
