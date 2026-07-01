@@ -824,6 +824,12 @@ window.VH_RENDER = {
       arGbText: st._arGbText || '',
       arGbCharCount: (st._arGbText || '').length,
       onARGbText: (e) => this.setState({_arGbText: e.target.value.slice(0, 200)}),
+      arGbCharCountColor: (() => {
+        const count = (st._arGbText || '').length;
+        if (count >= 200) return 'var(--error)';
+        if (count >= 180) return 'var(--cta)';
+        return 'var(--text-secondary)';
+      })(),
       onARGbFocus: () => this.setState({_arGbTextareaFocused: true}),
       onARGbBlur: () => this.setState({_arGbTextareaFocused: false}),
       arGbTextareaBorder: st._arGbTextareaFocused ? 'var(--primary)' : 'var(--border)',
