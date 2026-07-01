@@ -1477,8 +1477,8 @@ window.VH_LOGIC = {
       this.setState({activeHotspot: null});
     } else {
       const nextState = {activeHotspot: id};
-      if ((this.state.threeDPanelY !== undefined ? this.state.threeDPanelY : 130) > 150) {
-        nextState.threeDPanelY = 120; // Trượt nhẹ panel lên để hiển thị thông tin hotspot
+      if ((this.state.threeDPanelY !== undefined ? this.state.threeDPanelY : 80) > 150) {
+        nextState.threeDPanelY = 80; // Trượt nhẹ panel lên để hiển thị thông tin hotspot
       }
       this.setState(nextState);
     }
@@ -1576,9 +1576,12 @@ window.VH_LOGIC = {
     if (e.button !== undefined && e.button !== 0) return;
     this._draggingPanel = true;
     this._panelDragged = false;
+    const bottomSnap = 270;
+    const middleSnap = 80;
+    const topSnap = 0;
     const el = document.querySelector('[key^="hotspot-content-"]')?.parentElement; // Tìm element panel
     const sy = e.touches ? e.touches[0].clientY : e.clientY;
-    const startPanelY = this.state.threeDPanelY !== undefined ? this.state.threeDPanelY : 130;
+    const startPanelY = this.state.threeDPanelY !== undefined ? this.state.threeDPanelY : middleSnap;
     let liveY = startPanelY;
     
     // Tắt transition để panel bám tay ngay lập tức
@@ -1593,14 +1596,14 @@ window.VH_LOGIC = {
       
       // Khi kéo quá mốc trên cùng, giữ đáy panel dính sát đáy màn hình
       // và chỉ nới chiều cao ở phía trên để không lộ nền đen phía sau.
-      if (rawY < 0) {
-        liveY = 0;
+      if (rawY < topSnap) {
+        liveY = topSnap;
         this.setState({
-          threeDPanelY: 0,
-          threeDPanelStretch: Math.round(Math.abs(rawY) * 0.35)
+          threeDPanelY: topSnap,
+          threeDPanelStretch: Math.round(Math.abs(rawY - topSnap) * 0.35)
         });
-      } else if (rawY > 240) {
-        liveY = 240 + (rawY - 240) * 0.35; // Lực cản lò xo khi kéo quá mốc thấp nhất
+      } else if (rawY > bottomSnap) {
+        liveY = bottomSnap + (rawY - bottomSnap) * 0.35; // Lực cản lò xo khi kéo quá mốc thấp nhất
         this.setState({threeDPanelY: liveY, threeDPanelStretch: 0});
       } else {
         liveY = rawY;
@@ -1633,23 +1636,23 @@ window.VH_LOGIC = {
         const dy = liveY - startPanelY;
         if (Math.abs(dy) >= 20) {
           if (dy > 0) { // Kéo xuống
-            if (startPanelY === 0) snappedY = 130;
-            else snappedY = 240;
+            if (startPanelY === topSnap) snappedY = middleSnap;
+            else snappedY = bottomSnap;
           } else { // Kéo lên
-            if (startPanelY === 240) snappedY = 130;
-            else snappedY = 0;
+            if (startPanelY === bottomSnap) snappedY = middleSnap;
+            else snappedY = topSnap;
           }
         } else {
-          // snap về mốc gần nhất trong 3 mốc cũ (0, 130, 240)
-          if (liveY < 65) snappedY = 0;
-          else if (liveY < 185) snappedY = 130;
-          else snappedY = 240;
+          // snap về mốc gần nhất trong 3 mốc hiện tại
+          if (liveY < (topSnap + middleSnap) / 2) snappedY = topSnap;
+          else if (liveY < (middleSnap + bottomSnap) / 2) snappedY = middleSnap;
+          else snappedY = bottomSnap;
         }
       } else {
-        // Click nhẹ -> Toggle xoay vòng các mốc cũ
-        if (startPanelY === 130) snappedY = 0;
-        else if (startPanelY === 0) snappedY = 240;
-        else snappedY = 130;
+        // Click nhẹ -> Toggle xoay vòng các mốc hiện tại
+        if (startPanelY === middleSnap) snappedY = topSnap;
+        else if (startPanelY === topSnap) snappedY = bottomSnap;
+        else snappedY = middleSnap;
       }
       
       this.setState({threeDPanelY: snappedY, threeDPanelStretch: 0});

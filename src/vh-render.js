@@ -2183,10 +2183,14 @@ window.VH_RENDER = {
       drag3DStart: (e) => this.drag3DStart(e),
       clearHotspot: () => this.setState({activeHotspot: null}),
       hasActiveHotspot: st.activeHotspot !== null && st.activeHotspot !== undefined,
-      threeDPanelY: st.threeDPanelY !== undefined ? st.threeDPanelY : 130,
-      threeDPanelH: ((((st.threeDPanelY !== undefined ? st.threeDPanelY : 130) === 0) ? 422 : 440) + (st.threeDPanelStretch || 0)) + 'px',
+      threeDPanelY: st.threeDPanelY !== undefined ? st.threeDPanelY : 80,
+      threeDPanelH: ((((st.threeDPanelY !== undefined ? st.threeDPanelY : 80) === 0) ? 448 : 440) + (st.threeDPanelStretch || 0)) + 'px',
       panelTransition: this._draggingPanel ? 'none' : 'transform 0.3s ease',
       dragPanelStart: (e) => this.dragPanelStart(e),
+      curArtMetaItems: [
+        {label: 'Niên đại', value: cur.era},
+        {label: 'Chất liệu', value: cur.material},
+      ],
       
       // Dynamic Hotspot and details
       curArtName: (() => {
@@ -2242,7 +2246,7 @@ window.VH_RENDER = {
         activeColor: st.activeHotspot === h.id ? 'var(--cta)' : 'var(--info)',
         tap: (e) => { e.stopPropagation(); this.selectHotspot(h.id); }
       })),
-      showDetailBtn: (st.threeDPanelY !== undefined ? st.threeDPanelY : 130) <= 170,
+      showDetailBtn: (st.threeDPanelY !== undefined ? st.threeDPanelY : 80) <= 170,
 
       // Report screen flow
       openReportArtifact: () => this.openReportArtifact(),

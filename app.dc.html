@@ -2012,26 +2012,24 @@
                       </sc-if>
 
                       <!-- Panel content area with transitions on hotspot changes -->
-                      <div key="hotspot-content-{{ activeHotspot }}" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-right:2px;animation:vhFadeIn .25s ease-out;">
+                      <div key="hotspot-content-{{ activeHotspot }}" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:16px;padding-right:2px;animation:vhFadeIn .25s ease-out;">
 
-                        <div class="vh-serif" style="font-size:19px;font-weight:600;color:var(--text-primary);line-height:1.25;">{{ curArtName }}</div>
+                        <div class="vh-serif" style="font-size:21px;font-weight:600;color:var(--text-primary);line-height:1.28;text-align:left;">{{ curArtName }}</div>
 
-                        <div style="display:flex;gap:8px;flex:none;width:100%;">
-                          <div style="flex:1;background:var(--bg-tertiary);border-radius:8px;padding:5px 10px;border:1px solid var(--border);">
-                            <div style="font-size:9px;color:var(--text-tertiary);text-transform:uppercase;font-weight:600;">Niên đại</div>
-                            <div class="vh-serif" style="font-size:13px;font-weight:600;color:var(--text-primary);margin-top:1px;">{{ curArt.era }}</div>
-                          </div>
-                          <div style="flex:1;background:var(--bg-tertiary);border-radius:8px;padding:5px 10px;border:1px solid var(--border);">
-                            <div style="font-size:9px;color:var(--text-tertiary);text-transform:uppercase;font-weight:600;">Chất liệu</div>
-                            <div class="vh-serif" style="font-size:13px;font-weight:600;color:var(--text-primary);margin-top:1px;">{{ curArt.material }}</div>
-                          </div>
+                        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;flex:none;width:100%;">
+                          <sc-for list="{{ curArtMetaItems }}" as="meta" hint-placeholder-count="2">
+                            <div style="min-width:0;background:var(--bg-tertiary);border-radius:8px;padding:7px 8px;border:1px solid var(--border);text-align:left;">
+                              <div style="font-size:10px;color:var(--text-tertiary);font-weight:600;line-height:1.2;">{{ meta.label }}</div>
+                              <div class="vh-serif" style="font-size:13px;font-weight:600;color:var(--text-primary);margin-top:4px;line-height:1.3;word-break:break-word;">{{ meta.value }}</div>
+                            </div>
+                          </sc-for>
                         </div>
 
                         <!-- Chi tiết hiện vật (chỉ hiện khi kéo panel lên) -->
                         <sc-if value="{{ showDetailBtn }}" hint-placeholder-val="{{ false }}">
                           <div style="flex:none;animation:vhFadeIn .2s ease-out;">
-                            <div class="vh-serif" style="font-size:13px;color:var(--text-primary);font-weight:700;margin-bottom:6px;">Chi tiết hiện vật</div>
-                            <div style="font-size:13px;line-height:1.6;color:var(--text-secondary);">{{ curArtDesc }}</div>
+                            <div class="vh-serif" style="font-size:15px;color:var(--text-primary);font-weight:700;margin-bottom:10px;text-align:left;">Chi tiết hiện vật</div>
+                            <div style="font-size:14px;line-height:1.7;color:var(--text-secondary);text-align:left;">{{ curArtDesc }}</div>
                           </div>
                         </sc-if>
                       </div>
@@ -5437,7 +5435,7 @@ class Component extends DCLogic {
     scanState: 'idle', scanFailReason: null, qrState: 'idle', isPlaying: false, audioProgress: 0, audioHD: false, audioSpeed: 1, audioVoice: 'Tiêu chuẩn',
     libTab: 'art', searchQuery: '', searchFilter: 'all', _exploreH: 18, _camAskChecked: false, _camSnoozeDay: '',
     wheelchair: false, voiceDesc: false, _venueDownloadLoading: false, _venueDownloadProgress: 0, _venueDownloadError: null,
-    threeDRot: 0, threeDZoom: 1, threeDPlaying: true, timeIdx: 1, threeDPanelY: 130, _draggingPanel: false,
+    threeDRot: 0, threeDZoom: 1, threeDPlaying: true, timeIdx: 1, threeDPanelY: 80, _draggingPanel: false,
     _arMode: 'camera', _arGbBubble: null, _arGbText: '',
     paymentMethod: null, paymentTier: 'premium', notifList: null, twoFA: false, failedPayment: 0,
     _cpOld: '', _cpNew: '', _cpConfirm: '', _ceNew: '', _daConfirm: false, _daPass: '', _revoked: [],
