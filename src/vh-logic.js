@@ -320,6 +320,11 @@ window.VH_LOGIC = {
   replace(s) {
     this.setState({screen: s, sheet: null, modal: null, navDir: 'fwd'});
     this.clearAuthToast(s);
+    if (s === 'scan') this.beginScan();
+    if (s === 'threed') {
+      this.setState({threeDPlaying: true});
+      this.start3D();
+    } else this.stop3D();
   },
   // xoá toast đang hiện khi vào màn đăng nhập / đăng ký
   clearAuthToast(s) {
