@@ -826,14 +826,15 @@ window.VH_RENDER = {
       onARGbText: (e) => this.setState({_arGbText: e.target.value.slice(0, 200)}),
       onARGbFocus: () => this.setState({_arGbTextareaFocused: true}),
       onARGbBlur: () => this.setState({_arGbTextareaFocused: false}),
-      arGbTextareaBorder: st._arGbTextareaFocused ? 'var(--cta)' : 'var(--border)',
-      arGbTextareaShadow: st._arGbTextareaFocused ? '0 0 0 3px rgba(237, 137, 39, 0.12)' : 'none',
+      arGbTextareaBorder: st._arGbTextareaFocused ? 'var(--primary)' : 'var(--border)',
+      arGbTextareaShadow: st._arGbTextareaFocused ? '0 0 0 3px rgba(18, 53, 91, 0.12)' : 'none',
       arGbIsPremium: !!(st.tiers && st.tiers.premium),
       arGbNotPremium: !(st.tiers && st.tiers.premium),
       arGbList,
       gbCount: this.guestbook.length,
       gbUnlock: () => this.premiumGate(),
       handleSendGbAR: () => this.handleSendGbAR(),
+      arGbRemainingCount: Math.max(0, 3 - (st.guestbookPosted || 0)),
       arGbDropdownOpen: !!st._arGbDropdownOpen,
       toggleArGbDropdown: () => this.setState({_arGbDropdownOpen: !st._arGbDropdownOpen}),
       arGbSelectedTemplateText: st._arGbSelectedTemplateText || '',
@@ -878,6 +879,11 @@ window.VH_RENDER = {
         const isPremium = !!(st.tiers && st.tiers.premium);
         const disabled = isPremium ? !(st._arGbText && st._arGbText.trim().length > 0) : !st._arGbSelectedTemplateText;
         return disabled ? 'not-allowed' : 'pointer';
+      })(),
+      arGbSendBtnScale: (() => {
+        const isPremium = !!(st.tiers && st.tiers.premium);
+        const disabled = isPremium ? !(st._arGbText && st._arGbText.trim().length > 0) : !st._arGbSelectedTemplateText;
+        return disabled ? 'scale(0.97)' : 'scale(1)';
       })(),
     };
   },
