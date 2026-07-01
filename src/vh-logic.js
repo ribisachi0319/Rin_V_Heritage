@@ -1573,24 +1573,82 @@ window.VH_LOGIC = {
     document.addEventListener('touchend', up);
   },
   dragPanelStart(e) {
+    if (e.button !== undefined && e.button !== 0) return;
     this._draggingPanel = true;
-    const startY = e.touches ? e.touches[0].clientY : e.clientY;
+    this._panelDragged = false;
+    const el = document.querySelector('[key^="hotspot-content-"]')?.parentElement; // Tìm element panel
+    const sy = e.touches ? e.touches[0].clientY : e.clientY;
     const startPanelY = this.state.threeDPanelY !== undefined ? this.state.threeDPanelY : 130;
+    let liveY = startPanelY;
+    
+    // Tắt transition để panel bám tay ngay lập tức
+    const panelEl = el || document.querySelector('[style*="translateY"]');
+    if (panelEl) panelEl.style.transition = 'none';
+
     const move = (ev) => {
       const y = ev.touches ? ev.touches[0].clientY : ev.clientY;
-      const deltaY = y - startY;
-      let newY = startPanelY + deltaY;
-      if (newY < 0) newY = 0;
-      if (newY > 240) newY = 240;
-      this.setState({threeDPanelY: newY});
+      const dy = y - sy;
+      if (Math.abs(dy) > 4) this._panelDragged = true;
+      let rawY = startPanelY + dy;
+      
+      // Áp dụng rubber banding khi kéo quá biên cũ (0 đến 240)
+      if (rawY < 0) {
+        liveY = rawY * 0.35; // Lực cản lò xo khi kéo quá mốc cao nhất
+      } else if (rawY > 240) {
+        liveY = 240 + (rawY - 240) * 0.35; // Lực cản lò xo khi kéo quá mốc thấp nhất
+      } else {
+        liveY = rawY;
+      }
+      this.setState({threeDPanelY: liveY});
     };
+
     const up = () => {
       this._draggingPanel = false;
       document.removeEventListener('mousemove', move);
       document.removeEventListener('mouseup', up);
       document.removeEventListener('touchmove', move);
       document.removeEventListener('touchend', up);
+      
+      // Bật lại transition mượt mà
+      if (panelEl) panelEl.style.transition = 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)';
+      
+      let snappedY = startPanelY;
+      
+      if (this._panelDragged) {
+        // Chặn click event giả lập sau khi drag
+        const blockClick = (clickEv) => {
+          clickEv.stopPropagation();
+          clickEv.preventDefault();
+          document.removeEventListener('click', blockClick, true);
+        };
+        document.addEventListener('click', blockClick, true);
+        this._panelDragged = false;
+
+        const dy = liveY - startPanelY;
+        if (Math.abs(dy) >= 20) {
+          if (dy > 0) { // Kéo xuống
+            if (startPanelY === 0) snappedY = 130;
+            else snappedY = 240;
+          } else { // Kéo lên
+            if (startPanelY === 240) snappedY = 130;
+            else snappedY = 0;
+          }
+        } else {
+          // snap về mốc gần nhất trong 3 mốc cũ (0, 130, 240)
+          if (liveY < 65) snappedY = 0;
+          else if (liveY < 185) snappedY = 130;
+          else snappedY = 240;
+        }
+      } else {
+        // Click nhẹ -> Toggle xoay vòng các mốc cũ
+        if (startPanelY === 130) snappedY = 0;
+        else if (startPanelY === 0) snappedY = 240;
+        else snappedY = 130;
+      }
+      
+      this.setState({threeDPanelY: snappedY});
     };
+
     document.addEventListener('mousemove', move);
     document.addEventListener('mouseup', up);
     document.addEventListener('touchmove', move, {passive: true});
