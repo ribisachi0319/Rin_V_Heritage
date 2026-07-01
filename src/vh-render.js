@@ -176,6 +176,7 @@ window.VH_RENDER = {
       }),
       gbCount: this.guestbook.length,
       gbIsPremium: !!(st.tiers && st.tiers.premium),
+      gbNotPremium: !(st.tiers && st.tiers.premium),
       gbPremiumDisp: (st.tiers && st.tiers.premium) ? 'inline-flex' : 'none',
       gbCustomLocked: !(st.tiers && st.tiers.premium),
       gbCustomOpen: !!(st.tiers && st.tiers.premium),

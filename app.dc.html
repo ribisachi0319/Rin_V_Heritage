@@ -5227,40 +5227,38 @@
               </sc-for>
             </div>
             <div style="flex:none;border-top:1px solid var(--border);padding:12px 20px 24px;">
-              <sc-if value="{{ gbCustomLocked }}" hint-placeholder-val="{{ true }}">
-                <button data-ripple="1" onClick="{{ gbUnlock }}"
-                        style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px dashed var(--cta);background:rgba(237,137,39,.08);border-radius:12px;padding:14px;cursor:pointer;">
-                  <i class="ti ti-lock" style="font-size:24px;color:var(--cta);flex:none;"></i>
-                  <div style="flex:1;">
-                    <div style="font-size:13px;font-weight:600;color:var(--cta);">Mở khoá viết lời nhắn</div>
-                    <div style="font-size:11px;color:var(--text-secondary);">Nâng cấp gói Nhà nghiên cứu để để lại dấu
-                      ấn của bạn
-                    </div>
-                  </div>
-                  <i class="ti ti-crown" style="font-size:18px;color:var(--cta);flex:none;"></i>
-                </button>
-              </sc-if>
-              <sc-if value="{{ gbCustomOpen }}" hint-placeholder-val="{{ false }}">
-                <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;" class="vh-scroll">
-                  <sc-for list="{{ gbTemplates }}" as="t" hint-placeholder-count="3">
-                    <button data-ripple="1" onClick="{{ t.use }}"
-                            class="vh-chip vh-chip--surface"
-                            style="position:relative;overflow:hidden;flex:none;cursor:pointer;white-space:nowrap;--vh-chip-pad:8px 13px;--vh-chip-border:var(--border-2);--vh-chip-bg:var(--bg-secondary);">
-                      {{ t.t }}
-                    </button>
-                  </sc-for>
-                </div>
+              <!-- PREMIUM: Ô soạn thảo tự do -->
+              <sc-if value="{{ gbIsPremium }}" hint-placeholder-val="{{ false }}">
                 <div style="display:flex;gap:10px;align-items:flex-start;">
                   <div style="flex:1;position:relative;">
                     <input value="{{ gbText }}" onInput="{{ onGbText }}" maxlength="200"
                            placeholder="Để lại dấu ấn của bạn..."
-                           style="width:100%;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:13px 58px 13px 14px;font-size:14px;color:var(--text-primary);outline:none;">
+                           style="width:100%;min-width:0;background:var(--bg-secondary);border:1px solid var(--border);border-radius:10px;padding:13px 58px 13px 14px;font-size:14px;color:var(--text-primary);outline:none;box-sizing:border-box;">
                     <span
                         style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:10px;color:var(--text-tertiary);font-variant-numeric:tabular-nums;">{{ gbCharCount }}/200</span>
                   </div>
                   <button data-ripple="1" onClick="{{ postGuestbook }}"
                           style="position:relative;overflow:hidden;width:48px;height:48px;border:none;background:var(--cta);color:#fff;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;">
                     <i class="ti ti-send" style="font-size:20px;"></i></button>
+                </div>
+              </sc-if>
+
+              <!-- FREE: Danh sách câu mẫu custom + Crown Link -->
+              <sc-if value="{{ gbNotPremium }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;flex-direction:column;gap:8px;width:100%;">
+                  <div style="font-size:11px;color:var(--text-tertiary);font-weight:500;">Chọn nhanh câu mẫu gửi làm dấu ấn:</div>
+                  <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;" class="vh-scroll">
+                    <sc-for list="{{ gbTemplates }}" as="t" hint-placeholder-count="3">
+                      <button data-ripple="1" onClick="{{ t.use }}"
+                              class="vh-chip vh-chip--surface"
+                              style="position:relative;overflow:hidden;flex:none;cursor:pointer;white-space:nowrap;--vh-chip-pad:8px 13px;--vh-chip-border:var(--border-2);--vh-chip-bg:var(--bg-secondary);">
+                        {{ t.t }}
+                      </button>
+                    </sc-for>
+                  </div>
+                  <div onClick="{{ gbUnlock }}" style="font-size:11px;color:var(--cta);font-weight:600;display:flex;align-items:center;gap:4px;cursor:pointer;margin-top:2px;">
+                    <i class="ti ti-crown" style="font-size:14px;vertical-align:-1px;"></i>Nâng cấp Premium để viết lời nhắn tự do
+                  </div>
                 </div>
               </sc-if>
             </div>
