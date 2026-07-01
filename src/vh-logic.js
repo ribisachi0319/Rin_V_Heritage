@@ -309,7 +309,12 @@ window.VH_LOGIC = {
     }
     const h = this.state.history.slice();
     if (this.state.screen && this.state.screen !== s) h.push(this.state.screen);
-    this.setState({screen: s, history: h, navDir: dir || 'fwd', sheet: null, modal: null});
+    const nextState = {screen: s, history: h, navDir: dir || 'fwd', sheet: null, modal: null};
+    if (s === 'explore') {
+      nextState.curVenueId = null;
+      nextState._exploreH = 18;
+    }
+    this.setState(nextState);
     this.clearAuthToast(s);
     if (s === 'scan') this.beginScan();
     if (s === 'threed') {
@@ -318,7 +323,12 @@ window.VH_LOGIC = {
     } else this.stop3D();
   },
   replace(s) {
-    this.setState({screen: s, sheet: null, modal: null, navDir: 'fwd'});
+    const nextState = {screen: s, sheet: null, modal: null, navDir: 'fwd'};
+    if (s === 'explore') {
+      nextState.curVenueId = null;
+      nextState._exploreH = 18;
+    }
+    this.setState(nextState);
     this.clearAuthToast(s);
     if (s === 'scan') this.beginScan();
     if (s === 'threed') {
@@ -368,7 +378,12 @@ window.VH_LOGIC = {
       this.stub(t);
       return;
     }
-    this.setState({screen: t, history: [], navDir: 'fwd', sheet: null, modal: null});
+    const nextState = {screen: t, history: [], navDir: 'fwd', sheet: null, modal: null};
+    if (t === 'explore') {
+      nextState.curVenueId = null;
+      nextState._exploreH = 18;
+    }
+    this.setState(nextState);
   },
   // ---- màn hỏi bật vị trí (trước khi vào Khám phá) ----
   toggleLocAsk() {
@@ -384,6 +399,7 @@ window.VH_LOGIC = {
       // bật vị trí → vào thẳng Explore (bản đồ), history rỗng nên không lui về màn hỏi được
       this.setState({
         permissions: Object.assign({}, this.state.permissions, {location: 1}),
+        curVenueId: null,
         _exploreH: 18, screen: 'explore', history: [], navDir: 'fwd', sheet: null, modal: null
       });
     }
@@ -398,6 +414,7 @@ window.VH_LOGIC = {
         // không nhắc lại trong hôm nay → hoãn cả ngày, vào Explore (Hà Nội), không lui về màn hỏi
         this.setState({
           _locSnoozeDay: new Date().toDateString(),
+          curVenueId: null,
           screen: 'explore', history: [], navDir: 'fwd', sheet: null, modal: null
         });
       } else {
