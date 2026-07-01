@@ -1274,7 +1274,12 @@ window.VH_LOGIC = {
       audioProgress: 0,
       _fromScan: false,
       _visitVenue: art ? art.venue : this.state._visitVenue,
-      _arMode: 'camera'
+      _arMode: 'camera',
+      _arGbBubble: null,
+      _arGbText: '',
+      _arGbSelectedTemplateText: '',
+      _arGbDropdownOpen: false,
+      threeDPanelY: 80
     });
     clearInterval(this._audioT);
     this.recordVisit(id);
@@ -1287,6 +1292,11 @@ window.VH_LOGIC = {
       curArtId: id, isPlaying: false, audioProgress: 0, _fromScan: true,
       _visitVenue: art ? art.venue : this.state._visitVenue,
       _arMode: 'camera',
+      _arGbBubble: null,
+      _arGbText: '',
+      _arGbSelectedTemplateText: '',
+      _arGbDropdownOpen: false,
+      threeDPanelY: 80,
       screen: 'threed', navDir: 'fwd', sheet: null, modal: null, threeDPlaying: true,
       history: this.state.history.filter(s => s !== 'scan' && s !== 'qrscanner')
     });
