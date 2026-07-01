@@ -1575,6 +1575,7 @@ window.VH_LOGIC = {
     if (panelEl) panelEl.style.transition = 'none';
 
     const move = (ev) => {
+      if (ev.cancelable) ev.preventDefault(); // Ngăn browser scroll đè lên kéo panel
       const y = ev.touches ? ev.touches[0].clientY : ev.clientY;
       const dy = y - sy;
       if (Math.abs(dy) > 4) this._panelDragged = true;
@@ -1635,7 +1636,7 @@ window.VH_LOGIC = {
 
     document.addEventListener('mousemove', move);
     document.addEventListener('mouseup', up);
-    document.addEventListener('touchmove', move, {passive: true});
+    document.addEventListener('touchmove', move);
     document.addEventListener('touchend', up);
   },
   // ---- time travel (2 mốc) ----
