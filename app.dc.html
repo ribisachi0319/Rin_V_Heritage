@@ -2294,28 +2294,28 @@
                   <div style="width:100%;box-sizing:border-box;margin-top:4px;">
                     <!-- Slider Track & Thumb Container -->
                     <div id="time-travel-track" onMouseDown="{{ onTimeSliderStart }}" onTouchStart="{{ onTimeSliderStart }}"
-                         style="position:relative;width:100%;height:24px;display:flex;align-items:center;cursor:pointer;user-select:none;touch-action:none;padding:0 20px;box-sizing:border-box;">
+                         style="position:relative;width:100%;height:24px;display:flex;align-items:center;cursor:pointer;user-select:none;touch-action:none;padding:0;box-sizing:border-box;">
                       <!-- Line nền (Track phụ) -->
                       <div style="width:100%;height:4px;border-radius:99px;background:rgba(255,255,255,0.15);"></div>
                       
                       <!-- Line màu Primary chạy theo phần trăm (Tránh chiều rộng âm) -->
-                      <div style="position:absolute;left:20px;height:4px;border-radius:99px;background:var(--primary);pointer-events:none;transition:{{ timeTrackTransition }};width:calc(({{ timeSliderPct }} / 100) * (100% - 40px));"></div>
+                      <div style="position:absolute;left:16.666%;height:4px;border-radius:99px;background:var(--primary);pointer-events:none;transition:{{ timeTrackTransition }};width:calc(66.666% * ({{ timeSliderPct }} / 100));"></div>
                       
-                      <!-- 3 Dot mốc định vị nhỏ (0%, 50%, 100%) -->
-                      <div style="position:absolute;left:20px;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.4);transform:translate(-50%, -50%);top:50%;pointer-events:none;"></div>
+                      <!-- 3 Dot mốc định vị nhỏ (16.67%, 50%, 83.33%) -->
+                      <div style="position:absolute;left:16.666%;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.4);transform:translate(-50%, -50%);top:50%;pointer-events:none;"></div>
                       <div style="position:absolute;left:50%;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.4);transform:translate(-50%, -50%);top:50%;pointer-events:none;"></div>
-                      <div style="position:absolute;right:20px;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.4);transform:translate(50%, -50%);top:50%;pointer-events:none;"></div>
+                      <div style="position:absolute;left:83.333%;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.4);transform:translate(-50%, -50%);top:50%;pointer-events:none;"></div>
 
                       <!-- Thumb kéo 20px (bám theo timeSliderPct) -->
-                      <div style="position:absolute;top:50%;transform:translate(-50%, -50%);left:calc(20px + (100% - 40px) * {{ timeSliderPct }} / 100);width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--primary);box-shadow:0 3px 8px rgba(0,0,0,0.4);cursor:grab;pointer-events:none;transition:{{ timeThumbTransition }};"></div>
+                      <div style="position:absolute;top:50%;transform:translate(-50%, -50%);left:calc(16.666% + 66.666% * ({{ timeSliderPct }} / 100));width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--primary);box-shadow:0 3px 8px rgba(0,0,0,0.4);cursor:grab;pointer-events:none;transition:{{ timeThumbTransition }};"></div>
                     </div>
 
-                    <!-- Nhãn mốc nằm dưới Slider (Căn chỉnh tuyệt đối trùng khớp tâm dot và an toàn lề) -->
-                    <div style="position:relative;width:100%;height:24px;margin-top:6px;box-sizing:border-box;">
+                    <!-- Nhãn mốc nằm dưới Slider (Chia đều bằng Expanded/Flex và căn giữa) -->
+                    <div style="display:flex;width:100%;margin-top:12px;box-sizing:border-box;">
                       <sc-for list="{{ timeStages }}" as="s" hint-placeholder-count="3">
                         <button onClick="{{ s.pick }}"
-                                style="background:transparent;border:none;padding:0;margin:0;cursor:pointer;outline:none;position:absolute;top:0;transform:translateX(-50%);left:calc(20px + (100% - 40px) * {{ s.idx }} * 50 / 100);display:flex;justify-content:center;width:80px;text-align:center;">
-                          <span style="font-size:11px;font-weight:700;color:{{ s.labelColor }};white-space:nowrap;transition:color 0.25s;">
+                                style="background:transparent;border:none;padding:4px 0;margin:0;cursor:pointer;outline:none;flex:1;display:flex;justify-content:center;align-items:center;text-align:center;">
+                          <span style="font-size:12px;font-weight:500;color:{{ s.labelColor }};white-space:nowrap;transition:color 0.25s;">
                             {{ s.label }}
                           </span>
                         </button>
@@ -2324,7 +2324,7 @@
                   </div>
 
                   <!-- Footer Caption -->
-                  <div style="font-size:11.5px;color:rgba(255,255,255,0.5);text-align:center;border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;margin-top:2px;font-weight:500;">
+                  <div style="font-size:11.5px;font-weight:400;color:var(--text-secondary);text-align:center;border-top:1px solid rgba(255,255,255,0.08);padding-top:12px;margin-top:12px;white-space:nowrap;width:100%;overflow:hidden;text-overflow:ellipsis;">
                     Kéo thanh thời gian để khám phá sự thay đổi của di tích.
                   </div>
                 </div>
