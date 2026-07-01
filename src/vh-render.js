@@ -1195,6 +1195,7 @@ window.VH_RENDER = {
       {f: 'Audio HD giọng nghệ sĩ', free: 0, prem: 1, acad: 1},
       {f: 'AR Filter 3D động', free: 0, prem: 1, acad: 1},
       {f: 'Time-travel timeline đầy đủ', free: 0, prem: 1, acad: 1},
+      {f: 'Bài viết chuyên sâu', free: 0, prem: 0, acad: 1},
       {f: 'References & citations', free: 0, prem: 0, acad: 1},
       {f: 'Export PDF nghiên cứu', free: 0, prem: 0, acad: 1},
     ].map(r => ({
@@ -2055,11 +2056,11 @@ window.VH_RENDER = {
           }
         };
       }),
-      // Màn 3 — bài viết chuyên sâu (premium)
-      article3Icon: isPremium ? 'ti-chevron-right' : 'ti-crown',
+      // Màn 3 — bài viết chuyên sâu (chỉ gói Học giả)
+      article3Icon: hasAcademic ? 'ti-chevron-right' : 'ti-crown',
       openArticle3: () => {
-        if (isPremium) this.nav('article3', 'fwd');
-        else this.premiumGate();
+        if (hasAcademic) this.nav('article3', 'fwd');
+        else this.academicGate();
       },
       isArticle3: st.screen === 'article3',
       a3Hero: this.vimg(cur.seed, 700, 460),
