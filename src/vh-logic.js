@@ -784,11 +784,6 @@ window.VH_LOGIC = {
     
     if (!text) return;
     
-    if (this.state.guestbookPosted >= 3) {
-      this.gbLimitReached();
-      return;
-    }
-    
     this.guestbook = [{
       id: Date.now(),
       text: text,

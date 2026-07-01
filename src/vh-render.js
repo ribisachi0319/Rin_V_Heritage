@@ -834,7 +834,6 @@ window.VH_RENDER = {
       gbCount: this.guestbook.length,
       gbUnlock: () => this.premiumGate(),
       handleSendGbAR: () => this.handleSendGbAR(),
-      arGbRemainingCount: Math.max(0, 3 - (st.guestbookPosted || 0)),
       arGbDropdownOpen: !!st._arGbDropdownOpen,
       toggleArGbDropdown: () => this.setState({_arGbDropdownOpen: !st._arGbDropdownOpen}),
       arGbSelectedTemplateText: st._arGbSelectedTemplateText || '',
