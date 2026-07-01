@@ -2352,6 +2352,7 @@ window.VH_RENDER = {
       time3DDisp: st.timeIdx === 2 ? 'block' : 'none',
       timeBadge: ['Tư liệu phục chế', 'Hiện trạng trưng bày', 'Mô hình phục dựng 3D'][st.timeIdx],
       timeBadgeIcon: ['ti-photo-scan', 'ti-building-museum', 'ti-cube-3d-sphere'][st.timeIdx],
+      timeActiveLineWidth: (st.timeIdx * 50) + '%',
       timeStages: [
         {idx: 0, label: 'Nguyên bản', locked: false},
         {idx: 1, label: 'Hiện tại', locked: false},
@@ -2361,9 +2362,12 @@ window.VH_RENDER = {
         return {
           ...s,
           active,
-          barBg: active ? 'var(--cta)' : 'rgba(255,255,255,.25)',
+          dotSize: active ? 18 : 12,
+          dotBg: active ? 'var(--cta)' : (s.locked ? '#2a221a' : '#fff'),
+          dotBorder: active ? '4px solid rgba(237,137,39,0.35)' : '3px solid rgba(255,255,255,0.3)',
+          dotShadow: active ? '0 0 10px var(--cta)' : 'none',
+          lockIconDisp: !active && s.locked ? 'block' : 'none',
           labelColor: active ? '#fff' : 'rgba(255,255,255,.5)',
-          crownDisp: s.locked ? 'inline-block' : 'none',
           pick: () => this.pickTimeStage(s.idx),
         };
       }),

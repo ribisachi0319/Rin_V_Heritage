@@ -2244,50 +2244,77 @@
             <!-- 21 TIME TRAVEL -->
             <sc-if value="{{ isTimeTravel }}" hint-placeholder-val="{{ false }}">
               <div data-screen-label="TimeTravel"
-                   style="position:absolute;inset:0;background:#0d1220;display:flex;flex-direction:column;">
+                   style="position:absolute;inset:0;background:#060814;display:flex;flex-direction:column;overflow:hidden;color:#fff;">
+                
+                <!-- Nút quay lại (Floating) -->
                 <button data-ripple="1" onClick="{{ back }}"
-                        style="position:absolute;top:48px;left:18px;z-index:10;width:44px;height:44px;border-radius:99px;border:none;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-                  <i class="ti ti-arrow-left" style="font-size:22px;"></i></button>
-                <!-- vùng chính: chỉ hình ảnh, quẹt trái/phải để đổi mốc -->
+                        style="position:absolute;top:48px;left:18px;z-index:25;width:44px;height:44px;border-radius:14px;border:1px solid rgba(255,255,255,0.15);background:rgba(13,18,32,0.6);backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;">
+                  <i class="ti ti-arrow-left" style="font-size:22px;"></i>
+                </button>
+
+                <!-- Vùng ảnh nền chính (Full screen) -->
                 <div onMouseDown="{{ timeSwipe }}" onTouchStart="{{ timeSwipe }}"
-                     style="flex:1;position:relative;overflow:hidden;touch-action:pan-y;">
+                     style="position:absolute;inset:0;touch-action:pan-y;z-index:1;">
                   <img src="{{ timeImg }}" alt=""
-                       style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:{{ timeFilter }};transition:filter .3s;">
-                  <!-- lớp lưới 'phục dựng 3D' -->
-                  <div
-                      style="position:absolute;inset:0;display:{{ time3DDisp }};background-image:linear-gradient(rgba(95,138,236,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(95,138,236,.25) 1px,transparent 1px);background-size:34px 34px;mix-blend-mode:screen;"></div>
-                  <div
-                      style="position:absolute;inset:0;background:linear-gradient(to top,rgba(13,18,32,.6),transparent 40%);"></div>
-                  <!-- badge loại hình -->
-                  <div
-                      style="position:absolute;top:52px;right:18px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);color:#fff;font-size:11px;font-weight:600;padding:6px 12px;border-radius:99px;">
-                    <i class="ti {{ timeBadgeIcon }}" style="font-size:14px;color:var(--cta);"></i>{{ timeBadge }}
-                  </div>
+                       style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:{{ timeFilter }};transition:filter 0.4s ease-in-out;">
+                  
+                  <!-- Lớp lưới phục dựng công nghệ 3D -->
+                  <div style="position:absolute;inset:0;display:{{ time3DDisp }};background-image:linear-gradient(rgba(95,138,236,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(95,138,236,.15) 1px,transparent 1px);background-size:24px 24px;mix-blend-mode:screen;pointer-events:none;opacity:0.8;"></div>
+                  
+                  <!-- Gradient che phủ tối để làm nổi bật chữ -->
+                  <div style="position:absolute;inset:0;background:linear-gradient(to top, #060814 0%, rgba(6,8,20,0.7) 35%, transparent 60%, rgba(6,8,20,0.5) 100%);pointer-events:none;"></div>
                 </div>
-                <div style="flex:none;padding:16px 24px 34px;background:#0d1220;">
-                  <!-- title + mô tả (sát thanh trượt) -->
-                  <div class="vh-serif" style="font-size:21px;font-weight:600;color:#fff;text-align:center;">{{
-                    timeLabel }}
+
+                <!-- Floating Glassmorphism Controller Panel (Z-index: 10) -->
+                <div style="position:absolute;left:20px;right:20px;bottom:34px;z-index:10;background:rgba(13, 20, 35, 0.78);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.12);border-radius:24px;padding:22px 20px 18px;box-shadow:0 12px 40px rgba(0,0,0,0.5);display:flex;flex-direction:column;gap:16px;box-sizing:border-box;">
+                  
+                  <!-- Header của panel (Badge thông tin mốc hiện tại) -->
+                  <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+                    <div style="display:flex;align-items:center;gap:6px;background:rgba(237,137,39,0.16);border:1px solid rgba(237,137,39,0.25);color:var(--cta);font-size:11px;font-weight:700;padding:4px 10px;border-radius:8px;text-transform:uppercase;letter-spacing:0.05em;">
+                      <i class="ti {{ timeBadgeIcon }}" style="font-size:13px;"></i>{{ timeBadge }}
+                    </div>
+                    <span style="font-size:11px;color:rgba(255,255,255,0.45);font-weight:500;">Vuốt màn hình để du hành</span>
                   </div>
-                  <div
-                      style="font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;text-align:center;line-height:1.6;">
-                    {{ timeBigSub }}
+
+                  <!-- Text mô tả mốc -->
+                  <div style="display:flex;flex-direction:column;gap:6px;text-align:left;animation:vhFadeIn .3s ease-out;">
+                    <div class="vh-serif" style="font-size:20px;font-weight:700;color:#fff;line-height:1.2;">{{ timeLabel }}</div>
+                    <div style="font-size:12.5px;color:rgba(255,255,255,0.65);line-height:1.5;">{{ timeBigSub }}</div>
                   </div>
-                  <!-- thanh trượt: vùng bấm lớn (label + bar) -->
-                  <div style="display:flex;gap:8px;margin-top:16px;">
-                    <sc-for list="{{ timeStages }}" as="s" hint-placeholder-count="3">
-                      <button data-ripple="1" onClick="{{ s.pick }}"
-                              style="position:relative;overflow:hidden;flex:1;background:transparent;border:none;cursor:pointer;padding:8px 0 4px;display:flex;flex-direction:column;align-items:center;gap:8px;">
-                        <span
-                            style="font-size:11px;font-weight:600;color:{{ s.labelColor }};display:flex;align-items:center;gap:3px;">{{ s.label }}<i
-                            class="ti ti-crown" style="font-size:11px;color:var(--cta);display:{{ s.crownDisp }};"></i></span>
-                        <span
-                            style="width:100%;height:8px;border-radius:99px;background:{{ s.barBg }};transition:background .25s;"></span>
-                      </button>
-                    </sc-for>
+
+                  <!-- Trục Timeline ngang mảnh tinh tế -->
+                  <div style="position:relative;width:100%;padding:14px 0 10px;box-sizing:border-box;margin-top:4px;">
+                    <!-- Line nền mảnh -->
+                    <div style="position:absolute;left:12px;right:12px;top:23px;height:3px;border-radius:99px;background:rgba(255,255,255,0.15);z-index:1;"></div>
+                    
+                    <!-- Line hoạt động màu cam nối các mốc (chạy động theo timeIdx) -->
+                    <div style="position:absolute;left:12px;top:23px;height:3px;border-radius:99px;background:var(--cta);z-index:2;transition:width 0.35s cubic-bezier(0.4, 0, 0.2, 1);width:{{ timeActiveLineWidth }};"></div>
+                    
+                    <!-- Các mốc thời gian dạng tròn lơ lửng -->
+                    <div style="display:flex;justify-content:space-between;width:100%;position:relative;z-index:3;">
+                      <sc-for list="{{ timeStages }}" as="s" hint-placeholder-count="3">
+                        <button onClick="{{ s.pick }}"
+                                style="background:transparent;border:none;padding:0;margin:0;cursor:pointer;outline:none;display:flex;flex-direction:column;align-items:center;width:40px;position:relative;">
+                          <!-- Dot tròn -->
+                          <div style="width:{{ s.dotSize }}px;height:{{ s.dotSize }}px;border-radius:50%;background:{{ s.dotBg }};border:{{ s.dotBorder }};box-shadow:{{ s.dotShadow }};transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:flex;align-items:center;justify-content:center;">
+                            <!-- Icon lock nhỏ xíu nếu bị khóa và không active -->
+                            <sc-if value="{{ s.locked }}" hint-placeholder-val="{{ false }}">
+                              <i class="ti ti-lock" style="font-size:9px;color:rgba(255,255,255,0.8);display:{{ s.lockIconDisp }};"></i>
+                            </sc-if>
+                          </div>
+                          
+                          <!-- Nhãn năm/thời kỳ bên dưới -->
+                          <span style="font-size:11px;font-weight:700;color:{{ s.labelColor }};margin-top:8px;white-space:nowrap;transition:color 0.3s;">
+                            {{ s.label }}
+                          </span>
+                        </button>
+                      </sc-for>
+                    </div>
                   </div>
-                  <div style="font-size:11px;color:rgba(255,255,255,.5);text-align:center;margin-top:12px;">
-                    Quẹt trái/phải hoặc chạm mốc để xem qua các thời kỳ · "Phục dựng" cần gói Nhà nghiên cứu.
+
+                  <!-- Footer thông tin gói cước -->
+                  <div style="font-size:11px;color:rgba(255,255,255,0.4);text-align:center;border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;margin-top:2px;">
+                    Mốc <span style="color:var(--cta);font-weight:600;">Phục dựng</span> yêu cầu gói thành viên Premium.
                   </div>
                 </div>
               </div>
