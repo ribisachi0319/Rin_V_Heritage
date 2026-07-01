@@ -2184,6 +2184,7 @@ window.VH_RENDER = {
       clearHotspot: () => this.setState({activeHotspot: null}),
       hasActiveHotspot: st.activeHotspot !== null && st.activeHotspot !== undefined,
       threeDPanelY: st.threeDPanelY !== undefined ? st.threeDPanelY : 130,
+      threeDPanelH: (440 + (st.threeDPanelStretch || 0)) + 'px',
       panelTransition: this._draggingPanel ? 'none' : 'transform 0.3s ease',
       dragPanelStart: (e) => this.dragPanelStart(e),
       

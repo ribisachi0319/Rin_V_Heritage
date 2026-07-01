@@ -1591,15 +1591,21 @@ window.VH_LOGIC = {
       if (Math.abs(dy) > 4) this._panelDragged = true;
       let rawY = startPanelY + dy;
       
-      // Áp dụng rubber banding khi kéo quá biên cũ (0 đến 240)
+      // Khi kéo quá mốc trên cùng, giữ đáy panel dính sát đáy màn hình
+      // và chỉ nới chiều cao ở phía trên để không lộ nền đen phía sau.
       if (rawY < 0) {
-        liveY = rawY * 0.35; // Lực cản lò xo khi kéo quá mốc cao nhất
+        liveY = 0;
+        this.setState({
+          threeDPanelY: 0,
+          threeDPanelStretch: Math.round(Math.abs(rawY) * 0.35)
+        });
       } else if (rawY > 240) {
         liveY = 240 + (rawY - 240) * 0.35; // Lực cản lò xo khi kéo quá mốc thấp nhất
+        this.setState({threeDPanelY: liveY, threeDPanelStretch: 0});
       } else {
         liveY = rawY;
+        this.setState({threeDPanelY: liveY, threeDPanelStretch: 0});
       }
-      this.setState({threeDPanelY: liveY});
     };
 
     const up = () => {
@@ -1646,7 +1652,7 @@ window.VH_LOGIC = {
         else snappedY = 130;
       }
       
-      this.setState({threeDPanelY: snappedY});
+      this.setState({threeDPanelY: snappedY, threeDPanelStretch: 0});
     };
 
     document.addEventListener('mousemove', move);
