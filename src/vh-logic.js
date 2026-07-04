@@ -1560,6 +1560,10 @@ window.VH_LOGIC = {
   },
   dragPanelStart(e) {
     if (e.button !== undefined && e.button !== 0) return;
+    if (this._draggingPanel) return; // Chặn phiên kéo chồng nhau (vd ngón tay thứ 2 chạm vào giữa lúc kéo)
+    if (e.touches) this._lastPanelTouch = Date.now();
+    // Sau tap trên mobile, browser bắn thêm mousedown giả lập (sau touchend) → toggle chạy 2 lần
+    else if (Date.now() - (this._lastPanelTouch || 0) < 800) return;
     this._draggingPanel = true;
     this._panelDragged = false;
     const bottomSnap = 270;
