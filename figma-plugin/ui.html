@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { font: 12px/1.5 'Inter', system-ui, sans-serif; margin: 0; padding: 16px; color: #1a2540; }
+  h2 { font-size: 14px; margin: 0 0 4px; }
+  p { color: #666; margin: 0 0 14px; }
+  .drop { border: 2px dashed #c8cdd8; border-radius: 10px; padding: 26px 14px; text-align: center; cursor: pointer; }
+  .drop.on { border-color: #ED8927; background: #fff7ef; }
+  button { margin-top: 14px; width: 100%; padding: 10px; border: 0; border-radius: 8px; background: #ED8927; color: #fff; font-weight: 600; cursor: pointer; font-size: 13px; }
+  button:disabled { background: #e5c9ab; cursor: default; }
+  #log { margin-top: 12px; height: 130px; overflow-y: auto; background: #f4f5f8; border-radius: 8px; padding: 8px 10px; font: 11px/1.6 monospace; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<h2>V-Heritage → Figma</h2>
+<p>Chọn file <b>vh-export.json</b> rồi bấm Import.</p>
+<div class="drop" id="drop">Bấm để chọn file… <input type="file" id="file" accept=".json" hidden></div>
+<button id="go" disabled>Import toàn bộ màn hình</button>
+<div id="log">Chưa có file.</div>
+<script>
+  let data = null;
+  const drop = document.getElementById('drop');
+  const fileEl = document.getElementById('file');
+  const go = document.getElementById('go');
+  const log = document.getElementById('log');
+  const say = (m) => { log.textContent += '\n' + m; log.scrollTop = 1e9; };
+
+  drop.onclick = () => fileEl.click();
+  fileEl.onchange = async () => {
+    const f = fileEl.files[0];
+    if (!f) return;
+    log.textContent = 'Đang đọc ' + f.name + '…';
+    try {
+      data = JSON.parse(await f.text());
+      drop.classList.add('on');
+      drop.firstChild.textContent = f.name + ' ✓ ';
+      say(data.screens.length + ' màn hình, ' + Object.keys(data.assets).length + ' assets. Sẵn sàng.');
+      go.disabled = false;
+    } catch (e) {
+      say('Lỗi đọc file: ' + e.message);
+    }
+  };
+  go.onclick = () => {
+    go.disabled = true;
+    say('Bắt đầu import…');
+    parent.postMessage({pluginMessage: {type: 'import', data}}, '*');
+  };
+  onmessage = (e) => {
+    const m = e.data.pluginMessage;
+    if (!m) return;
+    if (m.type === 'progress') say(m.text);
+    if (m.type === 'done') { say('✅ Xong: ' + m.text); go.disabled = false; }
+    if (m.type === 'error') { say('❌ Lỗi: ' + m.text); go.disabled = false; }
+  };
+</script>
+</body>
+</html>
