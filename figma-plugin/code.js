@@ -196,9 +196,36 @@ async function resolveFont(family, weight, italic) {
 // ---------- node builders ----------
 const imageCache = {};
 
+function isSvgBytes(bytes) {
+  let i = 0;
+  if (bytes[0] === 0xEF && bytes[1] === 0xBB && bytes[2] === 0xBF) i = 3; // BOM
+  while (i < bytes.length && bytes[i] <= 32) i++;
+  const t = String.fromCharCode(bytes[i], bytes[i+1], bytes[i+2], bytes[i+3]);
+  return t === '<svg' || t === '<?xm' || t === '<SVG';
+}
+
+function utf8BytesToString(bytes) {
+  let s = '', i = 0;
+  while (i < bytes.length) {
+    const b = bytes[i++];
+    if (b < 0x80) { s += String.fromCharCode(b); }
+    else if ((b & 0xE0) === 0xC0) { s += String.fromCharCode(((b & 0x1F) << 6) | (bytes[i++] & 0x3F)); }
+    else if ((b & 0xF0) === 0xE0) { s += String.fromCharCode(((b & 0x0F) << 12) | ((bytes[i++] & 0x3F) << 6) | (bytes[i++] & 0x3F)); }
+    else { const cp = ((b & 0x07) << 18) | ((bytes[i++] & 0x3F) << 12) | ((bytes[i++] & 0x3F) << 6) | (bytes[i++] & 0x3F); s += String.fromCodePoint(cp); }
+  }
+  return s;
+}
+
 function assetImage(assets, id) {
   if (!id || !assets[id] || !assets[id].b64) return null;
-  if (!imageCache[id]) imageCache[id] = figma.createImage(figma.base64Decode(assets[id].b64));
+  if (!imageCache[id]) {
+    const bytes = figma.base64Decode(assets[id].b64);
+    if (isSvgBytes(bytes)) {
+      imageCache[id] = {svgText: utf8BytesToString(bytes)};
+    } else {
+      imageCache[id] = figma.createImage(bytes);
+    }
+  }
   return imageCache[id];
 }
 
@@ -263,12 +290,28 @@ async function build(node, parent, origin, assets) {
     return;
   }
   if (node.type === 'IMG') {
+    const asset = assetImage(assets, node.asset);
+    if (asset && asset.svgText) {
+      try {
+        const f = figma.createNodeFromSvg(asset.svgText);
+        f.name = 'img';
+        f.resize(w, h);
+        if (node.opacity != null) f.opacity = node.opacity;
+        place(f, node, parent, origin);
+      } catch (e) {
+        const r = figma.createRectangle();
+        r.name = 'img (svg err)';
+        r.resize(w, h);
+        r.fills = [{type: 'SOLID', color: {r: 0.85, g: 0.85, b: 0.85}}];
+        place(r, node, parent, origin);
+      }
+      return;
+    }
     const r = figma.createRectangle();
     r.name = 'img';
     r.resize(w, h);
-    const img = assetImage(assets, node.asset);
-    r.fills = img
-        ? [{type: 'IMAGE', imageHash: img.hash, scaleMode: node.fit === 'FIT' ? 'FIT' : 'FILL'}]
+    r.fills = asset
+        ? [{type: 'IMAGE', imageHash: asset.hash, scaleMode: node.fit === 'FIT' ? 'FIT' : 'FILL'}]
         : [{type: 'SOLID', color: {r: 0.85, g: 0.85, b: 0.85}}];
     setRadius(r, node.radius);
     r.effects = buildEffects(node);
