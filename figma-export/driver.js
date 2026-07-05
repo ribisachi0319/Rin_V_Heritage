@@ -214,13 +214,15 @@
     await sleep(300);
     const initial = JSON.parse(JSON.stringify(inst.state));
 
-    // chế độ chụp thử 1 màn: ?shot=<id> — set state rồi đứng yên để chrome --screenshot
-    const shot = new URLSearchParams(location.search).get('shot');
+    // chế độ chụp thử 1 màn: ?shot=<id>[&theme=dark] — set state rồi đứng yên để chrome --screenshot
+    const params = new URLSearchParams(location.search);
+    const shot = params.get('shot');
     if (shot) {
       log('shot mode: ' + shot);
       const fx = window.VH_FIXTURES.find(f => f.id === shot);
       if (fx) {
-        inst.setState({...initial, ...fx.state, screen: fx.id, navDir: 'fwd', toast: null});
+        const theme = params.get('theme') === 'dark' ? 'dark' : 'light';
+        inst.setState({...initial, ...fx.state, theme, screen: fx.id, navDir: 'fwd', toast: null});
         await raf2();
         await waitImages(document, 8000);
         log('shot applied: ' + shot + ' screen=' + inst.state.screen);
@@ -231,33 +233,37 @@
     }
 
     for (const fx of window.VH_FIXTURES) {
-      try {
-        inst.setState({...initial, ...fx.state, screen: fx.id, navDir: 'fwd', toast: null});
-        await raf2();
-        await sleep(350);
-        const app = document.querySelector('.vh-app');
-        if (!app) { log('SKIP ' + fx.id + ': không thấy .vh-app'); continue; }
-        await waitImages(app, 8000);
-        await raf2();
-        const r = app.getBoundingClientRect();
-        ORIGIN = {x: r.left, y: r.top};
-        const kids = [];
-        const cs = getComputedStyle(app);
-        for (const child of app.children) ser(child, kids);
-        const screen = {
-          id: fx.id, name: fx.name,
-          w: +r.width.toFixed(2), h: +r.height.toFixed(2),
-          bgColor: cs.backgroundColor,
-          radius: parseFloat(cs.borderTopLeftRadius) || 0,
-          children: kids,
-        };
-        await fetch('/save', {
-          method: 'POST', headers: {'content-type': 'application/json'},
-          body: JSON.stringify(screen),
-        });
-        log('OK ' + fx.id + ' (' + JSON.stringify(kids).length + ' bytes)');
-      } catch (e) {
-        log('ERR ' + fx.id + ': ' + (e && e.message));
+      for (const theme of ['light', 'dark']) {
+        const label = fx.id + (theme === 'dark' ? '/dark' : '');
+        try {
+          inst.setState({...initial, ...fx.state, theme, screen: fx.id, navDir: 'fwd', toast: null});
+          await raf2();
+          await sleep(350);
+          const app = document.querySelector('.vh-app');
+          if (!app) { log('SKIP ' + label + ': không thấy .vh-app'); continue; }
+          await waitImages(app, 8000);
+          await raf2();
+          const r = app.getBoundingClientRect();
+          ORIGIN = {x: r.left, y: r.top};
+          const kids = [];
+          const cs = getComputedStyle(app);
+          for (const child of app.children) ser(child, kids);
+          const screen = {
+            id: fx.id + (theme === 'dark' ? '__dark' : ''),
+            name: fx.name + (theme === 'dark' ? ' (Dark)' : ''),
+            w: +r.width.toFixed(2), h: +r.height.toFixed(2),
+            bgColor: cs.backgroundColor,
+            radius: parseFloat(cs.borderTopLeftRadius) || 0,
+            children: kids,
+          };
+          await fetch('/save', {
+            method: 'POST', headers: {'content-type': 'application/json'},
+            body: JSON.stringify(screen),
+          });
+          log('OK ' + label + ' (' + JSON.stringify(kids).length + ' bytes)');
+        } catch (e) {
+          log('ERR ' + label + ': ' + (e && e.message));
+        }
       }
     }
     await fetch('/done', {method: 'POST'});
