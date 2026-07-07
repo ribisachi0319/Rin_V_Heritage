@@ -30,6 +30,26 @@
 
   // ---------- serializer ----------
   let ORIGIN = {x: 0, y: 0};
+  // Chế độ trợ năng "Người cao tuổi/mắt yếu" phóng to .vh-content bằng CSS transform:scale.
+  // getBoundingClientRect() đã tự phản ánh transform (đúng vị trí/kích thước), nhưng
+  // getComputedStyle() trả giá trị TRƯỚC transform (font-size, radius, shadow, padding...).
+  // SCALE bù lại phần đó để hình dựng ra không bị lệch tỷ lệ so với khung đã phóng to.
+  let SCALE = 1;
+
+  function currentScale() {
+    const el = document.querySelector('.vh-content');
+    if (!el) return 1;
+    const t = getComputedStyle(el).transform;
+    const m = t && t.match(/matrix\(([^)]+)\)/);
+    if (!m) return 1;
+    const a = parseFloat(m[1].split(',')[0]);
+    return a || 1;
+  }
+
+  function scalePx(str) {
+    if (SCALE === 1 || !str) return str;
+    return str.replace(/(-?[\d.]+)px/g, (_, n) => (parseFloat(n) * SCALE) + 'px');
+  }
 
   function rectOf(el) {
     const r = el.getBoundingClientRect();
@@ -43,17 +63,17 @@
     const p = {};
     if (alpha(cs.backgroundColor) > 0) p.bgColor = cs.backgroundColor;
     if (cs.backgroundImage && cs.backgroundImage !== 'none') p.bgImage = cs.backgroundImage;
-    const bw = ['Top', 'Right', 'Bottom', 'Left'].map(s => parseFloat(cs['border' + s + 'Width']) || 0);
+    const bw = ['Top', 'Right', 'Bottom', 'Left'].map(s => (parseFloat(cs['border' + s + 'Width']) || 0) * SCALE);
     if (bw.some(w => w > 0) && alpha(cs.borderTopColor || cs.borderLeftColor) > 0) {
       p.border = {widths: bw, color: cs.borderTopColor};
     }
     const rad = [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius]
-        .map(v => parseFloat(v) || 0);
+        .map(v => (parseFloat(v) || 0) * SCALE);
     if (rad.some(v => v > 0)) p.radius = rad;
-    if (cs.boxShadow && cs.boxShadow !== 'none') p.shadow = cs.boxShadow;
+    if (cs.boxShadow && cs.boxShadow !== 'none') p.shadow = scalePx(cs.boxShadow);
     const bf = cs.backdropFilter || cs.webkitBackdropFilter;
-    if (bf && bf !== 'none') p.backdrop = bf;
-    if (cs.filter && cs.filter !== 'none') p.filter = cs.filter;
+    if (bf && bf !== 'none') p.backdrop = scalePx(bf);
+    if (cs.filter && cs.filter !== 'none') p.filter = scalePx(cs.filter);
     if (parseFloat(cs.opacity) < 1) p.opacity = parseFloat(cs.opacity);
     return p;
   }
@@ -62,32 +82,63 @@
     return !!(p.bgColor || p.bgImage || p.border || p.shadow || p.backdrop || p.opacity != null);
   }
 
+  // Một text node (vd phần chữ thường trước/sau 1 đoạn <b>) có thể trải qua NHIỀU dòng
+  // khi đoạn cha bị word-wrap. range.getBoundingClientRect() khi đó trả về 1 hình chữ nhật
+  // bao trọn tất cả các dòng đó (mép trái = dòng lệch trái nhất, thường là dòng sau bắt đầu
+  // từ lề đoạn văn) — SAI vị trí thật của phần chữ nằm giữa dòng đầu (ngay sau 1 đoạn in đậm
+  // đứng trước chẳng hạn). Phải tách theo TỪNG DÒNG THẬT (getClientRects) rồi dùng
+  // caretRangeFromPoint để dò đúng ký tự nào thuộc dòng nào.
+  function lineRuns(n) {
+    const range = document.createRange();
+    range.selectNodeContents(n);
+    const rects = [...range.getClientRects()].filter(r => r.width > 0.5 && r.height > 0.5);
+    const full = n.textContent;
+    if (rects.length <= 1) return [{rect: rects[0], text: full}];
+    const out = [];
+    let offset = 0;
+    for (let i = 0; i < rects.length; i++) {
+      const rect = rects[i];
+      let endOffset = full.length;
+      if (i < rects.length - 1 && document.caretRangeFromPoint) {
+        const cr = document.caretRangeFromPoint(rect.right - 1, rect.top + rect.height / 2);
+        if (cr && cr.startContainer === n && cr.startOffset > offset) endOffset = cr.startOffset;
+      }
+      out.push({rect, text: full.slice(offset, endOffset)});
+      offset = endOffset;
+      if (offset >= full.length) break;
+    }
+    return out;
+  }
+
   function textNodesOf(el, cs, out) {
     for (const n of el.childNodes) {
-      if (n.nodeType !== 3) continue;
-      let chars = n.textContent.replace(/\s+/g, ' ').trim();
-      if (!chars) continue;
-      const range = document.createRange();
-      range.selectNodeContents(n);
-      const r = range.getBoundingClientRect();
-      if (r.width < 0.5 || r.height < 0.5) continue;
-      if (cs.textTransform === 'uppercase') chars = chars.toUpperCase();
-      else if (cs.textTransform === 'lowercase') chars = chars.toLowerCase();
-      out.push({
-        type: 'TEXT', name: chars.slice(0, 28),
-        x: +(r.left - ORIGIN.x).toFixed(2), y: +(r.top - ORIGIN.y).toFixed(2),
-        w: +r.width.toFixed(2), h: +r.height.toFixed(2),
-        chars,
-        family: firstFamily(cs.fontFamily),
-        weight: parseInt(cs.fontWeight, 10) || 400,
-        italic: cs.fontStyle === 'italic',
-        size: parseFloat(cs.fontSize),
-        lineHeight: cs.lineHeight === 'normal' ? parseFloat(cs.fontSize) * 1.2 : parseFloat(cs.lineHeight),
-        letterSpacing: cs.letterSpacing === 'normal' ? 0 : parseFloat(cs.letterSpacing),
-        color: cs.color,
-        align: cs.textAlign,
-        decoration: cs.textDecorationLine !== 'none' ? cs.textDecorationLine : null,
-      });
+      if (n.nodeType !== 3 || !n.textContent || !n.textContent.trim()) continue;
+      const lineHeight = (cs.lineHeight === 'normal' ? parseFloat(cs.fontSize) * 1.2 : parseFloat(cs.lineHeight)) * SCALE;
+      for (const {rect: r, text: rawChars} of lineRuns(n)) {
+        if (!r || r.width < 0.5 || r.height < 0.5) continue;
+        let chars = rawChars.replace(/\s+/g, ' ').trim();
+        if (!chars) continue;
+        if (cs.textTransform === 'uppercase') chars = chars.toUpperCase();
+        else if (cs.textTransform === 'lowercase') chars = chars.toLowerCase();
+        out.push({
+          type: 'TEXT', name: chars.slice(0, 28),
+          x: +(r.left - ORIGIN.x).toFixed(2), y: +(r.top - ORIGIN.y).toFixed(2),
+          w: +r.width.toFixed(2), h: +r.height.toFixed(2),
+          chars,
+          family: firstFamily(cs.fontFamily),
+          weight: parseInt(cs.fontWeight, 10) || 400,
+          italic: cs.fontStyle === 'italic',
+          size: parseFloat(cs.fontSize) * SCALE,
+          lineHeight,
+          letterSpacing: (cs.letterSpacing === 'normal' ? 0 : parseFloat(cs.letterSpacing)) * SCALE,
+          color: cs.color,
+          align: cs.textAlign,
+          decoration: cs.textDecorationLine !== 'none' ? cs.textDecorationLine : null,
+          // Đã tách theo dòng thật (getClientRects) nên luôn là 1 dòng — để Figma tự co khung
+          // theo font thực tế dùng để render (tránh font thay thế rộng hơn ép tràn dòng).
+          singleLine: true,
+        });
+      }
     }
   }
 
@@ -105,7 +156,7 @@
       if (ic) {
         out.push({
           type: 'ICON', name: 'icon/' + ic, ...rect,
-          icon: ic, color: cs.color, size: parseFloat(cs.fontSize),
+          icon: ic, color: cs.color, size: parseFloat(cs.fontSize) * SCALE,
         });
         return;
       }
@@ -126,9 +177,9 @@
         fit: cs.objectFit === 'contain' ? 'FIT' : 'FILL',
       };
       const rad = [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius]
-          .map(v => parseFloat(v) || 0);
+          .map(v => (parseFloat(v) || 0) * SCALE);
       if (rad.some(v => v > 0)) node.radius = rad;
-      if (cs.filter && cs.filter !== 'none') node.filter = cs.filter;
+      if (cs.filter && cs.filter !== 'none') node.filter = scalePx(cs.filter);
       if (parseFloat(cs.opacity) < 1) node.opacity = parseFloat(cs.opacity);
       out.push(node);
       return;
@@ -159,8 +210,8 @@
     if (tag === 'INPUT' || tag === 'TEXTAREA') {
       const val = el.value || el.placeholder || '';
       if (val && el.type !== 'checkbox' && el.type !== 'radio') {
-        const padL = parseFloat(cs.paddingLeft) || 0;
-        const size = parseFloat(cs.fontSize);
+        const padL = (parseFloat(cs.paddingLeft) || 0) * SCALE;
+        const size = parseFloat(cs.fontSize) * SCALE;
         const chars = el.type === 'password' ? '••••••'.slice(0, Math.min(6, val.length)) : val;
         target.push({
           type: 'TEXT', name: chars.slice(0, 28),
@@ -214,7 +265,7 @@
     await sleep(300);
     const initial = JSON.parse(JSON.stringify(inst.state));
 
-    // chế độ chụp thử 1 màn: ?shot=<id>[&theme=dark] — set state rồi đứng yên để chrome --screenshot
+    // chế độ chụp thử 1 màn: ?shot=<id>[&theme=dark][&vlow=1] — set state rồi đứng yên để chrome --screenshot
     const params = new URLSearchParams(location.search);
     const shot = params.get('shot');
     if (shot) {
@@ -222,7 +273,9 @@
       const fx = window.VH_FIXTURES.find(f => f.id === shot);
       if (fx) {
         const theme = params.get('theme') === 'dark' ? 'dark' : 'light';
-        inst.setState({...initial, ...fx.state, theme, screen: fx.id, navDir: 'fwd', toast: null});
+        const vlow = params.get('vlow') === '1';
+        const a11y = Object.assign({}, initial.a11y, fx.state.a11y || {}, {visualLow: vlow});
+        inst.setState({...initial, ...fx.state, theme, a11y, screen: fx.screen || fx.id, navDir: 'fwd', toast: null});
         await raf2();
         await waitImages(document, 8000);
         log('shot applied: ' + shot + ' screen=' + inst.state.screen);
@@ -232,37 +285,48 @@
       return;
     }
 
-    for (const fx of window.VH_FIXTURES) {
+    // ?only=<id1>,<id2> — chỉ chạy vài fixture (debug nhanh, không phải export hết)
+    const onlyParam = params.get('only');
+    const onlyIds = onlyParam ? new Set(onlyParam.split(',')) : null;
+    const fixtures = onlyIds ? window.VH_FIXTURES.filter(f => onlyIds.has(f.id)) : window.VH_FIXTURES;
+
+    for (const fx of fixtures) {
       for (const theme of ['light', 'dark']) {
-        const label = fx.id + (theme === 'dark' ? '/dark' : '');
-        try {
-          inst.setState({...initial, ...fx.state, theme, screen: fx.id, navDir: 'fwd', toast: null});
-          await raf2();
-          await sleep(350);
-          const app = document.querySelector('.vh-app');
-          if (!app) { log('SKIP ' + label + ': không thấy .vh-app'); continue; }
-          await waitImages(app, 8000);
-          await raf2();
-          const r = app.getBoundingClientRect();
-          ORIGIN = {x: r.left, y: r.top};
-          const kids = [];
-          const cs = getComputedStyle(app);
-          for (const child of app.children) ser(child, kids);
-          const screen = {
-            id: fx.id + (theme === 'dark' ? '__dark' : ''),
-            name: fx.name + (theme === 'dark' ? ' (Dark)' : ''),
-            w: +r.width.toFixed(2), h: +r.height.toFixed(2),
-            bgColor: cs.backgroundColor,
-            radius: parseFloat(cs.borderTopLeftRadius) || 0,
-            children: kids,
-          };
-          await fetch('/save', {
-            method: 'POST', headers: {'content-type': 'application/json'},
-            body: JSON.stringify(screen),
-          });
-          log('OK ' + label + ' (' + JSON.stringify(kids).length + ' bytes)');
-        } catch (e) {
-          log('ERR ' + label + ': ' + (e && e.message));
+        for (const vlow of [false, true]) {
+          const label = fx.id + (theme === 'dark' ? '/dark' : '') + (vlow ? '/vlow' : '');
+          try {
+            const a11y = Object.assign({}, initial.a11y, fx.state.a11y || {}, {visualLow: vlow});
+            inst.setState({...initial, ...fx.state, theme, a11y, screen: fx.screen || fx.id, navDir: 'fwd', toast: null});
+            await raf2();
+            await sleep(350);
+            const app = document.querySelector('.vh-app');
+            if (!app) { log('SKIP ' + label + ': không thấy .vh-app'); continue; }
+            await waitImages(app, 8000);
+            await raf2();
+            SCALE = currentScale();
+            const r = app.getBoundingClientRect();
+            ORIGIN = {x: r.left, y: r.top};
+            const kids = [];
+            const cs = getComputedStyle(app);
+            for (const child of app.children) ser(child, kids);
+            const idSuffix = (theme === 'dark' ? '__dark' : '') + (vlow ? '__vlow' : '');
+            const nameSuffix = (theme === 'dark' ? ' (Dark)' : '') + (vlow ? ' (Vlow)' : '');
+            const screen = {
+              id: fx.id + idSuffix,
+              name: fx.name + nameSuffix,
+              w: +r.width.toFixed(2), h: +r.height.toFixed(2),
+              bgColor: cs.backgroundColor,
+              radius: parseFloat(cs.borderTopLeftRadius) || 0,
+              children: kids,
+            };
+            await fetch('/save', {
+              method: 'POST', headers: {'content-type': 'application/json'},
+              body: JSON.stringify(screen),
+            });
+            log('OK ' + label + ' (' + JSON.stringify(kids).length + ' bytes)');
+          } catch (e) {
+            log('ERR ' + label + ': ' + (e && e.message));
+          }
         }
       }
     }

@@ -119,9 +119,9 @@ async function main() {
   ], {stdio: 'ignore'});
 
   const timeout = setTimeout(() => {
-    console.error('TIMEOUT: driver không báo /done sau 12 phút');
+    console.error('TIMEOUT: driver không báo /done sau 30 phút');
     doneResolve();
-  }, 12 * 60 * 1000);
+  }, 30 * 60 * 1000);
   await donePromise;
   clearTimeout(timeout);
   chrome.kill();

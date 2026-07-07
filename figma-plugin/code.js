@@ -283,8 +283,15 @@ async function build(node, parent, origin, assets) {
     if (fill) t.fills = [fill];
     t.textAlignHorizontal = {left: 'LEFT', start: 'LEFT', center: 'CENTER', right: 'RIGHT', end: 'RIGHT', justify: 'JUSTIFIED'}[node.align] || 'LEFT';
     if (node.decoration === 'underline') t.textDecoration = 'UNDERLINE';
-    t.textAutoResize = 'HEIGHT';
-    t.resize(w + 2, h);
+    if (node.singleLine) {
+      // Tự co khung theo font THỰC TẾ dùng để render — nếu font gốc không load được và
+      // Figma thay bằng font khác (thường rộng hơn), khung cứng theo bề rộng đo từ trình
+      // duyệt sẽ ép chữ xuống dòng 2, đè lên phần tử bên dưới. Auto width tránh được việc đó.
+      t.textAutoResize = 'WIDTH_AND_HEIGHT';
+    } else {
+      t.textAutoResize = 'HEIGHT';
+      t.resize(w + 2, h);
+    }
     t.name = node.name || node.chars.slice(0, 28);
     place(t, node, parent, origin);
     return;
