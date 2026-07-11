@@ -71,6 +71,19 @@
       id: 'home_continue', name: '13 Home - Tiếp tục tham quan', screen: 'home',
       state: {...AUTH, _visited: [1], saved: [1, 2], _visitVenue: 1},
     },
+    {
+      id: 'home_notifprompt', name: '13 Home - Bật thông báo hành trình', screen: 'home',
+      state: {
+        ...AUTH, _visited: [1], saved: [1, 2],
+        modal: 'generic',
+        modalData: {
+          icon: 'ti-bell-ringing', iconBg: 'rgba(237,137,39,.14)', iconColor: 'var(--cta)',
+          title: 'Bật thông báo hành trình',
+          body: 'Cho phép V-Heritage gửi thông báo để bạn không bỏ lỡ các sự kiện văn hóa di sản và bài thuyết minh đặc sắc xung quanh nhé.',
+          primary: 'Nhận thông báo', secondary: 'Để sau',
+        },
+      },
+    },
     {id: 'explore', name: '14 Explore', state: {...AUTH, ...PERMS}},
     {
       id: 'explore_offline', name: '14 Explore - Offline', screen: 'explore',
