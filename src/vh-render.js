@@ -69,6 +69,37 @@ window.VH_RENDER = {
     }));
 
     const mainTabsSet = mainTabs.includes(st.screen);
+    // Màn hỏi quyền dùng chung (Vị trí / Camera / Thông báo) — tái dùng ở nhiều ngữ cảnh:
+    // locationask/cameraask (theo tình huống thực tế), onboardloc/onboardcam/onboardnotif (chuỗi hỏi quyền ngay sau Walkthrough).
+    const permAskCopy = {
+      locationask: {
+        icon: 'ti-map-pin', title: 'Bật vị trí của bạn?',
+        desc: 'Cho phép truy cập vị trí để xem bản đồ di tích quanh bạn và gợi ý điểm đến gần nhất. Nếu bỏ qua, bản đồ sẽ mặc định ở Hà Nội.',
+        cta: 'Bật vị trí',
+      },
+      cameraask: {
+        icon: 'ti-camera', title: 'Cấp quyền Camera?',
+        desc: this._camAskReturnTab === 'scan'
+            ? 'V-Heritage cần quyền truy cập camera để quét nhận diện hiện vật và trải nghiệm các tính năng AR.'
+            : 'V-Heritage cần quyền truy cập camera để đưa mô hình hiện vật 3D hiển thị ngay trong không gian thực và cho phép bạn chụp hình lưu niệm.',
+        cta: 'Cấp quyền Camera',
+      },
+      onboardloc: {
+        icon: 'ti-map-pin', title: 'Bật vị trí của bạn?',
+        desc: 'Cho phép truy cập vị trí để V-Heritage gợi ý di tích và hiện vật gần bạn ngay từ lần đầu mở app.',
+        cta: 'Bật vị trí',
+      },
+      onboardcam: {
+        icon: 'ti-camera', title: 'Cấp quyền Camera?',
+        desc: 'V-Heritage dùng camera để quét hiện vật bằng AR và xem mô hình 3D ngay trong không gian thực.',
+        cta: 'Cấp quyền Camera',
+      },
+      onboardnotif: {
+        icon: 'ti-bell', title: 'Bật thông báo?',
+        desc: 'Nhận nhắc nhở hành trình, sự kiện và tin tức di sản mới. Bạn có thể tắt bất cứ lúc nào trong Cài đặt.',
+        cta: 'Bật thông báo',
+      },
+    }[st.screen] || {};
     return {
       theme: st.theme,
       vlow: st.a11y.visualLow ? '1' : '0',
@@ -85,27 +116,31 @@ window.VH_RENDER = {
       isParental: st.screen === 'parental',
       isLangScreen: st.screen === 'language',
       isSpecial: st.screen === 'special',
-      isPermissionAsk: st.screen === 'locationask' || st.screen === 'cameraask',
-      permIcon: st.screen === 'cameraask' ? 'ti-camera' : 'ti-map-pin',
-      permTitle: st.screen === 'cameraask' ? 'Cấp quyền Camera?' : 'Bật vị trí của bạn?',
-      permDesc: st.screen === 'cameraask' 
-        ? (this._camAskReturnTab === 'scan'
-          ? 'V-Heritage cần quyền truy cập camera để quét nhận diện hiện vật và trải nghiệm các tính năng AR.'
-          : 'V-Heritage cần quyền truy cập camera để đưa mô hình hiện vật 3D hiển thị ngay trong không gian thực và cho phép bạn chụp hình lưu niệm.')
-        : 'Cho phép truy cập vị trí để xem bản đồ di tích quanh bạn và gợi ý điểm đến gần nhất. Nếu bỏ qua, bản đồ sẽ mặc định ở Hà Nội.',
-      permCta: st.screen === 'cameraask' ? 'Cấp quyền Camera' : 'Bật vị trí',
-      permBoxBorder: st.screen === 'cameraask' 
-        ? (st._camAskChecked ? 'var(--cta)' : 'var(--border)') 
+      isPermissionAsk: ['locationask', 'cameraask', 'onboardloc', 'onboardcam', 'onboardnotif'].includes(st.screen),
+      permIcon: permAskCopy.icon,
+      permTitle: permAskCopy.title,
+      permDesc: permAskCopy.desc,
+      permCta: permAskCopy.cta,
+      permBoxBorder: st.screen === 'cameraask'
+        ? (st._camAskChecked ? 'var(--cta)' : 'var(--border)')
         : (st._locAskChecked ? 'var(--cta)' : 'var(--border-2)'),
-      permBoxBg: st.screen === 'cameraask' 
-        ? (st._camAskChecked ? 'var(--cta)' : 'transparent') 
+      permBoxBg: st.screen === 'cameraask'
+        ? (st._camAskChecked ? 'var(--cta)' : 'transparent')
         : (st._locAskChecked ? 'var(--cta)' : 'transparent'),
-      permCheckDisp: st.screen === 'cameraask' 
-        ? (st._camAskChecked ? 'block' : 'none') 
+      permCheckDisp: st.screen === 'cameraask'
+        ? (st._camAskChecked ? 'block' : 'none')
         : (st._locAskChecked ? 'block' : 'none'),
       permBack: () => st.screen === 'cameraask' ? this.camAskBack() : this.back(),
-      permGrant: () => st.screen === 'cameraask' ? this.camAskGrant() : this.locAskGrant(),
-      permSkip: () => st.screen === 'cameraask' ? this.camAskSkip() : this.locAskSkip(),
+      permGrant: () => {
+        if (st.screen === 'cameraask') return this.camAskGrant();
+        if (st.screen === 'locationask') return this.locAskGrant();
+        return this.onboardPermGrant();
+      },
+      permSkip: () => {
+        if (st.screen === 'cameraask') return this.camAskSkip();
+        if (st.screen === 'locationask') return this.locAskSkip();
+        return this.onboardPermSkip();
+      },
       togglePermAsk: () => st.screen === 'cameraask' ? this.toggleCamAsk() : this.toggleLocAsk(),
       offlineBanner: st.isOffline && st.hasPacks && mainTabsSet,
       t_offlineBanner: this.t('offlineBanner'),

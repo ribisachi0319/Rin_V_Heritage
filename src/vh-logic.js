@@ -427,7 +427,7 @@ window.VH_LOGIC = {
   // ---- walkthrough ----
   nextWalk() {
     const s = this.state.walkStep;
-    if (s < 3) this.setState({walkStep: s + 1}); else this.nav('authchoice', 'fwd');
+    if (s < 3) this.setState({walkStep: s + 1}); else this.nav('onboardloc', 'fwd');
   },
   prevWalk() {
     const s = this.state.walkStep;
@@ -453,7 +453,7 @@ window.VH_LOGIC = {
     if (dx < 0) this.nextWalk(); else this.prevWalk();
   },
   skipWalk() {
-    this.nav('authchoice', 'fwd');
+    this.nav('onboardloc', 'fwd');
   },
   exitWalkToLanguage() {
     this.setState({
@@ -765,6 +765,27 @@ window.VH_LOGIC = {
   },
   toggleCamAsk() {
     this.setState({_camAskChecked: !this.state._camAskChecked});
+  },
+  // ---- chuỗi hỏi quyền ngay sau Walkthrough: Vị trí → Camera → Thông báo → AuthChoice ----
+  onboardPermGrant() {
+    const kind = {onboardloc: 'location', onboardcam: 'camera', onboardnotif: 'notification'}[this.state.screen];
+    this._requestDevicePerm(kind).then((ok) => {
+      this._setDevicePerm(kind, ok ? 'granted' : 'denied');
+      if (ok) {
+        this._setPermFlag(kind, 1);
+        this.showToast('Đã cấp quyền ' + this._permLabel(kind) + ' ✦', 'success');
+        this._onboardPermNext();
+      } else {
+        this.showSystemSettingsDialog(kind);
+      }
+    });
+  },
+  onboardPermSkip() {
+    this._onboardPermNext();
+  },
+  _onboardPermNext() {
+    const next = {onboardloc: 'onboardcam', onboardcam: 'onboardnotif', onboardnotif: 'authchoice'}[this.state.screen];
+    this.nav(next, 'fwd');
   },
   takePhoto() {
     if (this.state._shutterFlash) return;

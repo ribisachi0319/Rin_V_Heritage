@@ -20,6 +20,9 @@
   const FIXTURES = [
     {id: 'splash', name: '01 Splash', state: {}},
     {id: 'walkthrough', name: '02 Walkthrough', state: {walkStep: 0}},
+    {id: 'onboardloc', name: '02b Onboard - Vị trí', state: {}},
+    {id: 'onboardcam', name: '02c Onboard - Camera', state: {}},
+    {id: 'onboardnotif', name: '02d Onboard - Thông báo', state: {}},
     {id: 'authchoice', name: '03 AuthChoice', state: {}},
     {id: 'login', name: '04 Login', state: {liEmail: 'test@gmail.com', liPass: '123456'}},
     {id: 'register', name: '05 Register - Tuổi', state: {}},
