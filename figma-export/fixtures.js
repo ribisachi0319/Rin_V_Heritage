@@ -60,6 +60,14 @@
     {id: 'cameraask', name: '11 CameraAsk', state: {}},
     {id: 'nearby', name: '12 NearbySuggest', state: {...AUTH}},
     {id: 'home', name: '13 Home', state: {...AUTH, _visited: [1], saved: [1, 2]}},
+    {
+      id: 'home_predownload', name: '13 Home - Sheet phát hiện vị trí', screen: 'home',
+      state: {...AUTH, _visited: [1], saved: [1, 2], sheet: 'preDownloadPack'},
+    },
+    {
+      id: 'home_continue', name: '13 Home - Tiếp tục tham quan', screen: 'home',
+      state: {...AUTH, _visited: [1], saved: [1, 2], _visitVenue: 1},
+    },
     {id: 'explore', name: '14 Explore', state: {...AUTH, ...PERMS}},
     {
       id: 'explore_offline', name: '14 Explore - Offline', screen: 'explore',
@@ -213,6 +221,10 @@
     {id: 'eventdetail', name: '53 EventDetail', state: {...AUTH}},
     {id: 'settings', name: '54 Settings', state: {...AUTH}},
     {id: 'apppermissions', name: '55 AppPermissions', state: {...AUTH, ...PERMS}},
+    {
+      id: 'apppermissions_denied', name: '55 AppPermissions - Bị tắt trong hệ thống', screen: 'apppermissions',
+      state: {...AUTH, ...PERMS, devicePerm: {notification: 'denied', location: 'denied', camera: 'denied'}},
+    },
     {id: 'accessibility', name: '56 Accessibility', state: {...AUTH}},
     {id: 'privacy', name: '57 PrivacyScreen', state: {...AUTH}},
     {id: 'help', name: '58 HelpScreen', state: {...AUTH}},

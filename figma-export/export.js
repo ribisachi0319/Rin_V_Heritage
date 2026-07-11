@@ -11,16 +11,21 @@ const {spawn} = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
 const PORT = 8791;
 const CHROME = '/run/current-system/sw/bin/google-chrome';
-const OUT = path.join(ROOT, 'figma-plugin', 'vh-export.json');
+// FULLHEIGHT=1 -> dùng driver-full.js (không cắt nội dung cuộn) + ghi ra file riêng,
+// không đụng tới luồng xuất bình thường (driver.js / vh-export.json).
+const FULLHEIGHT = !!process.env.FULLHEIGHT;
+const DRIVER_FILE = FULLHEIGHT ? 'driver-full.js' : 'driver.js';
+const OUT = path.join(ROOT, 'figma-plugin', FULLHEIGHT ? 'vh-export-full.json' : 'vh-export.json');
 const TABLER_VER = '3.5.0';
 
 const HOOK = `
 const __dm = Component.prototype.componentDidMount;
 Component.prototype.componentDidMount = function () { window.__vh = this; return __dm && __dm.apply(this, arguments); };
 `;
-const INJECT_HEAD = `<style>*{animation:none!important;transition:none!important;caret-color:transparent!important}</style>
+const INJECT_HEAD = `<style>*{animation:none!important;transition:none!important;caret-color:transparent!important}
+[style*="vhFlash"]{opacity:.5!important}</style>
 <script defer src="/figma-export/fixtures.js"></script>
-<script defer src="/figma-export/driver.js"></script>
+<script defer src="/figma-export/${DRIVER_FILE}"></script>
 `;
 
 const MIME = {
@@ -112,10 +117,14 @@ async function main() {
   await new Promise(r => server.listen(PORT, '127.0.0.1', r));
   console.log('Server http://127.0.0.1:' + PORT);
 
+  // ONLY=id1,id2 node figma-export/export.js -> chỉ chạy lại vài fixture rồi
+  // GHÉP kết quả vào vh-export.json cũ (đỡ phải export lại toàn bộ 376 màn).
+  const ONLY = process.env.ONLY || '';
+  const url = `http://127.0.0.1:${PORT}/app.dc.html` + (ONLY ? `?only=${encodeURIComponent(ONLY)}` : '');
   const chrome = spawn(CHROME, [
     '--headless=new', '--disable-gpu', '--no-sandbox', '--hide-scrollbars',
     '--window-size=470,940', '--user-data-dir=/tmp/vh-figma-chrome',
-    `http://127.0.0.1:${PORT}/app.dc.html`,
+    url,
   ], {stdio: 'ignore'});
 
   const timeout = setTimeout(() => {
@@ -154,8 +163,16 @@ async function main() {
   };
   screens.forEach(s => (s.children || []).forEach(remap));
 
-  screens.sort((a, b) => a.name.localeCompare(b.name));
-  const out = {app: 'V-Heritage', exportedAt: new Date().toISOString(), screens, assets};
+  let finalScreens = screens, finalAssets = assets;
+  if (ONLY && fs.existsSync(OUT)) {
+    const prev = JSON.parse(fs.readFileSync(OUT, 'utf8'));
+    const newIds = new Set(screens.map(s => s.id));
+    finalScreens = prev.screens.filter(s => !newIds.has(s.id)).concat(screens);
+    finalAssets = Object.assign({}, prev.assets, assets);
+    console.log(`  Ghép vào file cũ: thay ${newIds.size} màn, giữ nguyên ${prev.screens.length - newIds.size} màn khác.`);
+  }
+  finalScreens.sort((a, b) => a.name.localeCompare(b.name));
+  const out = {app: 'V-Heritage', exportedAt: new Date().toISOString(), screens: finalScreens, assets: finalAssets};
   fs.mkdirSync(path.dirname(OUT), {recursive: true});
   fs.writeFileSync(OUT, JSON.stringify(out));
   console.log(`\nĐã ghi ${OUT} (${(fs.statSync(OUT).size / 1e6).toFixed(1)} MB)`);
