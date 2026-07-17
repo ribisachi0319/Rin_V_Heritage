@@ -1461,14 +1461,17 @@
                   </div>
                   <!-- accessibility note (tap -> area map) -->
 
-                  <sc-if value="{{ showWheelchairToggle }}" hint-placeholder-val="{{ false }}">
-                    <button data-ripple="1" onClick="{{ toggleWheelchair }}"
+                  <sc-if value="{{ showWheelchairRoute }}" hint-placeholder-val="{{ false }}">
+                    <button data-ripple="1" onClick="{{ openAreaMap }}"
                             style="position:relative;overflow:hidden;display:flex;align-items:center;gap:10px;width:100%;text-align:left;margin-top:10px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:13px;cursor:pointer;color:var(--text-primary);">
-                      <i class="ti ti-wheelchair" style="font-size:22px;color:var(--primary);"></i>
-                      <span style="flex:1;font-size:13px;font-weight:600;">Lộ trình thân thiện xe lăn</span>
-                      <div style="width:44px;height:25px;border-radius:99px;background:{{ wcTrackBg }};padding:2px;transition:.2s;flex:none;">
-                        <div style="width:21px;height:21px;border-radius:99px;background:#fff;transform:translateX({{ wcKnobX }});transition:.2s;"></div>
+                      <i class="ti ti-wheelchair" style="font-size:22px;color:var(--primary);flex:none;"></i>
+                      <div style="flex:1;min-width:0;">
+                        <div style="font-size:13px;font-weight:600;">Lộ trình thân thiện xe lăn</div>
+                        <div style="display:flex;align-items:center;gap:5px;font-size:11.5px;color:{{ venAccessColor }};margin-top:2px;">
+                          <i class="ti {{ venAccessIcon }}" style="font-size:13px;"></i>{{ venAccessNote }}
+                        </div>
                       </div>
+                      <i class="ti ti-chevron-right" style="font-size:18px;color:var(--text-tertiary);flex:none;"></i>
                     </button>
                   </sc-if>
                   <button data-ripple="1" onClick="{{ downloadVenuePack }}"
@@ -4555,7 +4558,7 @@
               </div>
             </sc-if>
 
-            <!-- 51 AREA MAP (lối tiếp cận khu vực) -->
+            <!-- 51 AREA MAP (lộ trình xe lăn theo tầng) -->
             <sc-if value="{{ isAreaMap }}" hint-placeholder-val="{{ false }}">
               <div data-screen-label="AreaMap"
                    style="position:absolute;inset:0;background:var(--map);overflow:hidden;display:flex;flex-direction:column;">
@@ -4564,19 +4567,41 @@
                   <img src="https://picsum.photos/seed/vhareamap/420/860?grayscale" alt=""
                        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3;filter:saturate(.4);">
                   <div
-                      style="position:absolute;inset:0;background:radial-gradient(circle at {{ amPinX }} {{ amPinY }},transparent,var(--map) 92%);"></div>
-                  <!-- venue pin -->
-                  <div
-                      style="position:absolute;left:{{ amPinX }};top:{{ amPinY }};transform:translate(-50%,-100%);z-index:5;display:flex;flex-direction:column;align-items:center;">
-                    <div class="vh-chip vh-chip--sm vh-chip--surface"
-                         style="white-space:nowrap;margin-bottom:6px;">
-                      {{ amVenName }}
-                    </div>
+                      style="position:absolute;inset:0;background:radial-gradient(circle at {{ amZoneX }} {{ amZoneY }},transparent,var(--map) 92%);"></div>
+                  <!-- hành lang phụ (xám) + tuyến xe lăn chính (màu trạng thái) -->
+                  <svg viewBox="0 0 100 100" preserveAspectRatio="none"
+                       style="position:absolute;inset:0;width:100%;height:100%;z-index:3;overflow:visible;">
+                    <path d="{{ amSubPath }}" fill="none" stroke="var(--text-secondary)"
+                          stroke-width="2.5" stroke-dasharray="6 7" stroke-linecap="round"
+                          vector-effect="non-scaling-stroke" opacity="0.55"></path>
+                    <path d="{{ amRoutePath }}" fill="none" stroke="{{ amRouteColor }}"
+                          stroke-width="4" stroke-dasharray="11 9" stroke-linecap="round"
+                          vector-effect="non-scaling-stroke" opacity="0.9"></path>
+                  </svg>
+                  <!-- lối vào chính (chỉ Tầng 1) — tâm icon nằm đúng trên vạch -->
+                  <sc-if value="{{ amShowEntrance }}" hint-placeholder-val="{{ false }}">
                     <div
-                        style="position:relative;width:40px;height:40px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--cta);box-shadow:0 4px 12px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;animation:vhBob 2s ease-in-out infinite;">
-                      <i class="ti {{ amAccessIcon }}"
-                         style="transform:rotate(45deg);color:#fff;font-size:18px;"></i>
+                        style="position:absolute;left:{{ amStartX }};top:{{ amStartY }};transform:translate(-50%,-50%);z-index:4;width:34px;height:34px;border-radius:99px;background:var(--bg-card);border:2px solid {{ amRouteColor }};box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;">
+                      <i class="ti ti-door-enter" style="font-size:16px;color:{{ amRouteColor }};"></i>
+                      <div class="vh-chip vh-chip--sm vh-chip--surface"
+                           style="position:absolute;top:calc(100% + 5px);left:50%;transform:translateX(-50%);white-space:nowrap;">Lối vào</div>
                     </div>
+                  </sc-if>
+                  <!-- cửa chuyển tầng / thang máy (mở chọn tầng) / thang bộ (cảnh báo) -->
+                  <sc-for list="{{ amFacilities }}" as="d" hint-placeholder-count="4">
+                    <button onClick="{{ d.select }}"
+                            style="position:absolute;left:{{ d.x }};top:{{ d.y }};transform:translate(-50%,-50%);z-index:6;width:34px;height:34px;border-radius:99px;background:var(--bg-card);border:2px solid {{ d.color }};box-shadow:var(--shadow);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;">
+                      <i class="ti {{ d.icon }}" style="font-size:16px;color:{{ d.color }};"></i>
+                      <div class="vh-chip vh-chip--sm vh-chip--surface"
+                           style="position:absolute;top:calc(100% + 5px);left:50%;transform:translateX(-50%);white-space:nowrap;">{{ d.label }}</div>
+                    </button>
+                  </sc-for>
+                  <!-- khu hiện vật (mốc đến tĩnh, không bấm — hiện vật phải tự quét tại chỗ) -->
+                  <div
+                      style="position:absolute;left:{{ amZoneX }};top:{{ amZoneY }};transform:translate(-50%,-50%);z-index:5;width:34px;height:34px;border-radius:99px;background:var(--bg-card);border:2px solid var(--cta);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;">
+                    <i class="ti ti-building-monument" style="font-size:16px;color:var(--cta);"></i>
+                    <div class="vh-chip vh-chip--sm vh-chip--surface"
+                         style="position:absolute;top:calc(100% + 5px);left:50%;transform:translateX(-50%);white-space:nowrap;">Khu hiện vật</div>
                   </div>
                 </div>
                 <!-- header -->
@@ -4585,34 +4610,63 @@
                   <button data-ripple="1" onClick="{{ back }}"
                           style="position:relative;overflow:hidden;width:44px;height:44px;flex:none;border-radius:12px;border:1px solid var(--border);background:var(--bg-card);cursor:pointer;color:var(--text-primary);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);">
                     <i class="ti ti-arrow-left" style="font-size:20px;"></i></button>
-                  <div
-                      style="flex:1;display:flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:0 14px;height:44px;box-shadow:var(--shadow);">
+                  <button data-ripple="1" onClick="{{ amOpenPicker }}"
+                          style="position:relative;overflow:hidden;flex:1;display:flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:0 14px;height:44px;box-shadow:var(--shadow);cursor:pointer;color:var(--text-primary);">
                     <i class="ti ti-map-2" style="font-size:18px;color:var(--cta);"></i><span
-                      style="flex:1;font-size:14px;font-weight:600;color:var(--text-primary);">Bản đồ khu vực</span>
-                  </div>
+                      style="flex:1;font-size:14px;font-weight:600;text-align:left;">Lộ trình xe lăn — {{ amFloorName }}</span>
+                    <i class="ti ti-arrows-exchange" style="font-size:18px;color:var(--text-tertiary);"></i>
+                  </button>
                 </div>
-                <!-- bottom access card -->
+                <!-- thanh trạng thái gọn (thuần thông tin, không kéo) -->
                 <div
-                    style="position:absolute;left:0;right:0;bottom:0;z-index:10;background:var(--bg-card);border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.25);padding:20px 20px 26px;">
-                  <div
-                      style="width:38px;height:4px;border-radius:99px;background:var(--border-2);margin:0 auto 16px;"></div>
-                  <div class="vh-serif" style="font-size:18px;font-weight:600;color:var(--text-primary);">{{ amVenName
-                    }}
+                    style="position:absolute;left:14px;right:14px;bottom:22px;z-index:10;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-lg);padding:12px 14px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <i class="ti {{ amAccessIcon }}" style="font-size:18px;color:{{ amAccessColor }};flex:none;"></i>
+                    <span
+                        style="flex:1;min-width:0;font-size:13px;font-weight:600;color:{{ amAccessColor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ amAccessNote }}</span>
+                    <span
+                        style="flex:none;max-width:42%;font-size:11.5px;color:var(--text-tertiary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ amVenName }}</span>
                   </div>
-                  <div
-                      style="display:flex;align-items:center;gap:5px;font-size:13px;color:var(--text-secondary);margin-top:5px;">
-                    <i class="ti ti-map-pin" style="font-size:15px;color:var(--cta);"></i>{{ amVenCity }}
-                  </div>
-                  <div
-                      style="display:flex;align-items:center;gap:8px;margin-top:14px;background:var(--bg-tertiary);border-radius:10px;padding:11px 13px;">
-                    <i class="ti {{ amAccessIcon }}"
-                       style="font-size:20px;color:{{ amAccessColor }};"></i><span
-                      style="flex:1;font-size:13px;font-weight:600;color:{{ amAccessColor }};">{{ amAccessNote }}</span>
-                  </div>
-                  <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-top:12px;">{{
+                  <div style="font-size:12px;color:var(--text-secondary);line-height:1.5;margin-top:6px;">{{
                     amAccessDesc }}
                   </div>
                 </div>
+                <!-- overlay chọn tầng -->
+                <sc-if value="{{ amPickerOpen }}" hint-placeholder-val="{{ false }}">
+                  <div onClick="{{ amClosePicker }}"
+                       style="position:absolute;inset:0;background:rgba(10,14,26,.55);backdrop-filter:blur(2px);z-index:20;"></div>
+                  <div
+                      style="position:absolute;left:16px;right:16px;top:108px;z-index:21;background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:0 18px 50px rgba(0,0,0,.4);">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                      <div class="vh-serif" style="flex:1;font-size:17px;font-weight:600;color:var(--text-primary);">Chọn tầng tham quan</div>
+                      <button data-ripple="1" onClick="{{ amClosePicker }}"
+                              style="position:relative;overflow:hidden;width:34px;height:34px;border-radius:99px;border:none;background:var(--bg-tertiary);cursor:pointer;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;">
+                        <i class="ti ti-x" style="font-size:17px;"></i></button>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px;">
+                      <sc-for list="{{ amFloorRows }}" as="f" hint-placeholder-count="3">
+                        <button data-ripple="1" onClick="{{ f.select }}"
+                                style="position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:{{ f.bg }};border:1.5px solid {{ f.border }};border-radius:14px;padding:12px 14px;cursor:pointer;color:var(--text-primary);">
+                          <div
+                              style="width:42px;height:42px;border-radius:12px;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex:none;">
+                            <i class="ti {{ f.icon }}" style="font-size:21px;color:{{ f.iconColor }};"></i>
+                          </div>
+                          <div style="flex:1;min-width:0;">
+                            <div style="display:flex;align-items:center;gap:6px;">
+                              <span style="font-size:14.5px;font-weight:600;">{{ f.name }}</span>
+                              <span style="font-size:11.5px;font-weight:600;color:{{ f.iconColor }};">{{ f.statusText }}</span>
+                            </div>
+                            <div style="font-size:12px;color:var(--text-tertiary);margin-top:3px;">{{ f.noteText }}</div>
+                          </div>
+                          <div
+                              style="display:{{ f.checkDisp }};width:24px;height:24px;border-radius:99px;background:var(--cta);color:#fff;align-items:center;justify-content:center;flex:none;">
+                            <i class="ti ti-check" style="font-size:14px;"></i>
+                          </div>
+                        </button>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
               </div>
             </sc-if>
 
@@ -5389,7 +5443,7 @@ class Component extends DCLogic {
     curArtId: 1, curVenueId: null,
     scanState: 'idle', scanFailReason: null, qrState: 'idle', isPlaying: false, audioProgress: 0, audioHD: false, audioSpeed: 1, audioVoice: 'Tiêu chuẩn',
     libTab: 'art', searchQuery: '', searchFilter: 'all', _exploreH: 18, _camAskChecked: false, _camSnoozeDay: '',
-    wheelchair: false, voiceDesc: false, _venueDownloadLoading: false, _venueDownloadProgress: 0, _venueDownloadError: null,
+    _amFloor: 0, _amPicker: false, voiceDesc: false, _venueDownloadLoading: false, _venueDownloadProgress: 0, _venueDownloadError: null,
     threeDRot: 0, threeDZoom: 1, threeDPlaying: true, timeIdx: 0, threeDPanelY: 80, _draggingPanel: false,
     _arMode: 'camera', _arGbBubble: null, _arGbText: '',
     paymentMethod: null, paymentTier: 'premium', notifList: null, twoFA: false, failedPayment: 0,

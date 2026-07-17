@@ -119,7 +119,19 @@
       id: 'place_downloaderror', name: '16 PlaceDetail - Lỗi tải', screen: 'place',
       state: {...AUTH, curVenueId: 1, _venueDownloadError: 'Không thể tải gói dữ liệu. Vui lòng thử lại.'},
     },
-    {id: 'areamap', name: '17 AreaMap', state: {...AUTH, curVenueId: 1}},
+    {id: 'areamap', name: '17 AreaMap - Tầng 1', state: {...AUTH, curVenueId: 1, _visited: [1]}},
+    {
+      id: 'areamap_t2', name: '17b AreaMap - Tầng 2', screen: 'areamap',
+      state: {...AUTH, curVenueId: 1, _visited: [1], _amFloor: 1},
+    },
+    {
+      id: 'areamap_picker', name: '17c AreaMap - Chọn tầng', screen: 'areamap',
+      state: {...AUTH, curVenueId: 1, _visited: [1], _amPicker: true},
+    },
+    {
+      id: 'areamap_floor_kho', name: '17d AreaMap - Tầng khó tiếp cận', screen: 'areamap',
+      state: {...AUTH, curVenueId: 4, _amFloor: 1},
+    },
     {id: 'article', name: '18 VenueArticle', state: {...AUTH, curVenueId: 1}},
     {id: 'artifact', name: '19 ArtifactDetail', state: {...AUTH, ...ART, saved: [1]}},
     {

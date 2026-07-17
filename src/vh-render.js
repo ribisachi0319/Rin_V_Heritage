@@ -1871,6 +1871,68 @@ window.VH_RENDER = {
     const isSaved = st.saved.includes(cur.id) || inAnyCollection;
     const a3 = (this.deepArticles && this.deepArticles[cur.id]) || this.deepArticles[1];
 
+    // AREA MAP — sơ đồ chỉ đường theo tầng: mạng hành lang nối cửa / thang máy / thang bộ / khu hiện vật
+    const amFloors = this.venueFloors(ven.id);
+    const amF = amFloors[Math.min(st._amFloor || 0, amFloors.length - 1)];
+    const amClamp = (v) => Math.max(6, Math.min(94, v));
+    // khu hiện vật lệch nhẹ theo venue cho đỡ lặp bố cục
+    const amSlots = {
+      A: [20, 52], B: [80, 50], C: [22, 14], D: [78, 16],
+      F: [36, 20], G: [66, 42], H: [30, 36],
+      E: [44 + (ven.id * 7) % 14, 27 + (ven.id * 5) % 10],
+    };
+    // bố cục mỗi tầng: cửa chuyển tầng, thang máy (lifts), thang bộ (stairs),
+    // tuyến xe lăn chính (main) và hành lang phụ (sub) — E = khu hiện vật
+    const amLayouts = [
+      {entrance: true, doors: [['B', 1]], lifts: ['F', 'G'], stairs: ['D'],
+        main: ['A', 'F', 'E', 'B'], sub: [['D', 'E'], ['G', 'E'], ['G', 'B']]},
+      {doors: [['A', 0], ['D', 2]], lifts: ['H', 'G'], stairs: ['B', 'C'],
+        main: ['A', 'H', 'E', 'D'], sub: [['B', 'E'], ['C', 'E'], ['G', 'E'], ['G', 'D']]},
+      {doors: [['C', 1]], lifts: ['F'], stairs: ['B', 'G'],
+        main: ['C', 'F', 'E'], sub: [['B', 'E'], ['G', 'E']]},
+    ];
+    const amL = amLayouts[amF.idx] || amLayouts[0];
+    let amSegI = 0;
+    const amSeg = (a, b) => {
+      const p1 = amSlots[a], p2 = amSlots[b];
+      const s = (amSegI++ % 2) ? -1 : 1;
+      const mx = amClamp((p1[0] + p2[0]) / 2 + 9 * s), my = amClamp((p1[1] + p2[1]) / 2 - 7 * s);
+      return 'M ' + p1[0] + ',' + p1[1] + ' Q ' + mx + ',' + my + ' ' + p2[0] + ',' + p2[1];
+    };
+    const amMainPath = amL.main.slice(1).map((k, i) => amSeg(amL.main[i], k)).join(' ');
+    const amSubPath = amL.sub.map((pair) => amSeg(pair[0], pair[1])).join(' ');
+    const amStairsTap = () => this.showToast('Cầu thang bộ — không phù hợp xe lăn', 'error');
+    const amFacilities = [];
+    amL.doors.forEach((d) => {
+      const t = amFloors[d[1]];
+      if (!t) return;
+      amFacilities.push({
+        key: 'door-' + d[0], x: amSlots[d[0]][0] + '%', y: amSlots[d[0]][1] + '%',
+        icon: t.idx < amF.idx ? 'ti-door-exit' : 'ti-door-enter',
+        color: t.ok ? 'var(--success)' : 'var(--warning)',
+        label: t.name + (t.idx < amF.idx ? ' ↓' : ' ↑'),
+        select: () => this.setState({_amFloor: t.idx}),
+      });
+    });
+    // tầng khó tiếp cận không có thang máy — slot thang máy thành thang bộ
+    amL.lifts.forEach((slot) => {
+      amFacilities.push({
+        key: 'lift-' + slot, x: amSlots[slot][0] + '%', y: amSlots[slot][1] + '%',
+        icon: amF.ok ? 'ti-elevator' : 'ti-stairs',
+        color: amF.ok ? 'var(--success)' : 'var(--warning)',
+        label: amF.ok ? 'Thang máy' : 'Thang bộ',
+        select: amF.ok ? () => this.setState({_amPicker: true}) : amStairsTap,
+      });
+    });
+    amL.stairs.forEach((slot) => {
+      amFacilities.push({
+        key: 'stairs-' + slot, x: amSlots[slot][0] + '%', y: amSlots[slot][1] + '%',
+        icon: 'ti-stairs', color: 'var(--warning)',
+        label: 'Thang bộ',
+        select: amStairsTap,
+      });
+    });
+
     // Explore
     const mapPins = this.venues.map(v => ({
       ...v,
@@ -2013,13 +2075,7 @@ window.VH_RENDER = {
         open: () => this.openArtifactModel(a.id)
       })),
       venArtCount: venArtifacts.length,
-      showWheelchairToggle: st.a11y.motor,
-      wcTrackBg: st.wheelchair ? 'var(--cta)' : 'var(--bg-tertiary)',
-      wcKnobX: st.wheelchair ? '19px' : '0px',
-      toggleWheelchair: () => {
-        this.setState({wheelchair: !st.wheelchair});
-        this.showToast(st.wheelchair ? 'Đã tắt lộ trình xe lăn' : 'Hiện lối tiếp cận thân thiện xe lăn ♿');
-      },
+      showWheelchairRoute: st.a11y.motor,
       venAccessNote: ven.wheelchair ? ('Có lối tiếp cận — ' + ven.floor) : ('Khó tiếp cận — ' + ven.floor),
       venAccessColor: ven.wheelchair ? 'var(--success)' : 'var(--warning)',
       venAccessIcon: ven.wheelchair ? 'ti-wheelchair' : 'ti-stairs',
@@ -2033,20 +2089,40 @@ window.VH_RENDER = {
       venueDownloadPercentDisp: st._venueDownloadLoading ? 'inline-flex' : 'none',
       venueDownloadError: st._venueDownloadError || '',
       showVenueDownloadError: !!st._venueDownloadError,
-      openAreaMap: () => this.nav('areamap', 'fwd'),
+      openAreaMap: () => {
+        this.setState({_amFloor: 0, _amPicker: false});
+        this.nav('areamap', 'fwd');
+      },
       readArticle: () => this.nav('article', 'fwd'),
-      // AREA MAP (lối tiếp cận khu vực)
+      // AREA MAP (lộ trình xe lăn theo tầng)
       isAreaMap: st.screen === 'areamap',
       amVenName: ven.name,
-      amVenCity: ven.city,
-      amPinX: ven.x,
-      amPinY: ven.y,
-      amAccessNote: ven.wheelchair ? ('Có lối tiếp cận — ' + ven.floor) : ('Khó tiếp cận — ' + ven.floor),
-      amAccessColor: ven.wheelchair ? 'var(--success)' : 'var(--warning)',
-      amAccessIcon: ven.wheelchair ? 'ti-wheelchair' : 'ti-stairs',
-      amAccessDesc: ven.wheelchair
-          ? 'Đường vào bằng phẳng, có lối dắt và không gian xoay trở rộng — thân thiện với xe lăn và người cao tuổi ♿'
-          : 'Khu vực có bậc thang và mặt nền không bằng phẳng — cân nhắc nếu di chuyển khó khăn.',
+      amFloorName: amF.name,
+      amAccessNote: amF.ok ? ('Có lối tiếp cận — ' + amF.name) : ('Khó tiếp cận — ' + amF.name),
+      amAccessColor: amF.ok ? 'var(--success)' : 'var(--warning)',
+      amAccessIcon: amF.ok ? 'ti-wheelchair' : 'ti-stairs',
+      amAccessDesc: amF.note,
+      amRoutePath: amMainPath,
+      amSubPath: amSubPath,
+      amRouteColor: amF.ok ? 'var(--success)' : 'var(--warning)',
+      amShowEntrance: !!amL.entrance,
+      amStartX: amSlots.A[0] + '%', amStartY: amSlots.A[1] + '%',
+      amZoneX: amSlots.E[0] + '%', amZoneY: amSlots.E[1] + '%',
+      amFacilities,
+      amPickerOpen: !!st._amPicker,
+      amOpenPicker: () => this.setState({_amPicker: true}),
+      amClosePicker: () => this.setState({_amPicker: false}),
+      amFloorRows: amFloors.map(f => ({
+        ...f,
+        icon: f.ok ? 'ti-wheelchair' : 'ti-stairs',
+        iconColor: f.ok ? 'var(--success)' : 'var(--warning)',
+        statusText: f.ok ? 'Thân thiện xe lăn' : 'Có bậc thang',
+        border: f.idx === amF.idx ? 'var(--cta)' : 'var(--border)',
+        bg: f.idx === amF.idx ? 'rgba(237,137,39,.08)' : 'var(--bg-tertiary)',
+        checkDisp: f.idx === amF.idx ? 'flex' : 'none',
+        noteText: f.note,
+        select: () => this.setState({_amFloor: f.idx, _amPicker: false}),
+      })),
       // VENUE ARTICLE
       isArticle: st.screen === 'article',
       articleTitle: ven.name,

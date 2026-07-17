@@ -1294,6 +1294,26 @@ window.VH_LOGIC = {
     }
     return arr;
   },
+  // các tầng tham quan của một nơi (demo) + trạng thái tiếp cận và độ khám phá theo tầng
+  venueFloors(venId) {
+    const ven = this.findVenue(venId) || {};
+    const arts = this.venueArtifacts(venId);
+    const visited = this.state._visited || [];
+    const t3ok = !!ven.wheelchair && ven.id % 2 === 1;
+    const defs = [
+      {name: 'Tầng 1', ok: true, note: 'Lối phẳng, cửa rộng — vào thẳng từ sảnh chính'},
+      {name: 'Tầng 2', ok: !!ven.wheelchair, note: ven.wheelchair ? 'Có thang máy bên sảnh phải' : 'Chỉ có cầu thang — cần người hỗ trợ'},
+      {name: 'Tầng 3', ok: t3ok, note: t3ok ? 'Thang máy và dốc thoải nối hai khu trưng bày' : 'Lối hẹp, có bậc cao — khó tiếp cận'},
+    ];
+    return defs.map((d, i) => {
+      const fArts = arts.filter((a, k) => k % defs.length === i);
+      const seen = fArts.filter(a => visited.includes(a.id)).length;
+      return {
+        ...d, idx: i, total: fArts.length, seen,
+        pct: fArts.length ? Math.round(seen / fArts.length * 100) : 0,
+      };
+    });
+  },
   // chỉ ghi nhận hiện vật đã mở xem (cho tiến độ card "Tiếp tục tham quan")
   recordVisit(id) {
     const visited = this.state._visited || [];
