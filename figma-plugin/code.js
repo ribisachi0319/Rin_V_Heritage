@@ -62,6 +62,20 @@ function parseStops(args) {
     const from = stops[i - 1].pos, to = stops[j].pos, n = j - i + 1;
     for (let k = i; k < j; k++) stops[k].pos = from + (to - from) * (k - i + 1) / n;
   }
+  // CSS `transparent` = rgba(0,0,0,0): khi fade nó mờ về màu TRONG SUỐT của điểm dừng
+  // kế bên (nội suy premultiplied). Figma nội suy RGBA thẳng nên rgba(0,0,0,0) đen sẽ
+  // làm dải chuyển thành xám bẩn (rõ nhất trên nền kem sáng — vd mép dưới ảnh bài viết).
+  // Gán lại RGB của điểm mờ = màu của điểm đục gần nhất để khớp trình duyệt.
+  for (let i = 0; i < stops.length; i++) {
+    if (stops[i].color.a > 0) continue;
+    let best = null, bestD = Infinity;
+    for (let k = 0; k < stops.length; k++) {
+      if (stops[k].color.a === 0) continue;
+      const d = Math.abs(k - i);
+      if (d < bestD) { bestD = d; best = stops[k].color; }
+    }
+    if (best) stops[i].color = {r: best.r, g: best.g, b: best.b, a: 0};
+  }
   return stops.map(s => ({
     position: Math.min(1, Math.max(0, s.pos)),
     color: {r: s.color.r, g: s.color.g, b: s.color.b, a: s.color.a},
@@ -283,7 +297,16 @@ async function build(node, parent, origin, assets) {
     if (fill) t.fills = [fill];
     t.textAlignHorizontal = {left: 'LEFT', start: 'LEFT', center: 'CENTER', right: 'RIGHT', end: 'RIGHT', justify: 'JUSTIFIED'}[node.align] || 'LEFT';
     if (node.decoration === 'underline') t.textDecoration = 'UNDERLINE';
-    if (node.singleLine) {
+    if (node.lineHeight && node.h > node.lineHeight * 1.5) {
+      // Chữ line-height nén, glyph trồi ra ngoài line-box (vd chữ N drop-cap đầu bài viết:
+      // font 56px nhưng line-height chỉ 44.8). Figma neo glyph theo line-box nhỏ → chữ trồi
+      // lên sai vị trí. Cho khung = đúng rect trình duyệt đo được + canh giữa dọc, lineHeight
+      // AUTO để Figma dùng metrics font thật → glyph nằm đúng chỗ như trên app.
+      t.lineHeight = {unit: 'AUTO'};
+      t.textAutoResize = 'NONE';
+      t.resize(Math.max(w, node.size), h);
+      t.textAlignVertical = 'CENTER';
+    } else if (node.singleLine) {
       // Tự co khung theo font THỰC TẾ dùng để render — nếu font gốc không load được và
       // Figma thay bằng font khác (thường rộng hơn), khung cứng theo bề rộng đo từ trình
       // duyệt sẽ ép chữ xuống dòng 2, đè lên phần tử bên dưới. Auto width tránh được việc đó.

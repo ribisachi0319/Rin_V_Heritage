@@ -15,7 +15,12 @@ const CHROME = '/run/current-system/sw/bin/google-chrome';
 // không đụng tới luồng xuất bình thường (driver.js / vh-export.json).
 const FULLHEIGHT = !!process.env.FULLHEIGHT;
 const DRIVER_FILE = FULLHEIGHT ? 'driver-full.js' : 'driver.js';
-const OUT = path.join(ROOT, 'figma-plugin', FULLHEIGHT ? 'vh-export-full.json' : 'vh-export.json');
+// OUT=<path> ghi ra file tùy chọn; FRESH=1 chỉ ghi các màn vừa xuất (KHÔNG ghép vào file cũ).
+// Dùng để xuất riêng vài màn ra file nhỏ mà không đụng vh-export.json đầy đủ.
+const FRESH = !!process.env.FRESH;
+const OUT = process.env.OUT
+    ? path.resolve(ROOT, process.env.OUT)
+    : path.join(ROOT, 'figma-plugin', FULLHEIGHT ? 'vh-export-full.json' : 'vh-export.json');
 const TABLER_VER = '3.5.0';
 
 const HOOK = `
@@ -164,7 +169,7 @@ async function main() {
   screens.forEach(s => (s.children || []).forEach(remap));
 
   let finalScreens = screens, finalAssets = assets;
-  if (ONLY && fs.existsSync(OUT)) {
+  if (ONLY && !FRESH && fs.existsSync(OUT)) {
     const prev = JSON.parse(fs.readFileSync(OUT, 'utf8'));
     const newIds = new Set(screens.map(s => s.id));
     finalScreens = prev.screens.filter(s => !newIds.has(s.id)).concat(screens);

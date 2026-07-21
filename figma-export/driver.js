@@ -86,24 +86,35 @@
   // khi đoạn cha bị word-wrap. range.getBoundingClientRect() khi đó trả về 1 hình chữ nhật
   // bao trọn tất cả các dòng đó (mép trái = dòng lệch trái nhất, thường là dòng sau bắt đầu
   // từ lề đoạn văn) — SAI vị trí thật của phần chữ nằm giữa dòng đầu (ngay sau 1 đoạn in đậm
-  // đứng trước chẳng hạn). Phải tách theo TỪNG DÒNG THẬT (getClientRects) rồi dùng
-  // caretRangeFromPoint để dò đúng ký tự nào thuộc dòng nào.
+  // đứng trước chẳng hạn). Phải tách theo TỪNG DÒNG THẬT (getClientRects), rồi gán ký tự vào
+  // dòng bằng nhị phân theo tọa độ y CỦA CHÍNH KÝ TỰ (getBoundingClientRect). KHÔNG dùng
+  // caretRangeFromPoint: hàm đó hit-test nên trả null khi chữ nằm ngoài/khuất viewport → cả
+  // đoạn bị dồn về 1 dòng chạy tràn ra ngoài mép (đoạn cuối bài viết hay dính lỗi này).
   function lineRuns(n) {
     const range = document.createRange();
     range.selectNodeContents(n);
     const rects = [...range.getClientRects()].filter(r => r.width > 0.5 && r.height > 0.5);
     const full = n.textContent;
     if (rects.length <= 1) return [{rect: rects[0], text: full}];
+    const cr = document.createRange();
+    const charTop = (i) => { cr.setStart(n, i); cr.setEnd(n, i + 1); const r = cr.getBoundingClientRect(); return r.height > 0.5 ? r.top : null; };
     const out = [];
     let offset = 0;
     for (let i = 0; i < rects.length; i++) {
-      const rect = rects[i];
       let endOffset = full.length;
-      if (i < rects.length - 1 && document.caretRangeFromPoint) {
-        const cr = document.caretRangeFromPoint(rect.right - 1, rect.top + rect.height / 2);
-        if (cr && cr.startContainer === n && cr.startOffset > offset) endOffset = cr.startOffset;
+      if (i < rects.length - 1) {
+        // offset đầu tiên có ký tự rơi xuống dòng kế (top >= top của dòng kế)
+        const nextTop = rects[i + 1].top;
+        let lo = offset, hi = full.length;
+        while (lo < hi) {
+          const mid = (lo + hi) >> 1;
+          const t = charTop(mid);
+          if (t != null && t >= nextTop - 2) hi = mid; else lo = mid + 1;
+        }
+        endOffset = lo;
       }
-      out.push({rect, text: full.slice(offset, endOffset)});
+      if (endOffset <= offset) continue;
+      out.push({rect: rects[i], text: full.slice(offset, endOffset)});
       offset = endOffset;
       if (offset >= full.length) break;
     }
